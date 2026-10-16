@@ -1,0 +1,40 @@
+# Names for addresses: ADDRESS NAME [# what it is]. ROM addresses name routines and data; $FFxxxx
+# names work RAM (the C port's v_ constants). tools/disasm/build.py uses them in the disassembly,
+# tools/gen_symbols.py in src/symbols_gen.h. A routine gets its name when it is ported.
+
+# ---- boot, interrupts, the main loop
+000200 Start                 # reset: the console's set-up, the checksum, RAM cleared, then the job loop
+000360 ChecksumLoop          # sums the ROM from $200 to the header's end address
+000434 MainLoop              # move #$2300,sr; jsr RunJobs; bra
+000BB0 Nothing               # rts: the object table's empty entry
+000BB2 VBlank                # the vertical-blank interrupt: the whole frame's logic (PLAN.md)
+002506 RunJobs               # the background job list at v_jobList (decompression to VRAM)
+001416 HintEffect            # the H-interrupt effect v_hintEffect: copies a handler to $FFEE00
+001440 HintNone              # effect 0: H-interrupts off, an rte at $FFEE00
+000C36 CheckPause            # Start on an active pad pauses or resumes the game
+003050 ResetPads             # (falls into ReadPads)
+003066 ReadPads              # both pads, with the Z80's bus held
+003094 ReadPad1
+0030B6 ReadPad2
+00054C ObjectRoutines        # dc.l: each object type's routine; 0 = Nothing
+
+# ---- work RAM
+FFA204 v_stage4              # the stage times 4: 0 ruins, 4 mine, 8 battleship, $C dice palace, $10 base, $14 space, $18 final
+FFA208 v_stagesCleared       # a bit for each of the four selectable stages
+FFA400 v_player1             # the players' objects, $200 bytes each; vitality at +$24
+FFA600 v_player2
+FFC980 v_boss                # the boss object; vitality at +$24
+FFEE00 v_hintCode            # the H-interrupt handler, copied here (the vector at $70 points at it)
+FFF704 v_frameReady          # set when the frame's logic has finished; clear while it runs
+FFF705 v_pauseFlags          # bit 7 paused, bit 6 pausing allowed, bits 0 / 1 pad 1 / pad 2 may pause
+FFF706 v_padHeld             # pad 1's buttons held (v_padHeld + 1: pad 2's); bit 7 Start
+FFF708 v_padPressed          # pad 1's buttons pressed this frame (+ 1: pad 2's)
+FFF720 v_jobCount
+FFF724 v_jobList
+FFF74A v_hintEffect          # HintEffect's index (times 4)
+FFF74E v_hintState
+FFF750 v_hintLine            # the H-interrupt handlers' state: which split of the frame comes next
+FFF754 v_jobBufferFull       # a job's 16 tiles wait in $FFB600 for the vertical blank's DMA
+FFF7D0 v_vdpRegs             # the VDP's registers as written: a $8rvv word per register
+FFF807 v_soundPause          # the sound driver's pause request: 1 pause, $80 resume
+FFFF0C v_gameMode

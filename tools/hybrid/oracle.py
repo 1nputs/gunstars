@@ -16,11 +16,13 @@ ORACLE_SO = os.path.join(ROOT, 'build', 'oracle.so')
 NREGS = 18
 REGNAMES = [f'd{i}' for i in range(8)] + [f'a{i}' for i in range(8)] + ['pc', 'sr']
 CAP_MAGIC = 0x43434C48
+# code the game copies into work RAM and calls there (PLAN.md): the logo's cube renderer
+RAM_ROUTINES = [0xFF2000]
 
 
 def load_symbols():
-    """name -> ROM address, preferring the vasm build's complete table."""
-    for p in (os.path.join(ROOT, 'build', 'asm', 'symbols.json'), os.path.join(ROOT, 'out', 'symbols.json')):
+    """name -> ROM address: the disassembly's table (tools/disasm/build.py)"""
+    for p in (os.path.join(ROOT, 'build', 'disasm', 'symbols.json'),):
         if os.path.exists(p):
             return json.load(open(p))
     return {}
@@ -38,6 +40,7 @@ class Oracle(Core):
         lib.oracle_fn_set.argtypes = [C.c_uint32, C.c_int]
         lib.oracle_fn_set_many.argtypes = [C.POINTER(C.c_uint32), C.c_int]
         lib.oracle_set_irq_pcs.argtypes = [C.POINTER(C.c_uint32), C.c_int]
+        lib.oracle_fn_ram_set.argtypes = [C.POINTER(C.c_uint32), C.c_int]
         lib.oracle_capture_open.argtypes = [C.c_char_p, C.c_uint32, C.c_uint32]; lib.oracle_capture_open.restype = C.c_int
         lib.oracle_capture_log_limit.argtypes = [C.c_uint32]; lib.oracle_capture_dropped.restype = C.c_uint32
         lib.oracle_capture_spread.argtypes = [C.c_int]
@@ -73,14 +76,18 @@ class Oracle(Core):
         self.lib.oracle_bp_set(self.addr(name_or_addr), 1 if on else 0)
 
     def fn_set_all(self, names=None):
-        """Log every routine (default: all code routines known to the call graph) as a nested call."""
+        """Log every routine (default: every routine of the disassembly, build/disasm/routines.json)
+        as a nested call, and the code the game runs from work RAM (RAM_ROUTINES)."""
         if names is None:
-            cg_path = os.path.join(ROOT, 'out', 'callgraph.json')
-            cg = json.load(open(cg_path)) if os.path.exists(cg_path) else {}
-            names = [n for n, v in cg.items() if v.get('insns', 0) > 0] or list(self.symbols)
-        pcs = [self.symbols[n] for n in names if n in self.symbols and self.symbols[n] < 0x100000]
+            p = os.path.join(ROOT, 'build', 'disasm', 'routines.json')
+            rt = json.load(open(p)) if os.path.exists(p) else {}
+            pcs = [v['addr'] for v in rt.values()]
+        else:
+            pcs = [self.symbols[n] for n in names if n in self.symbols and self.symbols[n] < 0x100000]
         arr = (C.c_uint32 * len(pcs))(*pcs)
         self.lib.oracle_fn_set_many(arr, len(pcs))
+        ram = (C.c_uint32 * len(RAM_ROUTINES))(*RAM_ROUTINES)
+        self.lib.oracle_fn_ram_set(ram, len(RAM_ROUTINES))
         return len(pcs)
 
     def hits(self, name_or_addr):

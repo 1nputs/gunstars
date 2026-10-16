@@ -88,6 +88,9 @@ static int depth;
 static Open open_calls[MAXOPEN];
 static int n_open;
 static int installed;
+static uint32_t fn_ram[16];
+static int n_fn_ram;
+static int fn_ram_test(uint32_t pc) { for (int i = 0; i < n_fn_ram; i++) if (fn_ram[i] == pc) return 1; return 0; }
 static uint8_t diffbuf[RAM_SIZE * 4];
 
 static inline int map_test(const uint8_t *m, uint32_t pc) { return pc < ROM_SIZE && ((m[pc >> 3] >> (pc & 7)) & 1); }
@@ -174,7 +177,7 @@ static void open_call(uint32_t pc) {
   o->pc = pc; o->frame = depth - 1; o->depth = (uint32_t)n_open + 1;
   regs_get(o->regs);
   uint32_t sp = o->regs[15];
-  o->ret = ram_read32(sp); o->sp_after = sp + 4;
+  o->ret = ram_read32(sp) & 0xFFFFFF; o->sp_after = sp + 4;
   for (int i = 0; i < 16; i++) o->stk[i] = READ_BYTE(work_ram, (sp + i) & (RAM_SIZE - 1));
   ram_copy_be(o->ram);
   for (int k = 0; k <= o->frame; k++) o->seq[k] = frames[k].n_calls++;
@@ -188,7 +191,7 @@ static void open_irq(uint32_t pc) {
   Open *o = &open_calls[n_open - 1];
   uint32_t sp = o->regs[15];
   o->pc = pc | IRQ_FLAG;
-  o->ret = ram_read32(sp + 2);
+  o->ret = ram_read32(sp + 2) & 0xFFFFFF;
   o->sp_after = sp + 6;
 }
 
@@ -255,7 +258,7 @@ static void enter_frame(uint32_t pc) {
   f->pc = pc; f->flags = 0; f->log_len = 0; f->n_calls = 0; f->n_closed = 0; f->n_open_at_entry = n_open;
   regs_get(f->regs);
   uint32_t sp = f->regs[15];
-  f->ret = ram_read32(sp);
+  f->ret = ram_read32(sp) & 0xFFFFFF;
   f->sp_after = sp + 4;
   ram_copy_be(f->ram);
   bptab[k].captured++;
@@ -380,7 +383,7 @@ static void ev_exec(uint32_t pc) {
   else if ((op & 0xFF00) == 0x6100) kind = 2;            /* bsr */
   else if ((op & 0xFFC0) == 0x4EC0) kind = 3;            /* jmp */
   int irq = 0;
-  for (int i = 0; i < n_irq_pcs; i++) if (pc == irq_pcs[i]) irq = 1;
+  for (int i = 0; i < n_irq_pcs; i++) if ((pc & 0xFFFFFF) == irq_pcs[i]) irq = 1;
   if (kind && !irq) ev_edge(ev_prev_pc, pc, kind);
   if (irq) ev_edge(0xFFFFFFFFu, pc, 4);                  /* an interrupt's entry */
   ev_prev_pc = pc; ev_prev_op = op_at(pc);
@@ -472,7 +475,7 @@ static void hook(hook_type_t type, int width, unsigned int address, unsigned int
     return;
   }
   if (type != HOOK_M68K_E) return;
-  uint32_t pc = address;
+  uint32_t pc = address & 0xFFFFFF;                      /* 24 bits: code in work RAM runs at $FFFFxxxx */
   if (coverage_on && pc < ROM_SIZE) coverage[pc]++;
   /* An rts that lands with sp at or past a frame's return slot returned from it, whatever the
    * address: printz and friends rewrite their return address to skip inline data, and CompShoot
@@ -504,7 +507,7 @@ static void hook(hook_type_t type, int width, unsigned int address, unsigned int
           irq = 1;
           break;
         }
-      if (!irq && map_test(fn_map, pc)) open_call(pc);
+      if (!irq && (map_test(fn_map, pc) || fn_ram_test(pc))) open_call(pc);
     }
   }
   if (map_test(bp_map, pc)) enter_frame(pc);
@@ -530,7 +533,9 @@ void oracle_fn_clear_all(void) { memset(fn_map, 0, sizeof fn_map); }
 uint32_t oracle_bp_hits(uint32_t pc) { int k = bp_slot(pc); return k < 0 ? 0 : bptab[k].hits; }
 uint32_t oracle_bp_captured(uint32_t pc) { int k = bp_slot(pc); return k < 0 ? 0 : bptab[k].captured; }
 void oracle_set_frame(uint32_t n) { frame_no = n; }
-void oracle_set_irq_pcs(const uint32_t *pcs, int n) { n_irq_pcs = n > 8 ? 8 : n; memcpy(irq_pcs, pcs, n_irq_pcs * 4); }
+void oracle_set_irq_pcs(const uint32_t *pcs, int n) { n_irq_pcs = n > 8 ? 8 : n; for (int i = 0; i < n_irq_pcs; i++) irq_pcs[i] = pcs[i] & 0xFFFFFF; }
+/* routines that run from work RAM (copied there): logged as nested calls too */
+void oracle_fn_ram_set(const uint32_t *pcs, int n) { n_fn_ram = n > 16 ? 16 : n; for (int i = 0; i < n_fn_ram; i++) fn_ram[i] = pcs[i] & 0xFFFFFF; }
 int oracle_capture_open(const char *path, uint32_t max_per_bp, uint32_t stride) {
   if (cap) fclose(cap);
   cap = fopen(path, "wb");
