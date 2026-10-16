@@ -12,14 +12,14 @@ out/evidence (oracle_shim.c, "disassembly evidence"), merged with what earlier r
                  4 interrupt entry with site ffffffff)
   runs.txt       the runs merged so far
 
-usage: evidence.py ROM --name NAME [--state S] [--frames N] [--script S] [--poke P] [--out DIR]
+usage: evidence.py ROM --name NAME [--state S] [--frames N] [--script S] [--poke P] [--hold H] [--out DIR]
        evidence.py ROM --summary
 """
 import argparse, array, ctypes as C, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from oracle import Oracle, ROOT  # noqa: E402
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'oracle'))
-from run import parse_pokes  # noqa: E402
+from run import parse_pokes, parse_hold  # noqa: E402
 from script import Player  # noqa: E402
 
 ROM_SIZE = 0x100000
@@ -71,6 +71,7 @@ def main():
     ap.add_argument('--frames', type=int, default=600)
     ap.add_argument('--script', default='')
     ap.add_argument('--poke', default='')
+    ap.add_argument('--hold', default='', help='RAM words written before every frame: "ADDR=VAL,..." (hex)')
     ap.add_argument('--out', default=os.path.join(ROOT, 'out', 'evidence'))
     ap.add_argument('--summary', action='store_true')
     a = ap.parse_args()
@@ -94,9 +95,12 @@ def main():
     o.coverage(True)
     script = Player(a.script)
     pokes = parse_pokes(a.poke)
+    hold = parse_hold(a.hold)
     for f in range(a.frames):
         script.at(o, f)
         for ad, v in pokes.get(f, ()):
+            o.poke_w(ad, v)
+        for ad, v in hold:
             o.poke_w(ad, v)
         o.run()
 
@@ -147,7 +151,7 @@ def main():
         for (s, t), (k, c) in sorted(edges.items()):
             f.write(f'{s:08x} {t:08x} {k} {c}\n')
     with open(os.path.join(a.out, 'runs.txt'), 'a') as f:
-        f.write(f'{a.name} frames={a.frames} state={a.state or "-"} script={a.script[:60] or "-"}\n')
+        f.write(f'{a.name} frames={a.frames} state={a.state or "-"} script={a.script[:60] or "-"} hold={a.hold or "-"}\n')
     print(f'{a.name}: {a.frames} frames merged into {a.out}')
     summary(a.out)
 

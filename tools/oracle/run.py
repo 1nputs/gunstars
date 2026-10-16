@@ -25,6 +25,11 @@ def parse_pokes(spec):
     return out
 
 
+def parse_hold(spec):
+    """'ADDR=VAL,...' (hex): RAM words written before every frame"""
+    return [(int(k, 16), int(v, 16)) for k, v in (kv.split('=') for kv in spec.split(',') if kv)]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('rom')
@@ -38,6 +43,7 @@ def main():
     ap.add_argument('--ramdump', default='')
     ap.add_argument('--watch', default='')
     ap.add_argument('--poke', default='', help='RAM words to write: "FRAME:ADDR=VAL,ADDR=VAL;FRAME:..." (hex)')
+    ap.add_argument('--hold', default='', help='RAM words written before every frame: "ADDR=VAL,..." (hex)')
     a = ap.parse_args()
 
     core = Core(a.core)
@@ -47,12 +53,15 @@ def main():
         core.unserialize(open(a.load, 'rb').read())
     script = Player(a.script)
     pokes = parse_pokes(a.poke)
+    hold = parse_hold(a.hold)
     watch = [(kv.split('=')[0], int(kv.split('=')[1], 16)) for kv in filter(None, a.watch.split(','))]
     if a.shots:
         os.makedirs(a.shots, exist_ok=True)
     for f in range(a.frames):
         script.at(core, f)
         for ad, v in pokes.get(f, ()):
+            core.poke_w(ad, v)
+        for ad, v in hold:
             core.poke_w(ad, v)
         core.run()
         if a.shots and (f % a.every == 0 or f == a.frames - 1):
