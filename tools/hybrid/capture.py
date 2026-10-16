@@ -73,7 +73,8 @@ def main():
     # takes gigabytes
     import struct
     n_rec = n_irq = 0
-    with open(a.out, 'rb') as f:
+    from oracle import open_capture
+    with open_capture(a.out) as f:
         while True:
             hdr = f.read(24)
             if len(hdr) < 24:

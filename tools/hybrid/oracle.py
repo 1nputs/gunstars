@@ -182,8 +182,16 @@ class Record:
         return [i for i in range(0x10000) if a[i] != b[i]]
 
 
+def open_capture(path):
+    """a capture file: gzip (the shim writes it so) or plain"""
+    import gzip
+    f = open(path, 'rb')
+    magic = f.read(2); f.seek(0)
+    return gzip.GzipFile(fileobj=f) if magic == b'\x1f\x8b' else f
+
+
 def read_captures(path):
-    data = open(path, 'rb').read()
+    data = open_capture(path).read()
     recs, o = [], 0
     while o < len(data):
         magic, total = struct.unpack_from('<2I', data, o)
@@ -194,7 +202,7 @@ def read_captures(path):
 
 def read_capture_at(path, index):
     """Record number index of a capture file, reading only the headers before it."""
-    with open(path, 'rb') as f:
+    with open_capture(path) as f:
         for i in range(index + 1):
             hdr = f.read(8)
             if len(hdr) < 8:

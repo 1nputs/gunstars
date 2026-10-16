@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Dump one capture record: registers in / out, the nested calls with their names, optional RAM words.
-usage: recdump.py FILE.cap INDEX [--ram ADDR[,ADDR...]] [--obj N] [--team home|away]"""
+usage: recdump.py FILE.cap INDEX [--ram ADDR[,ADDR...]] [--obj ADDR]"""
 import argparse, json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from oracle import read_capture_at, ROOT  # noqa: E402
@@ -9,9 +9,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('file'); ap.add_argument('index', type=int)
     ap.add_argument('--ram', default='', help='hex addresses (low 16 bits) to print as words, in and out')
-    ap.add_argument('--obj', type=int, default=-1, help='print the main fields of sort object N')
+    ap.add_argument('--obj', default='', help='an object\'s RAM address (hex): its first $80 bytes, in and out')
     a = ap.parse_args()
-    syms = json.load(open(os.path.join(ROOT, 'build', 'asm', 'symbols.json')))
+    syms = json.load(open(os.path.join(ROOT, 'build', 'disasm', 'symbols.json')))
     syms = syms.get('symbols', syms)
     inv = {}
     for k, v in syms.items():
@@ -39,12 +39,12 @@ def main():
     for h in filter(None, a.ram.split(',')):
         o = int(h, 16) & 0xFFFF
         print(f'  RAM {o:04X}: in {w(r.ram_in, o):04x} out {w(r.ram_out, o):04x}')
-    if a.obj >= 0:
-        o = 0xB04A + a.obj * 0x80
-        for nm, off in [('Xpos', 0), ('Ypos', 0x14), ('Xvel', 0x28), ('Yvel', 0x2A), ('position', 0x34), ('assnum', 0x36), ('temp1', 0x40), ('temp2', 0x42), ('temp3', 0x44), ('temp4', 0x46), ('SCnum', 0x52), ('facedir', 0x54), ('SPA', 0x58), ('SPAnum', 0x5A)]:
-            print(f'  obj{a.obj}.{nm:9s} in {w(r.ram_in, o + off):04x} out {w(r.ram_out, o + off):04x}')
-        for nm, off in [('pflags', 0x62), ('pflags2', 0x63), ('pflags3', 0x64), ('pnum', 0x66)]:
-            print(f'  obj{a.obj}.{nm:9s} in {r.ram_in[o + off]:02x} out {r.ram_out[o + off]:02x}')
+    if a.obj:
+        o = int(a.obj, 16) & 0xFFFF
+        for row in range(0, 0x80, 16):
+            ins = r.ram_in[o + row:o + row + 16].hex(' ')
+            outs = r.ram_out[o + row:o + row + 16].hex(' ')
+            print(f'  {o + row:04X} in  {ins}\n       out {outs}' if ins != outs else f'  {o + row:04X}     {ins}')
 
 if __name__ == '__main__':
     main()

@@ -20,7 +20,7 @@ PY      := python3
 
 build/captest: $(SRC) $(HDR) $(TESTSRC) $(TESTHDR)
 	@mkdir -p build
-	$(CC) $(CFLAGS) -Isrc -Itest -o $@ $(SRC) $(TESTSRC)
+	$(CC) $(CFLAGS) -Isrc -Itest -o $@ $(SRC) $(TESTSRC) -lz
 
 test: build/captest
 	@test -n "$(CAPS)" || { echo "no captures in out/captures (tools/hybrid/capture_all.sh records them)"; exit 1; }

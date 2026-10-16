@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include "shared.h"
 #include "debug/cpuhook.h"
+#include <zlib.h>
 
 #define ROM_SIZE 0x100000u
 #define RAM_SIZE 0x10000u
@@ -73,7 +74,7 @@ static struct { uint32_t pc, hits, captured; } bptab[BPTAB];
 static uint32_t *coverage;
 static int coverage_on;
 static uint32_t frame_no;
-static FILE *cap;
+static gzFile cap;                 /* captures are gzip (level 1): a record is 128 KB of RAM, mostly alike */
 static uint32_t cap_max_per_bp = 32, cap_stride = 1, cap_records;
 static int last_was_rts;
 static uint32_t rts_seen;
@@ -232,15 +233,15 @@ static void finish_frame(void) {
     regs_get(regs_out);
     uint32_t total = REC_HDR_WORDS * 4 + 2 * NREGS * 4 + 2 * RAM_SIZE + (uint32_t)f->log_len;
     uint32_t hdr[REC_HDR_WORDS] = { CAP_MAGIC, total, f->pc, frame_no, f->flags, f->n_closed };
-    fwrite(hdr, 4, REC_HDR_WORDS, cap);
-    fwrite(f->regs, 4, NREGS, cap);
-    fwrite(regs_out, 4, NREGS, cap);
-    fwrite(f->ram, 1, RAM_SIZE, cap);
+    gzwrite(cap, hdr, 4 * REC_HDR_WORDS);
+    gzwrite(cap, f->regs, 4 * NREGS);
+    gzwrite(cap, regs_out, 4 * NREGS);
+    gzwrite(cap, f->ram, RAM_SIZE);
     uint8_t *ram_out = malloc(RAM_SIZE);
     ram_copy_be(ram_out);
-    fwrite(ram_out, 1, RAM_SIZE, cap);
+    gzwrite(cap, ram_out, RAM_SIZE);
     free(ram_out);
-    if (f->log_len) fwrite(f->log, 1, f->log_len, cap);
+    if (f->log_len) gzwrite(cap, f->log, (unsigned)f->log_len);
     cap_records++;
   }
   if (f->log_cap > (16u << 20)) { free(f->log); f->log = NULL; f->log_cap = 0; }   /* give a big log back */
@@ -537,15 +538,15 @@ void oracle_set_irq_pcs(const uint32_t *pcs, int n) { n_irq_pcs = n > 8 ? 8 : n;
 /* routines that run from work RAM (copied there): logged as nested calls too */
 void oracle_fn_ram_set(const uint32_t *pcs, int n) { n_fn_ram = n > 16 ? 16 : n; for (int i = 0; i < n_fn_ram; i++) fn_ram[i] = pcs[i] & 0xFFFFFF; }
 int oracle_capture_open(const char *path, uint32_t max_per_bp, uint32_t stride) {
-  if (cap) fclose(cap);
-  cap = fopen(path, "wb");
+  if (cap) gzclose(cap);
+  cap = gzopen(path, "wb1");
   cap_max_per_bp = max_per_bp; cap_stride = stride ? stride : 1; cap_records = 0; depth = 0; n_open = 0;
   for (int i = 0; i < BPTAB; i++) bptab[i].captured = 0;
   return cap != NULL;
 }
 void oracle_capture_log_limit(uint32_t mb) { log_limit = (size_t)mb << 20; }
 uint32_t oracle_capture_dropped(void) { return cap_dropped; }
-uint32_t oracle_capture_close(void) { if (cap) { fclose(cap); cap = NULL; } depth = 0; n_open = 0; return cap_records; }
+uint32_t oracle_capture_close(void) { if (cap) { gzclose(cap); cap = NULL; } depth = 0; n_open = 0; return cap_records; }
 void oracle_capture_spread(int on) { cap_spread = on; }
 uint32_t oracle_capture_records(void) { return cap_records; }
 void oracle_coverage_enable(int on) { if (on && !coverage) coverage = calloc(ROM_SIZE, sizeof *coverage); coverage_on = on && coverage != NULL; }

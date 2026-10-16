@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <zlib.h>
 #include "replay.h"
 #include "mem.h"
 #include "symbols_gen.h"
@@ -26,12 +27,17 @@ static int cmp_seq(const void *a, const void *b)
 
 int cap_load(const char *path, Record **out, size_t *n)
 {
-    FILE *f = fopen(path, "rb");
+    gzFile f = gzopen(path, "rb");                 /* gzip as the shim writes it, or plain */
     if (!f) return 0;
-    fseek(f, 0, SEEK_END); long len = ftell(f); fseek(f, 0, SEEK_SET);
-    cap_data = malloc((size_t)len);
-    if (!cap_data || fread(cap_data, 1, (size_t)len, f) != (size_t)len) { fclose(f); return 0; }
-    fclose(f);
+    size_t size = 1 << 24;
+    long len = 0;
+    cap_data = malloc(size);
+    for (int got; cap_data && (got = gzread(f, cap_data + len, (unsigned)(size - (size_t)len))) > 0;) {
+        len += got;
+        if ((size_t)len == size) cap_data = realloc(cap_data, size *= 2);
+    }
+    gzclose(f);
+    if (!cap_data) return 0;
     size_t cap = 16, cnt = 0;
     Record *recs = malloc(cap * sizeof *recs);
     for (long o = 0; o < len;) {

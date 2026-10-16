@@ -18,6 +18,6 @@ $(ROOT)/build/oracle_shim.o: $(ROOT)/tools/hybrid/oracle_shim.c
 	mkdir -p $(ROOT)/build
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OUT): $(ROOT)/build/oracle_shim.o $(OBJS)
-	$(CC) -shared -o $@ $^ -Wl,--version-script=$(ROOT)/tools/hybrid/link.T -Wl,--no-undefined -lm
+	$(CC) -shared -o $@ $^ -Wl,--version-script=$(ROOT)/tools/hybrid/link.T -Wl,--no-undefined -lz -lm
 clean:
 	rm -f $(OUT) $(ROOT)/build/oracle_shim.o
