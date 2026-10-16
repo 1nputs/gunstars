@@ -17,3 +17,4 @@ __pycache__/
 # working notes, kept outside the repository
 /docs/HANDOFF.md
 /docs/PLAN.md
+# downloaded movies (TASVideos) live in ref/tas; scripts made from them in out/scripts
