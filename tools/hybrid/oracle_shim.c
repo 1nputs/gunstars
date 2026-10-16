@@ -341,6 +341,9 @@ static uint8_t *ev_rom;                              /* per ROM byte: EV_DATA | 
 static uint32_t *ev_reader;                          /* per ROM byte: the PC of the last instruction that read it as data */
 static struct { uint32_t site, target, kind, count; } *ev_edges;
 static uint32_t ev_n_edges, ev_prev_pc;
+static uint8_t *ev_ram_rw;                           /* per work RAM byte: the widths it was read (bits 0-2: 1, 2, 4 bytes) and
+                                                       written (bits 3-5) at, as the start of an access */
+static uint32_t ev_min_sp = 0xFFFFFFFFu;             /* the deepest the 68k's stack pointer went */
 static uint16_t ev_prev_op;
 static uint8_t ev_pending;
 static uint16_t ev_first;
@@ -369,6 +372,8 @@ static void ev_edge(uint32_t site, uint32_t target, uint32_t kind) {
 /* an instruction about to run at pc: the transfer that brought it here, if the last was one */
 static void ev_exec(uint32_t pc) {
   if ((pc & 0xFF0000) == 0xFF0000) ev_ram_cov[pc & 0xFFFF]++;
+  uint32_t sp = m68k_get_reg(M68K_REG_A7);
+  if (sp < ev_min_sp) ev_min_sp = sp;
   uint16_t op = ev_prev_op;
   uint32_t kind = 0;
   if ((op & 0xFFC0) == 0x4E80) kind = 1;                 /* jsr */
@@ -400,7 +405,10 @@ static void ev_command(uint16_t w) {
   }
 }
 
+static uint8_t ev_width_bit(int width) { return (uint8_t)(width == 1 ? 1 : width == 2 ? 2 : 4); }
+
 static void ev_read(int width, uint32_t a) {
+  if ((a & 0xE00000) == 0xE00000) ev_ram_rw[a & 0xFFFF] |= ev_width_bit(width);
   if (a < ROM_SIZE)
     for (int i = 0; i < width && a + (uint32_t)i < ROM_SIZE; i++) {
       ev_rom[a + (uint32_t)i] |= EV_DATA;
@@ -416,6 +424,7 @@ static void hook(hook_type_t type, int width, unsigned int address, unsigned int
     else if (type == HOOK_M68K_R) ev_read(width, address & 0xFFFFFF);
     else if (type == HOOK_M68K_W) {
       uint32_t a = address & 0xFFFFFF;
+      if ((a & 0xE00000) == 0xE00000) ev_ram_rw[a & 0xFFFF] |= (uint8_t)(ev_width_bit(width) << 3);
       if ((a & 0xFFFFE0) == 0xC00000 && ((a & 0x1E) == 4 || (a & 0x1E) == 6)) {
         if (width == 4) { ev_command((uint16_t)(value >> 16)); ev_command((uint16_t)value); }
         else ev_command(width == 1 ? (uint16_t)((value & 0xFF) << 8 | (value & 0xFF)) : (uint16_t)value);
@@ -547,7 +556,8 @@ int oracle_evidence_enable(int on) {
     ev_rom = calloc(ROM_SIZE, 1);
     ev_edges = calloc(EV_EDGES, sizeof *ev_edges);
     ev_reader = calloc(ROM_SIZE, sizeof *ev_reader);
-    if (!ev_ram_cov || !ev_z80_cov || !ev_rom || !ev_edges || !ev_reader) return 0;
+    ev_ram_rw = calloc(0x10000, 1);
+    if (!ev_ram_cov || !ev_z80_cov || !ev_rom || !ev_edges || !ev_reader || !ev_ram_rw) return 0;
   }
   ev_on = on && ev_ram_cov;
   ev_prev_op = 0;
@@ -561,6 +571,11 @@ void oracle_evidence_get(uint32_t *ram_cov, uint32_t *z80_cov, uint8_t *rom_flag
   memcpy(ram_cov, ev_ram_cov, 0x10000 * sizeof *ev_ram_cov);
   memcpy(z80_cov, ev_z80_cov, 0x2000 * sizeof *ev_z80_cov);
   memcpy(rom_flags, ev_rom, ROM_SIZE);
+}
+/* each work RAM byte's access widths u8[65536]; returns the deepest stack pointer seen */
+uint32_t oracle_evidence_ram(uint8_t *rw) {
+  if (ev_ram_rw) memcpy(rw, ev_ram_rw, 0x10000);
+  return ev_min_sp;
 }
 /* the transfers: up to max of (site, target, kind 1 jsr / 2 bsr / 3 jmp / 4 interrupt, count); returns how many */
 uint32_t oracle_evidence_edges(uint32_t *out, uint32_t max) {

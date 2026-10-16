@@ -8,6 +8,9 @@ out/evidence (oracle_shim.c, "disassembly evidence"), merged with what earlier r
   rom_flags.u8   per ROM byte: 1 read as data by the 68k, 2 read by DMA
   rom_reader.u32 per ROM byte: the PC of the last instruction seen reading it (| 0x80000000; 0 none;
                  a checksum's sweep of the whole ROM never replaces another reader)
+  ram_rw.u8      per work RAM byte: the widths it was read (bits 0-2: byte, word, long) and written
+                 (bits 3-5) at, as the first byte of an access
+  min_sp.txt     the deepest the 68k's stack pointer went
   edges.txt      control transfers: site target kind count (hex; kind 1 jsr, 2 bsr, 3 jmp,
                  4 interrupt entry with site ffffffff)
   runs.txt       the runs merged so far
@@ -108,6 +111,9 @@ def main():
     ram = (C.c_uint32 * 0x10000)(); z80 = (C.c_uint32 * 0x2000)(); flags = (C.c_uint8 * ROM_SIZE)()
     reader = (C.c_uint32 * ROM_SIZE)()
     lib.oracle_evidence_get(ram, z80, flags, reader)
+    lib.oracle_evidence_ram.argtypes = [C.c_void_p]; lib.oracle_evidence_ram.restype = C.c_uint32
+    rw = (C.c_uint8 * 0x10000)()
+    min_sp = lib.oracle_evidence_ram(rw)
     eb = (C.c_uint32 * (4 * 65536))()
     n = lib.oracle_evidence_edges(eb, 65536)
 
@@ -139,6 +145,14 @@ def main():
         if v and (not acc[i] or v != sweep):
             acc[i] = v
     open(p, 'wb').write(acc.tobytes())
+    p = os.path.join(a.out, 'ram_rw.u8')
+    acc = bytearray(open(p, 'rb').read()) if os.path.exists(p) else bytearray(0x10000)
+    for i, v in enumerate(bytes(rw)):
+        acc[i] |= v
+    open(p, 'wb').write(acc)
+    p = os.path.join(a.out, 'min_sp.txt')
+    old = int(open(p).read(), 16) if os.path.exists(p) else 0xFFFFFFFF
+    open(p, 'w').write('%08x\n' % min(old, min_sp))
     p = os.path.join(a.out, 'edges.txt')
     edges = load_edges(p)
     for i in range(n):
