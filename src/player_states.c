@@ -387,7 +387,7 @@ void PlayerShootStand(uint16_t obj)
         if (bit8(obj + P_HELD, 1) && rd16(obj + P_FLOOR_KIND) == 4) { start_crouch_shoot(obj); return; }
         if (!bit8(obj + P_SHOT_B, 4) && (rd8(obj + P_HELD) & 0xC)) { start_walk_shoot(obj); return; }
     }
-    sub_1776A(obj);
+    PlayerShoot(obj);
     PlayerAttackDir(obj);
     if (!rd16(obj + P_SHOT)) start_stand(obj);
 }
@@ -559,7 +559,7 @@ void PlayerShootCrouch(uint16_t obj)
     if (c_pressed(obj, start_shoot_jump)) return;
     if (!rd16(obj + P_CHARACTER) && !bit8(obj + P_HELD, 1)) { start_shoot(obj); return; }
     set8(obj + P_SHOT_B, 6);
-    sub_1776A(obj);
+    PlayerShoot(obj);
     PlayerAttackDir(obj);
     if (!rd16(obj + P_SHOT)) start_crouch(obj);
 }
@@ -640,7 +640,7 @@ void PlayerShootWalk(uint16_t obj)
     if (c_pressed(obj, start_shoot_jump)) return;
     if (bit8(obj + P_HELD, 1) && rd16(obj + P_FLOOR_KIND) == 4) { start_crouch_shoot(obj); return; }
     if (bit8(obj + P_SHOT_B, 4) || !(rd8(obj + P_HELD) & 0xC)) { start_shoot(obj); return; }
-    sub_1776A(obj);
+    PlayerShoot(obj);
     PlayerAttackDir(obj);
     if (!rd16(obj + P_SHOT)) start_walk(obj);
 }
@@ -847,7 +847,7 @@ static void start_jump(uint16_t obj)
     wr16(obj + O_STATE, 0x18);
     PlayerJumpHurt(obj);
     flags_or(obj, 0xC00);
-    sub_11CD0(obj);
+    PlayerJumpAnim(obj);
     air_b(obj, start_shoot_jump);
 }
 
@@ -948,7 +948,7 @@ static void start_shoot_jump(uint16_t obj)
     wr8(obj + P_HURT, 0x8A);
     flags_or(obj, 0xC00);
     clr8(obj + P_SHOT_B, 6);
-    sub_1776A(obj);
+    PlayerShoot(obj);
     PlayerAttackDir(obj);
     if (!rd16(obj + P_SHOT)) start_jump(obj);
 }
@@ -959,14 +959,14 @@ void PlayerShootJump(uint16_t obj)
     if (took_hit(obj)) { hit_air(obj); return; }
     if (!(rd16(obj + P_VY) & 0x8000)) { start_shoot_fall_on(obj); return; }
     if (air_c(obj)) return;
-    sub_1776A(obj);
+    PlayerShoot(obj);
     PlayerAttackDir(obj);
     if (!rd16(obj + P_SHOT)) start_jump(obj);
 }
 
 static void shooting_fall(uint16_t obj)
 {
-    sub_1776A(obj);
+    PlayerShoot(obj);
     PlayerAttackDir(obj);
     if (!rd16(obj + P_SHOT)) start_fall_on(obj);
 }
@@ -977,7 +977,7 @@ static void start_shoot_fall(uint16_t obj)
     wr16(obj + O_STATE, 0x24);
     wr8(obj + P_HURT, 0x8A);
     wr16(obj + P_ANIM_SET, 0x11);
-    sub_16BF6(obj);
+    PlayerSetAnim(obj);
     flags_or(obj, 0xC00);
     still(obj);
     wr16(obj + P_JUMP, 4);
@@ -1294,7 +1294,7 @@ void PlayerHangShoot(uint16_t obj)
         return;
     }
     if (hang_c(obj, start_shoot_fall_on, start_shoot_jump)) return;
-    sub_1776A(obj);
+    PlayerShoot(obj);
     if (!rd16(obj + P_SHOT)) start_hang(obj);
 }
 
@@ -1530,7 +1530,7 @@ static void start_get_up(uint16_t obj)
 void PlayerGettingUp(uint16_t obj)
 {
     if (!(rd8(obj + 0x0D) & 0x80)) return;
-    sub_12B78(obj);
+    PlayerUpAgain(obj);
     start_stand(obj);
 }
 

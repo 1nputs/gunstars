@@ -30,9 +30,3 @@ void call_object_missing(uint32_t addr, uint16_t obj)
 
 /* a routine of an object (a5) not ported yet */
 #define OBJ_STUB(name) STUB void name(uint16_t obj) { TAKE(name); ARG16(R_A5, obj, name); replay_apply(c); }
-OBJ_STUB(sub_11CD0)
-OBJ_STUB(sub_12B78)
-OBJ_STUB(sub_1776A)
-OBJ_STUB(sub_11560)
-OBJ_STUB(sub_12BA0)
-OBJ_STUB(sub_16BF6)

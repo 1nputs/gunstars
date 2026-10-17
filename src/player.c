@@ -77,13 +77,13 @@ void PlayerFrame(uint16_t obj)
     if (rd8(v_pauseFlags) & 0x80) return;
     PlayerMotionInput(obj);
     PlayerCollide(obj);
-    sub_16BF6(obj);
-    sub_12BA0(obj);
+    PlayerSetAnim(obj);
+    PlayerLimits(obj);
     PlayerFloorKind(obj);
     PlayerStates(obj);
-    sub_16BF6(obj);
-    sub_11560(obj);
-    sub_16BF6(obj);
+    PlayerSetAnim(obj);
+    PlayerMove(obj);
+    PlayerSetAnim(obj);
     /* the blinking after a hit: shown on odd frames, then for good */
     if (!rd16(obj + P_BLINK)) return;
     wr16(obj + P_BLINK, (uint16_t)(rd16(obj + P_BLINK) - 1));
@@ -560,3 +560,103 @@ void PlayerFloor3(uint16_t obj) { floor_under(obj, 8, 3); }
 void PlayerFloor2(uint16_t obj) { floor_under(obj, 4, 2); }
 void PlayerFloor1(uint16_t obj) { floor_under(obj, 0, 1); }
 
+
+/* ---- the animation, the screen's limits ---- */
+
+#define P_ANIM_SET 0x90
+#define P_ANIM_NOW 0xB8
+#define P_ANIM_BANK 0xCA         /* the character's animations (0 or 4: a long table's) */
+#define P_LIMITS   0x86          /* byte: bit 0 kept between v_limitTop and v_limitBottom, bit 1
+                                    between v_limitLeft and v_limitRight */
+#define P_RECENTRE 0x80          /* byte: not 0: x moves 9 as the facing changes (bit 7: left) */
+
+/* $016BF6. The animation asked for (P_ANIM_SET), if any: its frames from the character's table,
+ * restarted when it is another, its box (the feet kept where they were), and for some x moved
+ * as the facing changes. */
+void PlayerSetAnim(uint16_t obj)
+{
+    uint16_t a = rd16(obj + P_ANIM_SET);
+    if (!a) return;
+    wr16(obj + P_ANIM_SET, 0);
+    if (a != rd16(obj + P_ANIM_NOW)) wr16(obj + 0x0C, 0);
+    wr16(obj + P_ANIM_NOW, a);
+    uint16_t i = (uint16_t)((a << 3) + rd16(obj + P_ANIM_BANK));
+    wr32(obj + 0x08, rom32(0x016C72 + (uint32_t)(int16_t)i));
+    uint8_t was = rd8(obj + P_BOTTOM);
+    wr32(obj + P_TOP, rom32(0x0171F2 - 8 + (uint32_t)(int16_t)i));
+    int16_t d = (int8_t)(uint8_t)(was - rd8(obj + P_BOTTOM));
+    if (bit8(obj + P_SPRITE, 4)) d = (int16_t)-d;
+    wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) + d));
+    if (!rd8(obj + P_RECENTRE)) return;
+    if (!bit8(obj + P_SPRITE, 3)) {
+        if (!bit8(obj + P_RECENTRE, 7)) return;
+        clr8(obj + P_RECENTRE, 7);
+        wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) - 9));
+    } else {
+        if (bit8(obj + P_RECENTRE, 7)) return;
+        set8(obj + P_RECENTRE, 7);
+        wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) + 9));
+    }
+}
+
+/* $012BA0. Kept on the screen (not in state $70). */
+void PlayerLimits(uint16_t obj)
+{
+    if (rd16(obj + O_STATE) == 0x70) return;
+    PlayerLimitsY(obj);
+    PlayerLimitsX(obj);
+}
+
+/* $012C02. The box's top not above v_limitTop (a ceiling), its bottom not below v_limitBottom
+ * (a floor, attribute $38). */
+void PlayerLimitsY(uint16_t obj)
+{
+    if (!bit8(obj + P_LIMITS, 0)) return;
+    int16_t t = (int8_t)rd8(obj + P_TOP);
+    if ((int16_t)(rd16(obj + O_Y) + t) <= (int16_t)rd16(v_limitTop)) {
+        wr16(obj + O_Y, (uint16_t)(rd16(v_limitTop) - t));
+        wr16(obj + P_Y_FRAC, 0);
+        set8(obj + P_HITS, 0);
+        return;
+    }
+    int16_t b = (int8_t)rd8(obj + P_BOTTOM);
+    if ((int16_t)(rd16(obj + O_Y) + b) < (int16_t)rd16(v_limitBottom)) return;
+    wr16(obj + P_FLOOR, 0x38);
+    wr16(obj + O_Y, (uint16_t)(rd16(v_limitBottom) - b));
+    wr16(obj + P_Y_FRAC, 0);
+    set8(obj + P_HITS, 1);
+}
+
+/* $012BB4. x within v_limitLeft and v_limitRight (walls, attributes $14, $10). */
+void PlayerLimitsX(uint16_t obj)
+{
+    if (!bit8(obj + P_LIMITS, 1)) return;
+    int16_t x = (int16_t)rd16(obj + O_X);
+    if (x <= (int16_t)rd16(v_limitLeft)) {
+        wr16(obj + P_WALL, 0x14);
+        wr16(obj + O_X, rd16(v_limitLeft));
+        wr16(obj + P_X_FRAC, 0);
+        set8(obj + P_HITS, 2);
+        return;
+    }
+    if (x < (int16_t)rd16(v_limitRight)) return;
+    wr16(obj + P_WALL, 0x10);
+    wr16(obj + O_X, rd16(v_limitRight));
+    wr16(obj + P_X_FRAC, 0);
+    set8(obj + P_HITS, 3);
+}
+
+/* $012B78. Up again after being knocked down: some frames of being knocked back less (4-7) and
+ * blinking. */
+void PlayerUpAgain(uint16_t obj)
+{
+    if (!bit8(obj + 0x23, 4)) return;
+    PlayerKnockTime(obj);
+    wr16(obj + P_BLINK, 0x40);
+}
+
+/* $012B8E */
+void PlayerKnockTime(uint16_t obj)
+{
+    wr16(obj + 0x7E, (uint16_t)((Random() & 3) + 4));
+}
