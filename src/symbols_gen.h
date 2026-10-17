@@ -4532,7 +4532,7 @@
 #define SYM_sub_5CCB6 0x05CCB6u
 #define SYM_sub_5CCEE 0x05CCEEu
 #define SYM_sub_5CD3E 0x05CD3Eu
-#define SYM_sub_5D0D8 0x05D0D8u
+#define SYM_FaceNearest 0x05D0D8u
 #define SYM_sub_5D0F4 0x05D0F4u
 #define SYM_sub_5D122 0x05D122u
 #define SYM_sub_5D146 0x05D146u
@@ -4573,114 +4573,213 @@
 #define SYM_sub_5DF66 0x05DF66u
 #define SYM_sub_5DFDC 0x05DFDCu
 #define SYM_sub_5E00C 0x05E00Cu
-#define SYM_sub_5E092 0x05E092u
-#define SYM_sub_5E174 0x05E174u
-#define SYM_sub_5E1EC 0x05E1ECu
-#define SYM_sub_5E27A 0x05E27Au
-#define SYM_sub_5E342 0x05E342u
-#define SYM_sub_5E368 0x05E368u
-#define SYM_sub_5E3D0 0x05E3D0u
-#define SYM_sub_5E41E 0x05E41Eu
-#define SYM_sub_5E47C 0x05E47Cu
-#define SYM_sub_5E54A 0x05E54Au
-#define SYM_sub_5E564 0x05E564u
-#define SYM_sub_5E58E 0x05E58Eu
-#define SYM_sub_5E5BA 0x05E5BAu
-#define SYM_sub_5E5F4 0x05E5F4u
-#define SYM_sub_5E714 0x05E714u
-#define SYM_sub_5E7B4 0x05E7B4u
-#define SYM_sub_5E7FA 0x05E7FAu
-#define SYM_sub_5E834 0x05E834u
-#define SYM_sub_5E85A 0x05E85Au
-#define SYM_sub_5E8C2 0x05E8C2u
-#define SYM_sub_5E938 0x05E938u
-#define SYM_sub_5E9BA 0x05E9BAu
-#define SYM_sub_5E9E8 0x05E9E8u
-#define SYM_sub_5EA28 0x05EA28u
-#define SYM_sub_5EA52 0x05EA52u
-#define SYM_sub_5EB28 0x05EB28u
-#define SYM_sub_5EB42 0x05EB42u
-#define SYM_sub_5EB7A 0x05EB7Au
-#define SYM_sub_5EBA8 0x05EBA8u
-#define SYM_sub_5EBEE 0x05EBEEu
-#define SYM_sub_5EC08 0x05EC08u
-#define SYM_sub_5EC4E 0x05EC4Eu
-#define SYM_sub_5EC68 0x05EC68u
-#define SYM_sub_5EC92 0x05EC92u
-#define SYM_sub_5ECDC 0x05ECDCu
-#define SYM_sub_5ED0E 0x05ED0Eu
-#define SYM_sub_5ED66 0x05ED66u
-#define SYM_sub_5ED92 0x05ED92u
-#define SYM_sub_5EDA0 0x05EDA0u
-#define SYM_sub_5EF0A 0x05EF0Au
-#define SYM_sub_5EF10 0x05EF10u
-#define SYM_sub_5EF16 0x05EF16u
-#define SYM_sub_5EF8C 0x05EF8Cu
-#define SYM_sub_5F00C 0x05F00Cu
-#define SYM_sub_5F094 0x05F094u
-#define SYM_sub_5F14E 0x05F14Eu
-#define SYM_sub_5F170 0x05F170u
-#define SYM_sub_5F1A4 0x05F1A4u
-#define SYM_sub_5F23A 0x05F23Au
-#define SYM_sub_5F2F6 0x05F2F6u
-#define SYM_sub_5F312 0x05F312u
-#define SYM_sub_5F33C 0x05F33Cu
-#define SYM_sub_5F362 0x05F362u
-#define SYM_sub_5F388 0x05F388u
-#define SYM_sub_5F3B4 0x05F3B4u
-#define SYM_sub_5F424 0x05F424u
-#define SYM_sub_60564 0x060564u
-#define SYM_sub_60710 0x060710u
-#define SYM_sub_6076E 0x06076Eu
-#define SYM_sub_607AE 0x0607AEu
-#define SYM_sub_60910 0x060910u
-#define SYM_sub_6095E 0x06095Eu
-#define SYM_sub_61108 0x061108u
-#define SYM_sub_61262 0x061262u
-#define SYM_sub_612B2 0x0612B2u
-#define SYM_sub_613C2 0x0613C2u
-#define SYM_sub_61408 0x061408u
-#define SYM_sub_6145E 0x06145Eu
-#define SYM_sub_614AE 0x0614AEu
-#define SYM_sub_6155E 0x06155Eu
-#define SYM_sub_6168C 0x06168Cu
-#define SYM_sub_61CE6 0x061CE6u
-#define SYM_sub_61D32 0x061D32u
-#define SYM_sub_61D7A 0x061D7Au
-#define SYM_sub_61E8E 0x061E8Eu
-#define SYM_sub_61EAA 0x061EAAu
-#define SYM_sub_61EDC 0x061EDCu
-#define SYM_sub_61F42 0x061F42u
-#define SYM_sub_61FDC 0x061FDCu
-#define SYM_sub_62004 0x062004u
-#define SYM_sub_62024 0x062024u
-#define SYM_sub_62058 0x062058u
-#define SYM_sub_6208E 0x06208Eu
-#define SYM_sub_620C0 0x0620C0u
-#define SYM_sub_620D4 0x0620D4u
-#define SYM_sub_620EE 0x0620EEu
-#define SYM_sub_6211C 0x06211Cu
-#define SYM_sub_6213C 0x06213Cu
-#define SYM_sub_6213E 0x06213Eu
-#define SYM_sub_6215C 0x06215Cu
-#define SYM_sub_6217C 0x06217Cu
-#define SYM_sub_62196 0x062196u
-#define SYM_sub_621BC 0x0621BCu
-#define SYM_sub_6220E 0x06220Eu
-#define SYM_sub_62272 0x062272u
-#define SYM_sub_6229C 0x06229Cu
-#define SYM_sub_622B6 0x0622B6u
-#define SYM_sub_6237E 0x06237Eu
-#define SYM_sub_623BA 0x0623BAu
-#define SYM_sub_623D0 0x0623D0u
-#define SYM_sub_623E8 0x0623E8u
-#define SYM_sub_62406 0x062406u
-#define SYM_sub_62466 0x062466u
-#define SYM_sub_62496 0x062496u
-#define SYM_sub_624AA 0x0624AAu
-#define SYM_sub_624B4 0x0624B4u
-#define SYM_sub_624EC 0x0624ECu
-#define SYM_sub_62540 0x062540u
+#define SYM_Jet580 0x05E092u
+#define SYM_Jet580Sparks 0x05E174u
+#define SYM_Grab584 0x05E1ECu
+#define SYM_Shard588 0x05E27Au
+#define SYM_Bomb604 0x05E342u
+#define SYM_Bomb604Step00 0x05E368u
+#define SYM_Bomb604Step04 0x05E3D0u
+#define SYM_Bomb604Step08 0x05E41Eu
+#define SYM_Bomb604Step0C 0x05E47Cu
+#define SYM_Bomb604Step10 0x05E54Au
+#define SYM_Bomb604Step14 0x05E564u
+#define SYM_Boss58C 0x05E58Eu
+#define SYM_Boss58CFlash 0x05E5BAu
+#define SYM_Boss58CThink 0x05E5F4u
+#define SYM_Boss58CStep00 0x05E714u
+#define SYM_Boss58CStep04 0x05E7B4u
+#define SYM_Boss58CStep48 0x05E7FAu
+#define SYM_Boss58CStep4C 0x05E834u
+#define SYM_Boss58CStep50 0x05E85Au
+#define SYM_Boss58CDebris 0x05E8C2u
+#define SYM_Boss58CStep54 0x05E938u
+#define SYM_Boss58CPuffs 0x05E9BAu
+#define SYM_Boss58CStep58 0x05E9E8u
+#define SYM_Boss58CStep5C 0x05EA28u
+#define SYM_Boss58CStep08 0x05EA52u
+#define SYM_Boss58CStep0C 0x05EB28u
+#define SYM_Boss58CStep44 0x05EB42u
+#define SYM_Boss58CStep10 0x05EB7Au
+#define SYM_Boss58CStep14 0x05EBA8u
+#define SYM_Boss58CStep18 0x05EBEEu
+#define SYM_Boss58CStep20 0x05EC08u
+#define SYM_Boss58CStep24 0x05EC4Eu
+#define SYM_Boss58CStep28 0x05EC68u
+#define SYM_Boss58CStep2C 0x05EC92u
+#define SYM_Boss58CStep30 0x05ECDCu
+#define SYM_Boss58CStep34 0x05ED0Eu
+#define SYM_Boss58CStep38 0x05ED66u
+#define SYM_Boss58CStep3C 0x05ED92u
+#define SYM_Boss58CStep40 0x05EDA0u
+#define SYM_Boss58CFace 0x05EF0Au
+#define SYM_Boss58CNearest 0x05EF10u
+#define SYM_Hitbox590 0x05EF16u
+#define SYM_Part598 0x05EF8Cu
+#define SYM_Part5A0 0x05F00Cu
+#define SYM_Part5A0Anim 0x05F094u
+#define SYM_Hand59C 0x05F14Eu
+#define SYM_Hand59CStep00 0x05F170u
+#define SYM_Hand59CStep04 0x05F1A4u
+#define SYM_Hand59CStep08 0x05F23Au
+#define SYM_Hand59CStep0C 0x05F2F6u
+#define SYM_Hand59CAnim 0x05F312u
+#define SYM_Hand59CLook 0x05F33Cu
+#define SYM_SpritePoint 0x05F362u
+#define SYM_SpritePointFind 0x05F388u
+#define SYM_Boss5B4 0x05F3B4u
+#define SYM_Boss5B4Think 0x05F424u
+#define SYM_Boss5B4Step00 0x05F5B6u
+#define SYM_Boss5B4Step3E 0x05F66Au
+#define SYM_Boss5B4Step40 0x05F6BAu
+#define SYM_Boss5B4Step42 0x05F6F4u
+#define SYM_Boss5B4Step44 0x05F712u
+#define SYM_Boss5B4Step46 0x05F728u
+#define SYM_Boss5B4Step48 0x05F754u
+#define SYM_Boss5B4Step4A 0x05F76Eu
+#define SYM_Boss5B4Step4C 0x05F79Au
+#define SYM_Boss5B4Step4E 0x05F7BAu
+#define SYM_Boss5B4Step50 0x05F7E6u
+#define SYM_Boss5B4Step52 0x05F820u
+#define SYM_Boss5B4Step54 0x05F866u
+#define SYM_Boss5B4Step56 0x05F88Eu
+#define SYM_Boss5B4Step58 0x05F8B0u
+#define SYM_Boss5B4Step5A 0x05F926u
+#define SYM_Boss5B4Step5C 0x05F964u
+#define SYM_Boss5B4Step5E 0x05F9A0u
+#define SYM_Boss5B4Step60 0x05F9E0u
+#define SYM_Boss5B4Step62 0x05FA20u
+#define SYM_Boss5B4Step64 0x05FA7Au
+#define SYM_Boss5B4Step66 0x05FAB8u
+#define SYM_Boss5B4Shrink 0x05FB00u
+#define SYM_Boss5B4Step68 0x05FB40u
+#define SYM_Boss5B4Step6A 0x05FB92u
+#define SYM_Boss5B4Step6C 0x05FBD6u
+#define SYM_Boss5B4Glow 0x05FC0Cu
+#define SYM_Boss5B4Step6E 0x05FC1Eu
+#define SYM_Boss5B4Step02 0x05FC20u
+#define SYM_Boss5B4Pick 0x05FCB0u
+#define SYM_Boss5B4Step1A 0x05FDE6u
+#define SYM_Boss5B4Step04 0x05FDF2u
+#define SYM_Boss5B4Step06 0x05FE1Cu
+#define SYM_Boss5B4Step08 0x05FED6u
+#define SYM_Boss5B4Step0A 0x05FF4Au
+#define SYM_Boss5B4Step0C 0x05FF60u
+#define SYM_Boss5B4Step0E 0x05FF9Cu
+#define SYM_Boss5B4Step10 0x05FFD8u
+#define SYM_Boss5B4Step2E 0x060016u
+#define SYM_Boss5B4Step12 0x060024u
+#define SYM_Boss5B4Step3C 0x060096u
+#define SYM_Boss5B4Step14 0x0600B6u
+#define SYM_Boss5B4Step2A 0x0600DAu
+#define SYM_Boss5B4Step16 0x0600DEu
+#define SYM_Boss5B4Step18 0x06010Cu
+#define SYM_Boss5B4Step1C 0x060150u
+#define SYM_Boss5B4Step1E 0x0601C6u
+#define SYM_Boss5B4Step20 0x0601FEu
+#define SYM_Boss5B4Step22 0x060238u
+#define SYM_Boss5B4Step24 0x060276u
+#define SYM_Boss5B4Step28 0x0602A0u
+#define SYM_Boss5B4Step2C 0x06030Cu
+#define SYM_Boss5B4Step30 0x060336u
+#define SYM_Boss5B4Step32 0x06038Eu
+#define SYM_Boss5B4Step34 0x06039Au
+#define SYM_Boss5B4Step36 0x0603DAu
+#define SYM_Boss5B4Step3A 0x060400u
+#define SYM_Boss5B4Beaten 0x060564u
+#define SYM_Boss5B4Stop 0x060614u
+#define SYM_Boss5B4Show 0x06061Cu
+#define SYM_Boss5B4Face 0x060704u
+#define SYM_Boss5B4Nearest 0x06070Au
+#define SYM_Boss5B4Cycle 0x060710u
+#define SYM_Boss5B4Fill 0x060724u
+#define SYM_Boss5B4ClearLines 0x06075Cu
+#define SYM_Boss5B4Waves 0x06076Eu
+#define SYM_Boss5B4Ripple 0x0607AEu
+#define SYM_Boss5B4Mark 0x060818u
+#define SYM_Boss5B4Chunk 0x060856u
+#define SYM_Boss5B4Smoke 0x06088Cu
+#define SYM_Orb5D4 0x060910u
+#define SYM_Orb5D4Think 0x06095Eu
+#define SYM_Orb5D4Step00 0x060A56u
+#define SYM_Orb5D4Seek 0x060D86u
+#define SYM_Orb5D4Step02 0x060E0Eu
+#define SYM_Orb5D4Step04 0x060E3Cu
+#define SYM_Orb5D4Step06 0x060E64u
+#define SYM_Orb5D4Step08 0x060EB4u
+#define SYM_Orb5D4Step0A 0x060EE6u
+#define SYM_Orb5D4Step0C 0x060F76u
+#define SYM_Orb5D4Step0E 0x06102Cu
+#define SYM_Orb5D4Step10 0x06104Cu
+#define SYM_Orb5D4Step12 0x06107Cu
+#define SYM_Orb5D4Step14 0x061086u
+#define SYM_Chain5E8 0x061108u
+#define SYM_Drop5EC 0x061262u
+#define SYM_Homer5F0 0x0612B2u
+#define SYM_Trail5F4 0x0613C2u
+#define SYM_Shot5F8 0x061408u
+#define SYM_Bounce5DC 0x06145Eu
+#define SYM_Burst5E0 0x0614AEu
+#define SYM_Wave5E4 0x06155Eu
+#define SYM_Wave5E4Step00 0x06157Au
+#define SYM_Wave5E4Step02 0x06159Eu
+#define SYM_Wave5E4Step04 0x061620u
+#define SYM_Fall5FC 0x06168Cu
+#define SYM_Fall5FCStep00 0x0616AAu
+#define SYM_Fall5FCStep02 0x0616E0u
+#define SYM_Fall5FCStep04 0x061706u
+#define SYM_Fall5FCBurst 0x06174Cu
+#define SYM_Orb5D4Puff 0x0617BAu
+#define SYM_Boss5B4Fire 0x061806u
+#define SYM_Boss5B4Sparks 0x06185Eu
+#define SYM_Boss5B4Shots 0x0618F0u
+#define SYM_Boss5B4Trail2 0x0619DAu
+#define SYM_Boss5B4Trail1 0x0619E4u
+#define SYM_Boss5B4Beams 0x061A5Au
+#define SYM_Boss5B4Beam 0x061A66u
+#define SYM_Boss5B4Orbs 0x061AB2u
+#define SYM_Boss5B4Rumble 0x061B9Au
+#define SYM_Boss5B4Dust 0x061BB0u
+#define SYM_Boss5B4Posts 0x061C0Eu
+#define SYM_Boss5B4Post 0x061C26u
+#define SYM_Orb5D4Home 0x061CE6u
+#define SYM_Orb5D4Blink 0x061D00u
+#define SYM_Scene614 0x061D32u
+#define SYM_Scene614Step00 0x061D7Au
+#define SYM_Scene614Step02 0x061E8Eu
+#define SYM_Scene614Step04 0x061EAAu
+#define SYM_Scene614Step06 0x061EDCu
+#define SYM_Scene614Step08 0x061F42u
+#define SYM_Scene614Step0A 0x061FDCu
+#define SYM_Scene614Step0C 0x062004u
+#define SYM_Scene614Step0E 0x062024u
+#define SYM_Scene614Step10 0x062058u
+#define SYM_Scene614Step12 0x06208Eu
+#define SYM_Scene614Step14 0x0620C0u
+#define SYM_Scene614Step16 0x0620D4u
+#define SYM_Scene614Step18 0x0620EEu
+#define SYM_Scene614Step1A 0x06211Cu
+#define SYM_Scene614Step1C 0x06213Cu
+#define SYM_Scene614Step1E 0x06213Eu
+#define SYM_Scene614Step20 0x06215Cu
+#define SYM_Scene614Step22 0x06217Cu
+#define SYM_Scene614Step24 0x062196u
+#define SYM_Scene614Step26 0x0621BCu
+#define SYM_Scene614Step28 0x06220Eu
+#define SYM_Scene614Step2A 0x062272u
+#define SYM_Scene614Step2C 0x06229Cu
+#define SYM_Scene614Step2E 0x0622B6u
+#define SYM_Actor618 0x06237Eu
+#define SYM_Actor618Step00 0x0623BAu
+#define SYM_Actor618Step04 0x0623D0u
+#define SYM_Actor618Step08 0x0623E8u
+#define SYM_Actor618Step0C 0x062406u
+#define SYM_Actor618Step10 0x062466u
+#define SYM_Actor618Step14 0x062496u
+#define SYM_Actor618Step18 0x0624AAu
+#define SYM_Actor618Step1C 0x0624B4u
+#define SYM_Actor618Step20 0x0624ECu
+#define SYM_Actor618Look 0x062540u
 #define SYM_Mode48 0x062892u
 #define SYM_Mode48Init 0x0628BCu
 #define SYM_Mode48Approach 0x062902u
@@ -9435,7 +9534,7 @@ static const struct sym rom_syms[] = {
     { 0x05CCB6u, "sub_5CCB6" },
     { 0x05CCEEu, "sub_5CCEE" },
     { 0x05CD3Eu, "sub_5CD3E" },
-    { 0x05D0D8u, "sub_5D0D8" },
+    { 0x05D0D8u, "FaceNearest" },
     { 0x05D0F4u, "sub_5D0F4" },
     { 0x05D122u, "sub_5D122" },
     { 0x05D146u, "sub_5D146" },
@@ -9476,114 +9575,213 @@ static const struct sym rom_syms[] = {
     { 0x05DF66u, "sub_5DF66" },
     { 0x05DFDCu, "sub_5DFDC" },
     { 0x05E00Cu, "sub_5E00C" },
-    { 0x05E092u, "sub_5E092" },
-    { 0x05E174u, "sub_5E174" },
-    { 0x05E1ECu, "sub_5E1EC" },
-    { 0x05E27Au, "sub_5E27A" },
-    { 0x05E342u, "sub_5E342" },
-    { 0x05E368u, "sub_5E368" },
-    { 0x05E3D0u, "sub_5E3D0" },
-    { 0x05E41Eu, "sub_5E41E" },
-    { 0x05E47Cu, "sub_5E47C" },
-    { 0x05E54Au, "sub_5E54A" },
-    { 0x05E564u, "sub_5E564" },
-    { 0x05E58Eu, "sub_5E58E" },
-    { 0x05E5BAu, "sub_5E5BA" },
-    { 0x05E5F4u, "sub_5E5F4" },
-    { 0x05E714u, "sub_5E714" },
-    { 0x05E7B4u, "sub_5E7B4" },
-    { 0x05E7FAu, "sub_5E7FA" },
-    { 0x05E834u, "sub_5E834" },
-    { 0x05E85Au, "sub_5E85A" },
-    { 0x05E8C2u, "sub_5E8C2" },
-    { 0x05E938u, "sub_5E938" },
-    { 0x05E9BAu, "sub_5E9BA" },
-    { 0x05E9E8u, "sub_5E9E8" },
-    { 0x05EA28u, "sub_5EA28" },
-    { 0x05EA52u, "sub_5EA52" },
-    { 0x05EB28u, "sub_5EB28" },
-    { 0x05EB42u, "sub_5EB42" },
-    { 0x05EB7Au, "sub_5EB7A" },
-    { 0x05EBA8u, "sub_5EBA8" },
-    { 0x05EBEEu, "sub_5EBEE" },
-    { 0x05EC08u, "sub_5EC08" },
-    { 0x05EC4Eu, "sub_5EC4E" },
-    { 0x05EC68u, "sub_5EC68" },
-    { 0x05EC92u, "sub_5EC92" },
-    { 0x05ECDCu, "sub_5ECDC" },
-    { 0x05ED0Eu, "sub_5ED0E" },
-    { 0x05ED66u, "sub_5ED66" },
-    { 0x05ED92u, "sub_5ED92" },
-    { 0x05EDA0u, "sub_5EDA0" },
-    { 0x05EF0Au, "sub_5EF0A" },
-    { 0x05EF10u, "sub_5EF10" },
-    { 0x05EF16u, "sub_5EF16" },
-    { 0x05EF8Cu, "sub_5EF8C" },
-    { 0x05F00Cu, "sub_5F00C" },
-    { 0x05F094u, "sub_5F094" },
-    { 0x05F14Eu, "sub_5F14E" },
-    { 0x05F170u, "sub_5F170" },
-    { 0x05F1A4u, "sub_5F1A4" },
-    { 0x05F23Au, "sub_5F23A" },
-    { 0x05F2F6u, "sub_5F2F6" },
-    { 0x05F312u, "sub_5F312" },
-    { 0x05F33Cu, "sub_5F33C" },
-    { 0x05F362u, "sub_5F362" },
-    { 0x05F388u, "sub_5F388" },
-    { 0x05F3B4u, "sub_5F3B4" },
-    { 0x05F424u, "sub_5F424" },
-    { 0x060564u, "sub_60564" },
-    { 0x060710u, "sub_60710" },
-    { 0x06076Eu, "sub_6076E" },
-    { 0x0607AEu, "sub_607AE" },
-    { 0x060910u, "sub_60910" },
-    { 0x06095Eu, "sub_6095E" },
-    { 0x061108u, "sub_61108" },
-    { 0x061262u, "sub_61262" },
-    { 0x0612B2u, "sub_612B2" },
-    { 0x0613C2u, "sub_613C2" },
-    { 0x061408u, "sub_61408" },
-    { 0x06145Eu, "sub_6145E" },
-    { 0x0614AEu, "sub_614AE" },
-    { 0x06155Eu, "sub_6155E" },
-    { 0x06168Cu, "sub_6168C" },
-    { 0x061CE6u, "sub_61CE6" },
-    { 0x061D32u, "sub_61D32" },
-    { 0x061D7Au, "sub_61D7A" },
-    { 0x061E8Eu, "sub_61E8E" },
-    { 0x061EAAu, "sub_61EAA" },
-    { 0x061EDCu, "sub_61EDC" },
-    { 0x061F42u, "sub_61F42" },
-    { 0x061FDCu, "sub_61FDC" },
-    { 0x062004u, "sub_62004" },
-    { 0x062024u, "sub_62024" },
-    { 0x062058u, "sub_62058" },
-    { 0x06208Eu, "sub_6208E" },
-    { 0x0620C0u, "sub_620C0" },
-    { 0x0620D4u, "sub_620D4" },
-    { 0x0620EEu, "sub_620EE" },
-    { 0x06211Cu, "sub_6211C" },
-    { 0x06213Cu, "sub_6213C" },
-    { 0x06213Eu, "sub_6213E" },
-    { 0x06215Cu, "sub_6215C" },
-    { 0x06217Cu, "sub_6217C" },
-    { 0x062196u, "sub_62196" },
-    { 0x0621BCu, "sub_621BC" },
-    { 0x06220Eu, "sub_6220E" },
-    { 0x062272u, "sub_62272" },
-    { 0x06229Cu, "sub_6229C" },
-    { 0x0622B6u, "sub_622B6" },
-    { 0x06237Eu, "sub_6237E" },
-    { 0x0623BAu, "sub_623BA" },
-    { 0x0623D0u, "sub_623D0" },
-    { 0x0623E8u, "sub_623E8" },
-    { 0x062406u, "sub_62406" },
-    { 0x062466u, "sub_62466" },
-    { 0x062496u, "sub_62496" },
-    { 0x0624AAu, "sub_624AA" },
-    { 0x0624B4u, "sub_624B4" },
-    { 0x0624ECu, "sub_624EC" },
-    { 0x062540u, "sub_62540" },
+    { 0x05E092u, "Jet580" },
+    { 0x05E174u, "Jet580Sparks" },
+    { 0x05E1ECu, "Grab584" },
+    { 0x05E27Au, "Shard588" },
+    { 0x05E342u, "Bomb604" },
+    { 0x05E368u, "Bomb604Step00" },
+    { 0x05E3D0u, "Bomb604Step04" },
+    { 0x05E41Eu, "Bomb604Step08" },
+    { 0x05E47Cu, "Bomb604Step0C" },
+    { 0x05E54Au, "Bomb604Step10" },
+    { 0x05E564u, "Bomb604Step14" },
+    { 0x05E58Eu, "Boss58C" },
+    { 0x05E5BAu, "Boss58CFlash" },
+    { 0x05E5F4u, "Boss58CThink" },
+    { 0x05E714u, "Boss58CStep00" },
+    { 0x05E7B4u, "Boss58CStep04" },
+    { 0x05E7FAu, "Boss58CStep48" },
+    { 0x05E834u, "Boss58CStep4C" },
+    { 0x05E85Au, "Boss58CStep50" },
+    { 0x05E8C2u, "Boss58CDebris" },
+    { 0x05E938u, "Boss58CStep54" },
+    { 0x05E9BAu, "Boss58CPuffs" },
+    { 0x05E9E8u, "Boss58CStep58" },
+    { 0x05EA28u, "Boss58CStep5C" },
+    { 0x05EA52u, "Boss58CStep08" },
+    { 0x05EB28u, "Boss58CStep0C" },
+    { 0x05EB42u, "Boss58CStep44" },
+    { 0x05EB7Au, "Boss58CStep10" },
+    { 0x05EBA8u, "Boss58CStep14" },
+    { 0x05EBEEu, "Boss58CStep18" },
+    { 0x05EC08u, "Boss58CStep20" },
+    { 0x05EC4Eu, "Boss58CStep24" },
+    { 0x05EC68u, "Boss58CStep28" },
+    { 0x05EC92u, "Boss58CStep2C" },
+    { 0x05ECDCu, "Boss58CStep30" },
+    { 0x05ED0Eu, "Boss58CStep34" },
+    { 0x05ED66u, "Boss58CStep38" },
+    { 0x05ED92u, "Boss58CStep3C" },
+    { 0x05EDA0u, "Boss58CStep40" },
+    { 0x05EF0Au, "Boss58CFace" },
+    { 0x05EF10u, "Boss58CNearest" },
+    { 0x05EF16u, "Hitbox590" },
+    { 0x05EF8Cu, "Part598" },
+    { 0x05F00Cu, "Part5A0" },
+    { 0x05F094u, "Part5A0Anim" },
+    { 0x05F14Eu, "Hand59C" },
+    { 0x05F170u, "Hand59CStep00" },
+    { 0x05F1A4u, "Hand59CStep04" },
+    { 0x05F23Au, "Hand59CStep08" },
+    { 0x05F2F6u, "Hand59CStep0C" },
+    { 0x05F312u, "Hand59CAnim" },
+    { 0x05F33Cu, "Hand59CLook" },
+    { 0x05F362u, "SpritePoint" },
+    { 0x05F388u, "SpritePointFind" },
+    { 0x05F3B4u, "Boss5B4" },
+    { 0x05F424u, "Boss5B4Think" },
+    { 0x05F5B6u, "Boss5B4Step00" },
+    { 0x05F66Au, "Boss5B4Step3E" },
+    { 0x05F6BAu, "Boss5B4Step40" },
+    { 0x05F6F4u, "Boss5B4Step42" },
+    { 0x05F712u, "Boss5B4Step44" },
+    { 0x05F728u, "Boss5B4Step46" },
+    { 0x05F754u, "Boss5B4Step48" },
+    { 0x05F76Eu, "Boss5B4Step4A" },
+    { 0x05F79Au, "Boss5B4Step4C" },
+    { 0x05F7BAu, "Boss5B4Step4E" },
+    { 0x05F7E6u, "Boss5B4Step50" },
+    { 0x05F820u, "Boss5B4Step52" },
+    { 0x05F866u, "Boss5B4Step54" },
+    { 0x05F88Eu, "Boss5B4Step56" },
+    { 0x05F8B0u, "Boss5B4Step58" },
+    { 0x05F926u, "Boss5B4Step5A" },
+    { 0x05F964u, "Boss5B4Step5C" },
+    { 0x05F9A0u, "Boss5B4Step5E" },
+    { 0x05F9E0u, "Boss5B4Step60" },
+    { 0x05FA20u, "Boss5B4Step62" },
+    { 0x05FA7Au, "Boss5B4Step64" },
+    { 0x05FAB8u, "Boss5B4Step66" },
+    { 0x05FB00u, "Boss5B4Shrink" },
+    { 0x05FB40u, "Boss5B4Step68" },
+    { 0x05FB92u, "Boss5B4Step6A" },
+    { 0x05FBD6u, "Boss5B4Step6C" },
+    { 0x05FC0Cu, "Boss5B4Glow" },
+    { 0x05FC1Eu, "Boss5B4Step6E" },
+    { 0x05FC20u, "Boss5B4Step02" },
+    { 0x05FCB0u, "Boss5B4Pick" },
+    { 0x05FDE6u, "Boss5B4Step1A" },
+    { 0x05FDF2u, "Boss5B4Step04" },
+    { 0x05FE1Cu, "Boss5B4Step06" },
+    { 0x05FED6u, "Boss5B4Step08" },
+    { 0x05FF4Au, "Boss5B4Step0A" },
+    { 0x05FF60u, "Boss5B4Step0C" },
+    { 0x05FF9Cu, "Boss5B4Step0E" },
+    { 0x05FFD8u, "Boss5B4Step10" },
+    { 0x060016u, "Boss5B4Step2E" },
+    { 0x060024u, "Boss5B4Step12" },
+    { 0x060096u, "Boss5B4Step3C" },
+    { 0x0600B6u, "Boss5B4Step14" },
+    { 0x0600DAu, "Boss5B4Step2A" },
+    { 0x0600DEu, "Boss5B4Step16" },
+    { 0x06010Cu, "Boss5B4Step18" },
+    { 0x060150u, "Boss5B4Step1C" },
+    { 0x0601C6u, "Boss5B4Step1E" },
+    { 0x0601FEu, "Boss5B4Step20" },
+    { 0x060238u, "Boss5B4Step22" },
+    { 0x060276u, "Boss5B4Step24" },
+    { 0x0602A0u, "Boss5B4Step28" },
+    { 0x06030Cu, "Boss5B4Step2C" },
+    { 0x060336u, "Boss5B4Step30" },
+    { 0x06038Eu, "Boss5B4Step32" },
+    { 0x06039Au, "Boss5B4Step34" },
+    { 0x0603DAu, "Boss5B4Step36" },
+    { 0x060400u, "Boss5B4Step3A" },
+    { 0x060564u, "Boss5B4Beaten" },
+    { 0x060614u, "Boss5B4Stop" },
+    { 0x06061Cu, "Boss5B4Show" },
+    { 0x060704u, "Boss5B4Face" },
+    { 0x06070Au, "Boss5B4Nearest" },
+    { 0x060710u, "Boss5B4Cycle" },
+    { 0x060724u, "Boss5B4Fill" },
+    { 0x06075Cu, "Boss5B4ClearLines" },
+    { 0x06076Eu, "Boss5B4Waves" },
+    { 0x0607AEu, "Boss5B4Ripple" },
+    { 0x060818u, "Boss5B4Mark" },
+    { 0x060856u, "Boss5B4Chunk" },
+    { 0x06088Cu, "Boss5B4Smoke" },
+    { 0x060910u, "Orb5D4" },
+    { 0x06095Eu, "Orb5D4Think" },
+    { 0x060A56u, "Orb5D4Step00" },
+    { 0x060D86u, "Orb5D4Seek" },
+    { 0x060E0Eu, "Orb5D4Step02" },
+    { 0x060E3Cu, "Orb5D4Step04" },
+    { 0x060E64u, "Orb5D4Step06" },
+    { 0x060EB4u, "Orb5D4Step08" },
+    { 0x060EE6u, "Orb5D4Step0A" },
+    { 0x060F76u, "Orb5D4Step0C" },
+    { 0x06102Cu, "Orb5D4Step0E" },
+    { 0x06104Cu, "Orb5D4Step10" },
+    { 0x06107Cu, "Orb5D4Step12" },
+    { 0x061086u, "Orb5D4Step14" },
+    { 0x061108u, "Chain5E8" },
+    { 0x061262u, "Drop5EC" },
+    { 0x0612B2u, "Homer5F0" },
+    { 0x0613C2u, "Trail5F4" },
+    { 0x061408u, "Shot5F8" },
+    { 0x06145Eu, "Bounce5DC" },
+    { 0x0614AEu, "Burst5E0" },
+    { 0x06155Eu, "Wave5E4" },
+    { 0x06157Au, "Wave5E4Step00" },
+    { 0x06159Eu, "Wave5E4Step02" },
+    { 0x061620u, "Wave5E4Step04" },
+    { 0x06168Cu, "Fall5FC" },
+    { 0x0616AAu, "Fall5FCStep00" },
+    { 0x0616E0u, "Fall5FCStep02" },
+    { 0x061706u, "Fall5FCStep04" },
+    { 0x06174Cu, "Fall5FCBurst" },
+    { 0x0617BAu, "Orb5D4Puff" },
+    { 0x061806u, "Boss5B4Fire" },
+    { 0x06185Eu, "Boss5B4Sparks" },
+    { 0x0618F0u, "Boss5B4Shots" },
+    { 0x0619DAu, "Boss5B4Trail2" },
+    { 0x0619E4u, "Boss5B4Trail1" },
+    { 0x061A5Au, "Boss5B4Beams" },
+    { 0x061A66u, "Boss5B4Beam" },
+    { 0x061AB2u, "Boss5B4Orbs" },
+    { 0x061B9Au, "Boss5B4Rumble" },
+    { 0x061BB0u, "Boss5B4Dust" },
+    { 0x061C0Eu, "Boss5B4Posts" },
+    { 0x061C26u, "Boss5B4Post" },
+    { 0x061CE6u, "Orb5D4Home" },
+    { 0x061D00u, "Orb5D4Blink" },
+    { 0x061D32u, "Scene614" },
+    { 0x061D7Au, "Scene614Step00" },
+    { 0x061E8Eu, "Scene614Step02" },
+    { 0x061EAAu, "Scene614Step04" },
+    { 0x061EDCu, "Scene614Step06" },
+    { 0x061F42u, "Scene614Step08" },
+    { 0x061FDCu, "Scene614Step0A" },
+    { 0x062004u, "Scene614Step0C" },
+    { 0x062024u, "Scene614Step0E" },
+    { 0x062058u, "Scene614Step10" },
+    { 0x06208Eu, "Scene614Step12" },
+    { 0x0620C0u, "Scene614Step14" },
+    { 0x0620D4u, "Scene614Step16" },
+    { 0x0620EEu, "Scene614Step18" },
+    { 0x06211Cu, "Scene614Step1A" },
+    { 0x06213Cu, "Scene614Step1C" },
+    { 0x06213Eu, "Scene614Step1E" },
+    { 0x06215Cu, "Scene614Step20" },
+    { 0x06217Cu, "Scene614Step22" },
+    { 0x062196u, "Scene614Step24" },
+    { 0x0621BCu, "Scene614Step26" },
+    { 0x06220Eu, "Scene614Step28" },
+    { 0x062272u, "Scene614Step2A" },
+    { 0x06229Cu, "Scene614Step2C" },
+    { 0x0622B6u, "Scene614Step2E" },
+    { 0x06237Eu, "Actor618" },
+    { 0x0623BAu, "Actor618Step00" },
+    { 0x0623D0u, "Actor618Step04" },
+    { 0x0623E8u, "Actor618Step08" },
+    { 0x062406u, "Actor618Step0C" },
+    { 0x062466u, "Actor618Step10" },
+    { 0x062496u, "Actor618Step14" },
+    { 0x0624AAu, "Actor618Step18" },
+    { 0x0624B4u, "Actor618Step1C" },
+    { 0x0624ECu, "Actor618Step20" },
+    { 0x062540u, "Actor618Look" },
     { 0x062892u, "Mode48" },
     { 0x0628BCu, "Mode48Init" },
     { 0x062902u, "Mode48Approach" },

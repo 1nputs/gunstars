@@ -3317,6 +3317,216 @@ void CaptainS00(uint16_t obj);                                       /* $02D736 
 void CaptainFrame(uint16_t obj);                                     /* $02D470 a5 */
 void Captain(uint16_t obj);                                          /* $02D40E a5 */
 
+/* ---- types $5E092-$6237E (objects5e.c) ---- */
+void Jet580Sparks(uint16_t obj);                                     /* $05E174 a5 */
+void Jet580(uint16_t obj);                                           /* $05E092 a5 */
+void Grab584(uint16_t obj);                                          /* $05E1EC a5 */
+void Shard588(uint16_t obj);                                         /* $05E27A a5 */
+void Bomb604(uint16_t obj);                                          /* $05E342 a5 */
+void Bomb604Step00(uint16_t obj);                                    /* $05E368 a5 */
+void Bomb604Step04(uint16_t obj);                                    /* $05E3D0 a5 */
+void Bomb604Step08(uint16_t obj);                                    /* $05E41E a5 */
+void Bomb604Step0C(uint16_t obj);                                    /* $05E47C a5 */
+void Bomb604Step10(uint16_t obj);                                    /* $05E54A a5 */
+void Bomb604Step14(uint16_t obj);                                    /* $05E564 a5 */
+void Boss58CFace(uint16_t obj);                                      /* $05EF0A a5 */
+uint16_t Boss58CNearest(uint16_t obj);                               /* $05EF10 a5 -> d0.w */
+void Boss58CFlash(uint16_t obj);                                     /* $05E5BA a5 */
+void Boss58CThink(uint16_t obj);                                     /* $05E5F4 a5 */
+void Boss58C(uint16_t obj);                                          /* $05E58E a5 */
+void Boss58CStep00(uint16_t obj);                                    /* $05E714 a5 */
+void Boss58CStep04(uint16_t obj);                                    /* $05E7B4 a5 */
+void Boss58CStep48(uint16_t obj);                                    /* $05E7FA a5 */
+void Boss58CStep4C(uint16_t obj);                                    /* $05E834 a5 */
+void Boss58CDebris(uint16_t obj);                                    /* $05E8C2 a5 */
+void Boss58CStep50(uint16_t obj);                                    /* $05E85A a5 */
+void Boss58CPuffs(uint32_t d4, uint16_t d5, uint16_t d6, uint16_t d7); /* $05E9BA d4, d5.w, d6.w, d7.w */
+void Boss58CStep54(uint16_t obj);                                    /* $05E938 a5 */
+void Boss58CStep58(uint16_t obj);                                    /* $05E9E8 a5 */
+void Boss58CStep5C(uint16_t obj);                                    /* $05EA28 a5 */
+void Boss58CStep08(uint16_t obj);                                    /* $05EA52 a5 */
+void Boss58CStep0C(uint16_t obj);                                    /* $05EB28 a5 */
+void Boss58CStep44(uint16_t obj);                                    /* $05EB42 a5 */
+void Boss58CStep10(uint16_t obj);                                    /* $05EB7A a5 */
+void Boss58CStep14(uint16_t obj);                                    /* $05EBA8 a5 */
+void Boss58CStep18(uint16_t obj);                                    /* $05EBEE a5 */
+void Boss58CStep20(uint16_t obj);                                    /* $05EC08 a5 */
+void Boss58CStep24(uint16_t obj);                                    /* $05EC4E a5 */
+void Boss58CStep28(uint16_t obj);                                    /* $05EC68 a5 */
+void Boss58CStep2C(uint16_t obj);                                    /* $05EC92 a5 */
+void Boss58CStep30(uint16_t obj);                                    /* $05ECDC a5 */
+void Boss58CStep34(uint16_t obj);                                    /* $05ED0E a5 */
+void Boss58CStep38(uint16_t obj);                                    /* $05ED66 a5 */
+void Boss58CStep3C(uint16_t obj);                                    /* $05ED92 a5 */
+void Boss58CStep40(uint16_t obj);                                    /* $05EDA0 a5 */
+uint32_t SpritePointFind(uint16_t at, uint16_t key);                 /* $05F388 a0, d1.w -> a1 */
+uint16_t SpritePoint(uint16_t at, uint16_t *key);                    /* $05F362 a0 -> d0.w, d1.w */
+void Hitbox590(uint16_t obj);                                        /* $05EF16 a5 */
+void Part598(uint16_t obj);                                          /* $05EF8C a5 */
+void Part5A0Anim(uint16_t obj);                                      /* $05F094 a5 */
+void Part5A0(uint16_t obj);                                          /* $05F00C a5 */
+void Hand59C(uint16_t obj);                                          /* $05F14E a5 */
+void Hand59CLook(uint16_t obj, uint32_t at);                         /* $05F33C a5, a0 */
+void Hand59CAnim(uint16_t obj);                                      /* $05F312 a5 */
+void Hand59CStep00(uint16_t obj);                                    /* $05F170 a5 */
+void Hand59CStep04(uint16_t obj);                                    /* $05F1A4 a5 */
+void Hand59CStep08(uint16_t obj);                                    /* $05F23A a5 */
+void Hand59CStep0C(uint16_t obj);                                    /* $05F2F6 a5 */
+void Boss5B4Face(uint16_t obj);                                      /* $060704 a5 */
+uint16_t Boss5B4Nearest(uint16_t obj, uint16_t *dy);                 /* $06070A a5 -> d0.w, d5.w */
+void Boss5B4Show(uint16_t obj);                                      /* $06061C a5 */
+void Boss5B4Stop(uint16_t obj);                                      /* $060614 a5 */
+void Boss5B4Beaten(uint16_t obj);                                    /* $060564 a5 */
+void Boss5B4Pick(void);                                              /* $05FCB0 */
+void Boss5B4Think(uint16_t obj);                                     /* $05F424 a5 -> a6=reg_a6 */
+void Boss5B4(uint16_t obj);                                          /* $05F3B4 a5 -> a6=reg_a6 */
+void Boss5B4Step00(uint16_t obj);                                    /* $05F5B6 a5 */
+void Boss5B4Step3E(uint16_t obj);                                    /* $05F66A a5 */
+void Boss5B4Step40(uint16_t obj);                                    /* $05F6BA a5 */
+void Boss5B4Step42(uint16_t obj);                                    /* $05F6F4 a5 */
+void Boss5B4Step44(uint16_t obj);                                    /* $05F712 a5 */
+void Boss5B4Step46(uint16_t obj);                                    /* $05F728 a5 */
+void Boss5B4Step48(uint16_t obj);                                    /* $05F754 a5 */
+void Boss5B4Step4A(uint16_t obj);                                    /* $05F76E a5 */
+void Boss5B4Step4C(uint16_t obj);                                    /* $05F79A a5 */
+void Boss5B4Step4E(uint16_t obj);                                    /* $05F7BA a5 */
+void Boss5B4Chunk(uint16_t d1, uint32_t *at);                        /* $060856 d1.w -> a0 */
+void Boss5B4Step50(uint16_t obj);                                    /* $05F7E6 a5 */
+void Boss5B4Step52(uint16_t obj);                                    /* $05F820 a5 */
+void Boss5B4Step54(uint16_t obj);                                    /* $05F866 a5 */
+void Boss5B4Step56(uint16_t obj);                                    /* $05F88E a5 */
+void Boss5B4Step58(uint16_t obj);                                    /* $05F8B0 a5 */
+void Boss5B4Step5A(uint16_t obj);                                    /* $05F926 a5 */
+void Boss5B4Step5C(uint16_t obj);                                    /* $05F964 a5 */
+void Boss5B4Step5E(uint16_t obj);                                    /* $05F9A0 a5 */
+void Boss5B4Step60(uint16_t obj);                                    /* $05F9E0 a5 */
+void Boss5B4Step62(uint16_t obj);                                    /* $05FA20 a5 */
+void Boss5B4Step64(uint16_t obj);                                    /* $05FA7A a5 */
+void Boss5B4Shrink(void);                                            /* $05FB00 -> a6=reg_a6 */
+void Boss5B4Step66(uint16_t obj);                                    /* $05FAB8 a5 -> a6=reg_a6 */
+void Boss5B4Glow(uint16_t obj);                                      /* $05FC0C a5 */
+void Boss5B4Step68(uint16_t obj);                                    /* $05FB40 a5 */
+void Boss5B4Step6A(uint16_t obj);                                    /* $05FB92 a5 */
+void Boss5B4Step6C(uint16_t obj);                                    /* $05FBD6 a5 */
+void Boss5B4Step6E(uint16_t obj);                                    /* $05FC1E a5 */
+void Boss5B4Step02(uint16_t obj);                                    /* $05FC20 a5 */
+void Boss5B4Step1A(uint16_t obj);                                    /* $05FDE6 a5 */
+void Boss5B4Step04(uint16_t obj);                                    /* $05FDF2 a5 */
+void Boss5B4Step06(uint16_t obj);                                    /* $05FE1C a5 */
+void Boss5B4Step08(uint16_t obj);                                    /* $05FED6 a5 */
+void Boss5B4Step0A(uint16_t obj);                                    /* $05FF4A a5 */
+void Boss5B4Step0C(uint16_t obj);                                    /* $05FF60 a5 */
+void Boss5B4Step0E(uint16_t obj);                                    /* $05FF9C a5 */
+void Boss5B4Step10(uint16_t obj);                                    /* $05FFD8 a5 */
+void Boss5B4Step12(uint16_t obj);                                    /* $060024 a5 */
+void Boss5B4Step2E(uint16_t obj);                                    /* $060016 a5 */
+void Boss5B4Step3C(uint16_t obj);                                    /* $060096 a5 */
+void Boss5B4Step14(uint16_t obj);                                    /* $0600B6 a5 */
+void Boss5B4Step16(uint16_t obj);                                    /* $0600DE a5 */
+void Boss5B4Step2A(uint16_t obj);                                    /* $0600DA a5 */
+void Boss5B4Step18(uint16_t obj);                                    /* $06010C a5 */
+void Boss5B4Step1C(uint16_t obj);                                    /* $060150 a5 */
+void Boss5B4Step1E(uint16_t obj);                                    /* $0601C6 a5 */
+void Boss5B4Step20(uint16_t obj);                                    /* $0601FE a5 */
+void Boss5B4Step22(uint16_t obj);                                    /* $060238 a5 */
+void Boss5B4Step24(uint16_t obj);                                    /* $060276 a5 */
+void Boss5B4Step28(uint16_t obj);                                    /* $0602A0 a5 */
+void Boss5B4Step2C(uint16_t obj);                                    /* $06030C a5 */
+void Boss5B4Step30(uint16_t obj);                                    /* $060336 a5 */
+void Boss5B4Step32(uint16_t obj);                                    /* $06038E a5 */
+void Boss5B4Step34(uint16_t obj);                                    /* $06039A a5 */
+void Boss5B4Step36(uint16_t obj);                                    /* $0603DA a5 */
+void Boss5B4Step3A(uint16_t obj);                                    /* $060400 a5 */
+void Boss5B4Cycle(void);                                             /* $060710 */
+void Boss5B4Fill(uint16_t obj);                                      /* $060724 a5 */
+void Boss5B4ClearLines(void);                                        /* $06075C */
+void Boss5B4Waves(void);                                             /* $06076E */
+void Boss5B4Ripple(uint16_t obj);                                    /* $0607AE a5 */
+void Boss5B4Mark(void);                                              /* $060818 */
+void Boss5B4Smoke(uint16_t obj);                                     /* $06088C a5 */
+void Boss5B4Fire(uint16_t obj);                                      /* $061806 a5 */
+void Boss5B4Sparks(uint16_t obj);                                    /* $06185E a5 */
+void Boss5B4Shots(uint16_t obj);                                     /* $0618F0 a5 */
+void Boss5B4Trail2(uint16_t obj);                                    /* $0619DA a5 */
+void Boss5B4Trail1(uint16_t obj);                                    /* $0619E4 a5 */
+void Boss5B4Beam(uint16_t obj, uint16_t d1, uint16_t *d2);           /* $061A66 a5, d1.w -> d2.w */
+void Boss5B4Beams(uint16_t obj);                                     /* $061A5A a5 */
+void Boss5B4Orbs(uint16_t obj);                                      /* $061AB2 a5 */
+void Boss5B4Dust(uint16_t obj);                                      /* $061BB0 a5 */
+void Boss5B4Rumble(uint16_t obj);                                    /* $061B9A a5 */
+void Boss5B4Post(uint16_t at);                                       /* $061C26 a0 */
+void Boss5B4Posts(void);                                             /* $061C0E */
+void Orb5D4Home(uint16_t obj);                                       /* $061CE6 a5 */
+void Orb5D4Blink(uint16_t obj);                                      /* $061D00 a5 */
+void Orb5D4Seek(uint16_t obj, uint16_t d1, uint16_t d2);             /* $060D86 a5, d1.w, d2.w */
+void Orb5D4Puff(uint16_t obj);                                       /* $0617BA a5 */
+void Orb5D4Think(uint16_t obj);                                      /* $06095E a5 */
+void Orb5D4(uint16_t obj);                                           /* $060910 a5 */
+void Orb5D4Step00(uint16_t obj);                                     /* $060A56 a5 */
+void Orb5D4Step02(uint16_t obj);                                     /* $060E0E a5 */
+void Orb5D4Step04(uint16_t obj);                                     /* $060E3C a5 */
+void Orb5D4Step06(uint16_t obj);                                     /* $060E64 a5 */
+void Orb5D4Step08(uint16_t obj);                                     /* $060EB4 a5 */
+void Orb5D4Step0A(uint16_t obj);                                     /* $060EE6 a5 */
+void Orb5D4Step0C(uint16_t obj);                                     /* $060F76 a5 */
+void Orb5D4Step0E(uint16_t obj);                                     /* $06102C a5 */
+void Orb5D4Step10(uint16_t obj);                                     /* $06104C a5 */
+void Orb5D4Step12(uint16_t obj);                                     /* $06107C a5 */
+void Orb5D4Step14(uint16_t obj);                                     /* $061086 a5 */
+void Chain5E8(uint16_t obj);                                         /* $061108 a5 */
+void Drop5EC(uint16_t obj);                                          /* $061262 a5 */
+void Homer5F0(uint16_t obj);                                         /* $0612B2 a5 */
+void Trail5F4(uint16_t obj);                                         /* $0613C2 a5 */
+void Shot5F8(uint16_t obj);                                          /* $061408 a5 */
+void Bounce5DC(uint16_t obj);                                        /* $06145E a5 */
+void Burst5E0(uint16_t obj);                                         /* $0614AE a5 */
+void Wave5E4(uint16_t obj);                                          /* $06155E a5 */
+void Wave5E4Step00(uint16_t obj);                                    /* $06157A a5 */
+void Wave5E4Step02(uint16_t obj);                                    /* $06159E a5 */
+void Wave5E4Step04(uint16_t obj);                                    /* $061620 a5 */
+void Fall5FC(uint16_t obj);                                          /* $06168C a5 */
+void Fall5FCStep00(uint16_t obj);                                    /* $0616AA a5 */
+void Fall5FCStep02(uint16_t obj);                                    /* $0616E0 a5 */
+void Fall5FCBurst(uint16_t obj, uint16_t d4, uint16_t d5, uint16_t d6, uint16_t d7); /* $06174C a5, d4.w, d5.w, d6.w, d7.w */
+void Fall5FCStep04(uint16_t obj);                                    /* $061706 a5 */
+void Scene614(uint16_t obj);                                         /* $061D32 a5 */
+void Scene614Step00(uint16_t obj);                                   /* $061D7A a5 */
+void Scene614Step02(uint16_t obj);                                   /* $061E8E a5 */
+void Scene614Step04(uint16_t obj);                                   /* $061EAA a5 */
+void Scene614Step06(uint16_t obj);                                   /* $061EDC a5 */
+void Scene614Step08(uint16_t obj);                                   /* $061F42 a5 */
+void Scene614Step0A(uint16_t obj);                                   /* $061FDC a5 */
+void Scene614Step0C(uint16_t obj);                                   /* $062004 a5 */
+void Scene614Step0E(uint16_t obj);                                   /* $062024 a5 */
+void Scene614Step10(uint16_t obj);                                   /* $062058 a5 */
+void Scene614Step12(uint16_t obj);                                   /* $06208E a5 */
+void Scene614Step14(uint16_t obj);                                   /* $0620C0 a5 */
+void Scene614Step16(uint16_t obj);                                   /* $0620D4 a5 */
+void Scene614Step18(uint16_t obj);                                   /* $0620EE a5 */
+void Scene614Step1A(uint16_t obj);                                   /* $06211C a5 */
+void Scene614Step1C(uint16_t obj);                                   /* $06213C a5 */
+void Scene614Step1E(uint16_t obj);                                   /* $06213E a5 */
+void Scene614Step20(uint16_t obj);                                   /* $06215C a5 */
+void Scene614Step22(uint16_t obj);                                   /* $06217C a5 */
+void Scene614Step24(uint16_t obj);                                   /* $062196 a5 */
+void Scene614Step26(uint16_t obj);                                   /* $0621BC a5 */
+void Scene614Step28(uint16_t obj);                                   /* $06220E a5 */
+void Scene614Step2A(uint16_t obj);                                   /* $062272 a5 */
+void Scene614Step2C(uint16_t obj);                                   /* $06229C a5 */
+void Scene614Step2E(uint16_t obj);                                   /* $0622B6 a5 */
+void Actor618Look(uint16_t obj);                                     /* $062540 a5 */
+void Actor618(uint16_t obj);                                         /* $06237E a5 */
+void Actor618Step00(uint16_t obj);                                   /* $0623BA a5 */
+void Actor618Step04(uint16_t obj);                                   /* $0623D0 a5 */
+void Actor618Step08(uint16_t obj);                                   /* $0623E8 a5 */
+void Actor618Step0C(uint16_t obj);                                   /* $062406 a5 */
+void Actor618Step10(uint16_t obj);                                   /* $062466 a5 */
+void Actor618Step14(uint16_t obj);                                   /* $062496 a5 */
+void Actor618Step18(uint16_t obj);                                   /* $0624AA a5 */
+void Actor618Step1C(uint16_t obj);                                   /* $0624B4 a5 */
+void Actor618Step20(uint16_t obj);                                   /* $0624EC a5 */
+void FaceNearest(uint16_t obj);                                      /* $05D0D8 a5 */
+
 /* ---- not ported yet ---- */
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */
