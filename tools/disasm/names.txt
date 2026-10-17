@@ -716,3 +716,26 @@ FFA010 v_shakeSprites        # the shake's frames left: the sprites' (v_cameraY)
 FFA014 v_shakePlane
 FFA016 v_planeShake
 FFF758 v_drawPtr             # the draw list's end as it fills
+# ---- the objects' collisions (src/collide.c) [the engine frame]
+00B188 Collisions
+00B1A6 CollisionLists
+00B250 CollisionListsDrawn
+00B260 CollisionAdd
+00B3F8 CollideHurt
+00B532 CollideTouch
+00B60E CollideGrab
+00B764 SolidBox
+00B76C SolidBoxHurt
+00B770 SolidBoxPlayer
+00B78C SolidPush
+00B798 SolidPushBox
+00B79C SolidPushPlayer
+012574 PlayerOnSolid
+0125E2 SolidNone
+0125E4 SolidGround
+0125F0 SolidAir
+01261A SolidAirNoGrab
+01262A SolidHanging
+01263C SolidSides
+012710 SolidTop
+FFA202 v_noSolids            # not 0: the players stand on no solid object

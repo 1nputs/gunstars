@@ -669,6 +669,29 @@ void PlayerMoveLimited(uint16_t obj, uint8_t f);                     /* $01F862 
 void PlayerMoveWithFloor(uint16_t obj, uint8_t f, uint16_t dx, uint16_t dy);/* $01F8C0 a5, d2.b, d0.w, d1.w */
 void ScreenShake(void);                                              /* $01F914 */
 
+/* ---- the objects' collisions (collide.c) ---- */
+void Collisions(void);                                               /* $00B188 */
+void CollisionLists(void);                                           /* $00B1A6 */
+void CollisionListsDrawn(uint16_t ends[8]);                          /* $00B250 manual */
+void CollisionAdd(uint16_t obj, uint16_t ends[8]);                   /* $00B260 manual */
+void CollideHurt(void);                                              /* $00B3F8 */
+void CollideTouch(void);                                             /* $00B532 */
+void CollideGrab(void);                                              /* $00B60E */
+void SolidBox(uint16_t obj, uint16_t *top, uint16_t *bottom, uint16_t *left, uint16_t *right);/* $00B764 a5 -> d0.w, d1.w, d2.w, d3.w */
+void SolidBoxHurt(uint16_t obj, uint16_t *top, uint16_t *bottom, uint16_t *left, uint16_t *right);/* $00B76C a5 -> d0.w, d1.w, d2.w, d3.w */
+void SolidBoxPlayer(uint16_t obj, uint16_t *top, uint16_t *bottom, uint16_t *left, uint16_t *right);/* $00B770 a5 -> d0.w, d1.w, d2.w, d3.w */
+void SolidPush(uint16_t obj, uint16_t solid);                        /* $00B78C a5, a4 */
+void SolidPushBox(uint16_t obj, uint16_t solid);                     /* $00B798 a5, a4 */
+void SolidPushPlayer(uint16_t obj, uint16_t solid);                  /* $00B79C a5, a4 */
+void PlayerOnSolid(uint16_t obj, uint16_t solid);                    /* $012574 a5, a4 */
+void SolidNone(uint16_t obj, uint16_t solid);                        /* $0125E2 a5, a4 */
+void SolidGround(uint16_t obj, uint16_t solid);                      /* $0125E4 a5, a4 */
+void SolidAir(uint16_t obj, uint16_t solid);                         /* $0125F0 a5, a4 */
+void SolidAirNoGrab(uint16_t obj, uint16_t solid);                   /* $01261A a5, a4 */
+void SolidHanging(uint16_t obj, uint16_t solid);                     /* $01262A a5, a4 */
+void SolidSides(uint16_t obj, uint16_t solid);                       /* $01263C a5, a4 */
+void SolidTop(uint16_t obj, uint16_t solid);                         /* $012710 a5, a4 */
+
 /* ---- the level's collision (map.c) ---- */
 uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
 uint16_t MapBoundsY(uint16_t x, uint16_t *y);                       /* $00C31C d0.w -> d2.w, d1.w */

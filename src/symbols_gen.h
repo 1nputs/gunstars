@@ -492,19 +492,19 @@
 #define SYM_sub_0AF94 0x00AF94u
 #define SYM_sub_0B0EE 0x00B0EEu
 #define SYM_sub_0B0FE 0x00B0FEu
-#define SYM_sub_0B188 0x00B188u
-#define SYM_sub_0B1A6 0x00B1A6u
-#define SYM_sub_0B250 0x00B250u
-#define SYM_sub_0B260 0x00B260u
-#define SYM_sub_0B3F8 0x00B3F8u
-#define SYM_sub_0B532 0x00B532u
-#define SYM_sub_0B60E 0x00B60Eu
-#define SYM_sub_0B764 0x00B764u
-#define SYM_sub_0B76C 0x00B76Cu
-#define SYM_sub_0B770 0x00B770u
-#define SYM_sub_0B78C 0x00B78Cu
-#define SYM_sub_0B798 0x00B798u
-#define SYM_sub_0B79C 0x00B79Cu
+#define SYM_Collisions 0x00B188u
+#define SYM_CollisionLists 0x00B1A6u
+#define SYM_CollisionListsDrawn 0x00B250u
+#define SYM_CollisionAdd 0x00B260u
+#define SYM_CollideHurt 0x00B3F8u
+#define SYM_CollideTouch 0x00B532u
+#define SYM_CollideGrab 0x00B60Eu
+#define SYM_SolidBox 0x00B764u
+#define SYM_SolidBoxHurt 0x00B76Cu
+#define SYM_SolidBoxPlayer 0x00B770u
+#define SYM_SolidPush 0x00B78Cu
+#define SYM_SolidPushBox 0x00B798u
+#define SYM_SolidPushPlayer 0x00B79Cu
 #define SYM_MapAttr 0x00B94Au
 #define SYM_MapAttribute 0x00B95Au
 #define SYM_MapAttrHigh 0x00BA4Cu
@@ -708,14 +708,14 @@
 #define SYM_PlayerFloor3 0x0123BCu
 #define SYM_PlayerFloor2 0x01241Au
 #define SYM_PlayerFloor1 0x012464u
-#define SYM_sub_12574 0x012574u
-#define SYM_sub_125E2 0x0125E2u
-#define SYM_sub_125E4 0x0125E4u
-#define SYM_sub_125F0 0x0125F0u
-#define SYM_sub_1261A 0x01261Au
-#define SYM_sub_1262A 0x01262Au
-#define SYM_sub_1263C 0x01263Cu
-#define SYM_sub_12710 0x012710u
+#define SYM_PlayerOnSolid 0x012574u
+#define SYM_SolidNone 0x0125E2u
+#define SYM_SolidGround 0x0125E4u
+#define SYM_SolidAir 0x0125F0u
+#define SYM_SolidAirNoGrab 0x01261Au
+#define SYM_SolidHanging 0x01262Au
+#define SYM_SolidSides 0x01263Cu
+#define SYM_SolidTop 0x012710u
 #define SYM_PlayerAttackDir 0x012922u
 #define SYM_PlayerSlideDust 0x012970u
 #define SYM_PlayerSlopeDust 0x01299Au
@@ -3257,6 +3257,7 @@ enum {
     v_sceneSignal = 0xA028,
     v_sceneDone = 0xA02A,
     v_players = 0xA200,
+    v_noSolids = 0xA202,
     v_stage4 = 0xA204,
     v_stagesCleared = 0xA208,
     v_difficulty = 0xA20A,
@@ -3822,19 +3823,19 @@ static const struct sym rom_syms[] = {
     { 0x00AF94u, "sub_0AF94" },
     { 0x00B0EEu, "sub_0B0EE" },
     { 0x00B0FEu, "sub_0B0FE" },
-    { 0x00B188u, "sub_0B188" },
-    { 0x00B1A6u, "sub_0B1A6" },
-    { 0x00B250u, "sub_0B250" },
-    { 0x00B260u, "sub_0B260" },
-    { 0x00B3F8u, "sub_0B3F8" },
-    { 0x00B532u, "sub_0B532" },
-    { 0x00B60Eu, "sub_0B60E" },
-    { 0x00B764u, "sub_0B764" },
-    { 0x00B76Cu, "sub_0B76C" },
-    { 0x00B770u, "sub_0B770" },
-    { 0x00B78Cu, "sub_0B78C" },
-    { 0x00B798u, "sub_0B798" },
-    { 0x00B79Cu, "sub_0B79C" },
+    { 0x00B188u, "Collisions" },
+    { 0x00B1A6u, "CollisionLists" },
+    { 0x00B250u, "CollisionListsDrawn" },
+    { 0x00B260u, "CollisionAdd" },
+    { 0x00B3F8u, "CollideHurt" },
+    { 0x00B532u, "CollideTouch" },
+    { 0x00B60Eu, "CollideGrab" },
+    { 0x00B764u, "SolidBox" },
+    { 0x00B76Cu, "SolidBoxHurt" },
+    { 0x00B770u, "SolidBoxPlayer" },
+    { 0x00B78Cu, "SolidPush" },
+    { 0x00B798u, "SolidPushBox" },
+    { 0x00B79Cu, "SolidPushPlayer" },
     { 0x00B94Au, "MapAttr" },
     { 0x00B95Au, "MapAttribute" },
     { 0x00BA4Cu, "MapAttrHigh" },
@@ -4038,14 +4039,14 @@ static const struct sym rom_syms[] = {
     { 0x0123BCu, "PlayerFloor3" },
     { 0x01241Au, "PlayerFloor2" },
     { 0x012464u, "PlayerFloor1" },
-    { 0x012574u, "sub_12574" },
-    { 0x0125E2u, "sub_125E2" },
-    { 0x0125E4u, "sub_125E4" },
-    { 0x0125F0u, "sub_125F0" },
-    { 0x01261Au, "sub_1261A" },
-    { 0x01262Au, "sub_1262A" },
-    { 0x01263Cu, "sub_1263C" },
-    { 0x012710u, "sub_12710" },
+    { 0x012574u, "PlayerOnSolid" },
+    { 0x0125E2u, "SolidNone" },
+    { 0x0125E4u, "SolidGround" },
+    { 0x0125F0u, "SolidAir" },
+    { 0x01261Au, "SolidAirNoGrab" },
+    { 0x01262Au, "SolidHanging" },
+    { 0x01263Cu, "SolidSides" },
+    { 0x012710u, "SolidTop" },
     { 0x012922u, "PlayerAttackDir" },
     { 0x012970u, "PlayerSlideDust" },
     { 0x01299Au, "PlayerSlopeDust" },
@@ -6586,6 +6587,7 @@ static const struct sym ram_syms[] = {
     { 0xA028u, "v_sceneSignal" },
     { 0xA02Au, "v_sceneDone" },
     { 0xA200u, "v_players" },
+    { 0xA202u, "v_noSolids" },
     { 0xA204u, "v_stage4" },
     { 0xA208u, "v_stagesCleared" },
     { 0xA20Au, "v_difficulty" },

@@ -56,8 +56,8 @@ def params(text):
     out = []
     for p in text.split(','):
         p = re.sub(r'/\*.*?\*/', '', p).strip()
-        m = re.fullmatch(r'(.*?)([A-Za-z_]\w*)', p)
-        out.append((m.group(1).strip(), m.group(2)))
+        m = re.fullmatch(r'(.*?)([A-Za-z_]\w*)(\[\d*\])?', p)
+        out.append((m.group(1).strip() + ('*' if m.group(3) else ''), m.group(2)))   # an array: a pointer
     return out
 
 
