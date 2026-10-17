@@ -4349,6 +4349,243 @@ void RammerBurst(uint16_t obj);                                      /* $03D17A 
 void StomperHeart(uint16_t obj);                                     /* $03D1FC a5 */
 void SevenPoseBob(uint16_t obj, uint32_t pose, uint16_t frames);     /* $04DA2A a5, a0, d3.w */
 
+/* ---- unreached types $4050E-$4E4F0 (objects41.c) ---- */
+void SoundBEEvery8(void);                                            /* $02A27A */
+void Turret2C8Start(uint16_t obj);                                   /* $04054A a5 */
+void Turret2C8Fire(uint16_t obj);                                    /* $040586 a5 */
+void Turret2C8(uint16_t obj);                                        /* $04050E a5 */
+void DiceSerpentStart(uint16_t obj);                                 /* $0423EA a5 */
+void DiceSerpentSines(uint16_t obj);                                 /* $0424D6 a5 */
+void DiceSerpentRoam(uint16_t obj);                                  /* $0424F2 a5 */
+void DiceSerpentTurn(uint16_t obj);                                  /* $04250E a5 */
+void DiceSerpentRush(uint16_t obj);                                  /* $042528 a5 */
+void DiceSerpentFall(uint16_t obj);                                  /* $04255C a5 */
+void DiceSerpentRise(uint16_t obj);                                  /* $0425DC a5 */
+void DiceSerpentCharge(uint16_t obj);                                /* $04261E a5 */
+void DiceSerpentBreak(uint16_t obj);                                 /* $042686 a5 */
+void DiceSerpent(uint16_t obj);                                      /* $042358 a5 */
+void DiceCageStart(uint16_t obj);                                    /* $042A5C a5 */
+void DiceCageWait(uint16_t obj);                                     /* $042B2A a5 */
+void DiceCagePlay(uint16_t obj);                                     /* $042B40 a5 */
+void DiceCageBurstOuter(uint16_t obj);                               /* $042B50 a5 */
+void DiceCageBurstInner(uint16_t obj);                               /* $042B80 a5 */
+void DiceCageBurst(uint16_t obj);                                    /* $042BB0 a5 */
+void DiceCageEnd(uint16_t obj);                                      /* $042BEC a5 */
+void DiceCage(uint16_t obj);                                         /* $0429F8 a5 */
+void CageBallStart(uint16_t obj);                                    /* $042C98 a5 */
+void CageBallBounce(uint16_t obj);                                   /* $042D02 a5 */
+void CageBall(uint16_t obj);                                         /* $042BFA a5 */
+void DiceGiantReady(uint16_t obj);                                   /* $043104 a5 */
+void DiceGiantStart(uint16_t obj);                                   /* $0430CC a5 */
+void DiceGiantStand(uint16_t obj);                                   /* $04311E a5 */
+void DiceGiantStepA(uint16_t obj);                                   /* $043146 a5 */
+void DiceGiantStepB(uint16_t obj);                                   /* $04318E a5 */
+void DiceGiantFaceLeft(uint16_t obj);                                /* $0431D8 a5 */
+void DiceGiantFaceRight(uint16_t obj);                               /* $0431E2 a5 */
+void DiceGiantHop(uint16_t obj);                                     /* $043206 a5 */
+void DiceGiantHighHop(uint16_t obj);                                 /* $04324A a5 */
+void DiceGiantRise(uint16_t obj);                                    /* $043264 a5 */
+void DiceGiantSpinRise(uint16_t obj);                                /* $043258 a5 */
+void DiceGiantFall(uint16_t obj);                                    /* $0432B6 a5 */
+void DiceGiantSpinFall(uint16_t obj);                                /* $0432AA a5 */
+void DiceGiantLanded(uint16_t obj);                                  /* $043322 a5 */
+void DiceGiantStruck(uint16_t obj);                                  /* $043390 a5 */
+void DiceGiantTumble(uint16_t obj);                                  /* $0433B0 a5 */
+void DiceGiantBounce(uint16_t obj);                                  /* $043402 a5 */
+void DiceGiantLie(uint16_t obj);                                     /* $04347A a5 */
+void DiceGiantRoll(uint16_t obj);                                    /* $04345C a5 */
+void DiceGiantStomp(uint16_t obj);                                   /* $0434A4 a5 */
+void DiceGiantCrouch(uint16_t obj);                                  /* $0434FA a5 */
+void DiceGiantFlail(uint16_t obj);                                   /* $043524 a5 */
+void DiceGiantBeaten(uint16_t obj);                                  /* $04357A a5 */
+void DiceGiantThrown(uint16_t obj);                                  /* $0435F2 a5 */
+void DiceGiantGone(uint16_t obj);                                    /* $043634 a5 */
+void DiceGiantEnter(uint16_t obj);                                   /* $04364E a5 */
+void DiceGiantEntering(uint16_t obj);                                /* $04367E a5 */
+void DiceGiantSwing(uint16_t obj);                                   /* $043676 a5 */
+void DiceGiant(uint16_t obj);                                        /* $042F66 a5 */
+void DiceMachineStart(uint16_t obj);                                 /* $043F64 a5 */
+void DiceMachineFight1(uint16_t obj);                                /* $043FA8 a5 */
+void DiceMachineBroken1(uint16_t obj);                               /* $043FC0 a5 */
+void DiceMachineFight2(uint16_t obj);                                /* $044028 a5 */
+void DiceMachineBroken2(uint16_t obj);                               /* $044040 a5 */
+void DiceMachineFight3(uint16_t obj);                                /* $0440DA a5 */
+void DiceMachineBroken3(uint16_t obj);                               /* $0440F2 a5 */
+void DiceMachineFight4(uint16_t obj);                                /* $04411A a5 */
+void DiceMachineCollapse(uint16_t obj);                              /* $04415C a5 */
+void DiceMachineSmoke(uint16_t obj);                                 /* $0441F8 a5 */
+void DiceMachineLost(uint16_t obj);                                  /* $04420C a5 */
+void DiceMachine(uint16_t obj);                                      /* $043EEE a5 */
+void DiceMachinePanel(uint16_t obj);                                 /* $0445E2 a5 */
+void DiceMachineGuard(uint16_t obj);                                 /* $0446CC a5 */
+void DicePegsStart(uint16_t obj);                                    /* $0447E6 a5 */
+void DicePegsWait(uint16_t obj);                                     /* $044824 a5 */
+void DicePegsDraw(uint16_t obj);                                     /* $044846 a5 */
+void DicePegsNext(uint16_t obj);                                     /* $044864 a5 */
+void DicePegsShow(uint16_t obj);                                     /* $04489A a5 */
+void DicePegsPause(uint16_t obj);                                    /* $0448BA a5 */
+void DicePegsReady(uint16_t obj);                                    /* $0448C6 a5 */
+void DicePegsRunners(uint16_t obj);                                  /* $0448F0 a5 */
+void DicePegsWalk(uint16_t obj);                                     /* $04492C a5 */
+void DicePegsBeaten(uint16_t obj);                                   /* $044944 a5 */
+void DicePegsEnd(uint16_t obj);                                      /* $04494C a5 */
+void DicePegs(uint16_t obj);                                         /* $0446F6 a5 */
+void PegRunnerStart(uint16_t obj);                                   /* $044984 a5 */
+void PegRunnerRun(uint16_t obj);                                     /* $0449BC a5 */
+void PegRunnerEnd(uint16_t obj);                                     /* $0449FC a5 */
+void PegRunner(uint16_t obj);                                        /* $04495C a5 */
+void PegFuseStart(uint16_t obj);                                     /* $044A22 a5 */
+void PegFuseRun(uint16_t obj);                                       /* $044A48 a5 */
+void PegFuseToBoss(uint16_t obj);                                    /* $044AA0 a5 */
+void PegFuseBurn(uint16_t obj);                                      /* $044ABA a5 */
+void PegFuse(uint16_t obj);                                          /* $044A08 a5 */
+void DiceRaceStart(uint16_t obj);                                    /* $044EDA a5 */
+void DiceRaceRun(uint16_t obj);                                      /* $044EEE a5 */
+void DiceRaceWon(uint16_t obj);                                      /* $044F84 a5 */
+void DiceRaceLost(uint16_t obj);                                     /* $044F94 a5 */
+void DiceRace(uint16_t obj);                                         /* $044E80 a5 */
+void DiceWheelStart(uint16_t obj);                                   /* $045072 a5 */
+void DiceWheelWait(uint16_t obj);                                    /* $0450A8 a5 */
+void DiceWheelSeek(uint16_t obj);                                    /* $0450BA a5 */
+void DiceWheelSpin(uint16_t obj);                                    /* $0450F8 a5 */
+void DiceWheel(uint16_t obj);                                        /* $045010 a5 */
+void WheelGunnerStart(uint16_t obj);                                 /* $0454AA a5 */
+void WheelGunnerWait(uint16_t obj);                                  /* $0454B8 a5 */
+void WheelGunnerFire(uint16_t obj);                                  /* $0454EC a5 */
+void WheelGunner(uint16_t obj);                                      /* $045488 a5 */
+void WheelDropperStart(uint16_t obj);                                /* $04556E a5 */
+void WheelDropperRun(uint16_t obj);                                  /* $04557C a5 */
+void WheelDropper(uint16_t obj);                                     /* $045550 a5 */
+void WheelShooterStart(uint16_t obj);                                /* $0455E2 a5 */
+void WheelShooterWait(uint16_t obj);                                 /* $0455F0 a5 */
+void WheelShooterFlame(uint16_t obj);                                /* $04560A a5 */
+void WheelShooterBall(uint16_t obj);                                 /* $045680 a5 */
+void WheelShooter(uint16_t obj);                                     /* $0455BC a5 */
+void WheelLeverStart(uint16_t obj);                                  /* $04573E a5 */
+void WheelLeverWait(uint16_t obj);                                   /* $045756 a5 */
+void WheelLever(uint16_t obj);                                       /* $04570C a5 */
+void WheelMortarStart(uint16_t obj);                                 /* $0457BA a5 */
+void WheelMortarWait(uint16_t obj);                                  /* $0457D6 a5 */
+void WheelMortarFire(uint16_t obj);                                  /* $0457EE a5 */
+void WheelMortar(uint16_t obj);                                      /* $045798 a5 */
+void WheelBomb(uint16_t obj);                                        /* $045994 a5 */
+void WheelDropStart(uint16_t obj);                                   /* $045B7A a5 */
+void WheelDropFall(uint16_t obj);                                    /* $045BB8 a5 */
+void WheelDrop(uint16_t obj);                                        /* $045B68 a5 */
+void OrbitWobble(uint16_t obj);                                      /* $0468BA a5 */
+void DiceMawStart(uint16_t obj);                                     /* $046AE4 a5 */
+void DiceMawSway(uint16_t obj);                                      /* $046B52 a5 */
+void DiceMawFollow(uint16_t obj);                                    /* $046BA6 a5 */
+void DiceMawRise(uint16_t obj);                                      /* $046BFC a5 */
+void DiceMawPause(uint16_t obj);                                     /* $046C28 a5 */
+void DiceMawSpit(uint16_t obj);                                      /* $046C52 a5 */
+void DiceMawBeaten(uint16_t obj);                                    /* $046CA2 a5 */
+void DiceMawBobUp(uint16_t obj);                                     /* $046EF2 a5 */
+void DiceMawBobDown(uint16_t obj);                                   /* $046F12 a5 */
+void DiceMawBobRise(uint16_t obj);                                   /* $046F2C a5 */
+void DiceMawBobSink(uint16_t obj);                                   /* $046F48 a5 */
+void DiceMawHeadSway(uint16_t obj);                                  /* $046F7A a5 */
+void DiceMawHeadFollow(uint16_t obj);                                /* $047064 a5 */
+void DiceMawHeadStraight(uint16_t obj);                              /* $047132 a5 */
+void DiceMawJawOpen(uint16_t obj);                                   /* $04720A a5 */
+void DiceMawJawClose(uint16_t obj);                                  /* $04721E a5 */
+void DiceMawJawWide(uint16_t obj);                                   /* $047232 a5 */
+void DiceMawJawShut(uint16_t obj);                                   /* $04724A a5 */
+void DiceMawJawGape(uint16_t obj);                                   /* $047262 a5 */
+void DiceMawJawSnap(uint16_t obj);                                   /* $04728A a5 */
+void DiceMawJawHold(uint16_t obj);                                   /* $0472B6 a5 */
+void DiceMaw(uint16_t obj);                                          /* $0469D4 a5 */
+void MawBall(uint16_t obj);                                          /* $04734E a5 */
+void DiceBrawlerStart(uint16_t obj);                                 /* $0475B6 a5 */
+void DiceBrawlerWait(uint16_t obj);                                  /* $0475F0 a5 */
+void DiceBrawlerEnter(uint16_t obj);                                 /* $04761E a5 */
+void DiceBrawlerSlide(uint16_t obj);                                 /* $047642 a5 */
+void DiceBrawlerSlow(uint16_t obj);                                  /* $047660 a5 */
+void DiceBrawlerPose(uint16_t obj);                                  /* $04768C a5 */
+void DiceBrawlerStand(uint16_t obj);                                 /* $0476BE a5, a6=reg_a6 */
+void DiceBrawlerWalkLeft(uint16_t obj);                              /* $0476FE a5, a6=reg_a6 */
+void DiceBrawlerWalkRight(uint16_t obj);                             /* $04771C a5, a6=reg_a6 */
+void DiceBrawlerKnocked(uint16_t obj);                               /* $047736 a5 */
+void DiceBrawlerLying(uint16_t obj);                                 /* $047740 a5 */
+void DiceBrawlerHeld(uint16_t obj);                                  /* $04775A a5 */
+void DiceBrawlerThrown(uint16_t obj);                                /* $04776E a5 */
+void DiceBrawlerGrab(uint16_t obj);                                  /* $04778A a5 */
+void DiceBrawlerLift(uint16_t obj);                                  /* $04780C a5 */
+void DiceBrawlerToss(uint16_t obj);                                  /* $047864 a5 */
+void DiceBrawlerRecover(uint16_t obj);                               /* $0478E8 a5 */
+void DiceBrawlerFall(uint16_t obj);                                  /* $04790A a5 */
+void DiceBrawlerLeap(uint16_t obj, uint32_t d0);                     /* $047956 a5, d0, a6=reg_a6 */
+void DiceBrawlerJump(uint16_t obj);                                  /* $0479C0 a5, a6=reg_a6 */
+void DiceBrawlerJumpFall(uint16_t obj);                              /* $0479E8 a5, a6=reg_a6 */
+void DiceBrawlerAttack(uint16_t obj);                                /* $0479F6 a5 */
+void DiceBrawlerRoar(uint16_t obj);                                  /* $047A22 a5 */
+void DiceBrawlerCharge(uint16_t obj);                                /* $047A32 a5, a6=reg_a6 */
+void DiceBrawlerFire(uint16_t obj);                                  /* $047A90 a5 */
+void DiceBrawlerBeaten(uint16_t obj);                                /* $047AE4 a5 */
+void DiceBrawler(uint16_t obj);                                      /* $04743E a5 -> a6=reg_a6 */
+void DiceSpringStart(uint16_t obj);                                  /* $048526 a5 */
+void DiceSpringRise(uint16_t obj);                                   /* $0485AA a5 */
+void DiceSpringBob(uint16_t obj);                                    /* $0485EC a5 */
+void DiceSpringLeap(uint16_t obj);                                   /* $048606 a5 */
+void DiceSpringFall(uint16_t obj);                                   /* $0486B6 a5 */
+void DiceSpringSink(uint16_t obj);                                   /* $0486F8 a5 */
+void DiceSpringBounce(uint16_t obj);                                 /* $048886 a5 */
+void DiceSpringStretch(uint16_t obj);                                /* $0488D6 a5 */
+void DiceSpringShrink(uint16_t obj);                                 /* $04890A a5 */
+void DiceSpringLand(uint16_t obj);                                   /* $04892E a5 */
+void DiceSpringRecoil(uint16_t obj);                                 /* $04895C a5 */
+void DiceSpring(uint16_t obj);                                       /* $04841A a5 */
+void SpringPodStart(uint16_t obj);                                   /* $048A86 a5 */
+void SpringPodFall(uint16_t obj);                                    /* $048ACA a5 */
+void SpringPodWait(uint16_t obj);                                    /* $048B78 a5 */
+void SpringPod(uint16_t obj);                                        /* $048A70 a5 */
+void CaptainRoom(uint16_t obj);                                      /* $048BDA a5 */
+void CaptainWisp(uint16_t obj);                                      /* $048C6E a5 */
+void QuakeStart(uint16_t obj);                                       /* $049800 a5 */
+void QuakeRoll(uint16_t obj);                                        /* $04984E a5 */
+void QuakeBrake(uint16_t obj);                                       /* $049878 a5 */
+void QuakeRoll2(uint16_t obj);                                       /* $049896 a5 */
+void QuakeBrake2(uint16_t obj);                                      /* $0498C8 a5 */
+void QuakeRumble(uint16_t obj);                                      /* $0498F2 a5 */
+void QuakeCalm(uint16_t obj);                                        /* $04990C a5 */
+void Quake(uint16_t obj);                                            /* $0497C2 a5 */
+void SpaceBouncer(uint16_t obj);                                     /* $04C6EE a5 */
+void SpaceHomer(uint16_t obj);                                       /* $04C906 a5 */
+void SpaceCharge(uint16_t obj);                                      /* $04CB4A a5 */
+void SevenSpaceLoad(uint16_t obj);                                   /* $04D2C4 a5 */
+void SevenSpaceLoaded(uint16_t obj);                                 /* $04D300 a5 */
+void SevenSpaceFormA(uint16_t obj);                                  /* $04D324 a5 -> a6=reg_a6 */
+void SevenSpaceVanish(uint16_t obj);                                 /* $04D9BE a5 */
+void SevenSpaceNext(uint16_t obj);                                   /* $04D9F4 a5 */
+void SevenSpaceABob(uint16_t obj);                                   /* $04D9FC a5 */
+void SevenSpaceAPose(uint16_t obj);                                  /* $04DA64 a5 */
+void SevenSpaceAFire(uint16_t obj);                                  /* $04DA8A a5 */
+void SevenSpaceFormB(uint16_t obj);                                  /* $04D566 a5 -> a6=reg_a6 */
+void SevenSpaceBRun(uint16_t obj);                                   /* $04DB10 a5 */
+void SevenSpaceFormC(uint16_t obj);                                  /* $04D644 a5 -> a6=reg_a6 */
+void SevenSpaceCRun(uint16_t obj);                                   /* $04DB36 a5 */
+void SevenSpaceFormD(uint16_t obj);                                  /* $04D3A8 a5 -> a6=reg_a6 */
+void SevenSpaceDRun(uint16_t obj);                                   /* $04DB68 a5 */
+void SevenSpaceFormG(uint16_t obj);                                  /* $04D430 a5 -> a6=reg_a6 */
+void SevenSpaceGSpin(uint16_t obj);                                  /* $04DB94 a5 */
+void SevenSpaceGRun(uint16_t obj);                                   /* $04DBB2 a5 */
+void SevenSpaceFormF(uint16_t obj);                                  /* $04D6FE a5 -> a6=reg_a6 */
+void SevenSpaceFRun(uint16_t obj);                                   /* $04DC36 a5 */
+void SevenSpaceFormE(uint16_t obj);                                  /* $04D4E0 a5 -> a6=reg_a6 */
+void SevenSpaceERun(uint16_t obj);                                   /* $04DCAC a5 */
+void SevenSpaceWait(uint16_t obj);                                   /* $04D7A0 a5 */
+void SevenSpaceRise(uint16_t obj);                                   /* $04D7B6 a5 -> a6=reg_a6 */
+void SevenSpaceFly(uint16_t obj);                                    /* $04D806 a5 */
+void SevenSpaceReturn(uint16_t obj);                                 /* $04D874 a5 */
+void SevenSpaceArrive(uint16_t obj);                                 /* $04D8A6 a5 */
+void SevenSpaceReady(uint16_t obj);                                  /* $04D8C4 a5 */
+void SevenSpaceBeaten(uint16_t obj);                                 /* $04D906 a5 -> a6=reg_a6 */
+void SevenSpaceFalls(uint16_t obj);                                  /* $04D932 a5 */
+void SevenSpaceGone(uint16_t obj);                                   /* $04D99C a5 */
+void SevenSpace(uint16_t obj);                                       /* $04D196 a5 -> a6=reg_a6 */
+void SevenSpaceShard(uint16_t obj);                                  /* $04E3D0 a5 */
+void SevenSpaceMine(uint16_t obj);                                   /* $04E4F0 a5 */
+
 /* ---- not ported yet ---- */
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */

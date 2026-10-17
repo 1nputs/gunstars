@@ -1901,7 +1901,7 @@
 #define SYM_AngleSixteenth 0x02A240u
 #define SYM_AngleIndex 0x02A252u
 #define SYM_BlastSound8 0x02A262u
-#define SYM_sub_2A27A 0x02A27Au
+#define SYM_SoundBEEvery8 0x02A27Au
 #define SYM_SoundC6Every8 0x02A292u
 #define SYM_FrameChance 0x02A2AAu
 #define SYM_PadMover 0x02A2C2u
@@ -2979,9 +2979,9 @@
 #define SYM_ClawerLiftRightStep 0x040408u
 #define SYM_ClawerShake 0x04043Au
 #define SYM_Spark2AC 0x040470u
-#define SYM_sub_4050E 0x04050Eu
-#define SYM_sub_4054A 0x04054Au
-#define SYM_sub_40586 0x040586u
+#define SYM_Turret2C8 0x04050Eu
+#define SYM_Turret2C8Start 0x04054Au
+#define SYM_Turret2C8Fire 0x040586u
 #define SYM_GunPod 0x04059Au
 #define SYM_GunPodStart 0x0405D2u
 #define SYM_GunPodFire 0x04060Eu
@@ -3073,208 +3073,208 @@
 #define SYM_PalaceDieFace 0x04228Eu
 #define SYM_PalaceDieSlow 0x0422AEu
 #define SYM_PalaceDieWalls 0x0422ECu
-#define SYM_sub_42358 0x042358u
-#define SYM_sub_423EA 0x0423EAu
-#define SYM_sub_424D6 0x0424D6u
-#define SYM_sub_424F2 0x0424F2u
-#define SYM_sub_4250E 0x04250Eu
-#define SYM_sub_42528 0x042528u
-#define SYM_sub_4255C 0x04255Cu
-#define SYM_sub_425DC 0x0425DCu
-#define SYM_sub_4261E 0x04261Eu
-#define SYM_sub_42686 0x042686u
-#define SYM_sub_426C6 0x0426C6u
-#define SYM_sub_42768 0x042768u
-#define SYM_sub_42778 0x042778u
-#define SYM_sub_42792 0x042792u
-#define SYM_sub_427AC 0x0427ACu
-#define SYM_sub_427F4 0x0427F4u
-#define SYM_sub_42832 0x042832u
-#define SYM_sub_428AE 0x0428AEu
-#define SYM_sub_42926 0x042926u
-#define SYM_sub_4295A 0x04295Au
-#define SYM_sub_4299C 0x04299Cu
-#define SYM_sub_429F8 0x0429F8u
-#define SYM_sub_42A5C 0x042A5Cu
-#define SYM_sub_42AD6 0x042AD6u
-#define SYM_sub_42B2A 0x042B2Au
-#define SYM_sub_42B40 0x042B40u
-#define SYM_sub_42B50 0x042B50u
-#define SYM_sub_42B80 0x042B80u
-#define SYM_sub_42BB0 0x042BB0u
-#define SYM_sub_42BEC 0x042BECu
-#define SYM_sub_42BFA 0x042BFAu
-#define SYM_sub_42C98 0x042C98u
-#define SYM_sub_42D02 0x042D02u
-#define SYM_sub_42D0E 0x042D0Eu
-#define SYM_sub_42D66 0x042D66u
-#define SYM_sub_42DA6 0x042DA6u
-#define SYM_sub_42E28 0x042E28u
-#define SYM_sub_42EFA 0x042EFAu
-#define SYM_sub_42F40 0x042F40u
-#define SYM_sub_42F66 0x042F66u
-#define SYM_sub_430CC 0x0430CCu
-#define SYM_sub_43104 0x043104u
-#define SYM_sub_4311E 0x04311Eu
-#define SYM_sub_43146 0x043146u
-#define SYM_sub_4318E 0x04318Eu
-#define SYM_sub_431D8 0x0431D8u
-#define SYM_sub_431E2 0x0431E2u
-#define SYM_sub_43206 0x043206u
-#define SYM_sub_4324A 0x04324Au
-#define SYM_sub_43258 0x043258u
-#define SYM_sub_43264 0x043264u
-#define SYM_sub_432AA 0x0432AAu
-#define SYM_sub_432B6 0x0432B6u
-#define SYM_sub_43322 0x043322u
-#define SYM_sub_43390 0x043390u
-#define SYM_sub_433B0 0x0433B0u
-#define SYM_sub_43402 0x043402u
-#define SYM_sub_4345C 0x04345Cu
-#define SYM_sub_4347A 0x04347Au
-#define SYM_sub_434A4 0x0434A4u
-#define SYM_sub_434FA 0x0434FAu
-#define SYM_sub_43524 0x043524u
-#define SYM_sub_4357A 0x04357Au
-#define SYM_sub_435F2 0x0435F2u
-#define SYM_sub_43634 0x043634u
-#define SYM_sub_4364E 0x04364Eu
-#define SYM_sub_43676 0x043676u
-#define SYM_sub_4367E 0x04367Eu
-#define SYM_sub_436F6 0x0436F6u
-#define SYM_sub_437F8 0x0437F8u
-#define SYM_sub_4380E 0x04380Eu
+#define SYM_DiceSerpent 0x042358u
+#define SYM_DiceSerpentStart 0x0423EAu
+#define SYM_DiceSerpentSines 0x0424D6u
+#define SYM_DiceSerpentRoam 0x0424F2u
+#define SYM_DiceSerpentTurn 0x04250Eu
+#define SYM_DiceSerpentRush 0x042528u
+#define SYM_DiceSerpentFall 0x04255Cu
+#define SYM_DiceSerpentRise 0x0425DCu
+#define SYM_DiceSerpentCharge 0x04261Eu
+#define SYM_DiceSerpentBreak 0x042686u
+#define SYM_SerpentDamage 0x0426C6u
+#define SYM_SerpentSpeed 0x042768u
+#define SYM_SerpentSpeedAt 0x042778u
+#define SYM_SerpentWander 0x042792u
+#define SYM_SerpentTrail 0x0427ACu
+#define SYM_SerpentPlace 0x0427F4u
+#define SYM_SerpentEdges 0x042832u
+#define SYM_SerpentCentre 0x0428AEu
+#define SYM_SerpentSteer 0x042926u
+#define SYM_SerpentAim 0x04295Au
+#define SYM_SerpentPose 0x04299Cu
+#define SYM_DiceCage 0x0429F8u
+#define SYM_DiceCageStart 0x042A5Cu
+#define SYM_CageBalls 0x042AD6u
+#define SYM_DiceCageWait 0x042B2Au
+#define SYM_DiceCagePlay 0x042B40u
+#define SYM_DiceCageBurstOuter 0x042B50u
+#define SYM_DiceCageBurstInner 0x042B80u
+#define SYM_DiceCageBurst 0x042BB0u
+#define SYM_DiceCageEnd 0x042BECu
+#define SYM_CageBall 0x042BFAu
+#define SYM_CageBallStart 0x042C98u
+#define SYM_CageBallBounce 0x042D02u
+#define SYM_CageJaws 0x042D0Eu
+#define SYM_CageSnap 0x042D66u
+#define SYM_CageSlide 0x042DA6u
+#define SYM_CageBallWalls 0x042E28u
+#define SYM_CageBurstAt 0x042EFAu
+#define SYM_CagePuff 0x042F40u
+#define SYM_DiceGiant 0x042F66u
+#define SYM_DiceGiantStart 0x0430CCu
+#define SYM_DiceGiantReady 0x043104u
+#define SYM_DiceGiantStand 0x04311Eu
+#define SYM_DiceGiantStepA 0x043146u
+#define SYM_DiceGiantStepB 0x04318Eu
+#define SYM_DiceGiantFaceLeft 0x0431D8u
+#define SYM_DiceGiantFaceRight 0x0431E2u
+#define SYM_DiceGiantHop 0x043206u
+#define SYM_DiceGiantHighHop 0x04324Au
+#define SYM_DiceGiantSpinRise 0x043258u
+#define SYM_DiceGiantRise 0x043264u
+#define SYM_DiceGiantSpinFall 0x0432AAu
+#define SYM_DiceGiantFall 0x0432B6u
+#define SYM_DiceGiantLanded 0x043322u
+#define SYM_DiceGiantStruck 0x043390u
+#define SYM_DiceGiantTumble 0x0433B0u
+#define SYM_DiceGiantBounce 0x043402u
+#define SYM_DiceGiantRoll 0x04345Cu
+#define SYM_DiceGiantLie 0x04347Au
+#define SYM_DiceGiantStomp 0x0434A4u
+#define SYM_DiceGiantCrouch 0x0434FAu
+#define SYM_DiceGiantFlail 0x043524u
+#define SYM_DiceGiantBeaten 0x04357Au
+#define SYM_DiceGiantThrown 0x0435F2u
+#define SYM_DiceGiantGone 0x043634u
+#define SYM_DiceGiantEnter 0x04364Eu
+#define SYM_DiceGiantSwing 0x043676u
+#define SYM_DiceGiantEntering 0x04367Eu
+#define SYM_GiantSetup 0x0436F6u
+#define SYM_GiantStompBox 0x0437F8u
+#define SYM_GiantLimbs 0x04380Eu
 #define SYM_GroupPlace 0x043906u
-#define SYM_sub_43942 0x043942u
-#define SYM_sub_43978 0x043978u
-#define SYM_sub_43986 0x043986u
-#define SYM_sub_43994 0x043994u
-#define SYM_sub_439A2 0x0439A2u
-#define SYM_sub_439AC 0x0439ACu
-#define SYM_sub_439E0 0x0439E0u
-#define SYM_sub_43A6A 0x043A6Au
-#define SYM_sub_43B1A 0x043B1Au
-#define SYM_sub_43B42 0x043B42u
-#define SYM_sub_43B80 0x043B80u
-#define SYM_sub_43BE0 0x043BE0u
-#define SYM_sub_43BE6 0x043BE6u
-#define SYM_sub_43BFC 0x043BFCu
-#define SYM_sub_43C2C 0x043C2Cu
+#define SYM_GiantLimbFrom 0x043942u
+#define SYM_GiantBendArmB 0x043978u
+#define SYM_GiantBendArmA 0x043986u
+#define SYM_GiantBendLegB 0x043994u
+#define SYM_GiantBendLegA 0x0439A2u
+#define SYM_GiantJoint 0x0439ACu
+#define SYM_GiantPose 0x0439E0u
+#define SYM_GiantChoose 0x043A6Au
+#define SYM_GiantStruck 0x043B1Au
+#define SYM_GiantWalls 0x043B42u
+#define SYM_GiantKnocked 0x043B80u
+#define SYM_GiantCollideOff 0x043BE0u
+#define SYM_GiantCollideOn 0x043BE6u
+#define SYM_GiantShatter 0x043BFCu
+#define SYM_GiantFlash 0x043C2Cu
 #define SYM_PrizeRoom 0x043CDEu
 #define SYM_PrizeRoomStart 0x043D5Eu
 #define SYM_PrizeRoomWave 0x043DACu
 #define SYM_PrizeRoomItems 0x043DB2u
 #define SYM_PrizeRoomWaveLines 0x043E3Au
-#define SYM_sub_43EEE 0x043EEEu
-#define SYM_sub_43F64 0x043F64u
-#define SYM_sub_43FA8 0x043FA8u
-#define SYM_sub_43FC0 0x043FC0u
-#define SYM_sub_44028 0x044028u
-#define SYM_sub_44040 0x044040u
-#define SYM_sub_440DA 0x0440DAu
-#define SYM_sub_440F2 0x0440F2u
-#define SYM_sub_4411A 0x04411Au
-#define SYM_sub_4415C 0x04415Cu
-#define SYM_sub_441F8 0x0441F8u
-#define SYM_sub_4420C 0x04420Cu
-#define SYM_sub_4421C 0x04421Cu
-#define SYM_sub_44396 0x044396u
-#define SYM_sub_44436 0x044436u
-#define SYM_sub_444AC 0x0444ACu
-#define SYM_sub_444C8 0x0444C8u
-#define SYM_sub_444F0 0x0444F0u
-#define SYM_sub_4450C 0x04450Cu
-#define SYM_sub_4452C 0x04452Cu
-#define SYM_sub_44578 0x044578u
-#define SYM_sub_445A6 0x0445A6u
-#define SYM_sub_445E2 0x0445E2u
-#define SYM_sub_446BE 0x0446BEu
-#define SYM_sub_446CC 0x0446CCu
-#define SYM_sub_446F6 0x0446F6u
-#define SYM_sub_447E6 0x0447E6u
-#define SYM_sub_44824 0x044824u
-#define SYM_sub_44846 0x044846u
-#define SYM_sub_44864 0x044864u
-#define SYM_sub_4489A 0x04489Au
-#define SYM_sub_448BA 0x0448BAu
-#define SYM_sub_448C6 0x0448C6u
-#define SYM_sub_448F0 0x0448F0u
-#define SYM_sub_4492C 0x04492Cu
-#define SYM_sub_44944 0x044944u
-#define SYM_sub_4494C 0x04494Cu
-#define SYM_sub_4495C 0x04495Cu
-#define SYM_sub_44984 0x044984u
-#define SYM_sub_449BC 0x0449BCu
-#define SYM_sub_449FC 0x0449FCu
-#define SYM_sub_44A08 0x044A08u
-#define SYM_sub_44A22 0x044A22u
-#define SYM_sub_44A48 0x044A48u
-#define SYM_sub_44AA0 0x044AA0u
-#define SYM_sub_44ABA 0x044ABAu
-#define SYM_sub_44B10 0x044B10u
-#define SYM_sub_44B9E 0x044B9Eu
-#define SYM_sub_44BD8 0x044BD8u
-#define SYM_sub_44BDC 0x044BDCu
-#define SYM_sub_44CA6 0x044CA6u
-#define SYM_sub_44CCC 0x044CCCu
-#define SYM_sub_44CF4 0x044CF4u
-#define SYM_sub_44D0E 0x044D0Eu
-#define SYM_sub_44D40 0x044D40u
-#define SYM_sub_44D7E 0x044D7Eu
-#define SYM_sub_44DD0 0x044DD0u
-#define SYM_sub_44E28 0x044E28u
-#define SYM_sub_44E46 0x044E46u
-#define SYM_sub_44E80 0x044E80u
-#define SYM_sub_44EDA 0x044EDAu
-#define SYM_sub_44EEE 0x044EEEu
-#define SYM_sub_44F84 0x044F84u
-#define SYM_sub_44F94 0x044F94u
-#define SYM_sub_44FA4 0x044FA4u
-#define SYM_sub_45000 0x045000u
-#define SYM_sub_45010 0x045010u
-#define SYM_sub_45072 0x045072u
-#define SYM_sub_450A8 0x0450A8u
-#define SYM_sub_450BA 0x0450BAu
-#define SYM_sub_450F8 0x0450F8u
-#define SYM_sub_45134 0x045134u
-#define SYM_sub_4518C 0x04518Cu
-#define SYM_sub_45236 0x045236u
-#define SYM_sub_45248 0x045248u
-#define SYM_sub_45256 0x045256u
-#define SYM_sub_452A2 0x0452A2u
-#define SYM_sub_45332 0x045332u
-#define SYM_sub_4538A 0x04538Au
-#define SYM_sub_45442 0x045442u
-#define SYM_sub_45488 0x045488u
-#define SYM_sub_454AA 0x0454AAu
-#define SYM_sub_454B8 0x0454B8u
-#define SYM_sub_454EC 0x0454ECu
-#define SYM_sub_45550 0x045550u
-#define SYM_sub_4556E 0x04556Eu
-#define SYM_sub_4557C 0x04557Cu
-#define SYM_sub_455BC 0x0455BCu
-#define SYM_sub_455E2 0x0455E2u
-#define SYM_sub_455F0 0x0455F0u
-#define SYM_sub_4560A 0x04560Au
-#define SYM_sub_45680 0x045680u
-#define SYM_sub_4570C 0x04570Cu
-#define SYM_sub_4573E 0x04573Eu
-#define SYM_sub_45756 0x045756u
-#define SYM_sub_45798 0x045798u
-#define SYM_sub_457BA 0x0457BAu
-#define SYM_sub_457D0 0x0457D0u
-#define SYM_sub_457D6 0x0457D6u
-#define SYM_sub_457EE 0x0457EEu
-#define SYM_sub_45868 0x045868u
-#define SYM_sub_458B2 0x0458B2u
-#define SYM_sub_458C8 0x0458C8u
-#define SYM_sub_458F4 0x0458F4u
-#define SYM_sub_45928 0x045928u
-#define SYM_sub_45994 0x045994u
-#define SYM_sub_45B68 0x045B68u
-#define SYM_sub_45B7A 0x045B7Au
-#define SYM_sub_45BB8 0x045BB8u
-#define SYM_sub_45C50 0x045C50u
+#define SYM_DiceMachine 0x043EEEu
+#define SYM_DiceMachineStart 0x043F64u
+#define SYM_DiceMachineFight1 0x043FA8u
+#define SYM_DiceMachineBroken1 0x043FC0u
+#define SYM_DiceMachineFight2 0x044028u
+#define SYM_DiceMachineBroken2 0x044040u
+#define SYM_DiceMachineFight3 0x0440DAu
+#define SYM_DiceMachineBroken3 0x0440F2u
+#define SYM_DiceMachineFight4 0x04411Au
+#define SYM_DiceMachineCollapse 0x04415Cu
+#define SYM_DiceMachineSmoke 0x0441F8u
+#define SYM_DiceMachineLost 0x04420Cu
+#define SYM_MachineLostCheck 0x04421Cu
+#define SYM_MachineSpark 0x044396u
+#define SYM_MachineSmokePuff 0x044436u
+#define SYM_MachineFloors 0x0444ACu
+#define SYM_MachineFloor 0x0444C8u
+#define SYM_MachinePanels 0x0444F0u
+#define SYM_MachinePanelSet 0x04450Cu
+#define SYM_MachineGuardSet 0x04452Cu
+#define SYM_MachineCounterSet 0x044578u
+#define SYM_MachineDrip 0x0445A6u
+#define SYM_DiceMachinePanel 0x0445E2u
+#define SYM_MachineBlank 0x0446BEu
+#define SYM_DiceMachineGuard 0x0446CCu
+#define SYM_DicePegs 0x0446F6u
+#define SYM_DicePegsStart 0x0447E6u
+#define SYM_DicePegsWait 0x044824u
+#define SYM_DicePegsDraw 0x044846u
+#define SYM_DicePegsNext 0x044864u
+#define SYM_DicePegsShow 0x04489Au
+#define SYM_DicePegsPause 0x0448BAu
+#define SYM_DicePegsReady 0x0448C6u
+#define SYM_DicePegsRunners 0x0448F0u
+#define SYM_DicePegsWalk 0x04492Cu
+#define SYM_DicePegsBeaten 0x044944u
+#define SYM_DicePegsEnd 0x04494Cu
+#define SYM_PegRunner 0x04495Cu
+#define SYM_PegRunnerStart 0x044984u
+#define SYM_PegRunnerRun 0x0449BCu
+#define SYM_PegRunnerEnd 0x0449FCu
+#define SYM_PegFuse 0x044A08u
+#define SYM_PegFuseStart 0x044A22u
+#define SYM_PegFuseRun 0x044A48u
+#define SYM_PegFuseToBoss 0x044AA0u
+#define SYM_PegFuseBurn 0x044ABAu
+#define SYM_PegsPegs 0x044B10u
+#define SYM_PegsRunner 0x044B9Eu
+#define SYM_PegsNextTimed 0x044BD8u
+#define SYM_PegsNext 0x044BDCu
+#define SYM_PegsAim 0x044CA6u
+#define SYM_PegsFrame 0x044CCCu
+#define SYM_PegsPushTime 0x044CF4u
+#define SYM_PegsPush 0x044D0Eu
+#define SYM_PegsAt 0x044D40u
+#define SYM_PegsWalkStep 0x044D7Eu
+#define SYM_PegsFloors 0x044DD0u
+#define SYM_PegsColours 0x044E28u
+#define SYM_PegsSpark 0x044E46u
+#define SYM_DiceRace 0x044E80u
+#define SYM_DiceRaceStart 0x044EDAu
+#define SYM_DiceRaceRun 0x044EEEu
+#define SYM_DiceRaceWon 0x044F84u
+#define SYM_DiceRaceLost 0x044F94u
+#define SYM_RaceSoldiers 0x044FA4u
+#define SYM_RaceVanish 0x045000u
+#define SYM_DiceWheel 0x045010u
+#define SYM_DiceWheelStart 0x045072u
+#define SYM_DiceWheelWait 0x0450A8u
+#define SYM_DiceWheelSeek 0x0450BAu
+#define SYM_DiceWheelSpin 0x0450F8u
+#define SYM_WheelCleared 0x045134u
+#define SYM_WheelPick 0x04518Cu
+#define SYM_WheelTurn 0x045236u
+#define SYM_WheelRoll 0x045248u
+#define SYM_WheelScroll 0x045256u
+#define SYM_WheelDraw 0x0452A2u
+#define SYM_WheelChunks 0x045332u
+#define SYM_WheelBand 0x04538Au
+#define SYM_WheelPuff 0x045442u
+#define SYM_WheelGunner 0x045488u
+#define SYM_WheelGunnerStart 0x0454AAu
+#define SYM_WheelGunnerWait 0x0454B8u
+#define SYM_WheelGunnerFire 0x0454ECu
+#define SYM_WheelDropper 0x045550u
+#define SYM_WheelDropperStart 0x04556Eu
+#define SYM_WheelDropperRun 0x04557Cu
+#define SYM_WheelShooter 0x0455BCu
+#define SYM_WheelShooterStart 0x0455E2u
+#define SYM_WheelShooterWait 0x0455F0u
+#define SYM_WheelShooterFlame 0x04560Au
+#define SYM_WheelShooterBall 0x045680u
+#define SYM_WheelLever 0x04570Cu
+#define SYM_WheelLeverStart 0x04573Eu
+#define SYM_WheelLeverWait 0x045756u
+#define SYM_WheelMortar 0x045798u
+#define SYM_WheelMortarStart 0x0457BAu
+#define SYM_WheelMortarDelay 0x0457D0u
+#define SYM_WheelMortarWait 0x0457D6u
+#define SYM_WheelMortarFire 0x0457EEu
+#define SYM_WheelCarDead 0x045868u
+#define SYM_WheelCarStruck 0x0458B2u
+#define SYM_WheelCarSetup 0x0458C8u
+#define SYM_WheelCarDelay 0x0458F4u
+#define SYM_WheelCarPlace 0x045928u
+#define SYM_WheelBomb 0x045994u
+#define SYM_WheelDrop 0x045B68u
+#define SYM_WheelDropStart 0x045B7Au
+#define SYM_WheelDropFall 0x045BB8u
+#define SYM_WheelDropSmoke 0x045C50u
 #define SYM_SwitchRoom 0x045D18u
 #define SYM_SwitchRoomStart 0x045D7Eu
 #define SYM_SwitchRoomPlay 0x045DAAu
@@ -3306,73 +3306,73 @@
 #define SYM_SpikePodOpen 0x046760u
 #define SYM_SpikePodClose 0x046784u
 #define SYM_SpikePodSpikes 0x0467B8u
-#define SYM_sub_468BA 0x0468BAu
-#define SYM_sub_469D4 0x0469D4u
-#define SYM_sub_46AE4 0x046AE4u
-#define SYM_sub_46B52 0x046B52u
-#define SYM_sub_46BA6 0x046BA6u
-#define SYM_sub_46BFC 0x046BFCu
-#define SYM_sub_46C28 0x046C28u
-#define SYM_sub_46C52 0x046C52u
-#define SYM_sub_46CA2 0x046CA2u
-#define SYM_sub_46CC6 0x046CC6u
-#define SYM_sub_46D46 0x046D46u
-#define SYM_sub_46E9E 0x046E9Eu
-#define SYM_sub_46ED2 0x046ED2u
-#define SYM_sub_46EF2 0x046EF2u
-#define SYM_sub_46F12 0x046F12u
-#define SYM_sub_46F2C 0x046F2Cu
-#define SYM_sub_46F48 0x046F48u
-#define SYM_sub_46F64 0x046F64u
-#define SYM_sub_46F7A 0x046F7Au
-#define SYM_sub_47064 0x047064u
-#define SYM_sub_47132 0x047132u
-#define SYM_sub_47178 0x047178u
-#define SYM_sub_47196 0x047196u
-#define SYM_sub_471E4 0x0471E4u
-#define SYM_sub_4720A 0x04720Au
-#define SYM_sub_4721E 0x04721Eu
-#define SYM_sub_47232 0x047232u
-#define SYM_sub_4724A 0x04724Au
-#define SYM_sub_47262 0x047262u
-#define SYM_sub_4728A 0x04728Au
-#define SYM_sub_472B6 0x0472B6u
-#define SYM_sub_472C6 0x0472C6u
-#define SYM_sub_47316 0x047316u
-#define SYM_sub_4734E 0x04734Eu
-#define SYM_sub_47410 0x047410u
-#define SYM_sub_4743E 0x04743Eu
-#define SYM_sub_475B6 0x0475B6u
-#define SYM_sub_475F0 0x0475F0u
-#define SYM_sub_4761E 0x04761Eu
-#define SYM_sub_47642 0x047642u
-#define SYM_sub_47660 0x047660u
-#define SYM_sub_4768C 0x04768Cu
-#define SYM_sub_476BE 0x0476BEu
-#define SYM_sub_476FE 0x0476FEu
-#define SYM_sub_4771C 0x04771Cu
-#define SYM_sub_47736 0x047736u
-#define SYM_sub_47740 0x047740u
-#define SYM_sub_4775A 0x04775Au
-#define SYM_sub_4776E 0x04776Eu
-#define SYM_sub_4778A 0x04778Au
-#define SYM_sub_4780C 0x04780Cu
-#define SYM_sub_47864 0x047864u
-#define SYM_sub_478E8 0x0478E8u
-#define SYM_sub_4790A 0x04790Au
-#define SYM_sub_47956 0x047956u
-#define SYM_sub_479C0 0x0479C0u
-#define SYM_sub_479E8 0x0479E8u
-#define SYM_sub_479F6 0x0479F6u
-#define SYM_sub_47A22 0x047A22u
-#define SYM_sub_47A32 0x047A32u
-#define SYM_sub_47A90 0x047A90u
-#define SYM_sub_47AE4 0x047AE4u
-#define SYM_sub_47B16 0x047B16u
+#define SYM_OrbitWobble 0x0468BAu
+#define SYM_DiceMaw 0x0469D4u
+#define SYM_DiceMawStart 0x046AE4u
+#define SYM_DiceMawSway 0x046B52u
+#define SYM_DiceMawFollow 0x046BA6u
+#define SYM_DiceMawRise 0x046BFCu
+#define SYM_DiceMawPause 0x046C28u
+#define SYM_DiceMawSpit 0x046C52u
+#define SYM_DiceMawBeaten 0x046CA2u
+#define SYM_MawParts 0x046CC6u
+#define SYM_MawAngles 0x046D46u
+#define SYM_MawEase 0x046E9Eu
+#define SYM_MawBob 0x046ED2u
+#define SYM_DiceMawBobUp 0x046EF2u
+#define SYM_DiceMawBobDown 0x046F12u
+#define SYM_DiceMawBobRise 0x046F2Cu
+#define SYM_DiceMawBobSink 0x046F48u
+#define SYM_MawHead 0x046F64u
+#define SYM_DiceMawHeadSway 0x046F7Au
+#define SYM_DiceMawHeadFollow 0x047064u
+#define SYM_DiceMawHeadStraight 0x047132u
+#define SYM_MawDrift 0x047178u
+#define SYM_MawJaw 0x047196u
+#define SYM_MawJawStep 0x0471E4u
+#define SYM_DiceMawJawOpen 0x04720Au
+#define SYM_DiceMawJawClose 0x04721Eu
+#define SYM_DiceMawJawWide 0x047232u
+#define SYM_DiceMawJawShut 0x04724Au
+#define SYM_DiceMawJawGape 0x047262u
+#define SYM_DiceMawJawSnap 0x04728Au
+#define SYM_DiceMawJawHold 0x0472B6u
+#define SYM_MawFlames 0x0472C6u
+#define SYM_MawSpit 0x047316u
+#define SYM_MawBall 0x04734Eu
+#define SYM_MawBallWalls 0x047410u
+#define SYM_DiceBrawler 0x04743Eu
+#define SYM_DiceBrawlerStart 0x0475B6u
+#define SYM_DiceBrawlerWait 0x0475F0u
+#define SYM_DiceBrawlerEnter 0x04761Eu
+#define SYM_DiceBrawlerSlide 0x047642u
+#define SYM_DiceBrawlerSlow 0x047660u
+#define SYM_DiceBrawlerPose 0x04768Cu
+#define SYM_DiceBrawlerStand 0x0476BEu
+#define SYM_DiceBrawlerWalkLeft 0x0476FEu
+#define SYM_DiceBrawlerWalkRight 0x04771Cu
+#define SYM_DiceBrawlerKnocked 0x047736u
+#define SYM_DiceBrawlerLying 0x047740u
+#define SYM_DiceBrawlerHeld 0x04775Au
+#define SYM_DiceBrawlerThrown 0x04776Eu
+#define SYM_DiceBrawlerGrab 0x04778Au
+#define SYM_DiceBrawlerLift 0x04780Cu
+#define SYM_DiceBrawlerToss 0x047864u
+#define SYM_DiceBrawlerRecover 0x0478E8u
+#define SYM_DiceBrawlerFall 0x04790Au
+#define SYM_DiceBrawlerLeap 0x047956u
+#define SYM_DiceBrawlerJump 0x0479C0u
+#define SYM_DiceBrawlerJumpFall 0x0479E8u
+#define SYM_DiceBrawlerAttack 0x0479F6u
+#define SYM_DiceBrawlerRoar 0x047A22u
+#define SYM_DiceBrawlerCharge 0x047A32u
+#define SYM_DiceBrawlerFire 0x047A90u
+#define SYM_DiceBrawlerBeaten 0x047AE4u
+#define SYM_DiceBrawlerSpark 0x047B16u
 #define SYM_BrawlerNear 0x047CE0u
 #define SYM_BrawlerPuff 0x047D4Cu
-#define SYM_sub_47D8C 0x047D8Cu
-#define SYM_sub_47DBE 0x047DBEu
+#define SYM_DiceBrawlerFlame 0x047D8Cu
+#define SYM_DiceBrawlerFace 0x047DBEu
 #define SYM_BrawlerWalls 0x047E50u
 #define SYM_BrawlerHitJump 0x047E9Au
 #define SYM_BrawlerFall 0x047F0Eu
@@ -3397,34 +3397,34 @@
 #define SYM_Brawler4CJumpFall 0x0482DAu
 #define SYM_Brawler4CAttack 0x0482E8u
 #define SYM_FireSpinner 0x048328u
-#define SYM_sub_4841A 0x04841Au
-#define SYM_sub_48526 0x048526u
-#define SYM_sub_485AA 0x0485AAu
-#define SYM_sub_485EC 0x0485ECu
-#define SYM_sub_48606 0x048606u
-#define SYM_sub_486B6 0x0486B6u
-#define SYM_sub_486F8 0x0486F8u
-#define SYM_sub_48722 0x048722u
-#define SYM_sub_48750 0x048750u
-#define SYM_sub_487BC 0x0487BCu
-#define SYM_sub_487C6 0x0487C6u
-#define SYM_sub_4882A 0x04882Au
-#define SYM_sub_48840 0x048840u
-#define SYM_sub_48868 0x048868u
-#define SYM_sub_48886 0x048886u
-#define SYM_sub_488D6 0x0488D6u
-#define SYM_sub_4890A 0x04890Au
-#define SYM_sub_4892E 0x04892Eu
-#define SYM_sub_4895C 0x04895Cu
-#define SYM_sub_48970 0x048970u
-#define SYM_sub_489D2 0x0489D2u
-#define SYM_sub_48A24 0x048A24u
-#define SYM_sub_48A70 0x048A70u
-#define SYM_sub_48A86 0x048A86u
-#define SYM_sub_48ACA 0x048ACAu
-#define SYM_sub_48B78 0x048B78u
-#define SYM_sub_48BDA 0x048BDAu
-#define SYM_sub_48C6E 0x048C6Eu
+#define SYM_DiceSpring 0x04841Au
+#define SYM_DiceSpringStart 0x048526u
+#define SYM_DiceSpringRise 0x0485AAu
+#define SYM_DiceSpringBob 0x0485ECu
+#define SYM_DiceSpringLeap 0x048606u
+#define SYM_DiceSpringFall 0x0486B6u
+#define SYM_DiceSpringSink 0x0486F8u
+#define SYM_SpringCount 0x048722u
+#define SYM_SpringFlame 0x048750u
+#define SYM_SpringShape 0x0487BCu
+#define SYM_SpringNeck 0x0487C6u
+#define SYM_SpringNeckClear 0x04882Au
+#define SYM_SpringStep 0x048840u
+#define SYM_SpringStepJump 0x048868u
+#define SYM_DiceSpringBounce 0x048886u
+#define SYM_DiceSpringStretch 0x0488D6u
+#define SYM_DiceSpringShrink 0x04890Au
+#define SYM_DiceSpringLand 0x04892Eu
+#define SYM_DiceSpringRecoil 0x04895Cu
+#define SYM_SpringLines 0x048970u
+#define SYM_SpringSmoke 0x0489D2u
+#define SYM_SpringColours 0x048A24u
+#define SYM_SpringPod 0x048A70u
+#define SYM_SpringPodStart 0x048A86u
+#define SYM_SpringPodFall 0x048ACAu
+#define SYM_SpringPodWait 0x048B78u
+#define SYM_CaptainRoom 0x048BDAu
+#define SYM_CaptainWisp 0x048C6Eu
 #define SYM_SpaceDirector 0x048D3Cu
 #define SYM_SpaceDir00 0x048DA2u
 #define SYM_SpaceDir04 0x048DC2u
@@ -3506,23 +3506,23 @@
 #define SYM_SpaceEventC4 0x049780u
 #define SYM_SpaceEvent0C 0x0497A2u
 #define SYM_SpaceEvent70 0x0497B2u
-#define SYM_sub_497C2 0x0497C2u
-#define SYM_sub_49800 0x049800u
-#define SYM_sub_4984E 0x04984Eu
-#define SYM_sub_49878 0x049878u
-#define SYM_sub_49896 0x049896u
-#define SYM_sub_498C8 0x0498C8u
-#define SYM_sub_498F2 0x0498F2u
-#define SYM_sub_4990C 0x04990Cu
-#define SYM_sub_49912 0x049912u
-#define SYM_sub_49926 0x049926u
-#define SYM_sub_49936 0x049936u
-#define SYM_sub_49952 0x049952u
-#define SYM_sub_4996A 0x04996Au
-#define SYM_sub_49A24 0x049A24u
-#define SYM_sub_49A5E 0x049A5Eu
-#define SYM_sub_49AAA 0x049AAAu
-#define SYM_sub_49B0A 0x049B0Au
+#define SYM_Quake 0x0497C2u
+#define SYM_QuakeStart 0x049800u
+#define SYM_QuakeRoll 0x04984Eu
+#define SYM_QuakeBrake 0x049878u
+#define SYM_QuakeRoll2 0x049896u
+#define SYM_QuakeBrake2 0x0498C8u
+#define SYM_QuakeRumble 0x0498F2u
+#define SYM_QuakeCalm 0x04990Cu
+#define SYM_QuakeSpeedUp 0x049912u
+#define SYM_QuakeStopB 0x049926u
+#define SYM_QuakeShaking 0x049936u
+#define SYM_QuakeEase 0x049952u
+#define SYM_QuakeWave 0x04996Au
+#define SYM_QuakeWaveTriple 0x049A24u
+#define SYM_QuakeSoldiers 0x049A5Eu
+#define SYM_QuakeRiders 0x049AAAu
+#define SYM_QuakeTiles 0x049B0Au
 #define SYM_Space518 0x049B4Au
 #define SYM_Space518Step 0x049B58u
 #define SYM_Space518Start 0x049B6Au
@@ -3715,13 +3715,13 @@
 #define SYM_Space500 0x04C610u
 #define SYM_Space454 0x04C628u
 #define SYM_Space460 0x04C6A2u
-#define SYM_sub_4C6EE 0x04C6EEu
+#define SYM_SpaceBouncer 0x04C6EEu
 #define SYM_Space464 0x04C774u
-#define SYM_sub_4C906 0x04C906u
+#define SYM_SpaceHomer 0x04C906u
 #define SYM_Space47C 0x04C9C6u
 #define SYM_Space47CSteer 0x04CAEEu
 #define SYM_Space4A8 0x04CB36u
-#define SYM_sub_4CB4A 0x04CB4Au
+#define SYM_SpaceCharge 0x04CB4Au
 #define SYM_Space4AC 0x04CC0Cu
 #define SYM_Space514 0x04CC1Eu
 #define SYM_Space50C 0x04CC46u
@@ -3732,61 +3732,61 @@
 #define SYM_Space4B8 0x04CFE8u
 #define SYM_Space4BC 0x04D08Au
 #define SYM_Space4BCPuff 0x04D0A2u
-#define SYM_sub_4D196 0x04D196u
-#define SYM_sub_4D2C4 0x04D2C4u
-#define SYM_sub_4D300 0x04D300u
-#define SYM_sub_4D324 0x04D324u
-#define SYM_sub_4D33A 0x04D33Au
-#define SYM_sub_4D3A8 0x04D3A8u
-#define SYM_sub_4D430 0x04D430u
-#define SYM_sub_4D4E0 0x04D4E0u
-#define SYM_sub_4D566 0x04D566u
-#define SYM_sub_4D644 0x04D644u
-#define SYM_sub_4D6FE 0x04D6FEu
-#define SYM_sub_4D7A0 0x04D7A0u
-#define SYM_sub_4D7B6 0x04D7B6u
-#define SYM_sub_4D806 0x04D806u
-#define SYM_sub_4D874 0x04D874u
-#define SYM_sub_4D8A6 0x04D8A6u
-#define SYM_sub_4D8C4 0x04D8C4u
-#define SYM_sub_4D906 0x04D906u
-#define SYM_sub_4D932 0x04D932u
-#define SYM_sub_4D99C 0x04D99Cu
-#define SYM_sub_4D9BE 0x04D9BEu
-#define SYM_sub_4D9F4 0x04D9F4u
-#define SYM_sub_4D9FC 0x04D9FCu
+#define SYM_SevenSpace 0x04D196u
+#define SYM_SevenSpaceLoad 0x04D2C4u
+#define SYM_SevenSpaceLoaded 0x04D300u
+#define SYM_SevenSpaceFormA 0x04D324u
+#define SYM_SevenSpaceSetA 0x04D33Au
+#define SYM_SevenSpaceFormD 0x04D3A8u
+#define SYM_SevenSpaceFormG 0x04D430u
+#define SYM_SevenSpaceFormE 0x04D4E0u
+#define SYM_SevenSpaceFormB 0x04D566u
+#define SYM_SevenSpaceFormC 0x04D644u
+#define SYM_SevenSpaceFormF 0x04D6FEu
+#define SYM_SevenSpaceWait 0x04D7A0u
+#define SYM_SevenSpaceRise 0x04D7B6u
+#define SYM_SevenSpaceFly 0x04D806u
+#define SYM_SevenSpaceReturn 0x04D874u
+#define SYM_SevenSpaceArrive 0x04D8A6u
+#define SYM_SevenSpaceReady 0x04D8C4u
+#define SYM_SevenSpaceBeaten 0x04D906u
+#define SYM_SevenSpaceFalls 0x04D932u
+#define SYM_SevenSpaceGone 0x04D99Cu
+#define SYM_SevenSpaceVanish 0x04D9BEu
+#define SYM_SevenSpaceNext 0x04D9F4u
+#define SYM_SevenSpaceABob 0x04D9FCu
 #define SYM_SevenPoseBob 0x04DA2Au
-#define SYM_sub_4DA64 0x04DA64u
-#define SYM_sub_4DA8A 0x04DA8Au
-#define SYM_sub_4DB10 0x04DB10u
-#define SYM_sub_4DB36 0x04DB36u
-#define SYM_sub_4DB68 0x04DB68u
-#define SYM_sub_4DB94 0x04DB94u
-#define SYM_sub_4DBB2 0x04DBB2u
-#define SYM_sub_4DBEE 0x04DBEEu
-#define SYM_sub_4DC36 0x04DC36u
-#define SYM_sub_4DCAC 0x04DCACu
-#define SYM_sub_4DD86 0x04DD86u
-#define SYM_sub_4DDAA 0x04DDAAu
-#define SYM_sub_4DDCE 0x04DDCEu
-#define SYM_sub_4DEB8 0x04DEB8u
-#define SYM_sub_4DF22 0x04DF22u
-#define SYM_sub_4DF2C 0x04DF2Cu
-#define SYM_sub_4DF5A 0x04DF5Au
-#define SYM_sub_4DFA0 0x04DFA0u
-#define SYM_sub_4DFAE 0x04DFAEu
-#define SYM_sub_4DFB8 0x04DFB8u
-#define SYM_sub_4DFC4 0x04DFC4u
-#define SYM_sub_4E052 0x04E052u
-#define SYM_sub_4E0D8 0x04E0D8u
-#define SYM_sub_4E218 0x04E218u
-#define SYM_sub_4E272 0x04E272u
-#define SYM_sub_4E2BE 0x04E2BEu
-#define SYM_sub_4E2F2 0x04E2F2u
-#define SYM_sub_4E386 0x04E386u
-#define SYM_sub_4E3D0 0x04E3D0u
-#define SYM_sub_4E428 0x04E428u
-#define SYM_sub_4E4F0 0x04E4F0u
+#define SYM_SevenSpaceAPose 0x04DA64u
+#define SYM_SevenSpaceAFire 0x04DA8Au
+#define SYM_SevenSpaceBRun 0x04DB10u
+#define SYM_SevenSpaceCRun 0x04DB36u
+#define SYM_SevenSpaceDRun 0x04DB68u
+#define SYM_SevenSpaceGSpin 0x04DB94u
+#define SYM_SevenSpaceGRun 0x04DBB2u
+#define SYM_SevenSpaceTurn 0x04DBEEu
+#define SYM_SevenSpaceFRun 0x04DC36u
+#define SYM_SevenSpaceERun 0x04DCACu
+#define SYM_SevenSpaceLayer 0x04DD86u
+#define SYM_SevenSpaceAim 0x04DDAAu
+#define SYM_SevenSpaceCatch 0x04DDCEu
+#define SYM_SevenSpaceBox 0x04DEB8u
+#define SYM_SevenSpaceTailBox 0x04DF22u
+#define SYM_SevenSpacePartBox 0x04DF2Cu
+#define SYM_SevenSpaceFlame 0x04DF5Au
+#define SYM_SevenSpaceRecover 0x04DFA0u
+#define SYM_SevenSpaceSlot 0x04DFAEu
+#define SYM_SevenSpaceFaceNow 0x04DFB8u
+#define SYM_SevenSpaceFace 0x04DFC4u
+#define SYM_SevenSpaceShot 0x04E052u
+#define SYM_SevenSpaceMineDrop 0x04E0D8u
+#define SYM_SevenSpaceBlast 0x04E218u
+#define SYM_SevenSpaceLegs 0x04E272u
+#define SYM_SevenSpaceLegStep 0x04E2BEu
+#define SYM_SevenSpaceChunks 0x04E2F2u
+#define SYM_SevenSpaceSmoke 0x04E386u
+#define SYM_SevenSpaceShard 0x04E3D0u
+#define SYM_SevenSpaceShardMake 0x04E428u
+#define SYM_SevenSpaceMine 0x04E4F0u
 #define SYM_Boss548 0x04E7C4u
 #define SYM_Boss548Run 0x04E7CEu
 #define SYM_Boss548Start 0x04E9D0u
@@ -6903,7 +6903,7 @@ static const struct sym rom_syms[] = {
     { 0x02A240u, "AngleSixteenth" },
     { 0x02A252u, "AngleIndex" },
     { 0x02A262u, "BlastSound8" },
-    { 0x02A27Au, "sub_2A27A" },
+    { 0x02A27Au, "SoundBEEvery8" },
     { 0x02A292u, "SoundC6Every8" },
     { 0x02A2AAu, "FrameChance" },
     { 0x02A2C2u, "PadMover" },
@@ -7981,9 +7981,9 @@ static const struct sym rom_syms[] = {
     { 0x040408u, "ClawerLiftRightStep" },
     { 0x04043Au, "ClawerShake" },
     { 0x040470u, "Spark2AC" },
-    { 0x04050Eu, "sub_4050E" },
-    { 0x04054Au, "sub_4054A" },
-    { 0x040586u, "sub_40586" },
+    { 0x04050Eu, "Turret2C8" },
+    { 0x04054Au, "Turret2C8Start" },
+    { 0x040586u, "Turret2C8Fire" },
     { 0x04059Au, "GunPod" },
     { 0x0405D2u, "GunPodStart" },
     { 0x04060Eu, "GunPodFire" },
@@ -8075,208 +8075,208 @@ static const struct sym rom_syms[] = {
     { 0x04228Eu, "PalaceDieFace" },
     { 0x0422AEu, "PalaceDieSlow" },
     { 0x0422ECu, "PalaceDieWalls" },
-    { 0x042358u, "sub_42358" },
-    { 0x0423EAu, "sub_423EA" },
-    { 0x0424D6u, "sub_424D6" },
-    { 0x0424F2u, "sub_424F2" },
-    { 0x04250Eu, "sub_4250E" },
-    { 0x042528u, "sub_42528" },
-    { 0x04255Cu, "sub_4255C" },
-    { 0x0425DCu, "sub_425DC" },
-    { 0x04261Eu, "sub_4261E" },
-    { 0x042686u, "sub_42686" },
-    { 0x0426C6u, "sub_426C6" },
-    { 0x042768u, "sub_42768" },
-    { 0x042778u, "sub_42778" },
-    { 0x042792u, "sub_42792" },
-    { 0x0427ACu, "sub_427AC" },
-    { 0x0427F4u, "sub_427F4" },
-    { 0x042832u, "sub_42832" },
-    { 0x0428AEu, "sub_428AE" },
-    { 0x042926u, "sub_42926" },
-    { 0x04295Au, "sub_4295A" },
-    { 0x04299Cu, "sub_4299C" },
-    { 0x0429F8u, "sub_429F8" },
-    { 0x042A5Cu, "sub_42A5C" },
-    { 0x042AD6u, "sub_42AD6" },
-    { 0x042B2Au, "sub_42B2A" },
-    { 0x042B40u, "sub_42B40" },
-    { 0x042B50u, "sub_42B50" },
-    { 0x042B80u, "sub_42B80" },
-    { 0x042BB0u, "sub_42BB0" },
-    { 0x042BECu, "sub_42BEC" },
-    { 0x042BFAu, "sub_42BFA" },
-    { 0x042C98u, "sub_42C98" },
-    { 0x042D02u, "sub_42D02" },
-    { 0x042D0Eu, "sub_42D0E" },
-    { 0x042D66u, "sub_42D66" },
-    { 0x042DA6u, "sub_42DA6" },
-    { 0x042E28u, "sub_42E28" },
-    { 0x042EFAu, "sub_42EFA" },
-    { 0x042F40u, "sub_42F40" },
-    { 0x042F66u, "sub_42F66" },
-    { 0x0430CCu, "sub_430CC" },
-    { 0x043104u, "sub_43104" },
-    { 0x04311Eu, "sub_4311E" },
-    { 0x043146u, "sub_43146" },
-    { 0x04318Eu, "sub_4318E" },
-    { 0x0431D8u, "sub_431D8" },
-    { 0x0431E2u, "sub_431E2" },
-    { 0x043206u, "sub_43206" },
-    { 0x04324Au, "sub_4324A" },
-    { 0x043258u, "sub_43258" },
-    { 0x043264u, "sub_43264" },
-    { 0x0432AAu, "sub_432AA" },
-    { 0x0432B6u, "sub_432B6" },
-    { 0x043322u, "sub_43322" },
-    { 0x043390u, "sub_43390" },
-    { 0x0433B0u, "sub_433B0" },
-    { 0x043402u, "sub_43402" },
-    { 0x04345Cu, "sub_4345C" },
-    { 0x04347Au, "sub_4347A" },
-    { 0x0434A4u, "sub_434A4" },
-    { 0x0434FAu, "sub_434FA" },
-    { 0x043524u, "sub_43524" },
-    { 0x04357Au, "sub_4357A" },
-    { 0x0435F2u, "sub_435F2" },
-    { 0x043634u, "sub_43634" },
-    { 0x04364Eu, "sub_4364E" },
-    { 0x043676u, "sub_43676" },
-    { 0x04367Eu, "sub_4367E" },
-    { 0x0436F6u, "sub_436F6" },
-    { 0x0437F8u, "sub_437F8" },
-    { 0x04380Eu, "sub_4380E" },
+    { 0x042358u, "DiceSerpent" },
+    { 0x0423EAu, "DiceSerpentStart" },
+    { 0x0424D6u, "DiceSerpentSines" },
+    { 0x0424F2u, "DiceSerpentRoam" },
+    { 0x04250Eu, "DiceSerpentTurn" },
+    { 0x042528u, "DiceSerpentRush" },
+    { 0x04255Cu, "DiceSerpentFall" },
+    { 0x0425DCu, "DiceSerpentRise" },
+    { 0x04261Eu, "DiceSerpentCharge" },
+    { 0x042686u, "DiceSerpentBreak" },
+    { 0x0426C6u, "SerpentDamage" },
+    { 0x042768u, "SerpentSpeed" },
+    { 0x042778u, "SerpentSpeedAt" },
+    { 0x042792u, "SerpentWander" },
+    { 0x0427ACu, "SerpentTrail" },
+    { 0x0427F4u, "SerpentPlace" },
+    { 0x042832u, "SerpentEdges" },
+    { 0x0428AEu, "SerpentCentre" },
+    { 0x042926u, "SerpentSteer" },
+    { 0x04295Au, "SerpentAim" },
+    { 0x04299Cu, "SerpentPose" },
+    { 0x0429F8u, "DiceCage" },
+    { 0x042A5Cu, "DiceCageStart" },
+    { 0x042AD6u, "CageBalls" },
+    { 0x042B2Au, "DiceCageWait" },
+    { 0x042B40u, "DiceCagePlay" },
+    { 0x042B50u, "DiceCageBurstOuter" },
+    { 0x042B80u, "DiceCageBurstInner" },
+    { 0x042BB0u, "DiceCageBurst" },
+    { 0x042BECu, "DiceCageEnd" },
+    { 0x042BFAu, "CageBall" },
+    { 0x042C98u, "CageBallStart" },
+    { 0x042D02u, "CageBallBounce" },
+    { 0x042D0Eu, "CageJaws" },
+    { 0x042D66u, "CageSnap" },
+    { 0x042DA6u, "CageSlide" },
+    { 0x042E28u, "CageBallWalls" },
+    { 0x042EFAu, "CageBurstAt" },
+    { 0x042F40u, "CagePuff" },
+    { 0x042F66u, "DiceGiant" },
+    { 0x0430CCu, "DiceGiantStart" },
+    { 0x043104u, "DiceGiantReady" },
+    { 0x04311Eu, "DiceGiantStand" },
+    { 0x043146u, "DiceGiantStepA" },
+    { 0x04318Eu, "DiceGiantStepB" },
+    { 0x0431D8u, "DiceGiantFaceLeft" },
+    { 0x0431E2u, "DiceGiantFaceRight" },
+    { 0x043206u, "DiceGiantHop" },
+    { 0x04324Au, "DiceGiantHighHop" },
+    { 0x043258u, "DiceGiantSpinRise" },
+    { 0x043264u, "DiceGiantRise" },
+    { 0x0432AAu, "DiceGiantSpinFall" },
+    { 0x0432B6u, "DiceGiantFall" },
+    { 0x043322u, "DiceGiantLanded" },
+    { 0x043390u, "DiceGiantStruck" },
+    { 0x0433B0u, "DiceGiantTumble" },
+    { 0x043402u, "DiceGiantBounce" },
+    { 0x04345Cu, "DiceGiantRoll" },
+    { 0x04347Au, "DiceGiantLie" },
+    { 0x0434A4u, "DiceGiantStomp" },
+    { 0x0434FAu, "DiceGiantCrouch" },
+    { 0x043524u, "DiceGiantFlail" },
+    { 0x04357Au, "DiceGiantBeaten" },
+    { 0x0435F2u, "DiceGiantThrown" },
+    { 0x043634u, "DiceGiantGone" },
+    { 0x04364Eu, "DiceGiantEnter" },
+    { 0x043676u, "DiceGiantSwing" },
+    { 0x04367Eu, "DiceGiantEntering" },
+    { 0x0436F6u, "GiantSetup" },
+    { 0x0437F8u, "GiantStompBox" },
+    { 0x04380Eu, "GiantLimbs" },
     { 0x043906u, "GroupPlace" },
-    { 0x043942u, "sub_43942" },
-    { 0x043978u, "sub_43978" },
-    { 0x043986u, "sub_43986" },
-    { 0x043994u, "sub_43994" },
-    { 0x0439A2u, "sub_439A2" },
-    { 0x0439ACu, "sub_439AC" },
-    { 0x0439E0u, "sub_439E0" },
-    { 0x043A6Au, "sub_43A6A" },
-    { 0x043B1Au, "sub_43B1A" },
-    { 0x043B42u, "sub_43B42" },
-    { 0x043B80u, "sub_43B80" },
-    { 0x043BE0u, "sub_43BE0" },
-    { 0x043BE6u, "sub_43BE6" },
-    { 0x043BFCu, "sub_43BFC" },
-    { 0x043C2Cu, "sub_43C2C" },
+    { 0x043942u, "GiantLimbFrom" },
+    { 0x043978u, "GiantBendArmB" },
+    { 0x043986u, "GiantBendArmA" },
+    { 0x043994u, "GiantBendLegB" },
+    { 0x0439A2u, "GiantBendLegA" },
+    { 0x0439ACu, "GiantJoint" },
+    { 0x0439E0u, "GiantPose" },
+    { 0x043A6Au, "GiantChoose" },
+    { 0x043B1Au, "GiantStruck" },
+    { 0x043B42u, "GiantWalls" },
+    { 0x043B80u, "GiantKnocked" },
+    { 0x043BE0u, "GiantCollideOff" },
+    { 0x043BE6u, "GiantCollideOn" },
+    { 0x043BFCu, "GiantShatter" },
+    { 0x043C2Cu, "GiantFlash" },
     { 0x043CDEu, "PrizeRoom" },
     { 0x043D5Eu, "PrizeRoomStart" },
     { 0x043DACu, "PrizeRoomWave" },
     { 0x043DB2u, "PrizeRoomItems" },
     { 0x043E3Au, "PrizeRoomWaveLines" },
-    { 0x043EEEu, "sub_43EEE" },
-    { 0x043F64u, "sub_43F64" },
-    { 0x043FA8u, "sub_43FA8" },
-    { 0x043FC0u, "sub_43FC0" },
-    { 0x044028u, "sub_44028" },
-    { 0x044040u, "sub_44040" },
-    { 0x0440DAu, "sub_440DA" },
-    { 0x0440F2u, "sub_440F2" },
-    { 0x04411Au, "sub_4411A" },
-    { 0x04415Cu, "sub_4415C" },
-    { 0x0441F8u, "sub_441F8" },
-    { 0x04420Cu, "sub_4420C" },
-    { 0x04421Cu, "sub_4421C" },
-    { 0x044396u, "sub_44396" },
-    { 0x044436u, "sub_44436" },
-    { 0x0444ACu, "sub_444AC" },
-    { 0x0444C8u, "sub_444C8" },
-    { 0x0444F0u, "sub_444F0" },
-    { 0x04450Cu, "sub_4450C" },
-    { 0x04452Cu, "sub_4452C" },
-    { 0x044578u, "sub_44578" },
-    { 0x0445A6u, "sub_445A6" },
-    { 0x0445E2u, "sub_445E2" },
-    { 0x0446BEu, "sub_446BE" },
-    { 0x0446CCu, "sub_446CC" },
-    { 0x0446F6u, "sub_446F6" },
-    { 0x0447E6u, "sub_447E6" },
-    { 0x044824u, "sub_44824" },
-    { 0x044846u, "sub_44846" },
-    { 0x044864u, "sub_44864" },
-    { 0x04489Au, "sub_4489A" },
-    { 0x0448BAu, "sub_448BA" },
-    { 0x0448C6u, "sub_448C6" },
-    { 0x0448F0u, "sub_448F0" },
-    { 0x04492Cu, "sub_4492C" },
-    { 0x044944u, "sub_44944" },
-    { 0x04494Cu, "sub_4494C" },
-    { 0x04495Cu, "sub_4495C" },
-    { 0x044984u, "sub_44984" },
-    { 0x0449BCu, "sub_449BC" },
-    { 0x0449FCu, "sub_449FC" },
-    { 0x044A08u, "sub_44A08" },
-    { 0x044A22u, "sub_44A22" },
-    { 0x044A48u, "sub_44A48" },
-    { 0x044AA0u, "sub_44AA0" },
-    { 0x044ABAu, "sub_44ABA" },
-    { 0x044B10u, "sub_44B10" },
-    { 0x044B9Eu, "sub_44B9E" },
-    { 0x044BD8u, "sub_44BD8" },
-    { 0x044BDCu, "sub_44BDC" },
-    { 0x044CA6u, "sub_44CA6" },
-    { 0x044CCCu, "sub_44CCC" },
-    { 0x044CF4u, "sub_44CF4" },
-    { 0x044D0Eu, "sub_44D0E" },
-    { 0x044D40u, "sub_44D40" },
-    { 0x044D7Eu, "sub_44D7E" },
-    { 0x044DD0u, "sub_44DD0" },
-    { 0x044E28u, "sub_44E28" },
-    { 0x044E46u, "sub_44E46" },
-    { 0x044E80u, "sub_44E80" },
-    { 0x044EDAu, "sub_44EDA" },
-    { 0x044EEEu, "sub_44EEE" },
-    { 0x044F84u, "sub_44F84" },
-    { 0x044F94u, "sub_44F94" },
-    { 0x044FA4u, "sub_44FA4" },
-    { 0x045000u, "sub_45000" },
-    { 0x045010u, "sub_45010" },
-    { 0x045072u, "sub_45072" },
-    { 0x0450A8u, "sub_450A8" },
-    { 0x0450BAu, "sub_450BA" },
-    { 0x0450F8u, "sub_450F8" },
-    { 0x045134u, "sub_45134" },
-    { 0x04518Cu, "sub_4518C" },
-    { 0x045236u, "sub_45236" },
-    { 0x045248u, "sub_45248" },
-    { 0x045256u, "sub_45256" },
-    { 0x0452A2u, "sub_452A2" },
-    { 0x045332u, "sub_45332" },
-    { 0x04538Au, "sub_4538A" },
-    { 0x045442u, "sub_45442" },
-    { 0x045488u, "sub_45488" },
-    { 0x0454AAu, "sub_454AA" },
-    { 0x0454B8u, "sub_454B8" },
-    { 0x0454ECu, "sub_454EC" },
-    { 0x045550u, "sub_45550" },
-    { 0x04556Eu, "sub_4556E" },
-    { 0x04557Cu, "sub_4557C" },
-    { 0x0455BCu, "sub_455BC" },
-    { 0x0455E2u, "sub_455E2" },
-    { 0x0455F0u, "sub_455F0" },
-    { 0x04560Au, "sub_4560A" },
-    { 0x045680u, "sub_45680" },
-    { 0x04570Cu, "sub_4570C" },
-    { 0x04573Eu, "sub_4573E" },
-    { 0x045756u, "sub_45756" },
-    { 0x045798u, "sub_45798" },
-    { 0x0457BAu, "sub_457BA" },
-    { 0x0457D0u, "sub_457D0" },
-    { 0x0457D6u, "sub_457D6" },
-    { 0x0457EEu, "sub_457EE" },
-    { 0x045868u, "sub_45868" },
-    { 0x0458B2u, "sub_458B2" },
-    { 0x0458C8u, "sub_458C8" },
-    { 0x0458F4u, "sub_458F4" },
-    { 0x045928u, "sub_45928" },
-    { 0x045994u, "sub_45994" },
-    { 0x045B68u, "sub_45B68" },
-    { 0x045B7Au, "sub_45B7A" },
-    { 0x045BB8u, "sub_45BB8" },
-    { 0x045C50u, "sub_45C50" },
+    { 0x043EEEu, "DiceMachine" },
+    { 0x043F64u, "DiceMachineStart" },
+    { 0x043FA8u, "DiceMachineFight1" },
+    { 0x043FC0u, "DiceMachineBroken1" },
+    { 0x044028u, "DiceMachineFight2" },
+    { 0x044040u, "DiceMachineBroken2" },
+    { 0x0440DAu, "DiceMachineFight3" },
+    { 0x0440F2u, "DiceMachineBroken3" },
+    { 0x04411Au, "DiceMachineFight4" },
+    { 0x04415Cu, "DiceMachineCollapse" },
+    { 0x0441F8u, "DiceMachineSmoke" },
+    { 0x04420Cu, "DiceMachineLost" },
+    { 0x04421Cu, "MachineLostCheck" },
+    { 0x044396u, "MachineSpark" },
+    { 0x044436u, "MachineSmokePuff" },
+    { 0x0444ACu, "MachineFloors" },
+    { 0x0444C8u, "MachineFloor" },
+    { 0x0444F0u, "MachinePanels" },
+    { 0x04450Cu, "MachinePanelSet" },
+    { 0x04452Cu, "MachineGuardSet" },
+    { 0x044578u, "MachineCounterSet" },
+    { 0x0445A6u, "MachineDrip" },
+    { 0x0445E2u, "DiceMachinePanel" },
+    { 0x0446BEu, "MachineBlank" },
+    { 0x0446CCu, "DiceMachineGuard" },
+    { 0x0446F6u, "DicePegs" },
+    { 0x0447E6u, "DicePegsStart" },
+    { 0x044824u, "DicePegsWait" },
+    { 0x044846u, "DicePegsDraw" },
+    { 0x044864u, "DicePegsNext" },
+    { 0x04489Au, "DicePegsShow" },
+    { 0x0448BAu, "DicePegsPause" },
+    { 0x0448C6u, "DicePegsReady" },
+    { 0x0448F0u, "DicePegsRunners" },
+    { 0x04492Cu, "DicePegsWalk" },
+    { 0x044944u, "DicePegsBeaten" },
+    { 0x04494Cu, "DicePegsEnd" },
+    { 0x04495Cu, "PegRunner" },
+    { 0x044984u, "PegRunnerStart" },
+    { 0x0449BCu, "PegRunnerRun" },
+    { 0x0449FCu, "PegRunnerEnd" },
+    { 0x044A08u, "PegFuse" },
+    { 0x044A22u, "PegFuseStart" },
+    { 0x044A48u, "PegFuseRun" },
+    { 0x044AA0u, "PegFuseToBoss" },
+    { 0x044ABAu, "PegFuseBurn" },
+    { 0x044B10u, "PegsPegs" },
+    { 0x044B9Eu, "PegsRunner" },
+    { 0x044BD8u, "PegsNextTimed" },
+    { 0x044BDCu, "PegsNext" },
+    { 0x044CA6u, "PegsAim" },
+    { 0x044CCCu, "PegsFrame" },
+    { 0x044CF4u, "PegsPushTime" },
+    { 0x044D0Eu, "PegsPush" },
+    { 0x044D40u, "PegsAt" },
+    { 0x044D7Eu, "PegsWalkStep" },
+    { 0x044DD0u, "PegsFloors" },
+    { 0x044E28u, "PegsColours" },
+    { 0x044E46u, "PegsSpark" },
+    { 0x044E80u, "DiceRace" },
+    { 0x044EDAu, "DiceRaceStart" },
+    { 0x044EEEu, "DiceRaceRun" },
+    { 0x044F84u, "DiceRaceWon" },
+    { 0x044F94u, "DiceRaceLost" },
+    { 0x044FA4u, "RaceSoldiers" },
+    { 0x045000u, "RaceVanish" },
+    { 0x045010u, "DiceWheel" },
+    { 0x045072u, "DiceWheelStart" },
+    { 0x0450A8u, "DiceWheelWait" },
+    { 0x0450BAu, "DiceWheelSeek" },
+    { 0x0450F8u, "DiceWheelSpin" },
+    { 0x045134u, "WheelCleared" },
+    { 0x04518Cu, "WheelPick" },
+    { 0x045236u, "WheelTurn" },
+    { 0x045248u, "WheelRoll" },
+    { 0x045256u, "WheelScroll" },
+    { 0x0452A2u, "WheelDraw" },
+    { 0x045332u, "WheelChunks" },
+    { 0x04538Au, "WheelBand" },
+    { 0x045442u, "WheelPuff" },
+    { 0x045488u, "WheelGunner" },
+    { 0x0454AAu, "WheelGunnerStart" },
+    { 0x0454B8u, "WheelGunnerWait" },
+    { 0x0454ECu, "WheelGunnerFire" },
+    { 0x045550u, "WheelDropper" },
+    { 0x04556Eu, "WheelDropperStart" },
+    { 0x04557Cu, "WheelDropperRun" },
+    { 0x0455BCu, "WheelShooter" },
+    { 0x0455E2u, "WheelShooterStart" },
+    { 0x0455F0u, "WheelShooterWait" },
+    { 0x04560Au, "WheelShooterFlame" },
+    { 0x045680u, "WheelShooterBall" },
+    { 0x04570Cu, "WheelLever" },
+    { 0x04573Eu, "WheelLeverStart" },
+    { 0x045756u, "WheelLeverWait" },
+    { 0x045798u, "WheelMortar" },
+    { 0x0457BAu, "WheelMortarStart" },
+    { 0x0457D0u, "WheelMortarDelay" },
+    { 0x0457D6u, "WheelMortarWait" },
+    { 0x0457EEu, "WheelMortarFire" },
+    { 0x045868u, "WheelCarDead" },
+    { 0x0458B2u, "WheelCarStruck" },
+    { 0x0458C8u, "WheelCarSetup" },
+    { 0x0458F4u, "WheelCarDelay" },
+    { 0x045928u, "WheelCarPlace" },
+    { 0x045994u, "WheelBomb" },
+    { 0x045B68u, "WheelDrop" },
+    { 0x045B7Au, "WheelDropStart" },
+    { 0x045BB8u, "WheelDropFall" },
+    { 0x045C50u, "WheelDropSmoke" },
     { 0x045D18u, "SwitchRoom" },
     { 0x045D7Eu, "SwitchRoomStart" },
     { 0x045DAAu, "SwitchRoomPlay" },
@@ -8308,73 +8308,73 @@ static const struct sym rom_syms[] = {
     { 0x046760u, "SpikePodOpen" },
     { 0x046784u, "SpikePodClose" },
     { 0x0467B8u, "SpikePodSpikes" },
-    { 0x0468BAu, "sub_468BA" },
-    { 0x0469D4u, "sub_469D4" },
-    { 0x046AE4u, "sub_46AE4" },
-    { 0x046B52u, "sub_46B52" },
-    { 0x046BA6u, "sub_46BA6" },
-    { 0x046BFCu, "sub_46BFC" },
-    { 0x046C28u, "sub_46C28" },
-    { 0x046C52u, "sub_46C52" },
-    { 0x046CA2u, "sub_46CA2" },
-    { 0x046CC6u, "sub_46CC6" },
-    { 0x046D46u, "sub_46D46" },
-    { 0x046E9Eu, "sub_46E9E" },
-    { 0x046ED2u, "sub_46ED2" },
-    { 0x046EF2u, "sub_46EF2" },
-    { 0x046F12u, "sub_46F12" },
-    { 0x046F2Cu, "sub_46F2C" },
-    { 0x046F48u, "sub_46F48" },
-    { 0x046F64u, "sub_46F64" },
-    { 0x046F7Au, "sub_46F7A" },
-    { 0x047064u, "sub_47064" },
-    { 0x047132u, "sub_47132" },
-    { 0x047178u, "sub_47178" },
-    { 0x047196u, "sub_47196" },
-    { 0x0471E4u, "sub_471E4" },
-    { 0x04720Au, "sub_4720A" },
-    { 0x04721Eu, "sub_4721E" },
-    { 0x047232u, "sub_47232" },
-    { 0x04724Au, "sub_4724A" },
-    { 0x047262u, "sub_47262" },
-    { 0x04728Au, "sub_4728A" },
-    { 0x0472B6u, "sub_472B6" },
-    { 0x0472C6u, "sub_472C6" },
-    { 0x047316u, "sub_47316" },
-    { 0x04734Eu, "sub_4734E" },
-    { 0x047410u, "sub_47410" },
-    { 0x04743Eu, "sub_4743E" },
-    { 0x0475B6u, "sub_475B6" },
-    { 0x0475F0u, "sub_475F0" },
-    { 0x04761Eu, "sub_4761E" },
-    { 0x047642u, "sub_47642" },
-    { 0x047660u, "sub_47660" },
-    { 0x04768Cu, "sub_4768C" },
-    { 0x0476BEu, "sub_476BE" },
-    { 0x0476FEu, "sub_476FE" },
-    { 0x04771Cu, "sub_4771C" },
-    { 0x047736u, "sub_47736" },
-    { 0x047740u, "sub_47740" },
-    { 0x04775Au, "sub_4775A" },
-    { 0x04776Eu, "sub_4776E" },
-    { 0x04778Au, "sub_4778A" },
-    { 0x04780Cu, "sub_4780C" },
-    { 0x047864u, "sub_47864" },
-    { 0x0478E8u, "sub_478E8" },
-    { 0x04790Au, "sub_4790A" },
-    { 0x047956u, "sub_47956" },
-    { 0x0479C0u, "sub_479C0" },
-    { 0x0479E8u, "sub_479E8" },
-    { 0x0479F6u, "sub_479F6" },
-    { 0x047A22u, "sub_47A22" },
-    { 0x047A32u, "sub_47A32" },
-    { 0x047A90u, "sub_47A90" },
-    { 0x047AE4u, "sub_47AE4" },
-    { 0x047B16u, "sub_47B16" },
+    { 0x0468BAu, "OrbitWobble" },
+    { 0x0469D4u, "DiceMaw" },
+    { 0x046AE4u, "DiceMawStart" },
+    { 0x046B52u, "DiceMawSway" },
+    { 0x046BA6u, "DiceMawFollow" },
+    { 0x046BFCu, "DiceMawRise" },
+    { 0x046C28u, "DiceMawPause" },
+    { 0x046C52u, "DiceMawSpit" },
+    { 0x046CA2u, "DiceMawBeaten" },
+    { 0x046CC6u, "MawParts" },
+    { 0x046D46u, "MawAngles" },
+    { 0x046E9Eu, "MawEase" },
+    { 0x046ED2u, "MawBob" },
+    { 0x046EF2u, "DiceMawBobUp" },
+    { 0x046F12u, "DiceMawBobDown" },
+    { 0x046F2Cu, "DiceMawBobRise" },
+    { 0x046F48u, "DiceMawBobSink" },
+    { 0x046F64u, "MawHead" },
+    { 0x046F7Au, "DiceMawHeadSway" },
+    { 0x047064u, "DiceMawHeadFollow" },
+    { 0x047132u, "DiceMawHeadStraight" },
+    { 0x047178u, "MawDrift" },
+    { 0x047196u, "MawJaw" },
+    { 0x0471E4u, "MawJawStep" },
+    { 0x04720Au, "DiceMawJawOpen" },
+    { 0x04721Eu, "DiceMawJawClose" },
+    { 0x047232u, "DiceMawJawWide" },
+    { 0x04724Au, "DiceMawJawShut" },
+    { 0x047262u, "DiceMawJawGape" },
+    { 0x04728Au, "DiceMawJawSnap" },
+    { 0x0472B6u, "DiceMawJawHold" },
+    { 0x0472C6u, "MawFlames" },
+    { 0x047316u, "MawSpit" },
+    { 0x04734Eu, "MawBall" },
+    { 0x047410u, "MawBallWalls" },
+    { 0x04743Eu, "DiceBrawler" },
+    { 0x0475B6u, "DiceBrawlerStart" },
+    { 0x0475F0u, "DiceBrawlerWait" },
+    { 0x04761Eu, "DiceBrawlerEnter" },
+    { 0x047642u, "DiceBrawlerSlide" },
+    { 0x047660u, "DiceBrawlerSlow" },
+    { 0x04768Cu, "DiceBrawlerPose" },
+    { 0x0476BEu, "DiceBrawlerStand" },
+    { 0x0476FEu, "DiceBrawlerWalkLeft" },
+    { 0x04771Cu, "DiceBrawlerWalkRight" },
+    { 0x047736u, "DiceBrawlerKnocked" },
+    { 0x047740u, "DiceBrawlerLying" },
+    { 0x04775Au, "DiceBrawlerHeld" },
+    { 0x04776Eu, "DiceBrawlerThrown" },
+    { 0x04778Au, "DiceBrawlerGrab" },
+    { 0x04780Cu, "DiceBrawlerLift" },
+    { 0x047864u, "DiceBrawlerToss" },
+    { 0x0478E8u, "DiceBrawlerRecover" },
+    { 0x04790Au, "DiceBrawlerFall" },
+    { 0x047956u, "DiceBrawlerLeap" },
+    { 0x0479C0u, "DiceBrawlerJump" },
+    { 0x0479E8u, "DiceBrawlerJumpFall" },
+    { 0x0479F6u, "DiceBrawlerAttack" },
+    { 0x047A22u, "DiceBrawlerRoar" },
+    { 0x047A32u, "DiceBrawlerCharge" },
+    { 0x047A90u, "DiceBrawlerFire" },
+    { 0x047AE4u, "DiceBrawlerBeaten" },
+    { 0x047B16u, "DiceBrawlerSpark" },
     { 0x047CE0u, "BrawlerNear" },
     { 0x047D4Cu, "BrawlerPuff" },
-    { 0x047D8Cu, "sub_47D8C" },
-    { 0x047DBEu, "sub_47DBE" },
+    { 0x047D8Cu, "DiceBrawlerFlame" },
+    { 0x047DBEu, "DiceBrawlerFace" },
     { 0x047E50u, "BrawlerWalls" },
     { 0x047E9Au, "BrawlerHitJump" },
     { 0x047F0Eu, "BrawlerFall" },
@@ -8399,34 +8399,34 @@ static const struct sym rom_syms[] = {
     { 0x0482DAu, "Brawler4CJumpFall" },
     { 0x0482E8u, "Brawler4CAttack" },
     { 0x048328u, "FireSpinner" },
-    { 0x04841Au, "sub_4841A" },
-    { 0x048526u, "sub_48526" },
-    { 0x0485AAu, "sub_485AA" },
-    { 0x0485ECu, "sub_485EC" },
-    { 0x048606u, "sub_48606" },
-    { 0x0486B6u, "sub_486B6" },
-    { 0x0486F8u, "sub_486F8" },
-    { 0x048722u, "sub_48722" },
-    { 0x048750u, "sub_48750" },
-    { 0x0487BCu, "sub_487BC" },
-    { 0x0487C6u, "sub_487C6" },
-    { 0x04882Au, "sub_4882A" },
-    { 0x048840u, "sub_48840" },
-    { 0x048868u, "sub_48868" },
-    { 0x048886u, "sub_48886" },
-    { 0x0488D6u, "sub_488D6" },
-    { 0x04890Au, "sub_4890A" },
-    { 0x04892Eu, "sub_4892E" },
-    { 0x04895Cu, "sub_4895C" },
-    { 0x048970u, "sub_48970" },
-    { 0x0489D2u, "sub_489D2" },
-    { 0x048A24u, "sub_48A24" },
-    { 0x048A70u, "sub_48A70" },
-    { 0x048A86u, "sub_48A86" },
-    { 0x048ACAu, "sub_48ACA" },
-    { 0x048B78u, "sub_48B78" },
-    { 0x048BDAu, "sub_48BDA" },
-    { 0x048C6Eu, "sub_48C6E" },
+    { 0x04841Au, "DiceSpring" },
+    { 0x048526u, "DiceSpringStart" },
+    { 0x0485AAu, "DiceSpringRise" },
+    { 0x0485ECu, "DiceSpringBob" },
+    { 0x048606u, "DiceSpringLeap" },
+    { 0x0486B6u, "DiceSpringFall" },
+    { 0x0486F8u, "DiceSpringSink" },
+    { 0x048722u, "SpringCount" },
+    { 0x048750u, "SpringFlame" },
+    { 0x0487BCu, "SpringShape" },
+    { 0x0487C6u, "SpringNeck" },
+    { 0x04882Au, "SpringNeckClear" },
+    { 0x048840u, "SpringStep" },
+    { 0x048868u, "SpringStepJump" },
+    { 0x048886u, "DiceSpringBounce" },
+    { 0x0488D6u, "DiceSpringStretch" },
+    { 0x04890Au, "DiceSpringShrink" },
+    { 0x04892Eu, "DiceSpringLand" },
+    { 0x04895Cu, "DiceSpringRecoil" },
+    { 0x048970u, "SpringLines" },
+    { 0x0489D2u, "SpringSmoke" },
+    { 0x048A24u, "SpringColours" },
+    { 0x048A70u, "SpringPod" },
+    { 0x048A86u, "SpringPodStart" },
+    { 0x048ACAu, "SpringPodFall" },
+    { 0x048B78u, "SpringPodWait" },
+    { 0x048BDAu, "CaptainRoom" },
+    { 0x048C6Eu, "CaptainWisp" },
     { 0x048D3Cu, "SpaceDirector" },
     { 0x048DA2u, "SpaceDir00" },
     { 0x048DC2u, "SpaceDir04" },
@@ -8508,23 +8508,23 @@ static const struct sym rom_syms[] = {
     { 0x049780u, "SpaceEventC4" },
     { 0x0497A2u, "SpaceEvent0C" },
     { 0x0497B2u, "SpaceEvent70" },
-    { 0x0497C2u, "sub_497C2" },
-    { 0x049800u, "sub_49800" },
-    { 0x04984Eu, "sub_4984E" },
-    { 0x049878u, "sub_49878" },
-    { 0x049896u, "sub_49896" },
-    { 0x0498C8u, "sub_498C8" },
-    { 0x0498F2u, "sub_498F2" },
-    { 0x04990Cu, "sub_4990C" },
-    { 0x049912u, "sub_49912" },
-    { 0x049926u, "sub_49926" },
-    { 0x049936u, "sub_49936" },
-    { 0x049952u, "sub_49952" },
-    { 0x04996Au, "sub_4996A" },
-    { 0x049A24u, "sub_49A24" },
-    { 0x049A5Eu, "sub_49A5E" },
-    { 0x049AAAu, "sub_49AAA" },
-    { 0x049B0Au, "sub_49B0A" },
+    { 0x0497C2u, "Quake" },
+    { 0x049800u, "QuakeStart" },
+    { 0x04984Eu, "QuakeRoll" },
+    { 0x049878u, "QuakeBrake" },
+    { 0x049896u, "QuakeRoll2" },
+    { 0x0498C8u, "QuakeBrake2" },
+    { 0x0498F2u, "QuakeRumble" },
+    { 0x04990Cu, "QuakeCalm" },
+    { 0x049912u, "QuakeSpeedUp" },
+    { 0x049926u, "QuakeStopB" },
+    { 0x049936u, "QuakeShaking" },
+    { 0x049952u, "QuakeEase" },
+    { 0x04996Au, "QuakeWave" },
+    { 0x049A24u, "QuakeWaveTriple" },
+    { 0x049A5Eu, "QuakeSoldiers" },
+    { 0x049AAAu, "QuakeRiders" },
+    { 0x049B0Au, "QuakeTiles" },
     { 0x049B4Au, "Space518" },
     { 0x049B58u, "Space518Step" },
     { 0x049B6Au, "Space518Start" },
@@ -8717,13 +8717,13 @@ static const struct sym rom_syms[] = {
     { 0x04C610u, "Space500" },
     { 0x04C628u, "Space454" },
     { 0x04C6A2u, "Space460" },
-    { 0x04C6EEu, "sub_4C6EE" },
+    { 0x04C6EEu, "SpaceBouncer" },
     { 0x04C774u, "Space464" },
-    { 0x04C906u, "sub_4C906" },
+    { 0x04C906u, "SpaceHomer" },
     { 0x04C9C6u, "Space47C" },
     { 0x04CAEEu, "Space47CSteer" },
     { 0x04CB36u, "Space4A8" },
-    { 0x04CB4Au, "sub_4CB4A" },
+    { 0x04CB4Au, "SpaceCharge" },
     { 0x04CC0Cu, "Space4AC" },
     { 0x04CC1Eu, "Space514" },
     { 0x04CC46u, "Space50C" },
@@ -8734,61 +8734,61 @@ static const struct sym rom_syms[] = {
     { 0x04CFE8u, "Space4B8" },
     { 0x04D08Au, "Space4BC" },
     { 0x04D0A2u, "Space4BCPuff" },
-    { 0x04D196u, "sub_4D196" },
-    { 0x04D2C4u, "sub_4D2C4" },
-    { 0x04D300u, "sub_4D300" },
-    { 0x04D324u, "sub_4D324" },
-    { 0x04D33Au, "sub_4D33A" },
-    { 0x04D3A8u, "sub_4D3A8" },
-    { 0x04D430u, "sub_4D430" },
-    { 0x04D4E0u, "sub_4D4E0" },
-    { 0x04D566u, "sub_4D566" },
-    { 0x04D644u, "sub_4D644" },
-    { 0x04D6FEu, "sub_4D6FE" },
-    { 0x04D7A0u, "sub_4D7A0" },
-    { 0x04D7B6u, "sub_4D7B6" },
-    { 0x04D806u, "sub_4D806" },
-    { 0x04D874u, "sub_4D874" },
-    { 0x04D8A6u, "sub_4D8A6" },
-    { 0x04D8C4u, "sub_4D8C4" },
-    { 0x04D906u, "sub_4D906" },
-    { 0x04D932u, "sub_4D932" },
-    { 0x04D99Cu, "sub_4D99C" },
-    { 0x04D9BEu, "sub_4D9BE" },
-    { 0x04D9F4u, "sub_4D9F4" },
-    { 0x04D9FCu, "sub_4D9FC" },
+    { 0x04D196u, "SevenSpace" },
+    { 0x04D2C4u, "SevenSpaceLoad" },
+    { 0x04D300u, "SevenSpaceLoaded" },
+    { 0x04D324u, "SevenSpaceFormA" },
+    { 0x04D33Au, "SevenSpaceSetA" },
+    { 0x04D3A8u, "SevenSpaceFormD" },
+    { 0x04D430u, "SevenSpaceFormG" },
+    { 0x04D4E0u, "SevenSpaceFormE" },
+    { 0x04D566u, "SevenSpaceFormB" },
+    { 0x04D644u, "SevenSpaceFormC" },
+    { 0x04D6FEu, "SevenSpaceFormF" },
+    { 0x04D7A0u, "SevenSpaceWait" },
+    { 0x04D7B6u, "SevenSpaceRise" },
+    { 0x04D806u, "SevenSpaceFly" },
+    { 0x04D874u, "SevenSpaceReturn" },
+    { 0x04D8A6u, "SevenSpaceArrive" },
+    { 0x04D8C4u, "SevenSpaceReady" },
+    { 0x04D906u, "SevenSpaceBeaten" },
+    { 0x04D932u, "SevenSpaceFalls" },
+    { 0x04D99Cu, "SevenSpaceGone" },
+    { 0x04D9BEu, "SevenSpaceVanish" },
+    { 0x04D9F4u, "SevenSpaceNext" },
+    { 0x04D9FCu, "SevenSpaceABob" },
     { 0x04DA2Au, "SevenPoseBob" },
-    { 0x04DA64u, "sub_4DA64" },
-    { 0x04DA8Au, "sub_4DA8A" },
-    { 0x04DB10u, "sub_4DB10" },
-    { 0x04DB36u, "sub_4DB36" },
-    { 0x04DB68u, "sub_4DB68" },
-    { 0x04DB94u, "sub_4DB94" },
-    { 0x04DBB2u, "sub_4DBB2" },
-    { 0x04DBEEu, "sub_4DBEE" },
-    { 0x04DC36u, "sub_4DC36" },
-    { 0x04DCACu, "sub_4DCAC" },
-    { 0x04DD86u, "sub_4DD86" },
-    { 0x04DDAAu, "sub_4DDAA" },
-    { 0x04DDCEu, "sub_4DDCE" },
-    { 0x04DEB8u, "sub_4DEB8" },
-    { 0x04DF22u, "sub_4DF22" },
-    { 0x04DF2Cu, "sub_4DF2C" },
-    { 0x04DF5Au, "sub_4DF5A" },
-    { 0x04DFA0u, "sub_4DFA0" },
-    { 0x04DFAEu, "sub_4DFAE" },
-    { 0x04DFB8u, "sub_4DFB8" },
-    { 0x04DFC4u, "sub_4DFC4" },
-    { 0x04E052u, "sub_4E052" },
-    { 0x04E0D8u, "sub_4E0D8" },
-    { 0x04E218u, "sub_4E218" },
-    { 0x04E272u, "sub_4E272" },
-    { 0x04E2BEu, "sub_4E2BE" },
-    { 0x04E2F2u, "sub_4E2F2" },
-    { 0x04E386u, "sub_4E386" },
-    { 0x04E3D0u, "sub_4E3D0" },
-    { 0x04E428u, "sub_4E428" },
-    { 0x04E4F0u, "sub_4E4F0" },
+    { 0x04DA64u, "SevenSpaceAPose" },
+    { 0x04DA8Au, "SevenSpaceAFire" },
+    { 0x04DB10u, "SevenSpaceBRun" },
+    { 0x04DB36u, "SevenSpaceCRun" },
+    { 0x04DB68u, "SevenSpaceDRun" },
+    { 0x04DB94u, "SevenSpaceGSpin" },
+    { 0x04DBB2u, "SevenSpaceGRun" },
+    { 0x04DBEEu, "SevenSpaceTurn" },
+    { 0x04DC36u, "SevenSpaceFRun" },
+    { 0x04DCACu, "SevenSpaceERun" },
+    { 0x04DD86u, "SevenSpaceLayer" },
+    { 0x04DDAAu, "SevenSpaceAim" },
+    { 0x04DDCEu, "SevenSpaceCatch" },
+    { 0x04DEB8u, "SevenSpaceBox" },
+    { 0x04DF22u, "SevenSpaceTailBox" },
+    { 0x04DF2Cu, "SevenSpacePartBox" },
+    { 0x04DF5Au, "SevenSpaceFlame" },
+    { 0x04DFA0u, "SevenSpaceRecover" },
+    { 0x04DFAEu, "SevenSpaceSlot" },
+    { 0x04DFB8u, "SevenSpaceFaceNow" },
+    { 0x04DFC4u, "SevenSpaceFace" },
+    { 0x04E052u, "SevenSpaceShot" },
+    { 0x04E0D8u, "SevenSpaceMineDrop" },
+    { 0x04E218u, "SevenSpaceBlast" },
+    { 0x04E272u, "SevenSpaceLegs" },
+    { 0x04E2BEu, "SevenSpaceLegStep" },
+    { 0x04E2F2u, "SevenSpaceChunks" },
+    { 0x04E386u, "SevenSpaceSmoke" },
+    { 0x04E3D0u, "SevenSpaceShard" },
+    { 0x04E428u, "SevenSpaceShardMake" },
+    { 0x04E4F0u, "SevenSpaceMine" },
     { 0x04E7C4u, "Boss548" },
     { 0x04E7CEu, "Boss548Run" },
     { 0x04E9D0u, "Boss548Start" },
@@ -10017,10 +10017,10 @@ static const uint32_t trivial_syms[] = {
     0x0272D6u, 0x0272DCu, 0x0273CAu, 0x0273CEu, 0x029A40u, 0x029AA0u, 0x029B7Eu, 0x02A12Eu,
     0x02A68Au, 0x02C2AAu, 0x02D02Au, 0x02F4BAu, 0x030748u, 0x031A26u, 0x03222Cu, 0x032282u,
     0x03306Au, 0x033CDCu, 0x033D04u, 0x035C28u, 0x037D82u, 0x0382CCu, 0x038794u, 0x038926u,
-    0x038EF2u, 0x03BAB0u, 0x03BC46u, 0x03BDD8u, 0x03BF7Au, 0x03DB92u, 0x03DC9Cu, 0x044BD8u,
-    0x047F86u, 0x048F30u, 0x048F66u, 0x049402u, 0x04AB3Eu, 0x04B01Cu, 0x04C20Au, 0x04C4A6u,
-    0x04C4A8u, 0x04F4FCu, 0x0508FCu, 0x050B1Cu, 0x050CB4u, 0x050DD0u, 0x053140u, 0x05419Cu,
-    0x0560DAu, 0x056128u, 0x0571C0u, 0x058446u, 0x0590DEu, 0x059B80u, 0x05A254u, 0x05A40Au,
-    0x05B280u, 0x05DC4Au, 0x05EF0Au, 0x05EF10u, 0x06213Cu, 0x0622B6u, 0x062FCCu, 0x065A2Eu,
-    0x065A48u, 0x065A4Au, 0x065C2Au, 0x065C2Eu,
+    0x038EF2u, 0x03BAB0u, 0x03BC46u, 0x03BDD8u, 0x03BF7Au, 0x03DB92u, 0x03DC9Cu, 0x047F86u,
+    0x048F30u, 0x048F66u, 0x049402u, 0x04AB3Eu, 0x04B01Cu, 0x04C20Au, 0x04C4A6u, 0x04C4A8u,
+    0x04F4FCu, 0x0508FCu, 0x050B1Cu, 0x050CB4u, 0x050DD0u, 0x053140u, 0x05419Cu, 0x0560DAu,
+    0x056128u, 0x0571C0u, 0x058446u, 0x0590DEu, 0x059B80u, 0x05A254u, 0x05A40Au, 0x05B280u,
+    0x05DC4Au, 0x05EF0Au, 0x05EF10u, 0x06213Cu, 0x0622B6u, 0x062FCCu, 0x065A2Eu, 0x065A48u,
+    0x065A4Au, 0x065C2Au, 0x065C2Eu,
 };
