@@ -716,6 +716,14 @@ void ScrollPlaneB(void);                                             /* $00A3F6 
 void ScrollPlaneBColumns(void);                                      /* $00A418 */
 void HScrollTable(void);                                             /* $00A434 */
 void VScrollTable(void);                                             /* $00A53E */
+void PlaneAFill(void);                                               /* $0098AC */
+void PlaneBFill(void);                                               /* $009AD0 */
+void PlaneADmaFirst(uint16_t top);                                   /* $0099D2 d4.w */
+void PlaneADmaSecond(uint16_t top);                                  /* $009A4E d4.w */
+void PlaneADma(void);                                                /* $009974 */
+void PlaneBDma(void);                                                /* $009B94 */
+void PlaneARedraw(void);                                             /* $00A692 */
+void PlaneBRedraw(void);                                             /* $00A6A2 */
 
 /* ---- the level's collision (map.c) ---- */
 uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
@@ -737,6 +745,57 @@ uint16_t MapFloorMiddleHigh(uint16_t y);                             /* $00BDBC 
 uint16_t MapSlopeDown(uint16_t x, uint16_t y, uint16_t *d2);         /* $00BDCC d0.w, d1.w -> d1.w, d2.w */
 uint16_t MapSlopeDownLow(uint16_t x, uint16_t y, uint16_t *d2);      /* $00BDE6 d0.w, d1.w -> d1.w, d2.w */
 uint16_t MapSlopeDownHigh(uint16_t x, uint16_t y, uint16_t *d2);     /* $00BE04 d0.w, d1.w -> d1.w, d2.w */
+
+/* ---- the stages' own frames (stages.c) ---- */
+void CameraSpeed(uint32_t x, uint32_t y);                            /* $004188 d0, d1 */
+void PlayersCentre(uint16_t *x, uint16_t *y);                        /* $008DEE -> d0.w, d1.w */
+void ClampFour(uint16_t *x, uint16_t *y);                            /* $008EAE -> d0.w, d1.w */
+void CameraStop(void);                                               /* $0041AC */
+void CameraFollowRight(void);                                        /* $004094 */
+void PlayersInFront(void);                                           /* $0041BE */
+void PlayersFree(void);                                              /* $0041FE */
+void PlayersFixed(void);                                             /* $00428C */
+void StageSceneStart(void);                                          /* $004038 */
+void StageSceneEnd(void);                                            /* $004068 */
+void Stage0Frame(void);                                              /* $003B38 */
+void Stage0Camera(void);                                             /* $003B40 */
+void Stage0Cam00(void);                                              /* $003B7C */
+void Stage0Cam04(void);                                              /* $003BAC */
+void Stage0Cam08(void);                                              /* $003BBA */
+void Stage0Cam0C(void);                                              /* $003C00 */
+void Stage0Cam10(void);                                              /* $003C0E */
+void Stage0Cam14(void);                                              /* $003C3E */
+void Stage0Cam18(void);                                              /* $003C58 */
+void Stage0Cam1C(void);                                              /* $003C7A */
+void Stage0Cam20(void);                                              /* $003C8E */
+void Stage0Cam24(void);                                              /* $003CB2 */
+void Stage0Cam28(void);                                              /* $003D08 */
+void Stage0Cam2C(void);                                              /* $003D40 */
+void Stage0Cam30(void);                                              /* $003D82 */
+void Stage0Cam34(void);                                              /* $003DDC */
+void Stage0Cam38(void);                                              /* $003E08 */
+void Stage0Cam3C(void);                                              /* $003E6A */
+void Stage0Cam40(void);                                              /* $003E9C */
+void Stage0Cam44(void);                                              /* $003EC6 */
+void Stage0Cam48(void);                                              /* $003EEE */
+void Stage0BossTiles(void);                                          /* $0040D8 */
+void Stage0Cam4C(void);                                              /* $003F22 */
+void Stage0Cam50(void);                                              /* $003F3E */
+void Stage0Cam54(void);                                              /* $003F98 */
+void Stage0Cam58(void);                                              /* $003FE6 */
+void Stage0ShaftAttributes(void);                                    /* $0042BA */
+void BackQuarterHalf(void);                                          /* $004440 */
+void BackQuarterHalfCamera(void);                                    /* $00445A */
+void BackStop(void);                                                 /* $00442E */
+void BackLayersStart(void);                                          /* $004470 */
+void Stage0Back00(void);                                             /* $00430A */
+void Stage0Back04(void);                                             /* $004338 */
+void Stage0Back08(void);                                             /* $004350 */
+void Stage0Back0C(void);                                             /* $004388 */
+void Stage0Back10(void);                                             /* $0043BA */
+void Stage0Back14(void);                                             /* $0043E2 */
+void Stage0Back18(void);                                             /* $00441C */
+void Stage0Back1C(void);                                             /* $00442C */
 
 /* ---- not ported yet ---- */
 

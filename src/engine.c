@@ -180,7 +180,7 @@ void ObjectsUpdate(void)
  * pointers) is in order of x. */
 void ObjectsSpawn(void)
 {
-    if (bit8(v_scenePlayers, 6) || bit8(v_scenePlayers, 5)) return;
+    if (bit8(v_cameraHold, 6) || bit8(v_cameraHold, 5)) return;
     if (rd16(v_camSpeedX) & 0x8000) return;
     for (;;) {
         uint32_t entry = bus_rd32(rd32(v_layout));

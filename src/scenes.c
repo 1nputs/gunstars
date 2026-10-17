@@ -302,7 +302,7 @@ static int walk_in_waiting(uint16_t obj)
 static void walk_in_on(uint16_t obj)
 {
     wr16(obj + P_TIME, (uint16_t)(rd16(obj + P_TIME) - 1));
-    if (!(rd16(obj + P_TIME) & 0x8000)) clr8(v_scenePlayers, 7);
+    if (!(rd16(obj + P_TIME) & 0x8000)) clr8(v_cameraHold, 7);
 }
 
 /* $021146 */

@@ -271,8 +271,8 @@ static void to_scene(uint16_t obj, uint16_t s)
 /* $00F39E */
 void PlayerInputC(uint16_t obj)
 {
-    if (rd16(0xA950) == 0x38) { PlayerInputNone(obj); return; }
-    if ((int16_t)rd16(0xA950) < 0x48) { PlayerInputDirections(obj); return; }
+    if (rd16(v_cameraStep) == 0x38) { PlayerInputNone(obj); return; }
+    if ((int16_t)rd16(v_cameraStep) < 0x48) { PlayerInputDirections(obj); return; }
     if (rd16(obj + P_ANIM) != 1 || !bit8(0xA028, 1)) { PlayerInputNone(obj); return; }
     to_scene(obj, rd8(0xA200) == 3 && obj != v_player1 ? 0x18 : 0x14);
 }
@@ -315,7 +315,7 @@ void PlayerInput18(uint16_t obj)
 void PlayerInput1C(uint16_t obj)
 {
     if ((int16_t)rd16(obj + O_X) < 0xDC) { hold(obj, PAD_RIGHT, 0); return; }
-    if ((int16_t)rd16(0xA950) < 0x3C) { PlayerInputNone(obj); return; }
+    if ((int16_t)rd16(v_cameraStep) < 0x3C) { PlayerInputNone(obj); return; }
     to_scene(obj, 0x1C);
 }
 

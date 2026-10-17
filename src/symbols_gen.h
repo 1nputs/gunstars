@@ -136,58 +136,58 @@
 #define SYM_StageStart 0x003900u
 #define SYM_StageFrame 0x00391Cu
 #define SYM_sub_03942 0x003942u
-#define SYM_sub_03B38 0x003B38u
-#define SYM_sub_03B40 0x003B40u
-#define SYM_sub_03B7C 0x003B7Cu
-#define SYM_sub_03BAC 0x003BACu
-#define SYM_sub_03BBA 0x003BBAu
-#define SYM_sub_03C00 0x003C00u
-#define SYM_sub_03C0E 0x003C0Eu
-#define SYM_sub_03C3E 0x003C3Eu
-#define SYM_sub_03C58 0x003C58u
-#define SYM_sub_03C7A 0x003C7Au
-#define SYM_sub_03C8E 0x003C8Eu
-#define SYM_sub_03CB2 0x003CB2u
-#define SYM_sub_03D08 0x003D08u
-#define SYM_sub_03D40 0x003D40u
-#define SYM_sub_03D82 0x003D82u
-#define SYM_sub_03DDC 0x003DDCu
-#define SYM_sub_03E08 0x003E08u
-#define SYM_sub_03E6A 0x003E6Au
-#define SYM_sub_03E9C 0x003E9Cu
-#define SYM_sub_03EC6 0x003EC6u
-#define SYM_sub_03EEE 0x003EEEu
-#define SYM_sub_03F22 0x003F22u
-#define SYM_sub_03F3E 0x003F3Eu
-#define SYM_sub_03F98 0x003F98u
-#define SYM_sub_03FE6 0x003FE6u
-#define SYM_sub_04038 0x004038u
-#define SYM_sub_04068 0x004068u
-#define SYM_sub_04094 0x004094u
-#define SYM_sub_040D8 0x0040D8u
-#define SYM_sub_04188 0x004188u
+#define SYM_Stage0Frame 0x003B38u
+#define SYM_Stage0Camera 0x003B40u
+#define SYM_Stage0Cam00 0x003B7Cu
+#define SYM_Stage0Cam04 0x003BACu
+#define SYM_Stage0Cam08 0x003BBAu
+#define SYM_Stage0Cam0C 0x003C00u
+#define SYM_Stage0Cam10 0x003C0Eu
+#define SYM_Stage0Cam14 0x003C3Eu
+#define SYM_Stage0Cam18 0x003C58u
+#define SYM_Stage0Cam1C 0x003C7Au
+#define SYM_Stage0Cam20 0x003C8Eu
+#define SYM_Stage0Cam24 0x003CB2u
+#define SYM_Stage0Cam28 0x003D08u
+#define SYM_Stage0Cam2C 0x003D40u
+#define SYM_Stage0Cam30 0x003D82u
+#define SYM_Stage0Cam34 0x003DDCu
+#define SYM_Stage0Cam38 0x003E08u
+#define SYM_Stage0Cam3C 0x003E6Au
+#define SYM_Stage0Cam40 0x003E9Cu
+#define SYM_Stage0Cam44 0x003EC6u
+#define SYM_Stage0Cam48 0x003EEEu
+#define SYM_Stage0Cam4C 0x003F22u
+#define SYM_Stage0Cam50 0x003F3Eu
+#define SYM_Stage0Cam54 0x003F98u
+#define SYM_Stage0Cam58 0x003FE6u
+#define SYM_StageSceneStart 0x004038u
+#define SYM_StageSceneEnd 0x004068u
+#define SYM_CameraFollowRight 0x004094u
+#define SYM_Stage0BossTiles 0x0040D8u
+#define SYM_CameraSpeed 0x004188u
 #define SYM_sub_0419A 0x00419Au
-#define SYM_sub_041AC 0x0041ACu
-#define SYM_sub_041BE 0x0041BEu
+#define SYM_CameraStop 0x0041ACu
+#define SYM_PlayersInFront 0x0041BEu
 #define SYM_sub_041E0 0x0041E0u
-#define SYM_sub_041FE 0x0041FEu
+#define SYM_PlayersFree 0x0041FEu
 #define SYM_sub_0422C 0x00422Cu
 #define SYM_sub_0424E 0x00424Eu
 #define SYM_sub_0427E 0x00427Eu
-#define SYM_sub_0428C 0x00428Cu
-#define SYM_sub_042BA 0x0042BAu
-#define SYM_sub_0430A 0x00430Au
-#define SYM_sub_04338 0x004338u
-#define SYM_sub_04350 0x004350u
-#define SYM_sub_04388 0x004388u
-#define SYM_sub_043BA 0x0043BAu
-#define SYM_sub_043E2 0x0043E2u
-#define SYM_sub_0441C 0x00441Cu
-#define SYM_sub_0442C 0x00442Cu
-#define SYM_sub_0442E 0x00442Eu
-#define SYM_sub_04440 0x004440u
-#define SYM_sub_0445A 0x00445Au
-#define SYM_sub_04470 0x004470u
+#define SYM_PlayersFixed 0x00428Cu
+#define SYM_Stage0ShaftAttributes 0x0042BAu
+#define SYM_Stage0Back00 0x00430Au
+#define SYM_Stage0Back04 0x004338u
+#define SYM_Stage0Back08 0x004350u
+#define SYM_Stage0Back0C 0x004388u
+#define SYM_Stage0Back10 0x0043BAu
+#define SYM_Stage0Back14 0x0043E2u
+#define SYM_Stage0Back18 0x00441Cu
+#define SYM_Stage0Back1C 0x00442Cu
+#define SYM_BackStop 0x00442Eu
+#define SYM_BackQuarterHalf 0x004440u
+#define SYM_BackQuarterHalfCamera 0x00445Au
+#define SYM_BackLayersStart 0x004470u
 #define SYM_sub_045A6 0x0045A6u
 #define SYM_sub_047FC 0x0047FCu
 #define SYM_sub_04808 0x004808u
@@ -432,9 +432,9 @@
 #define SYM_sub_08C06 0x008C06u
 #define SYM_sub_08CB4 0x008CB4u
 #define SYM_sub_08D52 0x008D52u
-#define SYM_sub_08DEE 0x008DEEu
+#define SYM_PlayersCentre 0x008DEEu
 #define SYM_sub_08E62 0x008E62u
-#define SYM_sub_08EAE 0x008EAEu
+#define SYM_ClampFour 0x008EAEu
 #define SYM_sub_08EE8 0x008EE8u
 #define SYM_sub_0970C 0x00970Cu
 #define SYM_sub_0973C 0x00973Cu
@@ -445,12 +445,12 @@
 #define SYM_ScrollColumnB 0x0097F4u
 #define SYM_ScrollRowBDma 0x009870u
 #define SYM_ScrollColumnBDma 0x00988Cu
-#define SYM_sub_098AC 0x0098ACu
-#define SYM_sub_09974 0x009974u
-#define SYM_sub_099D2 0x0099D2u
-#define SYM_sub_09A4E 0x009A4Eu
-#define SYM_sub_09AD0 0x009AD0u
-#define SYM_sub_09B94 0x009B94u
+#define SYM_PlaneAFill 0x0098ACu
+#define SYM_PlaneADma 0x009974u
+#define SYM_PlaneADmaFirst 0x0099D2u
+#define SYM_PlaneADmaSecond 0x009A4Eu
+#define SYM_PlaneBFill 0x009AD0u
+#define SYM_PlaneBDma 0x009B94u
 #define SYM_QueueVram 0x009DF0u
 #define SYM_QueueSource 0x009E0Au
 #define SYM_ColumnGather 0x009F8Eu
@@ -463,8 +463,8 @@
 #define SYM_HScrollTable 0x00A434u
 #define SYM_VScrollTable 0x00A53Eu
 #define SYM_CameraMove 0x00A630u
-#define SYM_sub_0A692 0x00A692u
-#define SYM_sub_0A6A2 0x00A6A2u
+#define SYM_PlaneARedraw 0x00A692u
+#define SYM_PlaneBRedraw 0x00A6A2u
 #define SYM_sub_0A6B2 0x00A6B2u
 #define SYM_sub_0A6C8 0x00A6C8u
 #define SYM_sub_0A6DE 0x00A6DEu
@@ -538,6 +538,7 @@
 #define SYM_sub_0C6D6 0x00C6D6u
 #define SYM_sub_0C6FE 0x00C6FEu
 #define SYM_sub_0C726 0x00C726u
+#define SYM_sub_0C8A0 0x00C8A0u
 #define SYM_sub_0EB58 0x00EB58u
 #define SYM_sub_0EBEE 0x00EBEEu
 #define SYM_sub_0EBF6 0x00EBF6u
@@ -2106,6 +2107,8 @@
 #define SYM_sub_2F588 0x02F588u
 #define SYM_sub_2F596 0x02F596u
 #define SYM_sub_2F5B8 0x02F5B8u
+#define SYM_sub_2F5DA 0x02F5DAu
+#define SYM_sub_2F5EA 0x02F5EAu
 #define SYM_sub_2F804 0x02F804u
 #define SYM_sub_2F80C 0x02F80Cu
 #define SYM_sub_2FB18 0x02FB18u
@@ -3852,6 +3855,10 @@
 #define SYM_sub_4FDD2 0x04FDD2u
 #define SYM_sub_4FDEC 0x04FDECu
 #define SYM_sub_4FE30 0x04FE30u
+#define SYM_sub_4FE6C 0x04FE6Cu
+#define SYM_sub_4FE98 0x04FE98u
+#define SYM_sub_4FEDC 0x04FEDCu
+#define SYM_sub_4FEF0 0x04FEF0u
 #define SYM_sub_4FFFE 0x04FFFEu
 #define SYM_sub_50012 0x050012u
 #define SYM_sub_500E6 0x0500E6u
@@ -3877,6 +3884,10 @@
 #define SYM_sub_504AE 0x0504AEu
 #define SYM_sub_50560 0x050560u
 #define SYM_sub_50570 0x050570u
+#define SYM_sub_5058E 0x05058Eu
+#define SYM_sub_505A6 0x0505A6u
+#define SYM_sub_505C0 0x0505C0u
+#define SYM_sub_505E0 0x0505E0u
 #define SYM_sub_50828 0x050828u
 #define SYM_sub_5082E 0x05082Eu
 #define SYM_sub_50842 0x050842u
@@ -3896,6 +3907,11 @@
 #define SYM_sub_50AFA 0x050AFAu
 #define SYM_sub_50B08 0x050B08u
 #define SYM_sub_50B1C 0x050B1Cu
+#define SYM_sub_50B34 0x050B34u
+#define SYM_sub_50B4C 0x050B4Cu
+#define SYM_sub_50B8E 0x050B8Eu
+#define SYM_sub_50BAE 0x050BAEu
+#define SYM_sub_50BE4 0x050BE4u
 #define SYM_sub_50C04 0x050C04u
 #define SYM_sub_50C2C 0x050C2Cu
 #define SYM_sub_50C4E 0x050C4Eu
@@ -4585,6 +4601,30 @@
 #define SYM_sub_6168C 0x06168Cu
 #define SYM_sub_61CE6 0x061CE6u
 #define SYM_sub_61D32 0x061D32u
+#define SYM_sub_61D7A 0x061D7Au
+#define SYM_sub_61E8E 0x061E8Eu
+#define SYM_sub_61EAA 0x061EAAu
+#define SYM_sub_61EDC 0x061EDCu
+#define SYM_sub_61F42 0x061F42u
+#define SYM_sub_61FDC 0x061FDCu
+#define SYM_sub_62004 0x062004u
+#define SYM_sub_62024 0x062024u
+#define SYM_sub_62058 0x062058u
+#define SYM_sub_6208E 0x06208Eu
+#define SYM_sub_620C0 0x0620C0u
+#define SYM_sub_620D4 0x0620D4u
+#define SYM_sub_620EE 0x0620EEu
+#define SYM_sub_6211C 0x06211Cu
+#define SYM_sub_6213C 0x06213Cu
+#define SYM_sub_6213E 0x06213Eu
+#define SYM_sub_6215C 0x06215Cu
+#define SYM_sub_6217C 0x06217Cu
+#define SYM_sub_62196 0x062196u
+#define SYM_sub_621BC 0x0621BCu
+#define SYM_sub_6220E 0x06220Eu
+#define SYM_sub_62272 0x062272u
+#define SYM_sub_6229C 0x06229Cu
+#define SYM_sub_622B6 0x0622B6u
 #define SYM_sub_6237E 0x06237Eu
 #define SYM_sub_623BA 0x0623BAu
 #define SYM_sub_623D0 0x0623D0u
@@ -4732,9 +4772,11 @@ enum {
     v_players = 0xA200,
     v_noSolids = 0xA202,
     v_stage4 = 0xA204,
+    v_checkpoint = 0xA206,
     v_stagesCleared = 0xA208,
     v_difficulty = 0xA20A,
     v_layout = 0xA20E,
+    v_checkpoints = 0xA212,
     v_frameCount = 0xA280,
     v_modeTimer = 0xA282,
     v_mode = 0xA284,
@@ -4748,9 +4790,11 @@ enum {
     v_camSpeedY = 0xA914,
     v_planes = 0xA920,
     v_planeSpeeds = 0xA930,
+    v_cameraStep = 0xA950,
+    v_backStep = 0xA952,
     v_mapX = 0xA954,
     v_mapY = 0xA956,
-    v_scenePlayers = 0xA958,
+    v_cameraHold = 0xA958,
     v_planeFlagsA = 0xA95A,
     v_planeFlagsB = 0xA95B,
     v_boundsX0 = 0xA960,
@@ -4759,6 +4803,7 @@ enum {
     v_boundsY1 = 0xA96C,
     v_speedLimitX = 0xA978,
     v_speedLimitY = 0xA97C,
+    v_stageEvent = 0xA980,
     v_battleship = 0xA98E,
     v_tilePixels = 0xB400,
     v_jobBuffer = 0xB600,
@@ -4945,58 +4990,58 @@ static const struct sym rom_syms[] = {
     { 0x003900u, "StageStart" },
     { 0x00391Cu, "StageFrame" },
     { 0x003942u, "sub_03942" },
-    { 0x003B38u, "sub_03B38" },
-    { 0x003B40u, "sub_03B40" },
-    { 0x003B7Cu, "sub_03B7C" },
-    { 0x003BACu, "sub_03BAC" },
-    { 0x003BBAu, "sub_03BBA" },
-    { 0x003C00u, "sub_03C00" },
-    { 0x003C0Eu, "sub_03C0E" },
-    { 0x003C3Eu, "sub_03C3E" },
-    { 0x003C58u, "sub_03C58" },
-    { 0x003C7Au, "sub_03C7A" },
-    { 0x003C8Eu, "sub_03C8E" },
-    { 0x003CB2u, "sub_03CB2" },
-    { 0x003D08u, "sub_03D08" },
-    { 0x003D40u, "sub_03D40" },
-    { 0x003D82u, "sub_03D82" },
-    { 0x003DDCu, "sub_03DDC" },
-    { 0x003E08u, "sub_03E08" },
-    { 0x003E6Au, "sub_03E6A" },
-    { 0x003E9Cu, "sub_03E9C" },
-    { 0x003EC6u, "sub_03EC6" },
-    { 0x003EEEu, "sub_03EEE" },
-    { 0x003F22u, "sub_03F22" },
-    { 0x003F3Eu, "sub_03F3E" },
-    { 0x003F98u, "sub_03F98" },
-    { 0x003FE6u, "sub_03FE6" },
-    { 0x004038u, "sub_04038" },
-    { 0x004068u, "sub_04068" },
-    { 0x004094u, "sub_04094" },
-    { 0x0040D8u, "sub_040D8" },
-    { 0x004188u, "sub_04188" },
+    { 0x003B38u, "Stage0Frame" },
+    { 0x003B40u, "Stage0Camera" },
+    { 0x003B7Cu, "Stage0Cam00" },
+    { 0x003BACu, "Stage0Cam04" },
+    { 0x003BBAu, "Stage0Cam08" },
+    { 0x003C00u, "Stage0Cam0C" },
+    { 0x003C0Eu, "Stage0Cam10" },
+    { 0x003C3Eu, "Stage0Cam14" },
+    { 0x003C58u, "Stage0Cam18" },
+    { 0x003C7Au, "Stage0Cam1C" },
+    { 0x003C8Eu, "Stage0Cam20" },
+    { 0x003CB2u, "Stage0Cam24" },
+    { 0x003D08u, "Stage0Cam28" },
+    { 0x003D40u, "Stage0Cam2C" },
+    { 0x003D82u, "Stage0Cam30" },
+    { 0x003DDCu, "Stage0Cam34" },
+    { 0x003E08u, "Stage0Cam38" },
+    { 0x003E6Au, "Stage0Cam3C" },
+    { 0x003E9Cu, "Stage0Cam40" },
+    { 0x003EC6u, "Stage0Cam44" },
+    { 0x003EEEu, "Stage0Cam48" },
+    { 0x003F22u, "Stage0Cam4C" },
+    { 0x003F3Eu, "Stage0Cam50" },
+    { 0x003F98u, "Stage0Cam54" },
+    { 0x003FE6u, "Stage0Cam58" },
+    { 0x004038u, "StageSceneStart" },
+    { 0x004068u, "StageSceneEnd" },
+    { 0x004094u, "CameraFollowRight" },
+    { 0x0040D8u, "Stage0BossTiles" },
+    { 0x004188u, "CameraSpeed" },
     { 0x00419Au, "sub_0419A" },
-    { 0x0041ACu, "sub_041AC" },
-    { 0x0041BEu, "sub_041BE" },
+    { 0x0041ACu, "CameraStop" },
+    { 0x0041BEu, "PlayersInFront" },
     { 0x0041E0u, "sub_041E0" },
-    { 0x0041FEu, "sub_041FE" },
+    { 0x0041FEu, "PlayersFree" },
     { 0x00422Cu, "sub_0422C" },
     { 0x00424Eu, "sub_0424E" },
     { 0x00427Eu, "sub_0427E" },
-    { 0x00428Cu, "sub_0428C" },
-    { 0x0042BAu, "sub_042BA" },
-    { 0x00430Au, "sub_0430A" },
-    { 0x004338u, "sub_04338" },
-    { 0x004350u, "sub_04350" },
-    { 0x004388u, "sub_04388" },
-    { 0x0043BAu, "sub_043BA" },
-    { 0x0043E2u, "sub_043E2" },
-    { 0x00441Cu, "sub_0441C" },
-    { 0x00442Cu, "sub_0442C" },
-    { 0x00442Eu, "sub_0442E" },
-    { 0x004440u, "sub_04440" },
-    { 0x00445Au, "sub_0445A" },
-    { 0x004470u, "sub_04470" },
+    { 0x00428Cu, "PlayersFixed" },
+    { 0x0042BAu, "Stage0ShaftAttributes" },
+    { 0x00430Au, "Stage0Back00" },
+    { 0x004338u, "Stage0Back04" },
+    { 0x004350u, "Stage0Back08" },
+    { 0x004388u, "Stage0Back0C" },
+    { 0x0043BAu, "Stage0Back10" },
+    { 0x0043E2u, "Stage0Back14" },
+    { 0x00441Cu, "Stage0Back18" },
+    { 0x00442Cu, "Stage0Back1C" },
+    { 0x00442Eu, "BackStop" },
+    { 0x004440u, "BackQuarterHalf" },
+    { 0x00445Au, "BackQuarterHalfCamera" },
+    { 0x004470u, "BackLayersStart" },
     { 0x0045A6u, "sub_045A6" },
     { 0x0047FCu, "sub_047FC" },
     { 0x004808u, "sub_04808" },
@@ -5241,9 +5286,9 @@ static const struct sym rom_syms[] = {
     { 0x008C06u, "sub_08C06" },
     { 0x008CB4u, "sub_08CB4" },
     { 0x008D52u, "sub_08D52" },
-    { 0x008DEEu, "sub_08DEE" },
+    { 0x008DEEu, "PlayersCentre" },
     { 0x008E62u, "sub_08E62" },
-    { 0x008EAEu, "sub_08EAE" },
+    { 0x008EAEu, "ClampFour" },
     { 0x008EE8u, "sub_08EE8" },
     { 0x00970Cu, "sub_0970C" },
     { 0x00973Cu, "sub_0973C" },
@@ -5254,12 +5299,12 @@ static const struct sym rom_syms[] = {
     { 0x0097F4u, "ScrollColumnB" },
     { 0x009870u, "ScrollRowBDma" },
     { 0x00988Cu, "ScrollColumnBDma" },
-    { 0x0098ACu, "sub_098AC" },
-    { 0x009974u, "sub_09974" },
-    { 0x0099D2u, "sub_099D2" },
-    { 0x009A4Eu, "sub_09A4E" },
-    { 0x009AD0u, "sub_09AD0" },
-    { 0x009B94u, "sub_09B94" },
+    { 0x0098ACu, "PlaneAFill" },
+    { 0x009974u, "PlaneADma" },
+    { 0x0099D2u, "PlaneADmaFirst" },
+    { 0x009A4Eu, "PlaneADmaSecond" },
+    { 0x009AD0u, "PlaneBFill" },
+    { 0x009B94u, "PlaneBDma" },
     { 0x009DF0u, "QueueVram" },
     { 0x009E0Au, "QueueSource" },
     { 0x009F8Eu, "ColumnGather" },
@@ -5272,8 +5317,8 @@ static const struct sym rom_syms[] = {
     { 0x00A434u, "HScrollTable" },
     { 0x00A53Eu, "VScrollTable" },
     { 0x00A630u, "CameraMove" },
-    { 0x00A692u, "sub_0A692" },
-    { 0x00A6A2u, "sub_0A6A2" },
+    { 0x00A692u, "PlaneARedraw" },
+    { 0x00A6A2u, "PlaneBRedraw" },
     { 0x00A6B2u, "sub_0A6B2" },
     { 0x00A6C8u, "sub_0A6C8" },
     { 0x00A6DEu, "sub_0A6DE" },
@@ -5347,6 +5392,7 @@ static const struct sym rom_syms[] = {
     { 0x00C6D6u, "sub_0C6D6" },
     { 0x00C6FEu, "sub_0C6FE" },
     { 0x00C726u, "sub_0C726" },
+    { 0x00C8A0u, "sub_0C8A0" },
     { 0x00EB58u, "sub_0EB58" },
     { 0x00EBEEu, "sub_0EBEE" },
     { 0x00EBF6u, "sub_0EBF6" },
@@ -6915,6 +6961,8 @@ static const struct sym rom_syms[] = {
     { 0x02F588u, "sub_2F588" },
     { 0x02F596u, "sub_2F596" },
     { 0x02F5B8u, "sub_2F5B8" },
+    { 0x02F5DAu, "sub_2F5DA" },
+    { 0x02F5EAu, "sub_2F5EA" },
     { 0x02F804u, "sub_2F804" },
     { 0x02F80Cu, "sub_2F80C" },
     { 0x02FB18u, "sub_2FB18" },
@@ -8661,6 +8709,10 @@ static const struct sym rom_syms[] = {
     { 0x04FDD2u, "sub_4FDD2" },
     { 0x04FDECu, "sub_4FDEC" },
     { 0x04FE30u, "sub_4FE30" },
+    { 0x04FE6Cu, "sub_4FE6C" },
+    { 0x04FE98u, "sub_4FE98" },
+    { 0x04FEDCu, "sub_4FEDC" },
+    { 0x04FEF0u, "sub_4FEF0" },
     { 0x04FFFEu, "sub_4FFFE" },
     { 0x050012u, "sub_50012" },
     { 0x0500E6u, "sub_500E6" },
@@ -8686,6 +8738,10 @@ static const struct sym rom_syms[] = {
     { 0x0504AEu, "sub_504AE" },
     { 0x050560u, "sub_50560" },
     { 0x050570u, "sub_50570" },
+    { 0x05058Eu, "sub_5058E" },
+    { 0x0505A6u, "sub_505A6" },
+    { 0x0505C0u, "sub_505C0" },
+    { 0x0505E0u, "sub_505E0" },
     { 0x050828u, "sub_50828" },
     { 0x05082Eu, "sub_5082E" },
     { 0x050842u, "sub_50842" },
@@ -8705,6 +8761,11 @@ static const struct sym rom_syms[] = {
     { 0x050AFAu, "sub_50AFA" },
     { 0x050B08u, "sub_50B08" },
     { 0x050B1Cu, "sub_50B1C" },
+    { 0x050B34u, "sub_50B34" },
+    { 0x050B4Cu, "sub_50B4C" },
+    { 0x050B8Eu, "sub_50B8E" },
+    { 0x050BAEu, "sub_50BAE" },
+    { 0x050BE4u, "sub_50BE4" },
     { 0x050C04u, "sub_50C04" },
     { 0x050C2Cu, "sub_50C2C" },
     { 0x050C4Eu, "sub_50C4E" },
@@ -9394,6 +9455,30 @@ static const struct sym rom_syms[] = {
     { 0x06168Cu, "sub_6168C" },
     { 0x061CE6u, "sub_61CE6" },
     { 0x061D32u, "sub_61D32" },
+    { 0x061D7Au, "sub_61D7A" },
+    { 0x061E8Eu, "sub_61E8E" },
+    { 0x061EAAu, "sub_61EAA" },
+    { 0x061EDCu, "sub_61EDC" },
+    { 0x061F42u, "sub_61F42" },
+    { 0x061FDCu, "sub_61FDC" },
+    { 0x062004u, "sub_62004" },
+    { 0x062024u, "sub_62024" },
+    { 0x062058u, "sub_62058" },
+    { 0x06208Eu, "sub_6208E" },
+    { 0x0620C0u, "sub_620C0" },
+    { 0x0620D4u, "sub_620D4" },
+    { 0x0620EEu, "sub_620EE" },
+    { 0x06211Cu, "sub_6211C" },
+    { 0x06213Cu, "sub_6213C" },
+    { 0x06213Eu, "sub_6213E" },
+    { 0x06215Cu, "sub_6215C" },
+    { 0x06217Cu, "sub_6217C" },
+    { 0x062196u, "sub_62196" },
+    { 0x0621BCu, "sub_621BC" },
+    { 0x06220Eu, "sub_6220E" },
+    { 0x062272u, "sub_62272" },
+    { 0x06229Cu, "sub_6229C" },
+    { 0x0622B6u, "sub_622B6" },
     { 0x06237Eu, "sub_6237E" },
     { 0x0623BAu, "sub_623BA" },
     { 0x0623D0u, "sub_623D0" },
@@ -9540,9 +9625,11 @@ static const struct sym ram_syms[] = {
     { 0xA200u, "v_players" },
     { 0xA202u, "v_noSolids" },
     { 0xA204u, "v_stage4" },
+    { 0xA206u, "v_checkpoint" },
     { 0xA208u, "v_stagesCleared" },
     { 0xA20Au, "v_difficulty" },
     { 0xA20Eu, "v_layout" },
+    { 0xA212u, "v_checkpoints" },
     { 0xA280u, "v_frameCount" },
     { 0xA282u, "v_modeTimer" },
     { 0xA284u, "v_mode" },
@@ -9556,9 +9643,11 @@ static const struct sym ram_syms[] = {
     { 0xA914u, "v_camSpeedY" },
     { 0xA920u, "v_planes" },
     { 0xA930u, "v_planeSpeeds" },
+    { 0xA950u, "v_cameraStep" },
+    { 0xA952u, "v_backStep" },
     { 0xA954u, "v_mapX" },
     { 0xA956u, "v_mapY" },
-    { 0xA958u, "v_scenePlayers" },
+    { 0xA958u, "v_cameraHold" },
     { 0xA95Au, "v_planeFlagsA" },
     { 0xA95Bu, "v_planeFlagsB" },
     { 0xA960u, "v_boundsX0" },
@@ -9567,6 +9656,7 @@ static const struct sym ram_syms[] = {
     { 0xA96Cu, "v_boundsY1" },
     { 0xA978u, "v_speedLimitX" },
     { 0xA97Cu, "v_speedLimitY" },
+    { 0xA980u, "v_stageEvent" },
     { 0xA98Eu, "v_battleship" },
     { 0xB400u, "v_tilePixels" },
     { 0xB600u, "v_jobBuffer" },
@@ -9636,5 +9726,5 @@ static const uint32_t trivial_syms[] = {
     0x04B01Cu, 0x04C20Au, 0x04C4A6u, 0x04C4A8u, 0x04F4FCu, 0x050828u, 0x0508FCu, 0x050B1Cu,
     0x050CB4u, 0x050DD0u, 0x053140u, 0x05419Cu, 0x0560DAu, 0x056128u, 0x0571C0u, 0x058446u,
     0x0590DEu, 0x059B80u, 0x05A254u, 0x05A40Au, 0x05B280u, 0x05DC4Au, 0x05EF0Au, 0x05EF10u,
-    0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au, 0x065C2Au, 0x065C2Eu,
+    0x06213Cu, 0x0622B6u, 0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au, 0x065C2Au, 0x065C2Eu,
 };

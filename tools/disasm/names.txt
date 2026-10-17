@@ -688,7 +688,8 @@ FFF738 v_targetCount
 FFA028 v_sceneSignal         # the scenes' director: bit 1, or the byte, lets them go on
 FFA02A v_sceneDone           # 4: the scene's item has been taken
 FFA288 v_sceneStep           # the mode's own step, the scenes' cue
-FFA958 v_scenePlayers        # bit 7: the players still walking in
+FFA958 v_cameraHold          # bit 7: the stage's camera script waits until it clears (the players walking in, a fight);
+                             # bit 0: the camera scrolls right by itself; bits 5, 6: no objects spawned
 FFA960 v_boundsX0            # a box the players are kept in (MapBoundsY): a corner
 FFA964 v_boundsY0
 FFA968 v_boundsX1            # and the other
@@ -766,7 +767,71 @@ FFA202 v_noSolids            # not 0: the players stand on no solid object
 00A418 ScrollPlaneBColumns
 00A434 HScrollTable
 00A53E VScrollTable
+0098AC PlaneAFill
+0099D2 PlaneADmaFirst
+009A4E PlaneADmaSecond
+009974 PlaneADma
+009AD0 PlaneBFill
+009B94 PlaneBDma
+00A692 PlaneARedraw
+00A6A2 PlaneBRedraw
 FFA95A v_planeFlagsA         # bit 2 no new rows, 3 no new columns, 5 tall, 4 wide, 7 and 6 the per-cell scroll's plane
 FFA95B v_planeFlagsB
 FFA98E v_battleship          # not 0 (in the battleship's stage): half rows, 11 chunks
 FFF70E v_columnBuffer        # where the next column for DMA is gathered (from $FFF400)
+
+# ---- the stages' own frames (src/stages.c) [the stages]
+0041AC CameraStop
+004188 CameraSpeed
+008DEE PlayersCentre
+008EAE ClampFour
+004094 CameraFollowRight
+0041BE PlayersInFront
+0041FE PlayersFree
+00428C PlayersFixed
+004038 StageSceneStart
+004068 StageSceneEnd
+003B38 Stage0Frame
+003B40 Stage0Camera
+003B7C Stage0Cam00
+003BAC Stage0Cam04
+003BBA Stage0Cam08
+003C00 Stage0Cam0C
+003C0E Stage0Cam10
+003C3E Stage0Cam14
+003C58 Stage0Cam18
+003C7A Stage0Cam1C
+003C8E Stage0Cam20
+003CB2 Stage0Cam24
+003D08 Stage0Cam28
+003D40 Stage0Cam2C
+003D82 Stage0Cam30
+003DDC Stage0Cam34
+003E08 Stage0Cam38
+003E6A Stage0Cam3C
+003E9C Stage0Cam40
+003EC6 Stage0Cam44
+003EEE Stage0Cam48
+0040D8 Stage0BossTiles
+003F22 Stage0Cam4C
+003F3E Stage0Cam50
+003F98 Stage0Cam54
+003FE6 Stage0Cam58
+0042BA Stage0ShaftAttributes
+004440 BackQuarterHalf
+00445A BackQuarterHalfCamera
+00442E BackStop
+004470 BackLayersStart
+00430A Stage0Back00
+004338 Stage0Back04
+004350 Stage0Back08
+004388 Stage0Back0C
+0043BA Stage0Back10
+0043E2 Stage0Back14
+00441C Stage0Back18
+00442C Stage0Back1C
+FFA950 v_cameraStep          # the stage's camera script: its step (times 4; each stage has its own table)
+FFA952 v_backStep            # the stage's second script, the background's
+FFA980 v_stageEvent          # set by an object for the stage's script to go on (a boss beaten)
+FFA206 v_checkpoint          # where a continue restarts the stage (0 its start)
+FFA212 v_checkpoints         # a word per stage: the checkpoint reached

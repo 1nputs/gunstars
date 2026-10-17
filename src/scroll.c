@@ -403,6 +403,153 @@ void VScrollTable(void)
     for (uint16_t i = 0; i < 0xA0; i += 4) wr16((uint16_t)(t + i), v);
 }
 
+/* ---- a whole plane at once (a stage's jump to another part of its map) ---- */
+
+/* a plane's buffer filled with its chunks: `rows` rows of 16 (32 pixels square) from x, y.
+ * Across a block the chunks follow on in the buffer; each new block starts its address again
+ * from x (and ymask is where the buffer wraps). */
+static void fill(uint16_t layout, uint16_t blocks, uint16_t chunks, uint16_t map, uint16_t x0, uint16_t y,
+                 uint16_t rows, uint16_t ymask)
+{
+    for (uint16_t r = 0; r < rows; r++, y = (uint16_t)(y + 0x20)) {
+        uint16_t x = x0, left = 15;
+        for (;;) {
+            uint16_t b = block_at(x, y);
+            uint16_t c, at;
+            for (;;) {
+                c = chunk_at(layout, x, y, b);
+                at = (uint16_t)(map + ((y << 4) & ymask) + ((x >> 2) & 0x78));
+                for (;;) {
+                    uint16_t src = tiles_of(blocks, chunks, c);
+                    for (uint16_t k = 0; k < 4; k++) {
+                        wr32((uint16_t)(at + 0x80 * k), rd32((uint16_t)(src + 8 * k)));
+                        wr32((uint16_t)(at + 0x80 * k + 4), rd32((uint16_t)(src + 8 * k + 4)));
+                    }
+                    at = (uint16_t)(at + 8);
+                    if (left-- == 0) goto next_row;
+                    x = (uint16_t)(x + 0x20);
+                    c++;
+                    if (c & 7) continue;
+                    break;
+                }
+                b++;
+                if (b & 0x1F) continue;
+                break;
+            }
+        }
+    next_row:;
+    }
+}
+
+/* $0098AC. Plane A's buffer, all 16 x 16 chunks around the plane's position. */
+void PlaneAFill(void)
+{
+    fill(LAYOUT_A, BLOCKS_A, CHUNKS_A, MAP_A, (uint16_t)(ax() - 0x80), (uint16_t)(ay() - 0x80), 16, 0x1E00);
+}
+
+/* $009AD0. Plane B's buffer, 8 rows of 16 chunks. */
+void PlaneBFill(void)
+{
+    fill(LAYOUT_B, BLOCKS_B, CHUNKS_B, MAP_B, (uint16_t)(bx() - 0x80), by(), 8, 0xE00);
+}
+
+/* a DMA's length and source registers written through their words in RAM ($FFF7F6 on: each
+ * register's $9r byte kept there, the value's byte put after it), then the command */
+static void dma_regs(uint16_t bytes, uint32_t src, uint16_t vram)
+{
+    uint16_t words = (uint16_t)(bytes >> 1);
+    wr8(0xF7F7, (uint8_t)words);
+    vdp_ctrl16(rd16(0xF7F6));
+    wr8(0xF7F9, (uint8_t)(words >> 8));
+    vdp_ctrl16(rd16(0xF7F8));
+    src >>= 1;
+    wr8(0xF7FB, (uint8_t)src);
+    vdp_ctrl16(rd16(0xF7FA));
+    wr8(0xF7FD, (uint8_t)(src >> 8));
+    vdp_ctrl16(rd16(0xF7FC));
+    wr8(0xF7FF, (uint8_t)(src >> 16) & 0x7F);
+    vdp_ctrl16(rd16(0xF7FE));
+    vdp_ctrl16((uint16_t)((vram & 0x3FFF) | 0x4000));
+    vdp_ctrl16((uint16_t)((vram & 0xC000) >> 14 | 0x80));
+}
+
+/* $0099D2. Plane A's buffer is 64 rows of tiles, VRAM's plane 32: the 32 from `top` (bytes into
+ * the buffer) go to VRAM's rows top mod 32 on. This is the part from top to the buffer's middle,
+ * or (top past it) the part wrapped round from the buffer's start. */
+void PlaneADmaFirst(uint16_t top)
+{
+    if (top == 0x1000) return;
+    if (top < 0x1000) dma_regs((uint16_t)(0x1000 - top), RAM_BASE + top, (uint16_t)(0xC000 + top));
+    else dma_regs((uint16_t)(top - 0x1000), RAM_BASE, 0xC000);
+}
+
+/* $009A4E. And the rest: the buffer's second half's rows before top, or the rows from top to the
+ * buffer's end. */
+void PlaneADmaSecond(uint16_t top)
+{
+    if (top == 0) return;
+    if (top < 0x1000) dma_regs(top, RAM_BASE + 0x1000, 0xC000);
+    else dma_regs((uint16_t)(0x2000 - top), RAM_BASE + top, (uint16_t)(0xC000 + top - 0x1000));
+}
+
+/* $009974. Plane A's buffer to VRAM $C000 by DMA now (interrupts masked, the Z80 off the bus). */
+void PlaneADma(void)
+{
+    uint16_t sr = cpu_get_sr();
+    cpu_set_sr(0x2700);
+    z80_busreq(0x100);
+    while (z80_busack() & 1) {}
+    vdp_ctrl16(rd16(VDP_REG(1)) | 0x10);
+    vdp_ctrl16(0x8F02);
+    uint16_t top = (uint16_t)((ay() << 4) & 0x1F80);
+    PlaneADmaFirst(top);
+    PlaneADmaSecond(top);
+    vdp_ctrl16(rd16(VDP_REG(1)) & (uint16_t)~0x10);
+    z80_busreq(0);
+    while (!(z80_busack() & 1)) {}
+    cpu_set_sr(sr);
+}
+
+/* $009B94. Plane B's buffer ($1000 bytes) to VRAM $E000 by DMA now. */
+void PlaneBDma(void)
+{
+    uint16_t sr = cpu_get_sr();
+    cpu_set_sr(0x2700);
+    z80_busreq(0x100);
+    while (z80_busack() & 1) {}
+    vdp_ctrl16(rd16(VDP_REG(1)) | 0x10);
+    vdp_ctrl16(0x8F02);
+    vdp_ctrl(0x93009408);
+    vdp_ctrl16(0x9500);
+    vdp_ctrl16(0x9690);
+    vdp_ctrl16(0x977F);
+    wr32(v_dmaCommand, 0x60000083);
+    vdp_ctrl16(rd16(v_dmaCommand));
+    vdp_ctrl16(rd16(v_dmaCommand + 2));
+    vdp_ctrl16(rd16(VDP_REG(1)) & (uint16_t)~0x10);
+    z80_busreq(0);
+    while (!(z80_busack() & 1)) {}
+    cpu_set_sr(sr);
+}
+
+/* $00A692. Plane A drawn again where it is now: its buffer, the row and column due, all to VRAM. */
+void PlaneARedraw(void)
+{
+    PlaneAFill();
+    ScrollRowA();
+    ScrollColumnA();
+    PlaneADma();
+}
+
+/* $00A6A2. Plane B the same. */
+void PlaneBRedraw(void)
+{
+    PlaneBFill();
+    ScrollRowB();
+    ScrollColumnB();
+    PlaneBDma();
+}
+
 /* ---- the frame ---- */
 
 /* $00A418. Plane B's column, when it moves across. */
