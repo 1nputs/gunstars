@@ -239,6 +239,33 @@ uint16_t Atan2(int16_t dx, uint32_t *d1);                            /* $003202 
 void AddScore(uint16_t obj, uint32_t points);                        /* $0035D6 a5, d0 */
 void AddBcd(uint16_t end, uint32_t points);                          /* $003602 a0, d0 */
 
+/* ---- the SEGA logo (logo.c) ---- */
+void Mode4(void);                                                    /* $01B45E */
+void Mode4Start(void);                                               /* $01B478 */
+void Mode4Shrink(void);                                              /* $01B4F2 */
+void Mode4Show(void);                                                /* $01B508 */
+void Mode4Animate(void);                                             /* $01B52E */
+void LogoAnimStart(void);                                            /* $020256 */
+void LogoAnimEnd(void);                                              /* $020270 */
+void ClearLineTable(void);                                           /* $020360 */
+void LogoStepParams(uint16_t *acc, uint16_t *frac, uint16_t *stride, uint16_t *count);/* $0205A4 -> d5.w, d6.w, d4.w, d7.w */
+uint16_t LogoNext(uint16_t *acc, uint16_t frac);                     /* $02044A d6.w -> d0.w, d5.w */
+void LogoCoords(uint16_t *acc, uint16_t frac, uint16_t *x, uint16_t *y);/* $02043C d6.w -> d5.w, d2.w, d3.w */
+uint16_t LogoSources(uint16_t x, uint16_t y, uint32_t *a, uint32_t *b);/* $020460 d2.w, d3.w -> d0.w, a0, a1 */
+void LogoCopyHL(uint16_t rows, uint16_t stride, uint32_t *a, uint32_t *b, uint16_t *dst);/* $0204C4 d2.w, d4.w -> a0, a1, a2 */
+void LogoCopyLL(uint16_t rows, uint16_t stride, uint32_t *a, uint32_t *b, uint16_t *dst);/* $0204FC d2.w, d4.w -> a0, a1, a2 */
+void LogoCopyHH(uint16_t rows, uint16_t stride, uint32_t *a, uint32_t *b, uint16_t *dst);/* $020532 d2.w, d4.w -> a0, a1, a2 */
+void LogoCopyLH(uint16_t rows, uint16_t stride, uint32_t *a, uint32_t *b, uint16_t *dst);/* $02056C d2.w, d4.w -> a0, a1, a2 */
+void LogoCopy(uint16_t which, uint16_t stride, uint32_t a, uint32_t b, uint16_t dst);/* $0204A8 d0.w, d4.w, a0, a1, a2 */
+void LogoShrinkStep(void);                                           /* $0201C2 */
+void LogoStretch(void);                                              /* $020374 */
+void LogoBrighten(void);                                             /* $020646 */
+void LogoGrow(void);                                                 /* $0202B0 -> a6=hint_data */
+void LogoHold(void);                                                 /* $0202D8 -> a6=hint_data */
+void LogoShrinkBack(void);                                           /* $0202F6 -> a6=hint_data */
+void LogoBounce(void);                                               /* $020314 -> a6=hint_data */
+void LogoFade(void);                                                 /* $020340 -> a6=hint_data */
+
 /* ---- not ported yet ---- */
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */

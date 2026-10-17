@@ -68,6 +68,7 @@ def adapter(p, draft=False):
         checks.append((p.regs_out[0], 'ret'))
     else:
         lines.append('    %s;' % call)
+    lines.append('    replay_end();                     /* the interrupts after the last access, before the checks */')
     for (ctype, pname), reg in zip(ptrs, extra):
         checks.append((reg, pname))
     for reg, v in checks:

@@ -1107,11 +1107,11 @@
 #define SYM_sub_1AD86 0x01AD86u
 #define SYM_sub_1AD9A 0x01AD9Au
 #define SYM_sub_1ADB0 0x01ADB0u
-#define SYM_sub_1B45E 0x01B45Eu
-#define SYM_sub_1B478 0x01B478u
-#define SYM_sub_1B4F2 0x01B4F2u
-#define SYM_sub_1B508 0x01B508u
-#define SYM_sub_1B52E 0x01B52Eu
+#define SYM_Mode4 0x01B45Eu
+#define SYM_Mode4Start 0x01B478u
+#define SYM_Mode4Shrink 0x01B4F2u
+#define SYM_Mode4Show 0x01B508u
+#define SYM_Mode4Animate 0x01B52Eu
 #define SYM_sub_1B5B0 0x01B5B0u
 #define SYM_sub_1B67E 0x01B67Eu
 #define SYM_sub_1B7AA 0x01B7AAu
@@ -1318,27 +1318,27 @@
 #define SYM_sub_2013A 0x02013Au
 #define SYM_sub_20156 0x020156u
 #define SYM_sub_20172 0x020172u
-#define SYM_sub_201C2 0x0201C2u
-#define SYM_sub_20256 0x020256u
-#define SYM_sub_20270 0x020270u
-#define SYM_sub_202B0 0x0202B0u
-#define SYM_sub_202D8 0x0202D8u
-#define SYM_sub_202F6 0x0202F6u
-#define SYM_sub_20314 0x020314u
-#define SYM_sub_20340 0x020340u
+#define SYM_LogoShrinkStep 0x0201C2u
+#define SYM_LogoAnimStart 0x020256u
+#define SYM_LogoAnimEnd 0x020270u
+#define SYM_LogoGrow 0x0202B0u
+#define SYM_LogoHold 0x0202D8u
+#define SYM_LogoShrinkBack 0x0202F6u
+#define SYM_LogoBounce 0x020314u
+#define SYM_LogoFade 0x020340u
 #define SYM_sub_2035C 0x02035Cu
-#define SYM_sub_20360 0x020360u
-#define SYM_sub_20374 0x020374u
-#define SYM_sub_2043C 0x02043Cu
-#define SYM_sub_2044A 0x02044Au
-#define SYM_sub_20460 0x020460u
-#define SYM_sub_204A8 0x0204A8u
-#define SYM_sub_204C4 0x0204C4u
-#define SYM_sub_204FC 0x0204FCu
-#define SYM_sub_20532 0x020532u
-#define SYM_sub_2056C 0x02056Cu
-#define SYM_sub_205A4 0x0205A4u
-#define SYM_sub_20646 0x020646u
+#define SYM_ClearLineTable 0x020360u
+#define SYM_LogoStretch 0x020374u
+#define SYM_LogoCoords 0x02043Cu
+#define SYM_LogoNext 0x02044Au
+#define SYM_LogoSources 0x020460u
+#define SYM_LogoCopy 0x0204A8u
+#define SYM_LogoCopyHL 0x0204C4u
+#define SYM_LogoCopyLL 0x0204FCu
+#define SYM_LogoCopyHH 0x020532u
+#define SYM_LogoCopyLH 0x02056Cu
+#define SYM_LogoStepParams 0x0205A4u
+#define SYM_LogoBrighten 0x020646u
 #define SYM_sub_206D4 0x0206D4u
 #define SYM_sub_2070A 0x02070Au
 #define SYM_sub_208C6 0x0208C6u
@@ -4402,11 +4402,11 @@ static const struct sym rom_syms[] = {
     { 0x01AD86u, "sub_1AD86" },
     { 0x01AD9Au, "sub_1AD9A" },
     { 0x01ADB0u, "sub_1ADB0" },
-    { 0x01B45Eu, "sub_1B45E" },
-    { 0x01B478u, "sub_1B478" },
-    { 0x01B4F2u, "sub_1B4F2" },
-    { 0x01B508u, "sub_1B508" },
-    { 0x01B52Eu, "sub_1B52E" },
+    { 0x01B45Eu, "Mode4" },
+    { 0x01B478u, "Mode4Start" },
+    { 0x01B4F2u, "Mode4Shrink" },
+    { 0x01B508u, "Mode4Show" },
+    { 0x01B52Eu, "Mode4Animate" },
     { 0x01B5B0u, "sub_1B5B0" },
     { 0x01B67Eu, "sub_1B67E" },
     { 0x01B7AAu, "sub_1B7AA" },
@@ -4613,27 +4613,27 @@ static const struct sym rom_syms[] = {
     { 0x02013Au, "sub_2013A" },
     { 0x020156u, "sub_20156" },
     { 0x020172u, "sub_20172" },
-    { 0x0201C2u, "sub_201C2" },
-    { 0x020256u, "sub_20256" },
-    { 0x020270u, "sub_20270" },
-    { 0x0202B0u, "sub_202B0" },
-    { 0x0202D8u, "sub_202D8" },
-    { 0x0202F6u, "sub_202F6" },
-    { 0x020314u, "sub_20314" },
-    { 0x020340u, "sub_20340" },
+    { 0x0201C2u, "LogoShrinkStep" },
+    { 0x020256u, "LogoAnimStart" },
+    { 0x020270u, "LogoAnimEnd" },
+    { 0x0202B0u, "LogoGrow" },
+    { 0x0202D8u, "LogoHold" },
+    { 0x0202F6u, "LogoShrinkBack" },
+    { 0x020314u, "LogoBounce" },
+    { 0x020340u, "LogoFade" },
     { 0x02035Cu, "sub_2035C" },
-    { 0x020360u, "sub_20360" },
-    { 0x020374u, "sub_20374" },
-    { 0x02043Cu, "sub_2043C" },
-    { 0x02044Au, "sub_2044A" },
-    { 0x020460u, "sub_20460" },
-    { 0x0204A8u, "sub_204A8" },
-    { 0x0204C4u, "sub_204C4" },
-    { 0x0204FCu, "sub_204FC" },
-    { 0x020532u, "sub_20532" },
-    { 0x02056Cu, "sub_2056C" },
-    { 0x0205A4u, "sub_205A4" },
-    { 0x020646u, "sub_20646" },
+    { 0x020360u, "ClearLineTable" },
+    { 0x020374u, "LogoStretch" },
+    { 0x02043Cu, "LogoCoords" },
+    { 0x02044Au, "LogoNext" },
+    { 0x020460u, "LogoSources" },
+    { 0x0204A8u, "LogoCopy" },
+    { 0x0204C4u, "LogoCopyHL" },
+    { 0x0204FCu, "LogoCopyLL" },
+    { 0x020532u, "LogoCopyHH" },
+    { 0x02056Cu, "LogoCopyLH" },
+    { 0x0205A4u, "LogoStepParams" },
+    { 0x020646u, "LogoBrighten" },
     { 0x0206D4u, "sub_206D4" },
     { 0x02070Au, "sub_2070A" },
     { 0x0208C6u, "sub_208C6" },

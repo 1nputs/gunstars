@@ -261,3 +261,29 @@ FFA280 v_frameCount          # the game's frames (a word)
 FFA282 v_modeTimer           # counted down each frame, by GameFrame
 FFA284 v_mode                # the game mode, times 4 (GameFrame's table at $CE2)
 FFA286 v_modeState           # the mode's own step
+# ---- the SEGA logo (src/logo.c)
+01B45E Mode4
+01B478 Mode4Start
+01B4F2 Mode4Shrink
+01B508 Mode4Show
+01B52E Mode4Animate
+020256 LogoAnimStart
+020270 LogoAnimEnd
+020360 ClearLineTable
+0205A4 LogoStepParams
+02044A LogoNext
+02043C LogoCoords
+020460 LogoSources
+0204C4 LogoCopyHL
+0204FC LogoCopyLL
+020532 LogoCopyHH
+02056C LogoCopyLH
+0204A8 LogoCopy
+0201C2 LogoShrinkStep
+020374 LogoStretch
+020646 LogoBrighten
+0202B0 LogoGrow
+0202D8 LogoHold
+0202F6 LogoShrinkBack
+020314 LogoBounce
+020340 LogoFade

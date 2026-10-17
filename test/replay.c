@@ -12,6 +12,7 @@
 #include "replay.h"
 #include "mem.h"
 #include "symbols_gen.h"
+#include "game.h"
 
 #define CAP_MAGIC 0x43434C48u
 static uint8_t *cap_data;
@@ -85,7 +86,7 @@ void cap_free(Record *recs, size_t n)
     cap_data = NULL;
 }
 
-static int is_hint(const Call *c) { return (c->pc & IRQ_FLAG) && (c->pc & ~IRQ_FLAG) == (HINT_HANDLER & 0x1FFFFFFFu); }
+static int is_hint(const Call *c) { return (c->pc & IRQ_FLAG) && (c->pc & 0xFFFFFF) == (HINT_HANDLER & 0xFFFFFF); }
 static int in_wait_loop(uint32_t pc);
 static uint32_t irq_return(const Call *c) { return ((uint32_t)c->stack[2] << 24 | c->stack[3] << 16 | c->stack[4] << 8 | c->stack[5]) & 0xFFFFFF; }
 /* an interrupt the C code does not wait for: an H-interrupt, or a vertical blank outside a wait */
@@ -106,7 +107,12 @@ static void hints_before(uint32_t i)
 {
     for (uint32_t k = cursor; k < i; k++) {
         Call *c = &cur->calls[k];
-        if (!c->consumed && is_async(c)) { replay_apply(c); take(k); }
+        if (!c->consumed && is_async(c)) {
+            replay_apply(c);
+            /* the H-interrupt handler reads its table through a6: the C's a6 moves as much */
+            if (is_hint(c)) hint_data += c->regs_out[R_A6] - c->regs_in[R_A6];
+            take(k);
+        }
     }
 }
 
