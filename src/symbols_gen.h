@@ -553,30 +553,30 @@
 #define SYM_sub_0F074 0x00F074u
 #define SYM_sub_0F098 0x00F098u
 #define SYM_sub_0F0BC 0x00F0BCu
-#define SYM_sub_0F0E2 0x00F0E2u
-#define SYM_sub_0F12E 0x00F12Eu
-#define SYM_sub_0F146 0x00F146u
-#define SYM_sub_0F158 0x00F158u
-#define SYM_sub_0F194 0x00F194u
-#define SYM_sub_0F1A8 0x00F1A8u
-#define SYM_sub_0F1D0 0x00F1D0u
-#define SYM_sub_0F1FC 0x00F1FCu
-#define SYM_sub_0F212 0x00F212u
-#define SYM_sub_0F24C 0x00F24Cu
-#define SYM_sub_0F264 0x00F264u
-#define SYM_sub_0F272 0x00F272u
-#define SYM_sub_0F286 0x00F286u
-#define SYM_sub_0F29A 0x00F29Au
-#define SYM_sub_0F32C 0x00F32Cu
-#define SYM_sub_0F39E 0x00F39Eu
-#define SYM_sub_0F404 0x00F404u
-#define SYM_sub_0F434 0x00F434u
-#define SYM_sub_0F478 0x00F478u
-#define SYM_sub_0F498 0x00F498u
-#define SYM_sub_0F4D2 0x00F4D2u
-#define SYM_sub_0F4EC 0x00F4ECu
-#define SYM_sub_0F500 0x00F500u
-#define SYM_sub_0F5D0 0x00F5D0u
+#define SYM_PlayersUpdate 0x00F0E2u
+#define SYM_PlayerRemove 0x00F12Eu
+#define SYM_PlayerClampVitality 0x00F146u
+#define SYM_PlayerFrame 0x00F158u
+#define SYM_PlayerMotionInput 0x00F194u
+#define SYM_MotionStart 0x00F1A8u
+#define SYM_MotionSecond 0x00F1D0u
+#define SYM_MotionWait 0x00F1FCu
+#define SYM_PlayerInput 0x00F212u
+#define SYM_PlayerInputPad 0x00F24Cu
+#define SYM_PlayerInputNone 0x00F264u
+#define SYM_ReadPlayerPad1 0x00F272u
+#define SYM_ReadPlayerPad2 0x00F286u
+#define SYM_PlayerInputDemo 0x00F29Au
+#define SYM_PlayerInputWalkTo 0x00F32Cu
+#define SYM_PlayerInputC 0x00F39Eu
+#define SYM_PlayerInputDirections 0x00F404u
+#define SYM_PlayerInput14 0x00F434u
+#define SYM_PlayerInput18 0x00F478u
+#define SYM_PlayerInput1C 0x00F498u
+#define SYM_PlayerInput20 0x00F4D2u
+#define SYM_PlayerSceneType 0x00F4ECu
+#define SYM_PlayerWeaponButton 0x00F500u
+#define SYM_PlayerHitKind 0x00F5D0u
 #define SYM_sub_0F64E 0x00F64Eu
 #define SYM_sub_0F782 0x00F782u
 #define SYM_sub_0F7D4 0x00F7D4u
@@ -1106,7 +1106,7 @@
 #define SYM_sub_1AD32 0x01AD32u
 #define SYM_sub_1AD86 0x01AD86u
 #define SYM_sub_1AD9A 0x01AD9Au
-#define SYM_sub_1ADB0 0x01ADB0u
+#define SYM_ObjectClear 0x01ADB0u
 #define SYM_Mode4 0x01B45Eu
 #define SYM_Mode4Start 0x01B478u
 #define SYM_Mode4Shrink 0x01B4F2u
@@ -3123,36 +3123,36 @@
 #define SYM_sub_5F094 0x05F094u
 #define SYM_sub_5F362 0x05F362u
 #define SYM_sub_5F388 0x05F388u
-#define SYM_sub_62892 0x062892u
-#define SYM_sub_628BC 0x0628BCu
-#define SYM_sub_62902 0x062902u
-#define SYM_sub_62958 0x062958u
-#define SYM_sub_6299C 0x06299Cu
-#define SYM_sub_629B0 0x0629B0u
-#define SYM_sub_629D4 0x0629D4u
-#define SYM_sub_62A10 0x062A10u
-#define SYM_sub_62A74 0x062A74u
-#define SYM_sub_62AE0 0x062AE0u
-#define SYM_sub_62D78 0x062D78u
-#define SYM_sub_62D8A 0x062D8Au
-#define SYM_sub_62D8E 0x062D8Eu
-#define SYM_sub_62DAE 0x062DAEu
-#define SYM_sub_62DC2 0x062DC2u
-#define SYM_sub_62DD4 0x062DD4u
-#define SYM_sub_62E68 0x062E68u
-#define SYM_sub_62ED2 0x062ED2u
-#define SYM_sub_62F40 0x062F40u
-#define SYM_sub_62F50 0x062F50u
-#define SYM_sub_62F64 0x062F64u
-#define SYM_sub_62FCC 0x062FCCu
-#define SYM_sub_63366 0x063366u
-#define SYM_sub_63392 0x063392u
-#define SYM_sub_633B0 0x0633B0u
-#define SYM_sub_63408 0x063408u
-#define SYM_sub_6343E 0x06343Eu
-#define SYM_sub_6347C 0x06347Cu
-#define SYM_sub_6349A 0x06349Au
-#define SYM_sub_634C8 0x0634C8u
+#define SYM_Mode48 0x062892u
+#define SYM_Mode48Init 0x0628BCu
+#define SYM_Mode48Approach 0x062902u
+#define SYM_Mode48Unfold 0x062958u
+#define SYM_Mode48Settle 0x06299Cu
+#define SYM_TreasureDraw 0x0629B0u
+#define SYM_TreasurePalette 0x0629D4u
+#define SYM_TreasureSnapshot 0x062A10u
+#define SYM_Mode48Morph 0x062A74u
+#define SYM_Mode48Hold 0x062AE0u
+#define SYM_TreasureFadeList 0x062D78u
+#define SYM_TreasureMixEntry 0x062D8Au
+#define SYM_TreasureMix 0x062D8Eu
+#define SYM_TreasureMixComponent 0x062DAEu
+#define SYM_TreasureMixLine 0x062DC2u
+#define SYM_TreasureTransform 0x062DD4u
+#define SYM_TreasureProject 0x062E68u
+#define SYM_TreasureDrawPolys 0x062ED2u
+#define SYM_TreasureBlend 0x062F40u
+#define SYM_TreasureLerp 0x062F50u
+#define SYM_TreasureCopyFill 0x062F64u
+#define SYM_TreasureFillRam 0x062FCCu
+#define SYM_TreasureSineTable 0x063366u
+#define SYM_TreasureSinCos 0x063392u
+#define SYM_Mode48Start 0x0633B0u
+#define SYM_TreasureSolidTiles 0x063408u
+#define SYM_TreasureQueueDma 0x06343Eu
+#define SYM_TreasureClear 0x06347Cu
+#define SYM_TreasureQueue 0x06349Au
+#define SYM_TreasureSprites 0x0634C8u
 #define SYM_SoundDriver 0x065600u
 #define SYM_SoundInit 0x065604u
 #define SYM_SoundDacTrack 0x0656C0u
@@ -3293,6 +3293,7 @@ enum {
     v_gameMode = 0xFF0C,
     v_buttonMap = 0xFF20,
     v_consoleVersion = 0xFF26,
+    v_demoRecord = 0xFF27,
     v_fadeColor = 0xFF28,
 };
 
@@ -3848,30 +3849,30 @@ static const struct sym rom_syms[] = {
     { 0x00F074u, "sub_0F074" },
     { 0x00F098u, "sub_0F098" },
     { 0x00F0BCu, "sub_0F0BC" },
-    { 0x00F0E2u, "sub_0F0E2" },
-    { 0x00F12Eu, "sub_0F12E" },
-    { 0x00F146u, "sub_0F146" },
-    { 0x00F158u, "sub_0F158" },
-    { 0x00F194u, "sub_0F194" },
-    { 0x00F1A8u, "sub_0F1A8" },
-    { 0x00F1D0u, "sub_0F1D0" },
-    { 0x00F1FCu, "sub_0F1FC" },
-    { 0x00F212u, "sub_0F212" },
-    { 0x00F24Cu, "sub_0F24C" },
-    { 0x00F264u, "sub_0F264" },
-    { 0x00F272u, "sub_0F272" },
-    { 0x00F286u, "sub_0F286" },
-    { 0x00F29Au, "sub_0F29A" },
-    { 0x00F32Cu, "sub_0F32C" },
-    { 0x00F39Eu, "sub_0F39E" },
-    { 0x00F404u, "sub_0F404" },
-    { 0x00F434u, "sub_0F434" },
-    { 0x00F478u, "sub_0F478" },
-    { 0x00F498u, "sub_0F498" },
-    { 0x00F4D2u, "sub_0F4D2" },
-    { 0x00F4ECu, "sub_0F4EC" },
-    { 0x00F500u, "sub_0F500" },
-    { 0x00F5D0u, "sub_0F5D0" },
+    { 0x00F0E2u, "PlayersUpdate" },
+    { 0x00F12Eu, "PlayerRemove" },
+    { 0x00F146u, "PlayerClampVitality" },
+    { 0x00F158u, "PlayerFrame" },
+    { 0x00F194u, "PlayerMotionInput" },
+    { 0x00F1A8u, "MotionStart" },
+    { 0x00F1D0u, "MotionSecond" },
+    { 0x00F1FCu, "MotionWait" },
+    { 0x00F212u, "PlayerInput" },
+    { 0x00F24Cu, "PlayerInputPad" },
+    { 0x00F264u, "PlayerInputNone" },
+    { 0x00F272u, "ReadPlayerPad1" },
+    { 0x00F286u, "ReadPlayerPad2" },
+    { 0x00F29Au, "PlayerInputDemo" },
+    { 0x00F32Cu, "PlayerInputWalkTo" },
+    { 0x00F39Eu, "PlayerInputC" },
+    { 0x00F404u, "PlayerInputDirections" },
+    { 0x00F434u, "PlayerInput14" },
+    { 0x00F478u, "PlayerInput18" },
+    { 0x00F498u, "PlayerInput1C" },
+    { 0x00F4D2u, "PlayerInput20" },
+    { 0x00F4ECu, "PlayerSceneType" },
+    { 0x00F500u, "PlayerWeaponButton" },
+    { 0x00F5D0u, "PlayerHitKind" },
     { 0x00F64Eu, "sub_0F64E" },
     { 0x00F782u, "sub_0F782" },
     { 0x00F7D4u, "sub_0F7D4" },
@@ -4401,7 +4402,7 @@ static const struct sym rom_syms[] = {
     { 0x01AD32u, "sub_1AD32" },
     { 0x01AD86u, "sub_1AD86" },
     { 0x01AD9Au, "sub_1AD9A" },
-    { 0x01ADB0u, "sub_1ADB0" },
+    { 0x01ADB0u, "ObjectClear" },
     { 0x01B45Eu, "Mode4" },
     { 0x01B478u, "Mode4Start" },
     { 0x01B4F2u, "Mode4Shrink" },
@@ -6418,36 +6419,36 @@ static const struct sym rom_syms[] = {
     { 0x05F094u, "sub_5F094" },
     { 0x05F362u, "sub_5F362" },
     { 0x05F388u, "sub_5F388" },
-    { 0x062892u, "sub_62892" },
-    { 0x0628BCu, "sub_628BC" },
-    { 0x062902u, "sub_62902" },
-    { 0x062958u, "sub_62958" },
-    { 0x06299Cu, "sub_6299C" },
-    { 0x0629B0u, "sub_629B0" },
-    { 0x0629D4u, "sub_629D4" },
-    { 0x062A10u, "sub_62A10" },
-    { 0x062A74u, "sub_62A74" },
-    { 0x062AE0u, "sub_62AE0" },
-    { 0x062D78u, "sub_62D78" },
-    { 0x062D8Au, "sub_62D8A" },
-    { 0x062D8Eu, "sub_62D8E" },
-    { 0x062DAEu, "sub_62DAE" },
-    { 0x062DC2u, "sub_62DC2" },
-    { 0x062DD4u, "sub_62DD4" },
-    { 0x062E68u, "sub_62E68" },
-    { 0x062ED2u, "sub_62ED2" },
-    { 0x062F40u, "sub_62F40" },
-    { 0x062F50u, "sub_62F50" },
-    { 0x062F64u, "sub_62F64" },
-    { 0x062FCCu, "sub_62FCC" },
-    { 0x063366u, "sub_63366" },
-    { 0x063392u, "sub_63392" },
-    { 0x0633B0u, "sub_633B0" },
-    { 0x063408u, "sub_63408" },
-    { 0x06343Eu, "sub_6343E" },
-    { 0x06347Cu, "sub_6347C" },
-    { 0x06349Au, "sub_6349A" },
-    { 0x0634C8u, "sub_634C8" },
+    { 0x062892u, "Mode48" },
+    { 0x0628BCu, "Mode48Init" },
+    { 0x062902u, "Mode48Approach" },
+    { 0x062958u, "Mode48Unfold" },
+    { 0x06299Cu, "Mode48Settle" },
+    { 0x0629B0u, "TreasureDraw" },
+    { 0x0629D4u, "TreasurePalette" },
+    { 0x062A10u, "TreasureSnapshot" },
+    { 0x062A74u, "Mode48Morph" },
+    { 0x062AE0u, "Mode48Hold" },
+    { 0x062D78u, "TreasureFadeList" },
+    { 0x062D8Au, "TreasureMixEntry" },
+    { 0x062D8Eu, "TreasureMix" },
+    { 0x062DAEu, "TreasureMixComponent" },
+    { 0x062DC2u, "TreasureMixLine" },
+    { 0x062DD4u, "TreasureTransform" },
+    { 0x062E68u, "TreasureProject" },
+    { 0x062ED2u, "TreasureDrawPolys" },
+    { 0x062F40u, "TreasureBlend" },
+    { 0x062F50u, "TreasureLerp" },
+    { 0x062F64u, "TreasureCopyFill" },
+    { 0x062FCCu, "TreasureFillRam" },
+    { 0x063366u, "TreasureSineTable" },
+    { 0x063392u, "TreasureSinCos" },
+    { 0x0633B0u, "Mode48Start" },
+    { 0x063408u, "TreasureSolidTiles" },
+    { 0x06343Eu, "TreasureQueueDma" },
+    { 0x06347Cu, "TreasureClear" },
+    { 0x06349Au, "TreasureQueue" },
+    { 0x0634C8u, "TreasureSprites" },
     { 0x065600u, "SoundDriver" },
     { 0x065604u, "SoundInit" },
     { 0x0656C0u, "SoundDacTrack" },
@@ -6587,6 +6588,7 @@ static const struct sym ram_syms[] = {
     { 0xFF0Cu, "v_gameMode" },
     { 0xFF20u, "v_buttonMap" },
     { 0xFF26u, "v_consoleVersion" },
+    { 0xFF27u, "v_demoRecord" },
     { 0xFF28u, "v_fadeColor" },
 };
 /* routines of one instruction (a shared rts, a jump): their recorded calls need no port */

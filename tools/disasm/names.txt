@@ -318,3 +318,30 @@ FFA286 v_modeState           # the mode's own step
 062E68 TreasureProject
 062ED2 TreasureDrawPolys
 062FCC TreasureFillRam
+# ---- the players (src/player.c)
+00F0E2 PlayersUpdate
+00F12E PlayerRemove
+00F146 PlayerClampVitality
+00F158 PlayerFrame           # type 8: a player's routine
+00F194 PlayerMotionInput
+00F1A8 MotionStart
+00F1D0 MotionSecond
+00F1FC MotionWait
+00F212 PlayerInput
+00F24C PlayerInputPad
+00F264 PlayerInputNone
+00F272 ReadPlayerPad1
+00F286 ReadPlayerPad2
+00F29A PlayerInputDemo
+00F32C PlayerInputWalkTo
+00F39E PlayerInputC
+00F404 PlayerInputDirections
+00F434 PlayerInput14
+00F478 PlayerInput18
+00F498 PlayerInput1C
+00F4D2 PlayerInput20
+00F4EC PlayerSceneType
+00F500 PlayerWeaponButton
+00F5D0 PlayerHitKind
+01ADB0 ObjectClear
+FFFF27 v_demoRecord          # never set by the game: a developers' switch, the demo's pads recorded

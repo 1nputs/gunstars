@@ -11,3 +11,13 @@ void call68k(uint32_t addr)
     default: call68k_missing(addr); return;
     }
 }
+
+/* The same for an object's routine (ObjectRoutines, a state table): the ones that take the
+ * object (a5) and return nothing (build/dispatch_obj_gen.inc). */
+void call_object(uint32_t addr, uint16_t obj)
+{
+    switch (addr & 0xFFFFFF) {
+#include "dispatch_obj_gen.inc"
+    default: call_object_missing(addr, obj); return;
+    }
+}

@@ -24,6 +24,16 @@ extern uint32_t reg_sp;     /* a7: the 68k's stack pointer, kept (by the callers
 /* a call the 68k makes with `bytes` more on its stack (its return address, registers saved) */
 #define WITH_SP(bytes, call) do { reg_sp -= (bytes); call; reg_sp += (bytes); } while (0)
 
+/* the objects: $60 bytes from $FFC800 ($FFA800 one more; the players $200 at v_player1, 2) */
+#define OBJECT_ROUTINES 0x00054Cu    /* dc.l: each type's routine (the type is its offset) */
+#define O_TYPE     0x00              /* word: the type; 0: no object */
+#define O_FLAGS    0x02              /* word: bit 15 shown, bit 12 to be removed, bit 9 removed
+                                        when off the screen */
+#define O_STATE    0x04              /* word: the routine's step */
+#define O_X        0x10              /* long: x, 16.16 */
+#define O_Y        0x14              /* long: y */
+#define O_VITALITY 0x24
+
 /* ---- the reset and the main loop (boot.c) ---- */
 extern int checksum_check;
 void Start(void);                                                    /* $000200 */
@@ -308,8 +318,42 @@ void TreasureFillRam(uint16_t first, uint16_t end);                  /* $062FCC 
 /* the fill, in RAM (TreasureCopyFill) */
 void TreasureFill(uint16_t first, uint16_t end);                     /* $FF2058 a0, a1, a6=reg_a6 -> a6=reg_a6 */
 
+/* ---- the players (player.c) ---- */
+void PlayersUpdate(void);                                            /* $00F0E2 */
+void PlayerRemove(uint16_t obj);                                     /* $00F12E a5 */
+void PlayerClampVitality(uint16_t obj);                              /* $00F146 a5 */
+void PlayerFrame(uint16_t obj);                                      /* $00F158 a5 */
+void PlayerMotionInput(uint16_t obj);                                /* $00F194 a5 */
+void MotionStart(uint16_t obj);                                      /* $00F1A8 a5 */
+void MotionSecond(uint16_t obj);                                     /* $00F1D0 a5 */
+void MotionWait(uint16_t obj);                                       /* $00F1FC a5 */
+void PlayerInput(uint16_t obj);                                      /* $00F212 a5 */
+void PlayerInputPad(uint16_t obj);                                   /* $00F24C a5 */
+void PlayerInputNone(uint16_t obj);                                  /* $00F264 a5 */
+void ReadPlayerPad1(uint16_t obj);                                   /* $00F272 a5 */
+void ReadPlayerPad2(uint16_t obj);                                   /* $00F286 a5 */
+void PlayerInputDemo(uint16_t obj);                                  /* $00F29A a5 */
+void PlayerInputWalkTo(uint16_t obj);                                /* $00F32C a5 */
+void PlayerInputC(uint16_t obj);                                     /* $00F39E a5 */
+void PlayerInputDirections(uint16_t obj);                            /* $00F404 a5 */
+void PlayerInput14(uint16_t obj);                                    /* $00F434 a5 */
+void PlayerInput18(uint16_t obj);                                    /* $00F478 a5 */
+void PlayerInput1C(uint16_t obj);                                    /* $00F498 a5 */
+void PlayerInput20(uint16_t obj);                                    /* $00F4D2 a5 */
+void PlayerSceneType(uint16_t obj);                                  /* $00F4EC a5 */
+void PlayerWeaponButton(uint16_t obj);                               /* $00F500 a5 */
+void PlayerHitKind(uint16_t obj);                                    /* $00F5D0 a5 */
+void ObjectClear(uint16_t obj);                                      /* $01ADB0 a5 */
+
 /* ---- not ported yet ---- */
+void sub_0F64E(uint16_t obj);
+void sub_11560(uint16_t obj);
+void sub_1212A(uint16_t obj);
+void sub_12BA0(uint16_t obj);
+void sub_16BF6(uint16_t obj);
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */
 void call68k(uint32_t addr);
 void call68k_missing(uint32_t addr);     /* the tests' recorded call; natively a fatal error */
+void call_object(uint32_t addr, uint16_t obj);       /* the same, the object in a5 */
+void call_object_missing(uint32_t addr, uint16_t obj);

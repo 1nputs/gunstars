@@ -10,7 +10,8 @@
 #              frames: pauses, continues); inv4-inv6: the later stages, vitality held
 #   sound_*    the sound driver: the title and demos' music, stage music and effects
 #   vblank_*   VBlank (each record a whole frame) and the reset's set-up routines
-#   engine_*, game_*, logo_*, treasure_*: the engine's routines, the modes', the logos'
+#   engine_*, game_*, logo_*, treasure_*, players_*: the engine's routines, the modes', the logos',
+#              the players'
 # A session with --novel keeps a record only when it runs an instruction or a branch direction
 # no kept record of its routine ran (tools/hybrid/capcov.py reports what is still untested);
 # --spread samples calls across the session for variety in the data.
@@ -34,7 +35,7 @@ names() {
   $PY - "$1" <<'PYEOF'
 import sys, re
 want = {'the engine': ('clearing', 'sprites'), 'the game': ('modes',), 'the logo': ('the SEGA logo',),
-        'the treasure': ('the Treasure logo',)}[sys.argv[1]]
+        'the treasure': ('the Treasure logo',), 'the players': ('the players',)}[sys.argv[1]]
 out, on = [], False
 for line in open('tools/disasm/names.txt'):
     if line.startswith('# ----'):
@@ -54,6 +55,7 @@ ENGINE=$(names "the engine")
 GAME=$(names "the game")
 LOGO=$(names "the logo")
 TREASURE=$(names "the treasure"),FF2058
+PLAYERS=$(names "the players")
 
 stage_poke() {   # the pokes that pick stage $1 (4-6) after stage 0's select
   $PY -c "print(';'.join(f'{f}:FFA204={4 * $1:04X}' for f in range(1334, 1480)))"
@@ -97,6 +99,16 @@ run() {
     logo_spread) session $1 --fn "$LOGO" --frames 1000 --max 12 --spread ;;
     treasure_attract) session $1 --fn "$TREASURE" --frames 1000 --max 64 --novel ;;
     treasure_spread) session $1 --fn "$TREASURE" --frames 1000 --max 12 --spread ;;
+    players_attract) session $1 --fn "$PLAYERS" --frames 9000 --max 48 --novel ;;
+    players_stage0|players_stage2)
+      n=${1#players_stage}
+      session $1 --fn "$PLAYERS" --frames 20000 --max 48 --novel --script @out/scripts/stage$n.txt ;;
+    players_spread) session $1 --fn "$PLAYERS" --frames 20000 --max 12 --spread --script @out/scripts/stage1.txt ;;
+    players_inv0|players_inv1|players_inv2|players_inv3|players_inv4|players_inv5|players_inv6)
+      n=${1#players_inv}; poke=""
+      [ $n -gt 3 ] && poke=$(stage_poke $n)
+      session $1 --fn "$PLAYERS" --frames 60000 --max 48 --novel --script @out/scripts/inv$n.txt \
+          --hold "$INV" --poke "$poke" ;;
     sound_attract) session $1 --fn "$SOUND" --frames 20000 --max 64 --novel ;;
     sound_spread) session $1 --fn "$SOUND" --frames 20000 --max 16 --spread --script @out/scripts/stage0.txt ;;
     sound_stage0|sound_stage1|sound_stage2|sound_stage3)
@@ -113,5 +125,7 @@ run() {
 NOVEL="novel_attract novel_stage0 novel_stage1 novel_stage2 novel_stage3 novel_inv0 novel_inv1 novel_inv2 novel_inv3 novel_inv4 novel_inv5 novel_inv6"
 SOUNDS="sound_attract sound_spread sound_stage0 sound_stage1 sound_stage2 sound_stage3 sound_inv4 sound_inv5 sound_inv6"
 ALL="frame_attract frame_stage0 frame_inv4 frame_inv5 frame_inv6 $NOVEL $SOUNDS vblank_attract vblank_stage0
-     engine_attract engine_stage0 engine_spread engine_inv5 game_attract game_stage0 game_stage2 logo_attract logo_spread treasure_attract treasure_spread"
+     engine_attract engine_stage0 engine_spread engine_inv5 game_attract game_stage0 game_stage2 logo_attract logo_spread treasure_attract treasure_spread
+     players_attract players_stage0 players_stage2 players_spread players_inv0 players_inv1 players_inv2
+     players_inv3 players_inv4 players_inv5 players_inv6"
 for s in ${@:-$ALL}; do run "$s"; done
