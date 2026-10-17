@@ -224,3 +224,47 @@ void LoadPaletteLine(uint32_t *list, uint16_t *pal, uint16_t *target)
         *target += 4;
     }
 }
+
+/* $003774. A colour with `delta` added to the components the mask's top three bits name (red,
+ * green, blue), each kept within 0-14; the others as they were. */
+uint16_t AdjustColour(uint16_t colour, uint16_t delta, uint16_t mask)
+{
+    uint16_t out = 0, keep = colour;
+    delta = (uint16_t)(delta << 1);
+    if (mask & 0x8000) {
+        int16_t r = (int16_t)((colour & 0x00E) + delta);
+        keep &= 0xFFF1;
+        if (r >= 0) out = (uint16_t)r >= 0x0F ? 0x00E : (uint16_t)r;
+    }
+    delta = (uint16_t)(delta << 4);
+    if (mask & 0x4000) {
+        int16_t g = (int16_t)((colour & 0x0E0) + delta);
+        keep &= 0xFF1F;
+        if (g >= 0) out |= (uint16_t)g >= 0xE1 ? 0x0E0 : (uint16_t)g;
+    }
+    delta = (uint16_t)(delta << 4);
+    if (mask & 0x2000) {
+        int16_t b = (int16_t)((colour & 0xE00) + delta);
+        keep &= 0xF1FF;
+        if (b >= 0) out |= (uint16_t)b >= 0xE01 ? 0xE00 : (uint16_t)b;
+    }
+    return out | keep;
+}
+
+/* $003820. A palette line (16 colours from src to dst) adjusted. */
+void AdjustLine(uint16_t src, uint16_t dst, uint16_t delta, uint16_t mask)
+{
+    for (int i = 0; i < 16; i++)
+        wr16((uint16_t)(dst + 2 * i), AdjustColour(rd16((uint16_t)(src + 2 * i)), delta, mask));
+}
+
+/* $0036A4. The palette lines $FF8002's top four bits name, from the target palette with their
+ * deltas ($FF8014-$FF801A) on the components $FF800A names. */
+void AdjustPalettes(void)
+{
+    uint16_t which = rd16(0x8002), mask = rd16(0x800A);
+    for (int line = 0; line < 4; line++, which = (uint16_t)(which << 1))
+        if (which & 0x8000)
+            AdjustLine((uint16_t)(v_paletteTarget + 0x20 * line), (uint16_t)(v_palette + 0x20 * line),
+                       rd16((uint16_t)(0x8014 + 2 * line)), mask);
+}

@@ -74,7 +74,7 @@ class Disasm:
     def is_data(self, a):
         return bool(self.flags[a] & 2) or (self.flags[a] & 1 and self.reader[a] and self.reader[a] != self.sweep)
 
-    def take(self, a, executed):
+    def take(self, a, executed, forced=False):
         try:
             i = m68k.decode(self.rom, a)
         except Bad as e:
@@ -85,7 +85,7 @@ class Disasm:
             return None
         if not executed:
             for b in range(a, a + i.size):
-                if self.owner[b] or self.is_data(b):
+                if self.owner[b] or (self.is_data(b) and not forced):
                     return None
         else:
             for b in range(a, a + i.size):
@@ -110,14 +110,23 @@ class Disasm:
             if t < ROM_SIZE:
                 work.append(t)
         self.tables = {}
+        # code a static call reaches is code even where something also reads it as data (a
+        # command list copies ROM that holds routines too): from a call's target, the flow is
+        # followed through such bytes
+        forced = set()
         while True:
             while work:
                 a = work.pop()
                 if a >= ROM_SIZE or a & 1 or a in self.insn or self.owner[a]:
                     continue
-                i = self.take(a, False)
+                i = self.take(a, False, a in forced)
                 if i:
-                    work.extend(self.successors(i))
+                    nxt = self.successors(i)
+                    if i.flow == CALL and i.target is not None:
+                        forced.add(i.target)
+                    if a in forced:
+                        forced.update(t for t in nxt if t != i.target or i.flow != CALL)
+                    work.extend(nxt)
             # jump tables the recorded runs used only in part: the rest of their entries too
             for a, i in list(self.insn.items()):
                 if i.flow in (JUMP, CALL) and i.target is None and a not in self.tables:

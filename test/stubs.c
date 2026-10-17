@@ -13,9 +13,3 @@ void call68k_missing(uint32_t addr)
     replay_apply(c);
 }
 
-/* $000CCA: the game's frame (every mode's routines) */
-STUB void GameFrame(void)
-{
-    TAKE(GameFrame);
-    replay_apply(c);
-}

@@ -6,7 +6,7 @@
 #define SYM_Start 0x000200u
 #define SYM_ChecksumLoop 0x000360u
 #define SYM_MainLoop 0x000434u
-#define SYM_sub_0048C 0x00048Cu
+#define SYM_Mode0 0x00048Cu
 #define SYM_ObjectRoutines 0x00054Cu
 #define SYM_Nothing 0x000BB0u
 #define SYM_VBlank 0x000BB2u
@@ -29,6 +29,8 @@
 #define SYM_HintEffect6 0x00161Au
 #define SYM_HintEffect7 0x00165Eu
 #define SYM_HintShiftLines 0x00176Eu
+#define SYM_DrawText 0x00187Cu
+#define SYM_DrawTextPlain 0x0018F8u
 #define SYM_sub_01AB0 0x001AB0u
 #define SYM_sub_01AB8 0x001AB8u
 #define SYM_QueueDmaBlock 0x001B86u
@@ -120,17 +122,17 @@
 #define SYM_CopyBit 0x003148u
 #define SYM_PadId 0x003156u
 #define SYM_QueueSound 0x003196u
-#define SYM_sub_03202 0x003202u
+#define SYM_Atan2 0x003202u
 #define SYM_sub_03526 0x003526u
-#define SYM_sub_035D6 0x0035D6u
-#define SYM_sub_03602 0x003602u
+#define SYM_AddScore 0x0035D6u
+#define SYM_AddBcd 0x003602u
 #define SYM_Random 0x003630u
 #define SYM_sub_0369E 0x00369Eu
-#define SYM_sub_036A4 0x0036A4u
-#define SYM_sub_03774 0x003774u
-#define SYM_sub_03820 0x003820u
-#define SYM_sub_03900 0x003900u
-#define SYM_sub_0391C 0x00391Cu
+#define SYM_AdjustPalettes 0x0036A4u
+#define SYM_AdjustColour 0x003774u
+#define SYM_AdjustLine 0x003820u
+#define SYM_StageStart 0x003900u
+#define SYM_StageFrame 0x00391Cu
 #define SYM_sub_03942 0x003942u
 #define SYM_sub_03B38 0x003B38u
 #define SYM_sub_03B40 0x003B40u
@@ -3243,6 +3245,10 @@ enum {
     v_cameraY = 0xA012,
     v_stage4 = 0xA204,
     v_stagesCleared = 0xA208,
+    v_frameCount = 0xA280,
+    v_modeTimer = 0xA282,
+    v_mode = 0xA284,
+    v_modeState = 0xA286,
     v_player1 = 0xA400,
     v_player2 = 0xA600,
     v_tilePixels = 0xB400,
@@ -3295,7 +3301,7 @@ static const struct sym rom_syms[] = {
     { 0x000200u, "Start" },
     { 0x000360u, "ChecksumLoop" },
     { 0x000434u, "MainLoop" },
-    { 0x00048Cu, "sub_0048C" },
+    { 0x00048Cu, "Mode0" },
     { 0x00054Cu, "ObjectRoutines" },
     { 0x000BB0u, "Nothing" },
     { 0x000BB2u, "VBlank" },
@@ -3318,6 +3324,8 @@ static const struct sym rom_syms[] = {
     { 0x00161Au, "HintEffect6" },
     { 0x00165Eu, "HintEffect7" },
     { 0x00176Eu, "HintShiftLines" },
+    { 0x00187Cu, "DrawText" },
+    { 0x0018F8u, "DrawTextPlain" },
     { 0x001AB0u, "sub_01AB0" },
     { 0x001AB8u, "sub_01AB8" },
     { 0x001B86u, "QueueDmaBlock" },
@@ -3409,17 +3417,17 @@ static const struct sym rom_syms[] = {
     { 0x003148u, "CopyBit" },
     { 0x003156u, "PadId" },
     { 0x003196u, "QueueSound" },
-    { 0x003202u, "sub_03202" },
+    { 0x003202u, "Atan2" },
     { 0x003526u, "sub_03526" },
-    { 0x0035D6u, "sub_035D6" },
-    { 0x003602u, "sub_03602" },
+    { 0x0035D6u, "AddScore" },
+    { 0x003602u, "AddBcd" },
     { 0x003630u, "Random" },
     { 0x00369Eu, "sub_0369E" },
-    { 0x0036A4u, "sub_036A4" },
-    { 0x003774u, "sub_03774" },
-    { 0x003820u, "sub_03820" },
-    { 0x003900u, "sub_03900" },
-    { 0x00391Cu, "sub_0391C" },
+    { 0x0036A4u, "AdjustPalettes" },
+    { 0x003774u, "AdjustColour" },
+    { 0x003820u, "AdjustLine" },
+    { 0x003900u, "StageStart" },
+    { 0x00391Cu, "StageFrame" },
     { 0x003942u, "sub_03942" },
     { 0x003B38u, "sub_03B38" },
     { 0x003B40u, "sub_03B40" },
@@ -6531,6 +6539,10 @@ static const struct sym ram_syms[] = {
     { 0xA012u, "v_cameraY" },
     { 0xA204u, "v_stage4" },
     { 0xA208u, "v_stagesCleared" },
+    { 0xA280u, "v_frameCount" },
+    { 0xA282u, "v_modeTimer" },
+    { 0xA284u, "v_mode" },
+    { 0xA286u, "v_modeState" },
     { 0xA400u, "v_player1" },
     { 0xA600u, "v_player2" },
     { 0xB400u, "v_tilePixels" },

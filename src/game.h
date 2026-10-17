@@ -43,6 +43,9 @@ uint32_t Random(void);                                               /* $003630 
 void QueueDma(uint32_t command, uint32_t src, uint32_t length_regs); /* (a helper: a DMA into the queue) */
 void LoadPalettes(uint32_t list);                                    /* $001BE4 a0 */
 void LoadPaletteLine(uint32_t *list, uint16_t *pal, uint16_t *target);   /* $001BFE -> a0, a2, a3 */
+uint16_t AdjustColour(uint16_t colour, uint16_t delta, uint16_t mask);   /* $003774 d3.w, d4.w, d5.w -> d2.w */
+void AdjustLine(uint16_t src, uint16_t dst, uint16_t delta, uint16_t mask);   /* $003820 a0, a1, a2, a3 */
+void AdjustPalettes(void);                                           /* $0036A4 */
 
 /* ---- background graphics: the job list, command lists, the decoders (jobs.c) ---- */
 void RunCommands(uint32_t list);                                     /* $0022DE a0 */
@@ -221,8 +224,22 @@ void QueueDmaBlock(uint16_t *q, uint32_t src, uint16_t *vram);       /* $001B86 
 void SelectAnimation(uint16_t obj, uint32_t table);                  /* $0021E8 a5, a0 */
 void DrawSpriteList(uint32_t list);                                  /* $00222C a0 */
 
+/* ---- the modes (game.c) ---- */
+void GameFrame(void);                                                /* $000CCA */
+void Mode0(void);                                                    /* $00048C */
+void StageStart(void);                                               /* $003900 */
+void StageFrame(void);                                               /* $00391C */
+
+/* ---- text (text.c) ---- */
+void DrawText(uint32_t list);                                        /* $00187C a0 */
+void DrawTextPlain(uint32_t list, uint16_t attr);                    /* $0018F8 a0, d0.w */
+
+/* ---- arithmetic (math.c) ---- */
+uint16_t Atan2(int16_t dx, uint32_t *d1);                            /* $003202 d0.w -> d2.w, d1 */
+void AddScore(uint16_t obj, uint32_t points);                        /* $0035D6 a5, d0 */
+void AddBcd(uint16_t end, uint32_t points);                          /* $003602 a0, d0 */
+
 /* ---- not ported yet ---- */
-void GameFrame(void);                    /* the game mode's frame ($000CCA) */
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */
 void call68k(uint32_t addr);

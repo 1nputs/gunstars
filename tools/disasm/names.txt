@@ -7,7 +7,6 @@
 000360 ChecksumLoop          # sums the ROM from $200 to the header's end address
 000434 MainLoop              # move #$2300,sr; jsr RunJobs; bra
 000BB0 Nothing               # rts: the object table's empty entry
-000CCA GameFrame             # the game mode's frame: v_mode's routine from the table at $CE2
 002A7C FrameInit
 002AB4 VdpInitRegs
 002B2A IoInit
@@ -245,3 +244,20 @@ FFF744 v_spritesStarted      # the sprite table was started this frame (SpritesS
 FFF756 v_reservedSprites     # sprites at the table's head that BuildSprites leaves alone
 FFF75A v_drawCount
 001BFE LoadPaletteLine
+# ---- modes (src/game.c), text, arithmetic
+000CCA GameFrame             # the game mode's frame: v_mode's routine from the table at $CE2
+00048C Mode0
+003900 StageStart
+00391C StageFrame
+00187C DrawText
+0018F8 DrawTextPlain
+003202 Atan2
+0035D6 AddScore
+003602 AddBcd
+003774 AdjustColour
+003820 AdjustLine
+0036A4 AdjustPalettes
+FFA280 v_frameCount          # the game's frames (a word)
+FFA282 v_modeTimer           # counted down each frame, by GameFrame
+FFA284 v_mode                # the game mode, times 4 (GameFrame's table at $CE2)
+FFA286 v_modeState           # the mode's own step
