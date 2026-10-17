@@ -10,6 +10,8 @@
 #               slot's at 1 ($FFC9A4), so random play gets through them; stages 4-6 (the Empire's
 #               base, the space shooter, the final battle: there is no stage select for them) by
 #               writing $FFA204, the stage times 4, after stage 0 is picked; Start every 5000
+#   rushN       as invN for 120,000 frames, alternating 1,500 frames of random play with 1,500 of
+#               both pads jumping right and firing (random play stalls on stage 0's pyramid)
 # Needs build/oracle.so (make -f tools/hybrid/Makefile) and ref/tas/samsara-gunstarheroes.bk2.
 # EVIDENCE=DIR writes there instead of out/evidence (to compare a rebuild with the last).
 set -euo pipefail
@@ -40,5 +42,13 @@ for n in 0 1 2 3 4 5 6; do
   poke=""
   [ $n -gt 3 ] && poke=$($PY -c "print(';'.join(f'{f}:FFA204={4 * $n:04X}' for f in range(1334, 1480)))")
   $PY tools/hybrid/evidence.py "$ROM" --out "$EV" --name inv$n --frames 60000 --script @out/scripts/inv$n.txt --hold "$INV" --poke "$poke" > /dev/null
+done
+for n in 0 1 2 3 4 5 6; do
+  s=$n; [ $n -gt 3 ] && s=0
+  $PY tools/oracle/randscript.py out/scripts/rush$n.txt --seed $((500 + n)) --frames 120000 \
+      --prefix @out/scripts/stage$s.txt --cut 1500 --from 1500 --start-every 5000 --rush 1500 > /dev/null
+  poke=""
+  [ $n -gt 3 ] && poke=$($PY -c "print(';'.join(f'{f}:FFA204={4 * $n:04X}' for f in range(1334, 1480)))")
+  $PY tools/hybrid/evidence.py "$ROM" --out "$EV" --name rush$n --frames 120000 --script @out/scripts/rush$n.txt --hold "$INV" --poke "$poke" > /dev/null
 done
 $PY tools/hybrid/evidence.py "$ROM" --out "$EV" --summary

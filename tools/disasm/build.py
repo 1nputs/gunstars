@@ -71,21 +71,21 @@ class Disasm:
             for line in open(p):
                 s, t, k, c = line.split()
                 self.edges.append((int(s, 16), int(t, 16), int(k), int(c)))
-        # the reader that swept most of the ROM (the checksum) does not make bytes data
+        # readers that swept the ROM do not make bytes data: the checksum, and a search with no
+        # end mark that runs on through the ROM ($5F3A4, an object's): each read where 64 or more
+        # executed instructions start (a data reader reads a handful at most)
         counts = {}
-        for v in self.reader:
-            if v:
+        for a, v in enumerate(self.reader):
+            if v and self.cov[a]:
                 counts[v] = counts.get(v, 0) + 1
-        self.sweep = max(counts, key=counts.get) if counts else 0
-        if counts.get(self.sweep, 0) < ROM_SIZE // 4:
-            self.sweep = 0
+        self.sweeps = {v for v, n in counts.items() if n >= 64}
         self.insn = {}                     # address -> Insn
         self.owner = bytearray(ROM_SIZE)   # 1: an executed instruction's byte, 2: a static one's
         self.raw = set()                   # instructions written as dc.w
         self.problems = []
 
     def is_data(self, a):
-        return bool(self.flags[a] & 2) or (self.flags[a] & 1 and self.reader[a] and self.reader[a] != self.sweep)
+        return bool(self.flags[a] & 2) or (self.flags[a] & 1 and self.reader[a] and self.reader[a] not in self.sweeps)
 
     def take(self, a, executed, forced=False):
         try:

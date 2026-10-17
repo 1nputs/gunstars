@@ -4,7 +4,7 @@ from a seed: directions held a few frames at a time, mostly forward, with the fi
 most of the time and the others pressed now and then. Deterministic for a seed.
 
 usage: randscript.py OUT --seed N --frames N [--prefix @FILE --cut F] [--insert "F:BTN|BTN,..."]
-                     [--from F] [--pads 1|2]
+                     [--from F] [--pads 1|2] [--jump P] [--rush N]
 """
 import argparse, os, random, sys
 sys.path.insert(0, os.path.dirname(__file__))
@@ -13,12 +13,12 @@ from script import parse, write  # noqa: E402
 DIRS = [('RIGHT',), ('RIGHT',), ('RIGHT',), ('LEFT',), ('UP',), ('DOWN',), ('UP', 'RIGHT'), ('DOWN', 'RIGHT'), ()]
 
 
-def pad(rng):
+def pad(rng, jump=0.15):
     d = rng.choice(DIRS)
     b = []
     if rng.random() < 0.75:
         b.append('B')
-    if rng.random() < 0.15:
+    if rng.random() < jump:
         b.append('C')
     if rng.random() < 0.03:
         b.append('A')
@@ -36,6 +36,8 @@ def main():
     ap.add_argument('--from', dest='start', type=int, default=0, help='random play from this frame')
     ap.add_argument('--pads', type=int, default=2)
     ap.add_argument('--start-every', type=int, default=0, help='press START on both pads every N frames (continues)')
+    ap.add_argument('--jump', type=float, default=0.15, help='how often a pad change presses C (jump)')
+    ap.add_argument('--rush', type=int, default=0, help='alternate N frames of random play with N of jumping right')
     a = ap.parse_args()
     rng = random.Random(a.seed)
     entries = [e for e in parse(a.prefix) if e[0] < a.cut] if a.prefix else []
@@ -44,8 +46,14 @@ def main():
     f = max(a.start, a.cut)
     p = [(), ()]
     while f < a.frames:
+        if a.rush and (f - max(a.start, a.cut)) // a.rush % 2:
+            # both pads jump right and fire: gets up stage 0's pyramid that random play stalls on
+            up = ('RIGHT', 'C', 'B') if a.pads == 2 else ()
+            entries += [(f, ('RIGHT', 'C', 'B'), up), (f + 24, ('RIGHT', 'B'), up[::2]), (f + 30, ('B',), up[2:])]
+            f += 34
+            continue
         k = rng.randrange(2) if a.pads == 2 else 0
-        p[k] = pad(rng)
+        p[k] = pad(rng, a.jump)
         if a.pads == 1:
             p[1] = ()
         entries.append((f, p[0], p[1]))
