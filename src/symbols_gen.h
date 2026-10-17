@@ -1779,11 +1779,11 @@
 #define SYM_sub_270A2 0x0270A2u
 #define SYM_sub_270EC 0x0270ECu
 #define SYM_sub_270FA 0x0270FAu
-#define SYM_sub_27144 0x027144u
+#define SYM_Orbiter 0x027144u
 #define SYM_sub_271FE 0x0271FEu
 #define SYM_sub_272D6 0x0272D6u
 #define SYM_sub_272DC 0x0272DCu
-#define SYM_sub_272E0 0x0272E0u
+#define SYM_OrbiterSetup 0x0272E0u
 #define SYM_sub_273CA 0x0273CAu
 #define SYM_sub_273CE 0x0273CEu
 #define SYM_sub_273D4 0x0273D4u
@@ -1801,8 +1801,8 @@
 #define SYM_sub_27744 0x027744u
 #define SYM_sub_27754 0x027754u
 #define SYM_sub_2776E 0x02776Eu
-#define SYM_sub_277BE 0x0277BEu
-#define SYM_sub_277E8 0x0277E8u
+#define SYM_BossColours 0x0277BEu
+#define SYM_OrbitersStart 0x0277E8u
 #define SYM_sub_27848 0x027848u
 #define SYM_sub_28016 0x028016u
 #define SYM_sub_28076 0x028076u
@@ -1922,111 +1922,111 @@
 #define SYM_sub_2A79E 0x02A79Eu
 #define SYM_sub_2A822 0x02A822u
 #define SYM_sub_2A84E 0x02A84Eu
-#define SYM_sub_2A906 0x02A906u
-#define SYM_sub_2A918 0x02A918u
-#define SYM_sub_2A92A 0x02A92Au
-#define SYM_sub_2AA00 0x02AA00u
-#define SYM_sub_2ABBA 0x02ABBAu
-#define SYM_sub_2ABFA 0x02ABFAu
-#define SYM_sub_2AC1A 0x02AC1Au
-#define SYM_sub_2AC44 0x02AC44u
-#define SYM_sub_2AC5E 0x02AC5Eu
-#define SYM_sub_2AC9A 0x02AC9Au
-#define SYM_sub_2ACF4 0x02ACF4u
-#define SYM_sub_2AECE 0x02AECEu
-#define SYM_sub_2B1DC 0x02B1DCu
-#define SYM_sub_2B29C 0x02B29Cu
-#define SYM_sub_2B2C2 0x02B2C2u
-#define SYM_sub_2B2E8 0x02B2E8u
-#define SYM_sub_2B2F0 0x02B2F0u
-#define SYM_sub_2B310 0x02B310u
-#define SYM_sub_2B3A2 0x02B3A2u
-#define SYM_sub_2B3AA 0x02B3AAu
-#define SYM_sub_2B3CA 0x02B3CAu
-#define SYM_sub_2B45C 0x02B45Cu
-#define SYM_sub_2B48A 0x02B48Au
-#define SYM_sub_2B50A 0x02B50Au
-#define SYM_sub_2B57E 0x02B57Eu
-#define SYM_sub_2B5D0 0x02B5D0u
-#define SYM_sub_2B5FC 0x02B5FCu
-#define SYM_sub_2B62A 0x02B62Au
-#define SYM_sub_2B68C 0x02B68Cu
-#define SYM_sub_2B6A0 0x02B6A0u
-#define SYM_sub_2B6F0 0x02B6F0u
-#define SYM_sub_2B718 0x02B718u
-#define SYM_sub_2B74A 0x02B74Au
-#define SYM_sub_2B7D4 0x02B7D4u
-#define SYM_sub_2B7FA 0x02B7FAu
-#define SYM_sub_2B89C 0x02B89Cu
-#define SYM_sub_2B8FC 0x02B8FCu
-#define SYM_sub_2B974 0x02B974u
-#define SYM_sub_2B990 0x02B990u
-#define SYM_sub_2BA04 0x02BA04u
-#define SYM_sub_2BA68 0x02BA68u
-#define SYM_sub_2BAB2 0x02BAB2u
-#define SYM_sub_2BACE 0x02BACEu
-#define SYM_sub_2BB1E 0x02BB1Eu
-#define SYM_sub_2BB60 0x02BB60u
-#define SYM_sub_2BB7C 0x02BB7Cu
-#define SYM_sub_2BC14 0x02BC14u
-#define SYM_sub_2BC28 0x02BC28u
-#define SYM_sub_2BC50 0x02BC50u
-#define SYM_sub_2BCAE 0x02BCAEu
-#define SYM_sub_2BCC2 0x02BCC2u
-#define SYM_sub_2BCF6 0x02BCF6u
-#define SYM_sub_2BD00 0x02BD00u
-#define SYM_sub_2BD34 0x02BD34u
-#define SYM_sub_2BD3E 0x02BD3Eu
-#define SYM_sub_2BD5A 0x02BD5Au
-#define SYM_sub_2BDEA 0x02BDEAu
-#define SYM_sub_2BE46 0x02BE46u
-#define SYM_sub_2BEA2 0x02BEA2u
-#define SYM_sub_2BEC6 0x02BEC6u
-#define SYM_sub_2BF84 0x02BF84u
-#define SYM_sub_2C000 0x02C000u
-#define SYM_sub_2C080 0x02C080u
-#define SYM_sub_2C100 0x02C100u
-#define SYM_sub_2C11C 0x02C11Cu
-#define SYM_sub_2C178 0x02C178u
-#define SYM_sub_2C1D8 0x02C1D8u
-#define SYM_sub_2C232 0x02C232u
-#define SYM_sub_2C23C 0x02C23Cu
-#define SYM_sub_2C270 0x02C270u
-#define SYM_sub_2C282 0x02C282u
-#define SYM_sub_2C2AA 0x02C2AAu
-#define SYM_sub_2C2AC 0x02C2ACu
-#define SYM_sub_2C32E 0x02C32Eu
-#define SYM_sub_2C406 0x02C406u
-#define SYM_sub_2C410 0x02C410u
-#define SYM_sub_2C434 0x02C434u
-#define SYM_sub_2C4BC 0x02C4BCu
-#define SYM_sub_2C4D2 0x02C4D2u
-#define SYM_sub_2C5EE 0x02C5EEu
-#define SYM_sub_2C652 0x02C652u
-#define SYM_sub_2C6B8 0x02C6B8u
-#define SYM_sub_2C7CA 0x02C7CAu
-#define SYM_sub_2C8AA 0x02C8AAu
-#define SYM_sub_2CB80 0x02CB80u
-#define SYM_sub_2CC06 0x02CC06u
-#define SYM_sub_2CE60 0x02CE60u
-#define SYM_sub_2CEA2 0x02CEA2u
-#define SYM_sub_2CF18 0x02CF18u
-#define SYM_sub_2D018 0x02D018u
-#define SYM_sub_2D02A 0x02D02Au
-#define SYM_sub_2D02C 0x02D02Cu
-#define SYM_sub_2D072 0x02D072u
-#define SYM_sub_2D094 0x02D094u
-#define SYM_sub_2D0B2 0x02D0B2u
-#define SYM_sub_2D0DE 0x02D0DEu
-#define SYM_sub_2D0FE 0x02D0FEu
-#define SYM_sub_2D118 0x02D118u
-#define SYM_sub_2D126 0x02D126u
-#define SYM_sub_2D134 0x02D134u
-#define SYM_sub_2D142 0x02D142u
-#define SYM_sub_2D162 0x02D162u
-#define SYM_sub_2D182 0x02D182u
-#define SYM_sub_2D1A4 0x02D1A4u
-#define SYM_sub_2D1B2 0x02D1B2u
+#define SYM_ObjectRelease 0x02A906u
+#define SYM_Thrown 0x02A918u
+#define SYM_ThrownStart 0x02A92Au
+#define SYM_ThrownFly 0x02AA00u
+#define SYM_Knocked 0x02ABBAu
+#define SYM_KnockedStart 0x02ABFAu
+#define SYM_KnockedHeld 0x02AC1Au
+#define SYM_KnockedFly 0x02AC44u
+#define SYM_KnockedRise 0x02AC5Eu
+#define SYM_KnockedFall 0x02AC9Au
+#define SYM_KnockedBounce 0x02ACF4u
+#define SYM_Soldier 0x02AECEu
+#define SYM_SoldierS00 0x02B1DCu
+#define SYM_SoldierS04 0x02B29Cu
+#define SYM_SoldierS104 0x02B2C2u
+#define SYM_SoldierS14 0x02B2E8u
+#define SYM_SoldierS1C 0x02B2F0u
+#define SYM_SoldierS0C 0x02B310u
+#define SYM_SoldierS18 0x02B3A2u
+#define SYM_SoldierS10 0x02B3AAu
+#define SYM_SoldierS08 0x02B3CAu
+#define SYM_SoldierS9C 0x02B45Cu
+#define SYM_SoldierSA0 0x02B48Au
+#define SYM_SoldierSA4 0x02B50Au
+#define SYM_SoldierSA8 0x02B57Eu
+#define SYM_SoldierS10C 0x02B5D0u
+#define SYM_SoldierS110 0x02B5FCu
+#define SYM_SoldierS100 0x02B62Au
+#define SYM_SoldierS30 0x02B68Cu
+#define SYM_SoldierS108 0x02B6A0u
+#define SYM_SoldierPushed 0x02B6F0u
+#define SYM_SoldierSB8 0x02B718u
+#define SYM_SoldierSBC 0x02B74Au
+#define SYM_SoldierSB4 0x02B7D4u
+#define SYM_SoldierS70 0x02B7FAu
+#define SYM_SoldierSD4 0x02B89Cu
+#define SYM_SoldierSD8 0x02B8FCu
+#define SYM_SoldierSDC 0x02B974u
+#define SYM_SoldierS114 0x02B990u
+#define SYM_SoldierS118 0x02BA04u
+#define SYM_SoldierS11C 0x02BA68u
+#define SYM_SoldierS120 0x02BAB2u
+#define SYM_SoldierS4C 0x02BACEu
+#define SYM_SoldierSB0 0x02BB1Eu
+#define SYM_SoldierSD0 0x02BB60u
+#define SYM_SoldierS40 0x02BB7Cu
+#define SYM_SoldierS44 0x02BC14u
+#define SYM_SoldierSC0 0x02BC28u
+#define SYM_SoldierSE8 0x02BC50u
+#define SYM_SoldierS34 0x02BCAEu
+#define SYM_SoldierS38 0x02BCC2u
+#define SYM_SoldierS3C 0x02BCF6u
+#define SYM_SoldierSE0 0x02BD00u
+#define SYM_SoldierSE4 0x02BD34u
+#define SYM_SoldierS48 0x02BD3Eu
+#define SYM_SoldierS50 0x02BD5Au
+#define SYM_SoldierS54 0x02BDEAu
+#define SYM_SoldierS58 0x02BE46u
+#define SYM_SoldierS5C 0x02BEA2u
+#define SYM_SoldierSF0 0x02BEC6u
+#define SYM_SoldierSF4 0x02BF84u
+#define SYM_SoldierS60 0x02C000u
+#define SYM_SoldierS64 0x02C080u
+#define SYM_SoldierS68 0x02C100u
+#define SYM_SoldierS6C 0x02C11Cu
+#define SYM_SoldierS74 0x02C178u
+#define SYM_SoldierS78 0x02C1D8u
+#define SYM_SoldierS7C 0x02C232u
+#define SYM_SoldierS80 0x02C23Cu
+#define SYM_SoldierS84 0x02C270u
+#define SYM_SoldierS88 0x02C282u
+#define SYM_SoldierS8C 0x02C2AAu
+#define SYM_SoldierS90 0x02C2ACu
+#define SYM_SoldierS94 0x02C32Eu
+#define SYM_SoldierS98 0x02C406u
+#define SYM_SoldierSC4 0x02C410u
+#define SYM_SoldierSC8 0x02C434u
+#define SYM_SoldierSCC 0x02C4BCu
+#define SYM_SoldierSEC 0x02C4D2u
+#define SYM_SoldierSlide 0x02C5EEu
+#define SYM_SoldierAimSetup 0x02C652u
+#define SYM_SoldierSpark 0x02C6B8u
+#define SYM_SoldierTire 0x02C7CAu
+#define SYM_SoldierTireCrouch 0x02C8AAu
+#define SYM_SoldierFall 0x02CB80u
+#define SYM_SoldierHop 0x02CC06u
+#define SYM_SoldierStagger 0x02CE60u
+#define SYM_SoldierKnocked 0x02CEA2u
+#define SYM_SoldierGrab 0x02CF18u
+#define SYM_ChanceRoll 0x02D018u
+#define SYM_SoldierThinkNone 0x02D02Au
+#define SYM_SoldierThinkA 0x02D02Cu
+#define SYM_SoldierThinkB 0x02D072u
+#define SYM_SoldierThinkC 0x02D094u
+#define SYM_SoldierThinkD 0x02D0B2u
+#define SYM_SoldierThinkE 0x02D0DEu
+#define SYM_SoldierThinkF 0x02D0FEu
+#define SYM_SoldierThinkG 0x02D118u
+#define SYM_SoldierThinkH 0x02D126u
+#define SYM_SoldierThinkI 0x02D134u
+#define SYM_SoldierThinkJ 0x02D142u
+#define SYM_SoldierThinkK 0x02D162u
+#define SYM_SoldierThinkL 0x02D182u
+#define SYM_SoldierThinkM 0x02D1A4u
+#define SYM_SoldierThinkN 0x02D1B2u
 #define SYM_sub_2D40E 0x02D40Eu
 #define SYM_sub_2D470 0x02D470u
 #define SYM_sub_2D736 0x02D736u
@@ -2536,10 +2536,10 @@
 #define SYM_sub_37C98 0x037C98u
 #define SYM_sub_37CC6 0x037CC6u
 #define SYM_sub_37D20 0x037D20u
-#define SYM_sub_37D3E 0x037D3Eu
-#define SYM_sub_37D54 0x037D54u
-#define SYM_sub_37D82 0x037D82u
-#define SYM_sub_37D84 0x037D84u
+#define SYM_Hopper 0x037D3Eu
+#define SYM_HopperStart 0x037D54u
+#define SYM_HopperDone 0x037D82u
+#define SYM_HopperWait 0x037D84u
 #define SYM_sub_37DC2 0x037DC2u
 #define SYM_sub_37E00 0x037E00u
 #define SYM_sub_37E38 0x037E38u
@@ -4192,7 +4192,7 @@
 #define SYM_sub_56130 0x056130u
 #define SYM_sub_561B2 0x0561B2u
 #define SYM_sub_561CC 0x0561CCu
-#define SYM_sub_561D8 0x0561D8u
+#define SYM_AnimListFall 0x0561D8u
 #define SYM_sub_561E4 0x0561E4u
 #define SYM_AnimList 0x0561F4u
 #define SYM_AnimListStart 0x056206u
@@ -6637,11 +6637,11 @@ static const struct sym rom_syms[] = {
     { 0x0270A2u, "sub_270A2" },
     { 0x0270ECu, "sub_270EC" },
     { 0x0270FAu, "sub_270FA" },
-    { 0x027144u, "sub_27144" },
+    { 0x027144u, "Orbiter" },
     { 0x0271FEu, "sub_271FE" },
     { 0x0272D6u, "sub_272D6" },
     { 0x0272DCu, "sub_272DC" },
-    { 0x0272E0u, "sub_272E0" },
+    { 0x0272E0u, "OrbiterSetup" },
     { 0x0273CAu, "sub_273CA" },
     { 0x0273CEu, "sub_273CE" },
     { 0x0273D4u, "sub_273D4" },
@@ -6659,8 +6659,8 @@ static const struct sym rom_syms[] = {
     { 0x027744u, "sub_27744" },
     { 0x027754u, "sub_27754" },
     { 0x02776Eu, "sub_2776E" },
-    { 0x0277BEu, "sub_277BE" },
-    { 0x0277E8u, "sub_277E8" },
+    { 0x0277BEu, "BossColours" },
+    { 0x0277E8u, "OrbitersStart" },
     { 0x027848u, "sub_27848" },
     { 0x028016u, "sub_28016" },
     { 0x028076u, "sub_28076" },
@@ -6780,111 +6780,111 @@ static const struct sym rom_syms[] = {
     { 0x02A79Eu, "sub_2A79E" },
     { 0x02A822u, "sub_2A822" },
     { 0x02A84Eu, "sub_2A84E" },
-    { 0x02A906u, "sub_2A906" },
-    { 0x02A918u, "sub_2A918" },
-    { 0x02A92Au, "sub_2A92A" },
-    { 0x02AA00u, "sub_2AA00" },
-    { 0x02ABBAu, "sub_2ABBA" },
-    { 0x02ABFAu, "sub_2ABFA" },
-    { 0x02AC1Au, "sub_2AC1A" },
-    { 0x02AC44u, "sub_2AC44" },
-    { 0x02AC5Eu, "sub_2AC5E" },
-    { 0x02AC9Au, "sub_2AC9A" },
-    { 0x02ACF4u, "sub_2ACF4" },
-    { 0x02AECEu, "sub_2AECE" },
-    { 0x02B1DCu, "sub_2B1DC" },
-    { 0x02B29Cu, "sub_2B29C" },
-    { 0x02B2C2u, "sub_2B2C2" },
-    { 0x02B2E8u, "sub_2B2E8" },
-    { 0x02B2F0u, "sub_2B2F0" },
-    { 0x02B310u, "sub_2B310" },
-    { 0x02B3A2u, "sub_2B3A2" },
-    { 0x02B3AAu, "sub_2B3AA" },
-    { 0x02B3CAu, "sub_2B3CA" },
-    { 0x02B45Cu, "sub_2B45C" },
-    { 0x02B48Au, "sub_2B48A" },
-    { 0x02B50Au, "sub_2B50A" },
-    { 0x02B57Eu, "sub_2B57E" },
-    { 0x02B5D0u, "sub_2B5D0" },
-    { 0x02B5FCu, "sub_2B5FC" },
-    { 0x02B62Au, "sub_2B62A" },
-    { 0x02B68Cu, "sub_2B68C" },
-    { 0x02B6A0u, "sub_2B6A0" },
-    { 0x02B6F0u, "sub_2B6F0" },
-    { 0x02B718u, "sub_2B718" },
-    { 0x02B74Au, "sub_2B74A" },
-    { 0x02B7D4u, "sub_2B7D4" },
-    { 0x02B7FAu, "sub_2B7FA" },
-    { 0x02B89Cu, "sub_2B89C" },
-    { 0x02B8FCu, "sub_2B8FC" },
-    { 0x02B974u, "sub_2B974" },
-    { 0x02B990u, "sub_2B990" },
-    { 0x02BA04u, "sub_2BA04" },
-    { 0x02BA68u, "sub_2BA68" },
-    { 0x02BAB2u, "sub_2BAB2" },
-    { 0x02BACEu, "sub_2BACE" },
-    { 0x02BB1Eu, "sub_2BB1E" },
-    { 0x02BB60u, "sub_2BB60" },
-    { 0x02BB7Cu, "sub_2BB7C" },
-    { 0x02BC14u, "sub_2BC14" },
-    { 0x02BC28u, "sub_2BC28" },
-    { 0x02BC50u, "sub_2BC50" },
-    { 0x02BCAEu, "sub_2BCAE" },
-    { 0x02BCC2u, "sub_2BCC2" },
-    { 0x02BCF6u, "sub_2BCF6" },
-    { 0x02BD00u, "sub_2BD00" },
-    { 0x02BD34u, "sub_2BD34" },
-    { 0x02BD3Eu, "sub_2BD3E" },
-    { 0x02BD5Au, "sub_2BD5A" },
-    { 0x02BDEAu, "sub_2BDEA" },
-    { 0x02BE46u, "sub_2BE46" },
-    { 0x02BEA2u, "sub_2BEA2" },
-    { 0x02BEC6u, "sub_2BEC6" },
-    { 0x02BF84u, "sub_2BF84" },
-    { 0x02C000u, "sub_2C000" },
-    { 0x02C080u, "sub_2C080" },
-    { 0x02C100u, "sub_2C100" },
-    { 0x02C11Cu, "sub_2C11C" },
-    { 0x02C178u, "sub_2C178" },
-    { 0x02C1D8u, "sub_2C1D8" },
-    { 0x02C232u, "sub_2C232" },
-    { 0x02C23Cu, "sub_2C23C" },
-    { 0x02C270u, "sub_2C270" },
-    { 0x02C282u, "sub_2C282" },
-    { 0x02C2AAu, "sub_2C2AA" },
-    { 0x02C2ACu, "sub_2C2AC" },
-    { 0x02C32Eu, "sub_2C32E" },
-    { 0x02C406u, "sub_2C406" },
-    { 0x02C410u, "sub_2C410" },
-    { 0x02C434u, "sub_2C434" },
-    { 0x02C4BCu, "sub_2C4BC" },
-    { 0x02C4D2u, "sub_2C4D2" },
-    { 0x02C5EEu, "sub_2C5EE" },
-    { 0x02C652u, "sub_2C652" },
-    { 0x02C6B8u, "sub_2C6B8" },
-    { 0x02C7CAu, "sub_2C7CA" },
-    { 0x02C8AAu, "sub_2C8AA" },
-    { 0x02CB80u, "sub_2CB80" },
-    { 0x02CC06u, "sub_2CC06" },
-    { 0x02CE60u, "sub_2CE60" },
-    { 0x02CEA2u, "sub_2CEA2" },
-    { 0x02CF18u, "sub_2CF18" },
-    { 0x02D018u, "sub_2D018" },
-    { 0x02D02Au, "sub_2D02A" },
-    { 0x02D02Cu, "sub_2D02C" },
-    { 0x02D072u, "sub_2D072" },
-    { 0x02D094u, "sub_2D094" },
-    { 0x02D0B2u, "sub_2D0B2" },
-    { 0x02D0DEu, "sub_2D0DE" },
-    { 0x02D0FEu, "sub_2D0FE" },
-    { 0x02D118u, "sub_2D118" },
-    { 0x02D126u, "sub_2D126" },
-    { 0x02D134u, "sub_2D134" },
-    { 0x02D142u, "sub_2D142" },
-    { 0x02D162u, "sub_2D162" },
-    { 0x02D182u, "sub_2D182" },
-    { 0x02D1A4u, "sub_2D1A4" },
-    { 0x02D1B2u, "sub_2D1B2" },
+    { 0x02A906u, "ObjectRelease" },
+    { 0x02A918u, "Thrown" },
+    { 0x02A92Au, "ThrownStart" },
+    { 0x02AA00u, "ThrownFly" },
+    { 0x02ABBAu, "Knocked" },
+    { 0x02ABFAu, "KnockedStart" },
+    { 0x02AC1Au, "KnockedHeld" },
+    { 0x02AC44u, "KnockedFly" },
+    { 0x02AC5Eu, "KnockedRise" },
+    { 0x02AC9Au, "KnockedFall" },
+    { 0x02ACF4u, "KnockedBounce" },
+    { 0x02AECEu, "Soldier" },
+    { 0x02B1DCu, "SoldierS00" },
+    { 0x02B29Cu, "SoldierS04" },
+    { 0x02B2C2u, "SoldierS104" },
+    { 0x02B2E8u, "SoldierS14" },
+    { 0x02B2F0u, "SoldierS1C" },
+    { 0x02B310u, "SoldierS0C" },
+    { 0x02B3A2u, "SoldierS18" },
+    { 0x02B3AAu, "SoldierS10" },
+    { 0x02B3CAu, "SoldierS08" },
+    { 0x02B45Cu, "SoldierS9C" },
+    { 0x02B48Au, "SoldierSA0" },
+    { 0x02B50Au, "SoldierSA4" },
+    { 0x02B57Eu, "SoldierSA8" },
+    { 0x02B5D0u, "SoldierS10C" },
+    { 0x02B5FCu, "SoldierS110" },
+    { 0x02B62Au, "SoldierS100" },
+    { 0x02B68Cu, "SoldierS30" },
+    { 0x02B6A0u, "SoldierS108" },
+    { 0x02B6F0u, "SoldierPushed" },
+    { 0x02B718u, "SoldierSB8" },
+    { 0x02B74Au, "SoldierSBC" },
+    { 0x02B7D4u, "SoldierSB4" },
+    { 0x02B7FAu, "SoldierS70" },
+    { 0x02B89Cu, "SoldierSD4" },
+    { 0x02B8FCu, "SoldierSD8" },
+    { 0x02B974u, "SoldierSDC" },
+    { 0x02B990u, "SoldierS114" },
+    { 0x02BA04u, "SoldierS118" },
+    { 0x02BA68u, "SoldierS11C" },
+    { 0x02BAB2u, "SoldierS120" },
+    { 0x02BACEu, "SoldierS4C" },
+    { 0x02BB1Eu, "SoldierSB0" },
+    { 0x02BB60u, "SoldierSD0" },
+    { 0x02BB7Cu, "SoldierS40" },
+    { 0x02BC14u, "SoldierS44" },
+    { 0x02BC28u, "SoldierSC0" },
+    { 0x02BC50u, "SoldierSE8" },
+    { 0x02BCAEu, "SoldierS34" },
+    { 0x02BCC2u, "SoldierS38" },
+    { 0x02BCF6u, "SoldierS3C" },
+    { 0x02BD00u, "SoldierSE0" },
+    { 0x02BD34u, "SoldierSE4" },
+    { 0x02BD3Eu, "SoldierS48" },
+    { 0x02BD5Au, "SoldierS50" },
+    { 0x02BDEAu, "SoldierS54" },
+    { 0x02BE46u, "SoldierS58" },
+    { 0x02BEA2u, "SoldierS5C" },
+    { 0x02BEC6u, "SoldierSF0" },
+    { 0x02BF84u, "SoldierSF4" },
+    { 0x02C000u, "SoldierS60" },
+    { 0x02C080u, "SoldierS64" },
+    { 0x02C100u, "SoldierS68" },
+    { 0x02C11Cu, "SoldierS6C" },
+    { 0x02C178u, "SoldierS74" },
+    { 0x02C1D8u, "SoldierS78" },
+    { 0x02C232u, "SoldierS7C" },
+    { 0x02C23Cu, "SoldierS80" },
+    { 0x02C270u, "SoldierS84" },
+    { 0x02C282u, "SoldierS88" },
+    { 0x02C2AAu, "SoldierS8C" },
+    { 0x02C2ACu, "SoldierS90" },
+    { 0x02C32Eu, "SoldierS94" },
+    { 0x02C406u, "SoldierS98" },
+    { 0x02C410u, "SoldierSC4" },
+    { 0x02C434u, "SoldierSC8" },
+    { 0x02C4BCu, "SoldierSCC" },
+    { 0x02C4D2u, "SoldierSEC" },
+    { 0x02C5EEu, "SoldierSlide" },
+    { 0x02C652u, "SoldierAimSetup" },
+    { 0x02C6B8u, "SoldierSpark" },
+    { 0x02C7CAu, "SoldierTire" },
+    { 0x02C8AAu, "SoldierTireCrouch" },
+    { 0x02CB80u, "SoldierFall" },
+    { 0x02CC06u, "SoldierHop" },
+    { 0x02CE60u, "SoldierStagger" },
+    { 0x02CEA2u, "SoldierKnocked" },
+    { 0x02CF18u, "SoldierGrab" },
+    { 0x02D018u, "ChanceRoll" },
+    { 0x02D02Au, "SoldierThinkNone" },
+    { 0x02D02Cu, "SoldierThinkA" },
+    { 0x02D072u, "SoldierThinkB" },
+    { 0x02D094u, "SoldierThinkC" },
+    { 0x02D0B2u, "SoldierThinkD" },
+    { 0x02D0DEu, "SoldierThinkE" },
+    { 0x02D0FEu, "SoldierThinkF" },
+    { 0x02D118u, "SoldierThinkG" },
+    { 0x02D126u, "SoldierThinkH" },
+    { 0x02D134u, "SoldierThinkI" },
+    { 0x02D142u, "SoldierThinkJ" },
+    { 0x02D162u, "SoldierThinkK" },
+    { 0x02D182u, "SoldierThinkL" },
+    { 0x02D1A4u, "SoldierThinkM" },
+    { 0x02D1B2u, "SoldierThinkN" },
     { 0x02D40Eu, "sub_2D40E" },
     { 0x02D470u, "sub_2D470" },
     { 0x02D736u, "sub_2D736" },
@@ -7394,10 +7394,10 @@ static const struct sym rom_syms[] = {
     { 0x037C98u, "sub_37C98" },
     { 0x037CC6u, "sub_37CC6" },
     { 0x037D20u, "sub_37D20" },
-    { 0x037D3Eu, "sub_37D3E" },
-    { 0x037D54u, "sub_37D54" },
-    { 0x037D82u, "sub_37D82" },
-    { 0x037D84u, "sub_37D84" },
+    { 0x037D3Eu, "Hopper" },
+    { 0x037D54u, "HopperStart" },
+    { 0x037D82u, "HopperDone" },
+    { 0x037D84u, "HopperWait" },
     { 0x037DC2u, "sub_37DC2" },
     { 0x037E00u, "sub_37E00" },
     { 0x037E38u, "sub_37E38" },
@@ -9050,7 +9050,7 @@ static const struct sym rom_syms[] = {
     { 0x056130u, "sub_56130" },
     { 0x0561B2u, "sub_561B2" },
     { 0x0561CCu, "sub_561CC" },
-    { 0x0561D8u, "sub_561D8" },
+    { 0x0561D8u, "AnimListFall" },
     { 0x0561E4u, "sub_561E4" },
     { 0x0561F4u, "AnimList" },
     { 0x056206u, "AnimListStart" },

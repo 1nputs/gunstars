@@ -671,3 +671,65 @@ int ObjectCeiling(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4)
     uint32_t fn = rom32(0x029CB8 + (uint32_t)(int16_t)(uint16_t)((a - 0x28) << 2));
     return floor_kind(fn, obj, x, y, a, d4);
 }
+
+/* $02A906. What the object holds (+$40) let go: returned (0: nothing). */
+uint16_t ObjectRelease(uint16_t obj)
+{
+    uint16_t held = rd16(obj + 0x40);
+    if (held) wr16(obj + 0x40, 0);
+    return held;
+}
+
+/* $02A758: the shot (in `slot`, type `type`, angle `angle` at +$48) placed at the muzzle: the
+ * offsets table's entry for the direction (a byte of x, a byte of y), mirrored as the object is
+ * flipped */
+static void shot_at_muzzle(uint16_t obj, uint16_t slot, uint32_t offsets, uint16_t angle, uint16_t dir, uint16_t type)
+{
+    wr16(slot + 0x48, angle);
+    uint16_t o = bus_rd16(offsets + (uint32_t)(int16_t)(uint16_t)((int16_t)dir >> 1));
+    int16_t dy = (int8_t)(o & 0xFF), dx = (int8_t)(o >> 8);
+    wr16(slot + O_TYPE, type);
+    if (bit8(obj + 0x0E, 3)) dx = (int16_t)-dx;
+    wr16(slot + O_X, (uint16_t)(rd16(obj + O_X) + dx));
+    if (bit8(obj + 0x0E, 4)) dy = (int16_t)-dy;
+    wr16(slot + O_Y, (uint16_t)(rd16(obj + O_Y) + dy));
+}
+
+/* $02A742 (entered by jump): facing `target` (`faces`: the mappings by direction), a shot of
+ * `type` from a slot of $CE00-$D3FF at the muzzle (`offsets`). */
+void AimedSpawn(uint16_t obj, uint16_t target, uint32_t faces, uint32_t offsets, uint16_t type)
+{
+    uint16_t d0, d5, d6, d7 = type;
+    FaceToward(obj, target, faces, &d0, &d5, &d6, &d7);
+    uint16_t slot, t;
+    if (!SlotFreeMid(&slot, &t)) return;
+    shot_at_muzzle(obj, slot, offsets, d5, d6, d7);
+}
+
+/* $02A884 (entered by jump): something of `type` thrown at `target`: up at 5, across so as to
+ * land on it (its distance over 85 frames; the soldiers' $1F8 kind with +$56 bit 3 lower and
+ * twice as fast above the easiest difficulty), the thrower facing the throw. */
+void ThrowAt(uint16_t obj, uint16_t target, uint16_t type)
+{
+    int32_t d = (int32_t)(rd32(target + O_X) - rd32(obj + O_X)) >> 8;
+    uint32_t vx = 0;
+    if (d) {
+        int32_t q = d / 85;
+        if (q >= -32768 && q <= 32767) vx = (uint32_t)(int32_t)(int16_t)q << 8;
+        else vx = (uint32_t)(int32_t)(int16_t)(uint16_t)d << 8;    /* divs overflow: d1 kept */
+    }
+    uint16_t slot, t;
+    if (!SlotFreeMid(&slot, &t)) return;
+    QueueSound(0xD4);
+    wr16(slot + O_TYPE, type);
+    wr16(slot + O_X, rd16(obj + O_X));
+    wr16(slot + O_Y, rd16(obj + O_Y));
+    wr32(slot + 0x1C, 0xFFFB0000);
+    if (rd16(obj + O_TYPE) == 0x1F8 && bit8(obj + 0x56, 3) && rd16(v_difficulty)) {
+        wr32(slot + 0x1C, 0xFFFD8000);
+        vx <<= 1;
+    }
+    wr32(slot + 0x18, vx);
+    if (vx & 0x80000000u) set8(obj + 0x0E, 3);
+    else clr8(obj + 0x0E, 3);
+}

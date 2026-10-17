@@ -1254,6 +1254,116 @@ void FigureG2f(uint16_t obj);                                        /* $022B78 
 void FigureG2(uint16_t obj);                                         /* $022AD2 a5 */
 void FigureTypeG(uint16_t obj);                                      /* $022A6E a5 */
 
+/* ---- the soldier and what it becomes (soldier.c) ---- */
+uint16_t ObjectRelease(uint16_t obj);                                /* $02A906 a5 -> d0.w */
+/* labels other objects jump into (no routines of their own: their code runs in the caller's) */
+void AimedSpawn(uint16_t obj, uint16_t target, uint32_t faces, uint32_t offsets, uint16_t type);
+void ThrowAt(uint16_t obj, uint16_t target, uint16_t type);
+void ThrownFly(uint16_t obj);                                        /* $02AA00 a5 */
+void Thrown(uint16_t obj);                                           /* $02A918 a5 */
+void KnockedStart(uint16_t obj);                                     /* $02ABFA a5 */
+void KnockedHeld(uint16_t obj);                                      /* $02AC1A a5 */
+void KnockedFly(uint16_t obj);                                       /* $02AC44 a5 */
+void KnockedFall(uint16_t obj);                                      /* $02AC9A a5 */
+void KnockedBounce(uint16_t obj);                                    /* $02ACF4 a5 */
+void Knocked(uint16_t obj);                                          /* $02ABBA a5 */
+void SoldierFall(uint16_t obj);                                      /* $02CB80 a5 */
+void SoldierTire(uint16_t obj);                                      /* $02C7CA a5 */
+void SoldierTireCrouch(uint16_t obj);                                /* $02C8AA a5 */
+void SoldierHop(uint16_t obj);                                       /* $02CC06 a5 */
+void SoldierStagger(uint16_t obj);                                   /* $02CE60 a5 */
+void SoldierKnocked(uint16_t obj);                                   /* $02CEA2 a5 */
+void SoldierGrab(uint16_t obj);                                      /* $02CF18 a5 */
+void SoldierSpark(uint16_t obj, uint16_t vx, uint16_t vy, uint32_t data); /* $02C6B8 a5, d2.w, d3.w, d5 */
+void SoldierSlide(uint16_t obj);                                     /* $02C5EE a5 */
+void SoldierThinkNone(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D02A a5, d0.w, d1.w, d5.w */
+void SoldierThinkA(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D02C a5, d0.w, d1.w, d5.w */
+void SoldierThinkB(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D072 a5, d0.w, d1.w, d5.w */
+void SoldierThinkC(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D094 a5, d0.w, d1.w, d5.w */
+void SoldierThinkD(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D0B2 a5, d0.w, d1.w, d5.w */
+void SoldierThinkE(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D0DE a5, d0.w, d1.w, d5.w */
+void SoldierThinkF(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D0FE a5, d0.w, d1.w, d5.w */
+void SoldierThinkG(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D118 a5, d0.w, d1.w, d5.w */
+void SoldierThinkH(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D126 a5, d0.w, d1.w, d5.w */
+void SoldierThinkI(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D134 a5, d0.w, d1.w, d5.w */
+void SoldierThinkJ(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D142 a5, d0.w, d1.w, d5.w */
+void SoldierThinkK(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D162 a5, d0.w, d1.w, d5.w */
+void SoldierThinkL(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D182 a5, d0.w, d1.w, d5.w */
+void SoldierThinkM(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D1A4 a5, d0.w, d1.w, d5.w */
+void SoldierThinkN(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02D1B2 a5, d0.w, d1.w, d5.w */
+void SoldierS04(uint16_t obj);                                       /* $02B29C a5 */
+void SoldierS104(uint16_t obj);                                      /* $02B2C2 a5 */
+void SoldierS0C(uint16_t obj);                                       /* $02B310 a5 */
+void SoldierS14(uint16_t obj);                                       /* $02B2E8 a5 */
+void SoldierS1C(uint16_t obj);                                       /* $02B2F0 a5 */
+void SoldierS08(uint16_t obj);                                       /* $02B3CA a5 */
+void SoldierS18(uint16_t obj);                                       /* $02B3A2 a5 */
+void SoldierS10(uint16_t obj);                                       /* $02B3AA a5 */
+void SoldierSA0(uint16_t obj);                                       /* $02B48A a5 */
+void SoldierSA4(uint16_t obj);                                       /* $02B50A a5 */
+void SoldierS9C(uint16_t obj);                                       /* $02B45C a5 */
+void SoldierSA8(uint16_t obj);                                       /* $02B57E a5 */
+void SoldierS10C(uint16_t obj);                                      /* $02B5D0 a5 */
+void SoldierS110(uint16_t obj);                                      /* $02B5FC a5 */
+void SoldierS100(uint16_t obj);                                      /* $02B62A a5 */
+void SoldierS30(uint16_t obj);                                       /* $02B68C a5 */
+void SoldierPushed(uint16_t obj, uint16_t by);                       /* $02B6F0 a5, a0 */
+void SoldierSB8(uint16_t obj);                                       /* $02B718 a5 */
+void SoldierSBC(uint16_t obj);                                       /* $02B74A a5 */
+void SoldierSB4(uint16_t obj);                                       /* $02B7D4 a5 */
+void SoldierSD4(uint16_t obj);                                       /* $02B89C a5 */
+void SoldierSD8(uint16_t obj);                                       /* $02B8FC a5 */
+void SoldierSDC(uint16_t obj);                                       /* $02B974 a5 */
+void SoldierS118(uint16_t obj);                                      /* $02BA04 a5 */
+void SoldierS11C(uint16_t obj);                                      /* $02BA68 a5 */
+void SoldierS120(uint16_t obj);                                      /* $02BAB2 a5 */
+void SoldierSB0(uint16_t obj);                                       /* $02BB1E a5 */
+void SoldierSD0(uint16_t obj);                                       /* $02BB60 a5 */
+void SoldierS44(uint16_t obj);                                       /* $02BC14 a5 */
+void SoldierSC0(uint16_t obj);                                       /* $02BC28 a5 */
+void SoldierSE8(uint16_t obj);                                       /* $02BC50 a5 */
+void SoldierS34(uint16_t obj);                                       /* $02BCAE a5 */
+void SoldierS38(uint16_t obj);                                       /* $02BCC2 a5 */
+void SoldierS3C(uint16_t obj);                                       /* $02BCF6 a5 */
+void SoldierSE0(uint16_t obj);                                       /* $02BD00 a5 */
+void SoldierSE4(uint16_t obj);                                       /* $02BD34 a5 */
+void SoldierS48(uint16_t obj);                                       /* $02BD3E a5 */
+void SoldierS50(uint16_t obj);                                       /* $02BD5A a5 */
+void SoldierS54(uint16_t obj);                                       /* $02BDEA a5 */
+void SoldierS58(uint16_t obj);                                       /* $02BE46 a5 */
+void SoldierS5C(uint16_t obj);                                       /* $02BEA2 a5 */
+void SoldierS60(uint16_t obj);                                       /* $02C000 a5 */
+void SoldierS64(uint16_t obj);                                       /* $02C080 a5 */
+void SoldierS68(uint16_t obj);                                       /* $02C100 a5 */
+void SoldierS6C(uint16_t obj);                                       /* $02C11C a5 */
+void SoldierS74(uint16_t obj);                                       /* $02C178 a5 */
+void SoldierS78(uint16_t obj);                                       /* $02C1D8 a5 */
+void SoldierS7C(uint16_t obj);                                       /* $02C232 a5 */
+void SoldierS84(uint16_t obj);                                       /* $02C270 a5 */
+void SoldierS88(uint16_t obj);                                       /* $02C282 a5 */
+void SoldierS8C(uint16_t obj);                                       /* $02C2AA a5 */
+void SoldierS98(uint16_t obj);                                       /* $02C406 a5 */
+void SoldierSC4(uint16_t obj);                                       /* $02C410 a5 */
+void SoldierSCC(uint16_t obj);                                       /* $02C4BC a5 */
+int ChanceRoll(uint16_t obj, uint16_t chance);                       /* $02D018 a5, d6.w -> C */
+void ThrownStart(uint16_t obj);                                      /* $02A92A a5 */
+void KnockedRise(uint16_t obj);                                      /* $02AC5E a5 */
+void SoldierAimSetup(uint16_t obj, uint16_t *target, uint16_t *type, uint32_t *faces, uint32_t *muzzles); /* $02C652 a5 -> a0.w, d7.w, a1, a2 */
+void SoldierS108(uint16_t obj);                                      /* $02B6A0 a5 */
+void SoldierS70(uint16_t obj);                                       /* $02B7FA a5 */
+void SoldierS114(uint16_t obj);                                      /* $02B990 a5 */
+void SoldierS4C(uint16_t obj);                                       /* $02BACE a5 */
+void SoldierS40(uint16_t obj);                                       /* $02BB7C a5 */
+void SoldierSF4(uint16_t obj);                                       /* $02BF84 a5 */
+void SoldierSF0(uint16_t obj);                                       /* $02BEC6 a5 */
+void SoldierS80(uint16_t obj);                                       /* $02C23C a5 */
+void SoldierS94(uint16_t obj);                                       /* $02C32E a5 */
+void SoldierS90(uint16_t obj);                                       /* $02C2AC a5 */
+void SoldierSC8(uint16_t obj);                                       /* $02C434 a5 */
+void SoldierSEC(uint16_t obj);                                       /* $02C4D2 a5 */
+void SoldierS00(uint16_t obj);                                       /* $02B1DC a5 */
+void Soldier(uint16_t obj);                                          /* $02AECE a5 */
+
 /* ---- not ported yet ---- */
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */
