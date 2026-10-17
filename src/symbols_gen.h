@@ -1105,15 +1105,15 @@
 #define SYM_ItemSpaceRest 0x01A596u
 #define SYM_ItemDrift 0x01A5C0u
 #define SYM_ItemLook 0x01A5E4u
-#define SYM_sub_1A64C 0x01A64Cu
-#define SYM_sub_1A66A 0x01A66Au
-#define SYM_sub_1A6E2 0x01A6E2u
-#define SYM_sub_1A77E 0x01A77Eu
-#define SYM_sub_1A82E 0x01A82Eu
-#define SYM_sub_1A836 0x01A836u
-#define SYM_sub_1A8A6 0x01A8A6u
-#define SYM_sub_1A8CE 0x01A8CEu
-#define SYM_sub_1A8F6 0x01A8F6u
+#define SYM_Carrier 0x01A64Cu
+#define SYM_CarrierStart 0x01A66Au
+#define SYM_CarrierFly 0x01A6E2u
+#define SYM_CarrierFall 0x01A77Eu
+#define SYM_CarrierWait 0x01A82Eu
+#define SYM_CarrierBob 0x01A836u
+#define SYM_CarrierThrown 0x01A8A6u
+#define SYM_CarrierFace 0x01A8CEu
+#define SYM_CarrierDrop 0x01A8F6u
 #define SYM_sub_1A946 0x01A946u
 #define SYM_sub_1A964 0x01A964u
 #define SYM_sub_1A9CE 0x01A9CEu
@@ -1501,24 +1501,24 @@
 #define SYM_FigureD3 0x021F32u
 #define SYM_ActorTypeB 0x021FA0u
 #define SYM_ActorB 0x021FBEu
-#define SYM_sub_2206A 0x02206Au
-#define SYM_sub_220AC 0x0220ACu
-#define SYM_sub_2210E 0x02210Eu
-#define SYM_sub_22150 0x022150u
-#define SYM_sub_22192 0x022192u
-#define SYM_sub_221D4 0x0221D4u
-#define SYM_sub_22216 0x022216u
-#define SYM_sub_22258 0x022258u
-#define SYM_sub_2229A 0x02229Au
-#define SYM_sub_222DC 0x0222DCu
-#define SYM_sub_2231E 0x02231Eu
-#define SYM_sub_22368 0x022368u
-#define SYM_sub_22386 0x022386u
-#define SYM_sub_22402 0x022402u
-#define SYM_sub_22428 0x022428u
-#define SYM_sub_22446 0x022446u
-#define SYM_sub_2247C 0x02247Cu
-#define SYM_sub_2249A 0x02249Au
+#define SYM_SetTypeA 0x02206Au
+#define SYM_SetA1 0x0220ACu
+#define SYM_SetA2 0x02210Eu
+#define SYM_SetA3 0x022150u
+#define SYM_SetA4 0x022192u
+#define SYM_SetA5 0x0221D4u
+#define SYM_SetA6 0x022216u
+#define SYM_SetA7 0x022258u
+#define SYM_SetA8 0x02229Au
+#define SYM_SetA9 0x0222DCu
+#define SYM_SetA10 0x02231Eu
+#define SYM_CloudType 0x022368u
+#define SYM_Cloud 0x022386u
+#define SYM_CloudBob 0x022402u
+#define SYM_CloudRiderType 0x022428u
+#define SYM_CloudRider 0x022446u
+#define SYM_FigureTypeF 0x02247Cu
+#define SYM_FigureF 0x02249Au
 #define SYM_sub_2250E 0x02250Eu
 #define SYM_sub_2252C 0x02252Cu
 #define SYM_sub_22542 0x022542u
@@ -1549,15 +1549,15 @@
 #define SYM_sub_22972 0x022972u
 #define SYM_sub_229A8 0x0229A8u
 #define SYM_sub_229DE 0x0229DEu
-#define SYM_sub_22A6E 0x022A6Eu
-#define SYM_sub_22A90 0x022A90u
-#define SYM_sub_22AD2 0x022AD2u
-#define SYM_sub_22AEC 0x022AECu
-#define SYM_sub_22B24 0x022B24u
-#define SYM_sub_22B3C 0x022B3Cu
-#define SYM_sub_22B50 0x022B50u
-#define SYM_sub_22B68 0x022B68u
-#define SYM_sub_22B78 0x022B78u
+#define SYM_FigureTypeG 0x022A6Eu
+#define SYM_FigureG1 0x022A90u
+#define SYM_FigureG2 0x022AD2u
+#define SYM_FigureG2a 0x022AECu
+#define SYM_FigureG2b 0x022B24u
+#define SYM_FigureG2c 0x022B3Cu
+#define SYM_FigureG2d 0x022B50u
+#define SYM_FigureG2e 0x022B68u
+#define SYM_FigureG2f 0x022B78u
 #define SYM_sub_22BB2 0x022BB2u
 #define SYM_sub_22BDC 0x022BDCu
 #define SYM_sub_22BF4 0x022BF4u
@@ -5963,15 +5963,15 @@ static const struct sym rom_syms[] = {
     { 0x01A596u, "ItemSpaceRest" },
     { 0x01A5C0u, "ItemDrift" },
     { 0x01A5E4u, "ItemLook" },
-    { 0x01A64Cu, "sub_1A64C" },
-    { 0x01A66Au, "sub_1A66A" },
-    { 0x01A6E2u, "sub_1A6E2" },
-    { 0x01A77Eu, "sub_1A77E" },
-    { 0x01A82Eu, "sub_1A82E" },
-    { 0x01A836u, "sub_1A836" },
-    { 0x01A8A6u, "sub_1A8A6" },
-    { 0x01A8CEu, "sub_1A8CE" },
-    { 0x01A8F6u, "sub_1A8F6" },
+    { 0x01A64Cu, "Carrier" },
+    { 0x01A66Au, "CarrierStart" },
+    { 0x01A6E2u, "CarrierFly" },
+    { 0x01A77Eu, "CarrierFall" },
+    { 0x01A82Eu, "CarrierWait" },
+    { 0x01A836u, "CarrierBob" },
+    { 0x01A8A6u, "CarrierThrown" },
+    { 0x01A8CEu, "CarrierFace" },
+    { 0x01A8F6u, "CarrierDrop" },
     { 0x01A946u, "sub_1A946" },
     { 0x01A964u, "sub_1A964" },
     { 0x01A9CEu, "sub_1A9CE" },
@@ -6359,24 +6359,24 @@ static const struct sym rom_syms[] = {
     { 0x021F32u, "FigureD3" },
     { 0x021FA0u, "ActorTypeB" },
     { 0x021FBEu, "ActorB" },
-    { 0x02206Au, "sub_2206A" },
-    { 0x0220ACu, "sub_220AC" },
-    { 0x02210Eu, "sub_2210E" },
-    { 0x022150u, "sub_22150" },
-    { 0x022192u, "sub_22192" },
-    { 0x0221D4u, "sub_221D4" },
-    { 0x022216u, "sub_22216" },
-    { 0x022258u, "sub_22258" },
-    { 0x02229Au, "sub_2229A" },
-    { 0x0222DCu, "sub_222DC" },
-    { 0x02231Eu, "sub_2231E" },
-    { 0x022368u, "sub_22368" },
-    { 0x022386u, "sub_22386" },
-    { 0x022402u, "sub_22402" },
-    { 0x022428u, "sub_22428" },
-    { 0x022446u, "sub_22446" },
-    { 0x02247Cu, "sub_2247C" },
-    { 0x02249Au, "sub_2249A" },
+    { 0x02206Au, "SetTypeA" },
+    { 0x0220ACu, "SetA1" },
+    { 0x02210Eu, "SetA2" },
+    { 0x022150u, "SetA3" },
+    { 0x022192u, "SetA4" },
+    { 0x0221D4u, "SetA5" },
+    { 0x022216u, "SetA6" },
+    { 0x022258u, "SetA7" },
+    { 0x02229Au, "SetA8" },
+    { 0x0222DCu, "SetA9" },
+    { 0x02231Eu, "SetA10" },
+    { 0x022368u, "CloudType" },
+    { 0x022386u, "Cloud" },
+    { 0x022402u, "CloudBob" },
+    { 0x022428u, "CloudRiderType" },
+    { 0x022446u, "CloudRider" },
+    { 0x02247Cu, "FigureTypeF" },
+    { 0x02249Au, "FigureF" },
     { 0x02250Eu, "sub_2250E" },
     { 0x02252Cu, "sub_2252C" },
     { 0x022542u, "sub_22542" },
@@ -6407,15 +6407,15 @@ static const struct sym rom_syms[] = {
     { 0x022972u, "sub_22972" },
     { 0x0229A8u, "sub_229A8" },
     { 0x0229DEu, "sub_229DE" },
-    { 0x022A6Eu, "sub_22A6E" },
-    { 0x022A90u, "sub_22A90" },
-    { 0x022AD2u, "sub_22AD2" },
-    { 0x022AECu, "sub_22AEC" },
-    { 0x022B24u, "sub_22B24" },
-    { 0x022B3Cu, "sub_22B3C" },
-    { 0x022B50u, "sub_22B50" },
-    { 0x022B68u, "sub_22B68" },
-    { 0x022B78u, "sub_22B78" },
+    { 0x022A6Eu, "FigureTypeG" },
+    { 0x022A90u, "FigureG1" },
+    { 0x022AD2u, "FigureG2" },
+    { 0x022AECu, "FigureG2a" },
+    { 0x022B24u, "FigureG2b" },
+    { 0x022B3Cu, "FigureG2c" },
+    { 0x022B50u, "FigureG2d" },
+    { 0x022B68u, "FigureG2e" },
+    { 0x022B78u, "FigureG2f" },
     { 0x022BB2u, "sub_22BB2" },
     { 0x022BDCu, "sub_22BDC" },
     { 0x022BF4u, "sub_22BF4" },

@@ -491,3 +491,217 @@ void FigureTypeE(uint16_t obj)
 {
     by_scene(obj, 0x021C64);
 }
+
+/* ---- type $620: a scene's set (figures in their places) ---- */
+
+/* $0220AC. One already placed: a pose at $40 frames left, another at the end. */
+void SetA1(uint16_t obj)
+{
+    if (!rd16(obj + O_STATE)) {
+        wr16(obj + O_STATE, 4);
+        wr16(obj + O_FLAGS, 0xED00);
+        wr16(obj + 0x0E, 0x8300);
+        wr8(obj + 0x20, 0x80);
+        wr16(obj + 0x0C, 0);
+        wr32(obj + 0x18, 0);
+        wr32(obj + 0x1C, 0);
+        wr16(obj + A_TIME, 0x200);
+    }
+    wr16(obj + A_TIME, (uint16_t)(rd16(obj + A_TIME) - 1));
+    if (!rd16(obj + A_TIME)) pose(obj, 0x0DFC4E);
+    else if (rd16(obj + A_TIME) == 0x40) pose(obj, 0x0DFC6E);
+}
+
+/* $02210E */
+void SetA2(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0x8480, 0, 0x100, 0x118, 0x0DF4FC); }
+/* $022150 */
+void SetA3(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0x480, 0x40, 0x180, 0xB8, 0x0DFC8E); }
+/* $022192 */
+void SetA4(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0xC80, 0x40, 0x198, 0xF0, 0x0DF4FC); }
+/* $0221D4 */
+void SetA5(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0xC80, 0x40, 0x1B0, 0xF0, 0x0DF4FC); }
+/* $022216 */
+void SetA6(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0xC80, 0x40, 0xC8, 0x120, 0x0E0164); }
+/* $022258 */
+void SetA7(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0xC80, 0x40, 0xE8, 0x120, 0x0E022C); }
+/* $02229A */
+void SetA8(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0xC80, 0x40, 0xCC, 0xC8, 0x0E002A); }
+/* $0222DC */
+void SetA9(uint16_t obj) { if (!rd16(obj + O_STATE)) figure(obj, 0xED00, 0xC80, 0x40, 0xF0, 0xE8, 0x0E00CC); }
+
+/* $02231E. Drifting left, wrapping round from x $60 to $1E0. */
+void SetA10(uint16_t obj)
+{
+    if (!rd16(obj + O_STATE)) {
+        wr16(obj + O_STATE, 4);
+        wr16(obj + O_FLAGS, 0xED00);
+        wr16(obj + 0x0E, 0x8B00);
+        wr8(obj + 0x20, 0x80);
+        pose(obj, 0x0DF2D0);
+        wr32(obj + 0x18, 0xFFFEC000);
+        wr32(obj + 0x1C, 0);
+    }
+    if ((int16_t)rd16(obj + O_X) <= 0x60) wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) + 0x180));
+}
+
+/* $02206A. Type $620. */
+void SetTypeA(uint16_t obj)
+{
+    by_scene(obj, 0x022084);
+}
+
+/* ---- type $624: a cloud carrying a figure (type $628 in the next slot) ---- */
+
+/* $022402. Bobbing: 16 frames down, 16 up. */
+void CloudBob(uint16_t obj)
+{
+    uint16_t n = (uint16_t)(rd16(obj + 0x4E) + 1);
+    wr16(obj + 0x4E, n);
+    wr32(obj + 0x1C, (n & 0x10) ? 0xFFFFC000 : 0x4000);
+}
+
+/* $022386. Right at 2, wrapping round from $1E0; the rider kept on it. */
+void Cloud(uint16_t obj)
+{
+    if (!rd16(obj + O_STATE)) {
+        wr16(obj + O_STATE, 4);
+        wr16(obj + O_FLAGS, 0xEC00);
+        wr16(obj + 0x0E, 0x300);
+        wr8(obj + 0x20, 0xE0);
+        wr16(obj + 0x0C, 0);
+        wr32(obj + 0x18, 0x20000);
+        wr32(obj + 0x1C, 0);
+        wr16(obj + 0x4E, 0);
+        uint16_t rider = (uint16_t)(obj + 0x60);
+        wr16(obj + 0x50, rider);
+        wr16(rider + O_TYPE, 0x628);
+        wr16(rider + O_STATE, 0);
+        wr16(rider + 0x48, 0);
+    }
+    if ((int16_t)rd16(obj + O_X) >= 0x1E0) wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) - 0x180));
+    CloudBob(obj);
+    uint16_t rider = rd16(obj + 0x50);
+    wr16(rider + O_X, (uint16_t)(rd16(obj + O_X) - 4));
+    wr16(rider + O_Y, (uint16_t)(rd16(obj + O_Y) - 0x10));
+}
+
+/* $022368. Type $624. */
+void CloudType(uint16_t obj)
+{
+    by_scene(obj, 0x022382);
+}
+
+/* $022446. The rider. */
+void CloudRider(uint16_t obj)
+{
+    if (rd16(obj + O_STATE)) return;
+    wr16(obj + O_STATE, 4);
+    wr16(obj + O_FLAGS, 0xED00);
+    wr16(obj + 0x0E, 0x6D6);
+    wr8(obj + 0x20, 0xE0);
+    pose(obj, 0x0E06E4);
+    wr32(obj + 0x18, 0);
+    wr32(obj + 0x1C, 0);
+}
+
+/* $022428. Type $628. */
+void CloudRiderType(uint16_t obj)
+{
+    by_scene(obj, 0x022442);
+}
+
+/* ---- type $5C8 ---- */
+
+/* $02249A. Two poses, at $C0 frames left and at the end. */
+void FigureF(uint16_t obj)
+{
+    if (!rd16(obj + O_STATE)) {
+        figure(obj, 0xEC00, 0x8E8C, 0x80, 0x128, 0x114, 0x0E49E6);
+        wr16(obj + A_TIME, 0x240);
+    }
+    wr16(obj + A_TIME, (uint16_t)(rd16(obj + A_TIME) - 1));
+    if (!rd16(obj + A_TIME)) pose(obj, 0x0E4A3C);
+    else if (rd16(obj + A_TIME) == 0xC0) pose(obj, 0x0E4A00);
+}
+
+/* $02247C. Type $5C8. */
+void FigureTypeF(uint16_t obj)
+{
+    by_scene(obj, 0x022496);
+}
+
+/* ---- type $640 ---- */
+
+/* $022A90 */
+void FigureG1(uint16_t obj)
+{
+    if (!rd16(obj + O_STATE)) figure(obj, 0xEC00, 0x8C80, 0x80, 0x140, 0xD0, 0x0E5FD8);
+}
+
+/* $022AEC. The ending's: in from the right at the scene's step 8 ... */
+void FigureG2a(uint16_t obj)
+{
+    figure(obj, 0xEC00, 0x8CE0, 0x80, 0x1E0, 0xE8, 0x0E61C0);
+    FigureG2b(obj);
+}
+
+/* $022B24 */
+void FigureG2b(uint16_t obj)
+{
+    if ((int16_t)rd16(v_sceneStep) < 8) return;
+    wr16(obj + O_STATE, (uint16_t)(rd16(obj + O_STATE) + 4));
+    wr32(obj + 0x18, 0xFFFFC000);
+    FigureG2c(obj);
+}
+
+/* $022B3C. ... stopping at x $170 ... */
+void FigureG2c(uint16_t obj)
+{
+    if ((int16_t)rd16(obj + O_X) > 0x170) return;
+    wr16(obj + O_STATE, (uint16_t)(rd16(obj + O_STATE) + 4));
+    wr32(obj + 0x18, 0);
+    FigureG2d(obj);
+}
+
+/* $022B50. ... on at step $C ... */
+void FigureG2d(uint16_t obj)
+{
+    if ((int16_t)rd16(v_sceneStep) < 0xC) return;
+    wr16(obj + O_STATE, (uint16_t)(rd16(obj + O_STATE) + 4));
+    wr32(obj + 0x18, 0xFFFFC000);
+    FigureG2e(obj);
+}
+
+/* $022B68 */
+void FigureG2e(uint16_t obj)
+{
+    if ((int16_t)rd16(v_sceneStep) < 0x14) return;
+    wr16(obj + O_STATE, (uint16_t)(rd16(obj + O_STATE) + 4));
+    FigureG2f(obj);
+}
+
+/* $022B78. ... slowing, flipping every 8 frames, gone at step $18. */
+void FigureG2f(uint16_t obj)
+{
+    if ((int16_t)rd16(v_sceneStep) >= 0x18) {
+        wr16(obj + O_FLAGS, 0x1000);
+        return;
+    }
+    wr32(obj + 0x18, (uint32_t)((int32_t)rd32(obj + 0x18) >> 1));
+    wr32(obj + 0x1C, 0);
+    if (bit8(v_gameFrames + 1, 3)) set8(obj + 0x0E, 3);
+    else clr8(obj + 0x0E, 3);
+}
+
+/* $022AD2 */
+void FigureG2(uint16_t obj)
+{
+    uint32_t at = 0x022AE0 + (uint32_t)(int16_t)((int16_t)rd16(obj + O_STATE) >> 1);
+    call_object(at + (uint32_t)(int16_t)rom16(at), obj);
+}
+
+/* $022A6E. Type $640. */
+void FigureTypeG(uint16_t obj)
+{
+    by_scene(obj, 0x022A88);
+}

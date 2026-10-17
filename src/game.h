@@ -1171,6 +1171,15 @@ void ItemMineRest(uint16_t obj);                                     /* $01A4D8 
 void ItemSpaceStart(uint16_t obj);                                   /* $01A56A a5 */
 void ItemSpaceRest(uint16_t obj);                                    /* $01A596 a5 */
 void Item(uint16_t obj);                                             /* $01A2A2 a5 */
+void CarrierFace(uint16_t obj);                                      /* $01A8CE a5 */
+void CarrierDrop(uint16_t obj, uint16_t slot);                       /* $01A8F6 a5, a0 */
+void CarrierBob(uint16_t obj);                                       /* $01A836 a5 */
+void CarrierFly(uint16_t obj);                                       /* $01A6E2 a5 */
+void CarrierFall(uint16_t obj);                                      /* $01A77E a5 */
+void CarrierWait(uint16_t obj);                                      /* $01A82E a5 */
+void CarrierThrown(uint16_t obj);                                    /* $01A8A6 a5 */
+void CarrierStart(uint16_t obj);                                     /* $01A66A a5 */
+void Carrier(uint16_t obj);                                          /* $01A64C a5 */
 
 /* ---- the story scenes' actors (actors.c) ---- */
 void ActorA(uint16_t obj);                                           /* $02191E a5 */
@@ -1217,6 +1226,33 @@ void FigureE5(uint16_t obj);                                         /* $021DBE 
 void FigureE6(uint16_t obj);                                         /* $021E00 a5 */
 void FigureE7(uint16_t obj);                                         /* $021E42 a5 */
 void FigureTypeE(uint16_t obj);                                      /* $021C4A a5 */
+void SetA1(uint16_t obj);                                            /* $0220AC a5 */
+void SetA2(uint16_t obj);                                            /* $02210E a5 */
+void SetA3(uint16_t obj);                                            /* $022150 a5 */
+void SetA4(uint16_t obj);                                            /* $022192 a5 */
+void SetA5(uint16_t obj);                                            /* $0221D4 a5 */
+void SetA6(uint16_t obj);                                            /* $022216 a5 */
+void SetA7(uint16_t obj);                                            /* $022258 a5 */
+void SetA8(uint16_t obj);                                            /* $02229A a5 */
+void SetA9(uint16_t obj);                                            /* $0222DC a5 */
+void SetA10(uint16_t obj);                                           /* $02231E a5 */
+void SetTypeA(uint16_t obj);                                         /* $02206A a5 */
+void CloudBob(uint16_t obj);                                         /* $022402 a5 */
+void Cloud(uint16_t obj);                                            /* $022386 a5 */
+void CloudType(uint16_t obj);                                        /* $022368 a5 */
+void CloudRider(uint16_t obj);                                       /* $022446 a5 */
+void CloudRiderType(uint16_t obj);                                   /* $022428 a5 */
+void FigureF(uint16_t obj);                                          /* $02249A a5 */
+void FigureTypeF(uint16_t obj);                                      /* $02247C a5 */
+void FigureG1(uint16_t obj);                                         /* $022A90 a5 */
+void FigureG2a(uint16_t obj);                                        /* $022AEC a5 */
+void FigureG2b(uint16_t obj);                                        /* $022B24 a5 */
+void FigureG2c(uint16_t obj);                                        /* $022B3C a5 */
+void FigureG2d(uint16_t obj);                                        /* $022B50 a5 */
+void FigureG2e(uint16_t obj);                                        /* $022B68 a5 */
+void FigureG2f(uint16_t obj);                                        /* $022B78 a5 */
+void FigureG2(uint16_t obj);                                         /* $022AD2 a5 */
+void FigureTypeG(uint16_t obj);                                      /* $022A6E a5 */
 
 /* ---- not ported yet ---- */
 

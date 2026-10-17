@@ -1214,6 +1214,15 @@ FFF766 v_textLine            # the text box's line (times 8)
 01A56A ItemSpaceStart
 01A596 ItemSpaceRest
 01A2A2 Item
+01A8CE CarrierFace
+01A8F6 CarrierDrop
+01A836 CarrierBob
+01A6E2 CarrierFly
+01A77E CarrierFall
+01A82E CarrierWait
+01A8A6 CarrierThrown
+01A66A CarrierStart
+01A64C Carrier
 
 # ---- the story scenes' actors (src/actors.c) [the objects]
 02191E ActorA
@@ -1260,3 +1269,30 @@ FFF766 v_textLine            # the text box's line (times 8)
 021E00 FigureE6
 021E42 FigureE7
 021C4A FigureTypeE
+0220AC SetA1
+02210E SetA2
+022150 SetA3
+022192 SetA4
+0221D4 SetA5
+022216 SetA6
+022258 SetA7
+02229A SetA8
+0222DC SetA9
+02231E SetA10
+02206A SetTypeA
+022402 CloudBob
+022386 Cloud
+022368 CloudType
+022446 CloudRider
+022428 CloudRiderType
+02249A FigureF
+02247C FigureTypeF
+022A90 FigureG1
+022AEC FigureG2a
+022B24 FigureG2b
+022B3C FigureG2c
+022B50 FigureG2d
+022B68 FigureG2e
+022B78 FigureG2f
+022AD2 FigureG2
+022A6E FigureTypeG
