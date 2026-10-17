@@ -54,9 +54,9 @@ const Port ports[] = {
     { 0, NULL, NULL },
 };
 
-/* labels that are not routines of their own: the sprite mappings' per-piece continuations
- * (reached by jmp (a0)) */
-const uint32_t inner_labels[] = { 0x001FE0, 0x001FF0, 0x0020A8, 0x0020B6, 0x00216E, 0x00217C,
+/* labels whose code the C has inside another routine's port: names.txt's inner labels (the
+ * sprite mappings' per-piece continuations, reached by jmp (a0); subroutines written inline) */
+const uint32_t inner_labels[] = { INNER_GEN
     /* the Treasure logo's fill in RAM: its masks, a band's merge, an edge's walk, the next cell,
      * the runs of and.l it calls into */
     0xFF2000, 0xFF2148, 0xFF2212, 0xFF2348,

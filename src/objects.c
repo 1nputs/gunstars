@@ -806,6 +806,66 @@ void AimedSpawn(uint16_t obj, uint16_t target, uint32_t faces, uint32_t offsets,
     shot_at_muzzle(obj, slot, offsets, d5, d6, d7);
 }
 
+/* $0296DA: a sine table `radius`/64 high to be built round `at` + $180 (SineTableBuild) */
+void SineTableStart(uint16_t at, uint16_t radius)
+{
+    wr32(0x8070, (0xFFFF0000u | at) + 0x180);
+    wr16(0x8074, radius);
+    wr16(0x8076, 0);
+}
+
+/* $0296F6: 16 more of its entries, mirrored three ways (the last call one more): N while more
+ * remain. A radius of 0 clears the ROM's table instead (writes that go nowhere). */
+int SineTableBuild(void)
+{
+    uint16_t off = rd16(0x8076), r = rd16(0x8074);
+    if (!r) return 0;
+    uint32_t src = 0x0298FC + off, base = rd32(0x8070);
+    uint16_t a1 = (uint16_t)(base + 2 - off), a2 = (uint16_t)(base + off), a3 = a2;
+    if ((int16_t)(off - 0x80) >= 0) a3 = (uint16_t)(a3 - 0x200);
+    for (int k = 0; k < 16; k++, src += 2) {
+        uint16_t v = (uint16_t)(((int32_t)(int16_t)rom16(src) * (int16_t)r) >> 6);
+        a1 = (uint16_t)(a1 - 2);
+        wr16(a1, v);
+        wr16(a2, v); a2 = (uint16_t)(a2 + 2);
+        wr16(a3, v); a3 = (uint16_t)(a3 + 2);
+    }
+    wr16(0x8076, (uint16_t)(rd16(0x8076) + 0x20));
+    if ((int16_t)(rd16(0x8076) - 0x100) < 0) return 1;
+    wr16((uint16_t)(a1 - 2), (uint16_t)(((int32_t)(int16_t)rom16(src) * (int16_t)r) >> 6));
+    return 0;
+}
+
+/* $02A836 (entered by jump): AimedSpawn's shot from a slot of $D400 on */
+void AimedSpawnHighToward(uint16_t obj, uint16_t target, uint32_t faces, uint32_t offsets, uint16_t type)
+{
+    uint16_t d0, d5, d6, d7 = type;
+    FaceToward(obj, target, faces, &d0, &d5, &d6, &d7);
+    uint16_t slot, t;
+    if (!SlotFreeHigh(&slot, &t)) return;
+    shot_at_muzzle(obj, slot, offsets, d5, d6, d7);
+}
+
+/* $02A84E. Facing `target` as FaceToward, its look taken again upside down (+$E bit 12): the
+ * direction mirrored. Its registers as FaceToward leaves them (d6 so changed). */
+void AimFacing(uint16_t obj, uint16_t target, uint32_t faces, uint16_t *d0, uint16_t *d5, uint16_t *d6, uint16_t *d7)
+{
+    FaceToward(obj, target, faces, d0, d5, d6, d7);
+    if (!bit8(obj + 0x0E, 4)) return;
+    if (*d6 & 4) *d6 ^= 0x18;
+    else if (*d6 & 8) *d6 ^= 0x10;
+    wr32(obj + 0x08, bus_rd32(faces + (uint32_t)(int16_t)*d6));
+}
+
+/* $02A822. A shot as AimedSpawn's (d5 its angle, d6 its direction, d7 its type), from a slot of
+ * $D400 on. */
+void AimedSpawnHigh(uint16_t obj, uint16_t angle, uint16_t dir, uint16_t type, uint32_t offsets)
+{
+    uint16_t slot, t;
+    if (!SlotFreeHigh(&slot, &t)) return;
+    shot_at_muzzle(obj, slot, offsets, angle, dir, type);
+}
+
 /* $02A884 (entered by jump): something of `type` thrown at `target`: up at 5, across so as to
  * land on it (its distance over 85 frames; the soldiers' $1F8 kind with +$56 bit 3 lower and
  * twice as fast above the easiest difficulty), the thrower facing the throw. */

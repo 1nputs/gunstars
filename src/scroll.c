@@ -652,3 +652,21 @@ void PlaneBReset(void)
     PlaneBFill();
     PlaneBDma();
 }
+
+/* $00A6B2. Plane A filled and sent $80 (a screen's half) ahead of its x. */
+void PlaneAFillAhead(void)
+{
+    wr16(v_planes, (uint16_t)(rd16(v_planes) + 0x80));
+    PlaneAFill();
+    PlaneADma();
+    wr16(v_planes, (uint16_t)(rd16(v_planes) - 0x80));
+}
+
+/* $00A6C8. Plane B's the same. */
+void PlaneBFillAhead(void)
+{
+    wr16(0xA928, (uint16_t)(rd16(0xA928) + 0x80));
+    PlaneBFill();
+    PlaneBDma();
+    wr16(0xA928, (uint16_t)(rd16(0xA928) - 0x80));
+}

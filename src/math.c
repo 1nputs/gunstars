@@ -53,6 +53,26 @@ static uint8_t abcd(uint8_t a, uint8_t b, int *x)
     return (uint8_t)r;
 }
 
+/* abcd and sbcd on two bytes and X, as the oracle's core has them (C and X alike) */
+uint8_t bcd_add8(uint8_t a, uint8_t b, int *x)
+{
+    return abcd(a, b, x);
+}
+
+uint8_t bcd_sub8(uint8_t dst, uint8_t src, int *x)
+{
+    unsigned res = (dst & 0x0Fu) - (src & 0x0Fu) - (unsigned)*x;
+    unsigned corf = res > 0x0F ? 6 : 0;
+    res += (dst & 0xF0u) - (src & 0xF0u);
+    if (res > 0xFF) {
+        res += 0xA0;
+        *x = 1;
+    } else {
+        *x = res < corf;
+    }
+    return (uint8_t)(res - corf);
+}
+
 /* $0035D6. Points (BCD) to the players the object credits (+$23 bit 7 player 1, bit 6 player 2),
  * their scores marked to be shown again. */
 void AddScore(uint16_t obj, uint32_t points)

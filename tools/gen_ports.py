@@ -118,6 +118,16 @@ def main():
     out.append('#define PORTS_GEN \\')
     out.append(' \\\n'.join(rows))
     out.append('')
+    # names.txt's inner labels (a '.' before the name): code the C has inside another routine's
+    # port, a call into it not one the C must make
+    inner = []
+    for line in open(os.path.join(ROOT, 'tools', 'disasm', 'names.txt')):
+        w = line.split('#', 1)[0].split()
+        if len(w) >= 2 and w[1].startswith('.') and int(w[0], 16) < 0x400000:
+            inner.append('0x%06XU,' % int(w[0], 16))
+    out.append('#define INNER_GEN \\')
+    out.append(' \\\n'.join('    ' + ' '.join(inner[i:i + 8]) for i in range(0, len(inner), 8)))
+    out.append('')
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     text = '\n'.join(out) + '\n'
     if not os.path.exists(a.out) or open(a.out).read() != text:

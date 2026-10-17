@@ -1,9 +1,6 @@
-/* Object types from $48044 to $4BF97: a fighter and the spinning fire of Black's dice rooms
- * (types $4C, $360), the dice rooms' bosses ($364, $368, $43C, $658), stage 4's director and its
- * camera events ($444), the sky ship's sinking ($440), and stage 4's fliers, turrets, lines of
- * fire and its boss ($448-$484, $4A4, $4C0-$4DC, $508, $518-$530). The helpers they share with
- * the types before and after them (the brawler of $47xxx, the turrets' library at $4BF98) are
- * at the end. */
+/* Object types from $48044 on: a fighter and the spinning fire of Black's dice rooms (types $4C,
+ * $360), and the brawler's helpers of $47xxx they share (at the start). The space types of
+ * $48D3C-$4FFFF are objects4c.c's. */
 #include "game.h"
 
 static void next(uint16_t obj, uint16_t by) { wr16(obj + O_STATE, (uint16_t)(rd16(obj + O_STATE) + by)); }
