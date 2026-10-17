@@ -2164,6 +2164,50 @@ void FirstSelect(void);                                              /* $01F1FA 
 void StageClearTime(void);                                           /* $01F548 */
 void StageEnter(void);                                               /* $01F4DE */
 void ScrollFrameSelect(void);                                        /* $00A2FE */
+void InterludeParts(uint16_t step);                                  /* $01F02C d0.w */
+void InterludePage6(void);                                           /* $01F1F0 */
+void InterludePage5(void);                                           /* $01F1C6 */
+void InterludePage4(void);                                           /* $01F1AE */
+void InterludePage3(void);                                           /* $01F18A */
+void InterludePage2(void);                                           /* $01F16C */
+void InterludePage1(void);                                           /* $01F148 */
+void InterludeTalk(void);                                            /* $01F0D8 */
+void InterludeStart(void);                                           /* $01F0B8 */
+void InterludeOut(void);                                             /* $01F100 */
+void InterludeStepRun(void);                                         /* $01F0A2 */
+void InterludeStep(void);                                            /* $01F09A */
+void Interlude(void);                                                /* $01F03E */
+void EndingSkew(uint16_t shift);                                     /* $01BF6C d6.w */
+void EndingColumns(uint16_t shift);                                  /* $01BFB2 d6.w */
+void EndingWarp(void);                                               /* $01BE5E */
+void EndingCycle(void);                                              /* $023A86 */
+void EndingLines(void);                                              /* $023614 */
+void EndingText(uint16_t which);                                     /* $0237FA d0.w */
+void EndingCast(void);                                               /* $023636 */
+void EndingSceneOver(void);                                          /* $023602 */
+void EndingBeeps2(void);                                             /* $0235B4 */
+void EndingBeeps(void);                                              /* $02357A */
+void EndingText3(void);                                              /* $023520 */
+void EndingText2(void);                                              /* $0234EC */
+void EndingFadeIn(void);                                             /* $0234D8 */
+void EndingFlash(void);                                              /* $023474 */
+void EndingRumble(void);                                             /* $023442 */
+void EndingWait2(void);                                              /* $02341E */
+void EndingText1(void);                                              /* $0233F0 */
+void EndingWait1(void);                                              /* $0233DC */
+void EndingBegin(void);                                              /* $0233D2 */
+void EndingScene1Play(void);                                         /* $023378 */
+void EndingScene1(void);                                             /* $02327A */
+void EndingPause(void);                                              /* $0237B0 */
+void EndingPauseWait(void);                                          /* $0237BC */
+void EndingTop(void);                                                /* $02378E */
+void EndingClimbing(void);                                           /* $023770 */
+void EndingClimb(void);                                              /* $02375E */
+void EndingScene2Play(void);                                         /* $0236F4 */
+void EndingScene2(void);                                             /* $023666 */
+void EndingDone(void);                                               /* $0237E4 */
+void EndingStep(void);                                               /* $023252 */
+void Ending(void);                                                   /* $0231B4 */
 
 /* ---- the stage play (modes.c) and its messages (messages.c) ---- */
 void StagePlayNothing(void);                                         /* $01F8EA */

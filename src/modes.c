@@ -1346,3 +1346,607 @@ void GameOver(void)
     }
     continue_frame(ContinueInput);
 }
+
+/* ---- mode $2C: a scene of talk (pages $60, $64, $68, $70 at $CA88; the four objects from
+ * $CB60 given their step at +$48), Start skipping it; then the stage (mode $34) ---- */
+
+/* $01F02C. The four objects' step. */
+void InterludeParts(uint16_t step)
+{
+    wr16(0xCBA8, step);
+    wr16(0xCC08, step);
+    wr16(0xCC68, step);
+    wr16(0xCCC8, step);
+}
+
+/* loc_01F0E4: the scene ended: a fade out */
+static void interlude_end(void)
+{
+    wr16(v_modeState, 8);
+    QueueSound(0xF6);
+    wr16(v_fadeSpeed, 0x200);
+    wr16(v_fadeLevel, 0);
+}
+
+/* $01F1F0 */
+void InterludePage6(void)
+{
+    if (!rd32(0xCA88)) interlude_end();
+}
+
+/* $01F1C6 */
+void InterludePage5(void)
+{
+    if (rd32(0xCBA8)) return;
+    wr16(v_sceneStep, 0x14);
+    InterludeParts(4);
+    TextClear8();
+    wr16(0xCA88, 0x70);
+    wr16(0xC9C8, 8);
+    InterludePage6();
+}
+
+/* $01F1AE */
+void InterludePage4(void)
+{
+    if (rd32(0xCA88)) return;
+    wr16(v_sceneStep, 0x10);
+    InterludeParts(0x10);
+    InterludePage5();
+}
+
+/* $01F18A */
+void InterludePage3(void)
+{
+    if (rd32(0xCBA8)) return;
+    wr16(v_sceneStep, 0x0C);
+    TextClear8();
+    wr16(0xCA88, 0x68);
+    InterludeParts(0x14);
+    InterludePage4();
+}
+
+/* $01F16C */
+void InterludePage2(void)
+{
+    if (rd32(0xCA88)) return;
+    wr16(v_sceneStep, 8);
+    wr16(0xC9C8, 8);
+    InterludeParts(0x0C);
+    InterludePage3();
+}
+
+/* $01F148 */
+void InterludePage1(void)
+{
+    if (rd32(0xCA88)) return;
+    wr16(v_sceneStep, 4);
+    TextClear8();
+    wr16(0xCA88, 0x64);
+    wr16(0xC9C8, 8);
+}
+
+/* $01F0D8. Start: ended; else its page. */
+void InterludeTalk(void)
+{
+    if (SelectPressed() & 0x80) {
+        interlude_end();
+        return;
+    }
+    call68k(rom32(0x01F130 + (uint32_t)(int16_t)rd16(v_sceneStep)));
+}
+
+/* $01F0B8. Faded in: the first page. */
+void InterludeStart(void)
+{
+    if (rd16(v_fadeSpeed)) return;
+    wr16(v_modeState, 4);
+    wr16(v_sceneStep, 0);
+    TextClear8();
+    wr16(0xCA88, 0x60);
+    InterludeTalk();
+}
+
+/* $01F100. Faded out: the stage. */
+void InterludeOut(void)
+{
+    if (rd16(v_fadeSpeed) || !rd16(v_fadeLevel)) return;
+    clr8(0xF7D3, 6);
+    wr8(v_displayOn, 0);
+    wr16(v_mode, 0x34);
+    wr16(v_modeState, 0);
+}
+
+/* $01F0A2 */
+void InterludeStepRun(void)
+{
+    call68k(rom32(0x01F0AC + (uint32_t)(int16_t)rd16(v_modeState)));
+}
+
+/* $01F09A */
+void InterludeStep(void)
+{
+    InterludeStepRun();
+    StageMarks();
+}
+
+/* $01F03E. Mode $2C. */
+void Interlude(void)
+{
+    select_frame(InterludeStep);
+}
+
+/* ---- mode $44: the ending: two scenes (the planes' lines drawn from $AA60 by $AE60; then
+ * the climb with the board's warp), their texts by the timer $A29A, a fade to the title ---- */
+
+/* $01BF6C. The lines' skew ($E5C2 on, both ways) by the frame count shifted `shift`. */
+void EndingSkew(uint16_t shift)
+{
+    uint32_t d0 = (uint32_t)rd16(v_gameFrames) << (shift & 63), d1 = 0;
+    uint16_t a = 0xE5C2;
+    for (int k = 0; k <= 0x70; k++, a = (uint16_t)(a + 4)) {
+        d1 += d0;
+        wr16(a, (uint16_t)(d1 >> 16));
+    }
+    d1 = 0;
+    a = 0xE5C2;
+    for (int k = 0; k <= 0x70; k++, a = (uint16_t)(a - 4)) {
+        d1 -= d0;
+        wr16(a, (uint16_t)(d1 >> 16));
+    }
+}
+
+/* $01BFB2. The columns' skew ($EC2A, both ways), eight times as steep. */
+void EndingColumns(uint16_t shift)
+{
+    uint32_t d0 = ((uint32_t)rd16(v_gameFrames) << (shift & 63)) << 3, d1 = 0;
+    uint16_t a = 0xEC2A;
+    do {
+        d1 += d0;
+        wr16(a, (uint16_t)(d1 >> 16));
+        a = (uint16_t)(a + 4);
+    } while ((int16_t)(a - 0xEC5A) < 0);
+    d1 = 0;
+    a = 0xEC2A;
+    do {
+        d1 -= d0;
+        wr16(a, (uint16_t)(d1 >> 16));
+        a = (uint16_t)(a - 4);
+    } while ((int16_t)(a - 0xEC02) >= 0);
+}
+
+/* $01BE5E. The warp: the board's map ($1BEFC) at $9800, the planes skewed, four colours cycling. */
+void EndingWarp(void)
+{
+    wr16(0xE30A, 0);
+    wr16(0xE38A, 0);
+    for (uint16_t a = 0x9800, k = 0; k < 56; k++, a = (uint16_t)(a + 2)) wr16(a, rom16(0x01BEFC + 2u * k));
+    wr8(0xF7E7, 6);
+    wr8(v_planeFlagsA, 0);
+    wr8(v_planeFlagsB, 0xC0);
+    EndingSkew(10);
+    EndingColumns(10);
+    uint32_t t = 0x01BEBC + (((uint16_t)((int16_t)rd16(v_gameFrames) >> 2)) & 0x38);
+    wr16(0xE302, rom16(t));
+    wr16(0xE304, rom16(t + 2));
+    wr16(0xE306, rom16(t + 4));
+    wr16(0xE308, rom16(t + 6));
+}
+
+/* $023A86. A colour pulsing. */
+void EndingCycle(void)
+{
+    uint16_t c = rom16(0x023A9E + ((rd16(v_gameFrames) >> 3) & 0x1E));
+    wr16(0xE33C, c);
+    wr16(0xE3BC, c);
+}
+
+/* $023614. The 200 lines' scroll moved by their speeds. */
+void EndingLines(void)
+{
+    uint16_t a1 = 0xAA60, a2 = 0xAE60, a3 = 0xE462;
+    for (int k = 0; k < 200; k++, a1 = (uint16_t)(a1 + 4), a2 = (uint16_t)(a2 + 4), a3 = (uint16_t)(a3 + 4)) {
+        uint32_t v = rd32(a1) - rd32(a2);
+        wr32(a1, v);
+        wr16(a3, (uint16_t)(v >> 16));
+    }
+}
+
+/* $0237FA. The text's object ($4F8 in $D580) for text `which`. */
+void EndingText(uint16_t which)
+{
+    uint16_t t = 0xD580;
+    wr16(t + 0x48, which);
+    wr16(t + O_TYPE, 0x4F8);
+    wr16(t + O_STATE, 0);
+    wr16(t + 0x0E, 0x8050);
+    wr16(t + 0x50, 4);
+    wr16(t + O_X, 0x120);
+    wr16(t + O_Y, 0x144);
+    wr8(t + 0x58, 0xAD);
+    wr8(t + 0x59, 0);
+    SceneTextClear();
+}
+
+/* $023636. The four of the cast ($638, $D760 on). */
+void EndingCast(void)
+{
+    for (uint16_t k = 0; k < 4; k++) {
+        uint16_t o = rom16(0x023656 + 2u * k);
+        wr16(o + O_TYPE, 0x638);
+        wr16(o + 0x48, rom16(0x02365E + 2u * k));
+        wr16(o + O_STATE, 0);
+    }
+}
+
+static int ending_count(void)
+{
+    wr16(0xA29A, (uint16_t)(rd16(0xA29A) - 1));
+    return (int16_t)rd16(0xA29A) < 0;
+}
+
+static void ending_next(uint16_t count)
+{
+    wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+    wr16(0xA29A, count);
+}
+
+static void ending_say(uint16_t text, uint16_t pose)
+{
+    wr16(0xD5C8, text);
+    wr16(0xD628, pose);
+}
+
+/* $023602. The last wait: the scene over. */
+void EndingSceneOver(void)
+{
+    if (ending_count()) wr16(0xA29C, 1);
+}
+
+/* $0235B4. A beep each 4 frames, another sound for the last 8: then a fade. */
+void EndingBeeps2(void)
+{
+    if (ending_count()) {
+        wr16(0xA29A, 0x100);
+        wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+        wr16(v_fadeSpeed, 0xC0);
+        wr16(v_fadeLevel, 0);
+        EndingSceneOver();
+        return;
+    }
+    uint16_t c = rd16(0xA29A);
+    if ((int16_t)(c - 8) > 0) {
+        if (!(c & 3)) QueueSound(0xA9);
+    } else if (!(c & 3)) {
+        QueueSound(0xBD);
+    }
+}
+
+/* $02357A */
+void EndingBeeps(void)
+{
+    if (ending_count()) {
+        wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+        SceneTextClear();
+        ending_say(0xAC, 0x10);
+        wr16(0xA29A, 0x80);
+        EndingBeeps2();
+        return;
+    }
+    if (!(rd16(0xA29A) & 3)) QueueSound(0xA9);
+}
+
+/* $023520 */
+void EndingText3(void)
+{
+    if (ending_count()) {
+        wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+        ending_say(0xA8, 8);
+        QueueSound(0xF6);
+        wr16(0xA29A, 0x101);
+        EndingBeeps();
+        return;
+    }
+    if (rd16(0xA29A) == 0x380) {
+        SceneTextClear();
+        ending_say(0xA0, 4);
+        return;
+    }
+    if (rd16(0xA29A) == 0x200) {
+        SceneTextClear();
+        wr16(0xD5C8, 0xA4);
+    }
+}
+
+/* $0234EC */
+void EndingText2(void)
+{
+    if (ending_count()) {
+        ending_next(0x400);
+        QueueSound(0xB5);
+        EndingText3();
+        return;
+    }
+    if (rd16(0xA29A) == 0x180) ending_say(0x9C, 0x14);
+}
+
+/* $0234D8 */
+void EndingFadeIn(void)
+{
+    if (!ending_count()) return;
+    ending_next(0x280);
+    EndingText2();
+}
+
+/* $023474. A white flash, a boom. */
+void EndingFlash(void)
+{
+    if (ending_count()) {
+        ending_next(0x80);
+        set8(0xF7D3, 6);
+        wr8(v_displayOn, 0x80);
+        wr16(v_fadeSpeed, 0xFF80);
+        wr16(v_fadeLevel, 0x1000);
+        SceneTextClear();
+        wr16(0xD628, 0);
+        EndingFadeIn();
+        return;
+    }
+    if (rd16(0xA29A) == 0x120) {
+        wr16(v_fadeColor, 0xEEE);
+        wr16(v_fadeSpeed, 0x80);
+        wr16(v_fadeLevel, 0);
+        return;
+    }
+    if (rd16(0xA29A) == 0xE0) QueueSound(0xB2);
+}
+
+/* $023442. Rumbling the last $20 frames. */
+void EndingRumble(void)
+{
+    if (ending_count()) {
+        ending_next(0x140);
+        EndingFlash();
+        return;
+    }
+    uint16_t c = rd16(0xA29A);
+    if ((int16_t)(c - 0x20) > 0 || (c & 3)) return;
+    QueueSound(0xB2);
+}
+
+/* $02341E */
+void EndingWait2(void)
+{
+    if (!ending_count()) return;
+    wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+    SceneTextClear();
+    ending_say(0x98, 0x18);
+    wr16(0xA29A, 0x40);
+    EndingRumble();
+}
+
+/* $0233F0 */
+void EndingText1(void)
+{
+    if (ending_count()) {
+        ending_next(0x200);
+        EndingWait2();
+        return;
+    }
+    if (rd16(0xA29A) != 0x200) return;
+    SceneTextClear();
+    ending_say(0x94, 0x0C);
+}
+
+/* $0233DC */
+void EndingWait1(void)
+{
+    if (!ending_count()) return;
+    ending_next(0x300);
+    EndingText1();
+}
+
+/* $0233D2 */
+void EndingBegin(void)
+{
+    ending_next(0x200);
+    EndingWait1();
+}
+
+/* $023378. Faded out and over: on; else its lines and its text's step. */
+void EndingScene1Play(void)
+{
+    if (!rd16(v_fadeSpeed) && rd16(0xA29C)) {
+        wr16(v_modeState, (uint16_t)(rd16(v_modeState) + 4));
+        return;
+    }
+    EndingCycle();
+    EndingLines();
+    call68k(rom32(0x0233A2 + (uint32_t)(int16_t)rd16(v_sceneStep)));
+}
+
+/* $02327A. The first scene's set-up: its graphics, the stars, the cast, faded in. */
+void EndingScene1(void)
+{
+    ClearObjectRam();
+    RunCommands(0x023832);
+    LoadPalettes(0x023A46);
+    CameraPlace(0, 0, 0x200, 0x100);
+    PlaneARedraw();
+    PlaneBRedraw();
+    SceneStill();
+    StarsStart();
+    wr8(0xF7E7, 3);
+    wr8(v_planeFlagsA, 0);
+    wr8(v_planeFlagsB, 0x80);
+    wr32(v_speedLimitX, 0x70000);
+    wr32(v_speedLimitY, 0x70000);
+    wr32(v_layout, 0x01B45A);
+    wr8(0xF765, 0);
+    EndingText(0);
+    wr16(0xD5E0, 0x630);
+    wr16(0xD628, 0);
+    wr16(0xD5E4, 0);
+    wr16(v_player1 + O_TYPE, 0x62C);
+    wr16(0xA448, 0);
+    wr16(0xA404, 0);
+    wr16(0xD6A0, 0x634);
+    wr16(0xD6E8, 0);
+    wr16(0xD6A4, 0);
+    wr16(0xD640, 0x5D0);
+    wr16(0xD688, 0x0C);
+    wr16(0xD644, 0);
+    EndingCast();
+    wr16(0xD940, 0x640);
+    wr16(0xD988, 0);
+    wr16(0xD944, 0);
+    wr16(v_fadeColor, 0);
+    wr16(0xA29C, 0);
+    wr16(v_sceneStep, 0);
+    wr16(v_modeState, (uint16_t)(rd16(v_modeState) + 4));
+    set8(0xF7D3, 6);
+    wr8(v_displayOn, 0x80);
+    wr16(v_fadeSpeed, 0xFF00);
+    wr16(v_fadeLevel, 0x1000);
+    EndingScene1Play();
+}
+
+/* $0237B0 */
+void EndingPause(void)
+{
+    wr16(0xA29A, 0x80);
+    wr16(v_modeState, (uint16_t)(rd16(v_modeState) + 4));
+}
+
+/* $0237BC */
+void EndingPauseWait(void)
+{
+    wr16(0xA29A, (uint16_t)(rd16(0xA29A) - 1));
+    if ((int16_t)rd16(0xA29A) < 0) wr16(v_modeState, (uint16_t)(rd16(v_modeState) + 4));
+}
+
+/* $02378E. At the top: a while, then over. */
+void EndingTop(void)
+{
+    if (rd16(0xA29C)) return;
+    wr16(0xA29A, (uint16_t)(rd16(0xA29A) - 1));
+    if (rd16(0xA29A)) return;
+    wr16(0xA29C, 1);
+    QueueSound(0xF6);
+}
+
+/* $023770. Climbing to $B10. */
+void EndingClimbing(void)
+{
+    if ((int16_t)(rd16(0xA924) - 0xB10) < 0) return;
+    wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+    wr32(v_camSpeedY, 0);
+    wr32(0xA934, 0);
+    wr16(0xA29A, 0x180);
+    EndingTop();
+}
+
+/* $02375E */
+void EndingClimb(void)
+{
+    wr32(v_camSpeedY, 0x8000);
+    wr32(0xA934, 0x8000);
+    wr16(v_sceneStep, (uint16_t)(rd16(v_sceneStep) + 4));
+    EndingClimbing();
+}
+
+/* $0236F4. Faded out: on; over (or Start, or the timer out): a fade; the warp, its step. */
+void EndingScene2Play(void)
+{
+    if (!rd16(v_fadeSpeed)) {
+        if (rd16(v_fadeLevel)) {
+            wr16(v_modeState, (uint16_t)(rd16(v_modeState) + 4));
+            return;
+        }
+        wr16(v_fadeColor, 0);
+        if (rd16(0xA29C)) {
+            uint8_t pads = (uint8_t)(rd8(v_padPressed) | rd8(0xF709));
+            if ((pads & 0x80) || !rd16(v_modeTimer)) {
+                QueueSound(0xF6);
+                wr16(v_fadeSpeed, 0x80);
+                wr16(v_fadeLevel, 0);
+            }
+        }
+    }
+    EndingWarp();
+    call68k(rom32(0x023752 + (uint32_t)(int16_t)rd16(v_sceneStep)));
+}
+
+/* $023666. The second scene's set-up: the climb, its music, faded in. */
+void EndingScene2(void)
+{
+    wr16(v_hintEffect, 0x18);
+    wr16(v_hintState, 0);
+    ClearObjectRam();
+    RunCommands(0x0238A4);
+    LoadPalettes(0x023A56);
+    CameraPlace(0x200, 0, 0x200, 0x100);
+    PlaneARedraw();
+    PlaneBRedraw();
+    SceneStill();
+    wr32(v_layout, 0x01B45A);
+    wr8(v_soundNext, 0x96);
+    wr16(v_soundDelay, 0x20);
+    wr16(v_modeTimer, 0x2000);
+    wr16(v_modeState, (uint16_t)(rd16(v_modeState) + 4));
+    wr16(v_sceneStep, 0);
+    wr16(0xA29C, 0);
+    set8(0xF7D3, 6);
+    wr8(v_displayOn, 0x80);
+    wr16(v_fadeSpeed, 0xFF40);
+    wr16(v_fadeLevel, 0x1000);
+    EndingScene2Play();
+}
+
+/* $0237E4. Back to mode 4 (the title's). */
+void EndingDone(void)
+{
+    clr8(0xF7D3, 6);
+    wr8(v_displayOn, 0);
+    wr16(v_mode, 4);
+    wr16(v_modeState, 0);
+}
+
+/* $023252 */
+void EndingStep(void)
+{
+    call68k(rom32(0x02325E + (uint32_t)(int16_t)(uint16_t)(rd16(v_modeState) - 4)));
+}
+
+/* $0231B4. Mode $44. */
+void Ending(void)
+{
+    if (!rd16(v_modeState)) {
+        wr16(v_fadeColor, 0);
+        ScreenReset();
+        clr8(v_pauseFlags, 6);
+        wr8(0xF7DF, 0x10);
+        wr32(v_speedLimitX, 0x1000000);
+        wr32(v_speedLimitY, 0x1000000);
+        wr16(v_hintEffect, 0x14);
+        wr16(v_hintState, 0);
+        wr8(0xF765, 0);
+        wr8(v_soundNext, 0x8C);
+        wr16(v_soundDelay, 0x20);
+        wr16(v_modeState, 4);
+        wr16(v_sceneStep, 0);
+    }
+    ObjectsMove();
+    CameraMove();
+    SpritesStart();
+    DrawListStart();
+    PlayersUpdate();
+    EffectsUpdate();
+    EndingStep();
+    ObjectsUpdate();
+    DrawListEnd();
+    ScreenShake();
+    BuildSprites();
+    ScrollFrame();
+    wr16(v_gameFrames, (uint16_t)(rd16(v_gameFrames) + 1));
+}

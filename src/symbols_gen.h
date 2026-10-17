@@ -1155,9 +1155,9 @@
 #define SYM_CubeClear 0x01BD08u
 #define SYM_CubeShade 0x01BD1Eu
 #define SYM_CubeShow 0x01BD40u
-#define SYM_sub_1BE5E 0x01BE5Eu
-#define SYM_sub_1BF6C 0x01BF6Cu
-#define SYM_sub_1BFB2 0x01BFB2u
+#define SYM_EndingWarp 0x01BE5Eu
+#define SYM_EndingSkew 0x01BF6Cu
+#define SYM_EndingColumns 0x01BFB2u
 #define SYM_sub_1C18A 0x01C18Au
 #define SYM_sub_1C1A8 0x01C1A8u
 #define SYM_sub_1C23C 0x01C23Cu
@@ -1287,19 +1287,19 @@
 #define SYM_StageIconsMoved 0x01EE46u
 #define SYM_SelectPressed 0x01EEC8u
 #define SYM_StageIconsPlace 0x01F000u
-#define SYM_sub_1F02C 0x01F02Cu
-#define SYM_sub_1F03E 0x01F03Eu
-#define SYM_sub_1F09A 0x01F09Au
-#define SYM_sub_1F0A2 0x01F0A2u
-#define SYM_sub_1F0B8 0x01F0B8u
-#define SYM_sub_1F0D8 0x01F0D8u
-#define SYM_sub_1F100 0x01F100u
-#define SYM_sub_1F148 0x01F148u
-#define SYM_sub_1F16C 0x01F16Cu
-#define SYM_sub_1F18A 0x01F18Au
-#define SYM_sub_1F1AE 0x01F1AEu
-#define SYM_sub_1F1C6 0x01F1C6u
-#define SYM_sub_1F1F0 0x01F1F0u
+#define SYM_InterludeParts 0x01F02Cu
+#define SYM_Interlude 0x01F03Eu
+#define SYM_InterludeStep 0x01F09Au
+#define SYM_InterludeStepRun 0x01F0A2u
+#define SYM_InterludeStart 0x01F0B8u
+#define SYM_InterludeTalk 0x01F0D8u
+#define SYM_InterludeOut 0x01F100u
+#define SYM_InterludePage1 0x01F148u
+#define SYM_InterludePage2 0x01F16Cu
+#define SYM_InterludePage3 0x01F18Au
+#define SYM_InterludePage4 0x01F1AEu
+#define SYM_InterludePage5 0x01F1C6u
+#define SYM_InterludePage6 0x01F1F0u
 #define SYM_FirstSelect 0x01F1FAu
 #define SYM_FirstStep 0x01F256u
 #define SYM_FirstFadeIn 0x01F26Cu
@@ -1590,34 +1590,34 @@
 #define SYM_SmokerC 0x0230A6u
 #define SYM_Smoker10 0x0230F4u
 #define SYM_SmokerBob 0x02318Cu
-#define SYM_sub_231B4 0x0231B4u
-#define SYM_sub_23252 0x023252u
-#define SYM_sub_2327A 0x02327Au
-#define SYM_sub_23378 0x023378u
-#define SYM_sub_233D2 0x0233D2u
-#define SYM_sub_233DC 0x0233DCu
-#define SYM_sub_233F0 0x0233F0u
-#define SYM_sub_2341E 0x02341Eu
-#define SYM_sub_23442 0x023442u
-#define SYM_sub_23474 0x023474u
-#define SYM_sub_234D8 0x0234D8u
-#define SYM_sub_234EC 0x0234ECu
-#define SYM_sub_23520 0x023520u
-#define SYM_sub_2357A 0x02357Au
-#define SYM_sub_235B4 0x0235B4u
-#define SYM_sub_23602 0x023602u
-#define SYM_sub_23614 0x023614u
-#define SYM_sub_23636 0x023636u
-#define SYM_sub_23666 0x023666u
-#define SYM_sub_236F4 0x0236F4u
-#define SYM_sub_2375E 0x02375Eu
-#define SYM_sub_23770 0x023770u
-#define SYM_sub_2378E 0x02378Eu
-#define SYM_sub_237B0 0x0237B0u
-#define SYM_sub_237BC 0x0237BCu
-#define SYM_sub_237E4 0x0237E4u
-#define SYM_sub_237FA 0x0237FAu
-#define SYM_sub_23A86 0x023A86u
+#define SYM_Ending 0x0231B4u
+#define SYM_EndingStep 0x023252u
+#define SYM_EndingScene1 0x02327Au
+#define SYM_EndingScene1Play 0x023378u
+#define SYM_EndingBegin 0x0233D2u
+#define SYM_EndingWait1 0x0233DCu
+#define SYM_EndingText1 0x0233F0u
+#define SYM_EndingWait2 0x02341Eu
+#define SYM_EndingRumble 0x023442u
+#define SYM_EndingFlash 0x023474u
+#define SYM_EndingFadeIn 0x0234D8u
+#define SYM_EndingText2 0x0234ECu
+#define SYM_EndingText3 0x023520u
+#define SYM_EndingBeeps 0x02357Au
+#define SYM_EndingBeeps2 0x0235B4u
+#define SYM_EndingSceneOver 0x023602u
+#define SYM_EndingLines 0x023614u
+#define SYM_EndingCast 0x023636u
+#define SYM_EndingScene2 0x023666u
+#define SYM_EndingScene2Play 0x0236F4u
+#define SYM_EndingClimb 0x02375Eu
+#define SYM_EndingClimbing 0x023770u
+#define SYM_EndingTop 0x02378Eu
+#define SYM_EndingPause 0x0237B0u
+#define SYM_EndingPauseWait 0x0237BCu
+#define SYM_EndingDone 0x0237E4u
+#define SYM_EndingText 0x0237FAu
+#define SYM_EndingCycle 0x023A86u
 #define SYM_SevenAStart 0x023ABEu
 #define SYM_SevenAUnfold 0x023B8Au
 #define SYM_SevenAWalk 0x023BBAu
@@ -6157,9 +6157,9 @@ static const struct sym rom_syms[] = {
     { 0x01BD08u, "CubeClear" },
     { 0x01BD1Eu, "CubeShade" },
     { 0x01BD40u, "CubeShow" },
-    { 0x01BE5Eu, "sub_1BE5E" },
-    { 0x01BF6Cu, "sub_1BF6C" },
-    { 0x01BFB2u, "sub_1BFB2" },
+    { 0x01BE5Eu, "EndingWarp" },
+    { 0x01BF6Cu, "EndingSkew" },
+    { 0x01BFB2u, "EndingColumns" },
     { 0x01C18Au, "sub_1C18A" },
     { 0x01C1A8u, "sub_1C1A8" },
     { 0x01C23Cu, "sub_1C23C" },
@@ -6289,19 +6289,19 @@ static const struct sym rom_syms[] = {
     { 0x01EE46u, "StageIconsMoved" },
     { 0x01EEC8u, "SelectPressed" },
     { 0x01F000u, "StageIconsPlace" },
-    { 0x01F02Cu, "sub_1F02C" },
-    { 0x01F03Eu, "sub_1F03E" },
-    { 0x01F09Au, "sub_1F09A" },
-    { 0x01F0A2u, "sub_1F0A2" },
-    { 0x01F0B8u, "sub_1F0B8" },
-    { 0x01F0D8u, "sub_1F0D8" },
-    { 0x01F100u, "sub_1F100" },
-    { 0x01F148u, "sub_1F148" },
-    { 0x01F16Cu, "sub_1F16C" },
-    { 0x01F18Au, "sub_1F18A" },
-    { 0x01F1AEu, "sub_1F1AE" },
-    { 0x01F1C6u, "sub_1F1C6" },
-    { 0x01F1F0u, "sub_1F1F0" },
+    { 0x01F02Cu, "InterludeParts" },
+    { 0x01F03Eu, "Interlude" },
+    { 0x01F09Au, "InterludeStep" },
+    { 0x01F0A2u, "InterludeStepRun" },
+    { 0x01F0B8u, "InterludeStart" },
+    { 0x01F0D8u, "InterludeTalk" },
+    { 0x01F100u, "InterludeOut" },
+    { 0x01F148u, "InterludePage1" },
+    { 0x01F16Cu, "InterludePage2" },
+    { 0x01F18Au, "InterludePage3" },
+    { 0x01F1AEu, "InterludePage4" },
+    { 0x01F1C6u, "InterludePage5" },
+    { 0x01F1F0u, "InterludePage6" },
     { 0x01F1FAu, "FirstSelect" },
     { 0x01F256u, "FirstStep" },
     { 0x01F26Cu, "FirstFadeIn" },
@@ -6592,34 +6592,34 @@ static const struct sym rom_syms[] = {
     { 0x0230A6u, "SmokerC" },
     { 0x0230F4u, "Smoker10" },
     { 0x02318Cu, "SmokerBob" },
-    { 0x0231B4u, "sub_231B4" },
-    { 0x023252u, "sub_23252" },
-    { 0x02327Au, "sub_2327A" },
-    { 0x023378u, "sub_23378" },
-    { 0x0233D2u, "sub_233D2" },
-    { 0x0233DCu, "sub_233DC" },
-    { 0x0233F0u, "sub_233F0" },
-    { 0x02341Eu, "sub_2341E" },
-    { 0x023442u, "sub_23442" },
-    { 0x023474u, "sub_23474" },
-    { 0x0234D8u, "sub_234D8" },
-    { 0x0234ECu, "sub_234EC" },
-    { 0x023520u, "sub_23520" },
-    { 0x02357Au, "sub_2357A" },
-    { 0x0235B4u, "sub_235B4" },
-    { 0x023602u, "sub_23602" },
-    { 0x023614u, "sub_23614" },
-    { 0x023636u, "sub_23636" },
-    { 0x023666u, "sub_23666" },
-    { 0x0236F4u, "sub_236F4" },
-    { 0x02375Eu, "sub_2375E" },
-    { 0x023770u, "sub_23770" },
-    { 0x02378Eu, "sub_2378E" },
-    { 0x0237B0u, "sub_237B0" },
-    { 0x0237BCu, "sub_237BC" },
-    { 0x0237E4u, "sub_237E4" },
-    { 0x0237FAu, "sub_237FA" },
-    { 0x023A86u, "sub_23A86" },
+    { 0x0231B4u, "Ending" },
+    { 0x023252u, "EndingStep" },
+    { 0x02327Au, "EndingScene1" },
+    { 0x023378u, "EndingScene1Play" },
+    { 0x0233D2u, "EndingBegin" },
+    { 0x0233DCu, "EndingWait1" },
+    { 0x0233F0u, "EndingText1" },
+    { 0x02341Eu, "EndingWait2" },
+    { 0x023442u, "EndingRumble" },
+    { 0x023474u, "EndingFlash" },
+    { 0x0234D8u, "EndingFadeIn" },
+    { 0x0234ECu, "EndingText2" },
+    { 0x023520u, "EndingText3" },
+    { 0x02357Au, "EndingBeeps" },
+    { 0x0235B4u, "EndingBeeps2" },
+    { 0x023602u, "EndingSceneOver" },
+    { 0x023614u, "EndingLines" },
+    { 0x023636u, "EndingCast" },
+    { 0x023666u, "EndingScene2" },
+    { 0x0236F4u, "EndingScene2Play" },
+    { 0x02375Eu, "EndingClimb" },
+    { 0x023770u, "EndingClimbing" },
+    { 0x02378Eu, "EndingTop" },
+    { 0x0237B0u, "EndingPause" },
+    { 0x0237BCu, "EndingPauseWait" },
+    { 0x0237E4u, "EndingDone" },
+    { 0x0237FAu, "EndingText" },
+    { 0x023A86u, "EndingCycle" },
     { 0x023ABEu, "SevenAStart" },
     { 0x023B8Au, "SevenAUnfold" },
     { 0x023BBAu, "SevenAWalk" },
