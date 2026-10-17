@@ -596,6 +596,33 @@ void ScrollFrame(void)
     dma_row_a();
 }
 
+/* $00A2FE. The selects' frame: the scroll tables, plane B, and while plane A moves, its new
+ * column at the right ($180 on), $14 rows of it in two halves. */
+void ScrollFrameSelect(void)
+{
+    HScrollTable();
+    VScrollTable();
+    ScrollPlaneB();
+    if (!rd32(v_planeSpeeds)) return;
+    ScrollColumnA();
+    uint16_t x = (uint16_t)(rd16(v_planes) + 0x180), y = (uint16_t)(rd16(0xA924) - 0x80);
+    uint16_t q = rd16(v_dmaQueue), buf = rd16(v_columnBuffer);
+    uint16_t col = (uint16_t)((x >> 2) & 0x7C);
+    q = QueueVram(q, (uint16_t)(col + 0xC000));
+    q = QueueSource(q, (uint32_t)(int16_t)buf);
+    q = queue_length(q, 0x8F80, 0x94009314u);
+    q = (uint16_t)(q - 4);
+    wr32(q, rd32((uint16_t)(q + 0x10)));
+    wr16(q, (uint16_t)(rd16(q) + 2));
+    uint16_t even = buf;
+    buf = (uint16_t)(buf + 0x40);
+    q = QueueSource(q, (uint32_t)(int16_t)buf);
+    q = queue_length(q, 0x8F80, 0x94009314u);
+    ColumnGather2(col, y, &even, &buf);
+    wr16(v_dmaQueue, q);
+    wr16(v_columnBuffer, buf);
+}
+
 /* $00970C. Plane A from the top left, still: drawn and sent. */
 void PlaneAReset(void)
 {

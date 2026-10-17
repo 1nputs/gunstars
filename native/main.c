@@ -1,6 +1,7 @@
 /* The native game's entry: a window (pulseman's SDL2 platform), or headless with pictures.
  *
  *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
+ *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
  *
  * A routine not ported yet stops the game with its address (call68k_missing). */
 #include <setjmp.h>
@@ -18,6 +19,67 @@ static uint16_t picture[320 * 240];
 static int pic_w, pic_h;
 
 void native_quit(void) { longjmp(out, 1); }
+
+/* --input FILE: both pads from a script as tools/oracle/script.py reads it ("FRAME:P1|P2"
+ * entries, by newline or comma; buttons joined by '+'; held until the next entry; '#' a
+ * comment), by the native frame count */
+static struct { long frame; uint16_t pads[2]; } *script;
+static size_t script_n;
+
+static uint16_t buttons_of(const char *s, const char *end)
+{
+    static const struct { const char *name; uint16_t bit; } names[] = {
+        { "UP", MDRT_PAD_UP }, { "DOWN", MDRT_PAD_DOWN }, { "LEFT", MDRT_PAD_LEFT }, { "RIGHT", MDRT_PAD_RIGHT },
+        { "A", MDRT_PAD_A }, { "B", MDRT_PAD_B }, { "C", MDRT_PAD_C }, { "START", MDRT_PAD_START },
+        { "X", MDRT_PAD_X }, { "Y", MDRT_PAD_Y }, { "Z", MDRT_PAD_Z }, { "MODE", MDRT_PAD_MODE },
+    };
+    uint16_t b = 0;
+    while (s < end) {
+        const char *e = s;
+        while (e < end && *e != '+') e++;
+        for (unsigned k = 0; k < sizeof names / sizeof *names; k++)
+            if ((size_t)(e - s) == strlen(names[k].name) && !strncmp(s, names[k].name, (size_t)(e - s))) b |= names[k].bit;
+        s = e + 1;
+    }
+    return b;
+}
+
+static int read_script(const char *path)
+{
+    FILE *f = fopen(path, "r");
+    if (!f) { fprintf(stderr, "cannot read %s\n", path); return 0; }
+    char line[4096];
+    while (fgets(line, sizeof line, f)) {
+        char *hash = strchr(line, '#');
+        if (hash) *hash = 0;
+        for (char *item = strtok(line, ",\n\r"); item; item = strtok(NULL, ",\n\r")) {
+            while (*item == ' ') item++;
+            char *colon = strchr(item, ':');
+            if (!colon) continue;
+            char *end = colon + 1 + strlen(colon + 1);
+            while (end > colon + 1 && (end[-1] == ' ' || end[-1] == '\t')) end--;
+            char *bar = memchr(colon + 1, '|', (size_t)(end - colon - 1));
+            script = realloc(script, (script_n + 1) * sizeof *script);
+            script[script_n].frame = atol(item);
+            script[script_n].pads[0] = buttons_of(colon + 1, bar ? bar : end);
+            script[script_n].pads[1] = bar ? buttons_of(bar + 1, end) : 0;
+            script_n++;
+        }
+    }
+    fclose(f);
+    return 1;
+}
+
+static void script_source(void *user, uint16_t b[2])
+{
+    (void)user;
+    long frame = native_frames();
+    b[0] = b[1] = 0;
+    for (size_t i = 0; i < script_n && script[i].frame <= frame; i++) {
+        b[0] = script[i].pads[0];
+        b[1] = script[i].pads[1];
+    }
+}
 
 /* a routine the game reached that is not ported: the game stops there */
 void call68k_missing(uint32_t addr)
@@ -109,8 +171,9 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--shots") && i + 1 < argc) shots_dir = argv[++i];
         else if (!strcmp(argv[i], "--every") && i + 1 < argc) shots_every = atol(argv[++i]);
         else if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--input") && i + 1 < argc) { if (!read_script(argv[++i])) return 1; }
         else {
-            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE]\n", argv[0]);
             return 2;
         }
     }
@@ -128,6 +191,7 @@ int main(int argc, char **argv)
     c.platform = (mdrt_platform){ .present = keep_picture };
     mdrt *m = mdrt_new(&c);
     if (!m) return 1;
+    if (script_n) mdrt_set_pad_source(m, script_source, NULL);
     native_game(m, NULL);
     if (shot_path) write_ppm(shot_path);
     if (getenv("GUNSTAR_TRACE")) {

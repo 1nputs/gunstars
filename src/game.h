@@ -1267,6 +1267,7 @@ void ThrowAt(uint16_t obj, uint16_t target, uint16_t type);
 void SoldierDying(uint16_t obj);
 void LampColours(void);
 void HintHandler(void);                  /* the H-interrupt handler copied to v_hintCode, as C (native) */
+void FrameFlash(void);                   /* loc_0013A0: the frame's end in a stage (a flash) */
 int ObjectFloorA0(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4, uint32_t *a0);
 void DebrisEmit(uint16_t obj);
 void ThrownFly(uint16_t obj);                                        /* $02AA00 a5 */
@@ -1629,6 +1630,514 @@ void StoryAStep(void);                                               /* $01CEA2 
 void StoryBStep(void);                                               /* $01CF72 */
 void StoryA(void);                                                   /* $01CDFE */
 void StoryB(void);                                                   /* $01CEDA */
+
+/* ---- scattered types (objects20.c) ---- */
+void BowPart(uint16_t obj);                                          /* $00650E a5 */
+void BowPartStart(uint16_t obj);                                     /* $006524 a5 */
+void BowPartMove(uint16_t obj);                                      /* $00652E a5 */
+void BowPartIdle(uint16_t obj);                                      /* $0065F8 a5 */
+void BowPartGone(uint16_t obj);                                      /* $006608 a5 */
+void BowPartSetup(uint16_t obj);                                     /* $00660A a5 */
+void Stage4Block(uint16_t obj);                                      /* $007656 a5 */
+void CarrierB(uint16_t obj);                                         /* $01A946 a5 */
+void CarrierBStart(uint16_t obj);                                    /* $01A964 a5 */
+void CarrierBFly(uint16_t obj);                                      /* $01A9CE a5 */
+void CarrierBFall(uint16_t obj);                                     /* $01AA6A a5 */
+void CarrierBWait(uint16_t obj);                                     /* $01AAF0 a5 */
+void CarrierBThrown(uint16_t obj);                                   /* $01AB4E a5 */
+void CarrierBDrop(uint16_t obj, uint16_t slot);                      /* $01AB5E a5, a0 */
+void Cue49C(uint16_t obj);                                           /* $0208E8 a5 */
+void Cue49CNone(uint16_t obj);                                       /* $020940 a5 */
+void Cue49CCue4(uint16_t obj);                                       /* $02095C a5 */
+void Cue49CPose1(uint16_t obj);                                      /* $02096E a5 */
+void Cue49CHold1(uint16_t obj);                                      /* $020980 a5 */
+void Cue49CCue8(uint16_t obj);                                       /* $020982 a5 */
+void Cue49CPose2(uint16_t obj);                                      /* $020994 a5 */
+void Cue49CWait(uint16_t obj);                                       /* $0209A8 a5 */
+void Cue49CCueC(uint16_t obj);                                       /* $0209B8 a5 */
+void Cue49CPose3(uint16_t obj);                                      /* $0209CA a5 */
+void Cue49CHold3(uint16_t obj);                                      /* $0209DC a5 */
+void Cue49CCue10(uint16_t obj);                                      /* $0209DE a5 */
+void Cue49CPose4(uint16_t obj);                                      /* $0209F0 a5 */
+void Cue49CHold4(uint16_t obj);                                      /* $020A02 a5 */
+void Cue4A0(uint16_t obj);                                           /* $020A04 a5 */
+void Cue4A0None(uint16_t obj);                                       /* $020A5C a5 */
+void Cue4A0Cue4(uint16_t obj);                                       /* $020A74 a5 */
+void Cue4A0Pose1(uint16_t obj);                                      /* $020A8A a5 */
+void Cue4A0Wait1(uint16_t obj);                                      /* $020AA2 a5 */
+void Cue4A0Wait2(uint16_t obj);                                      /* $020AC4 a5 */
+void Cue4A0Cue8(uint16_t obj);                                       /* $020ACC a5 */
+void Cue4A0Pose3(uint16_t obj);                                      /* $020AE2 a5 */
+void Cue4A0Wait3(uint16_t obj);                                      /* $020AF6 a5 */
+void Cue4A0Wait4(uint16_t obj);                                      /* $020B16 a5 */
+void Cue4A0CueC(uint16_t obj);                                       /* $020B26 a5 */
+void Cue4A0Pose5(uint16_t obj);                                      /* $020B3C a5 */
+void Cue4A0Play(uint16_t obj);                                       /* $020B4E a5 */
+void Cue4A0Done(uint16_t obj);                                       /* $020B68 a5 */
+void Cue4FC(uint16_t obj);                                           /* $020B6A a5 */
+void Cue4FCNone(uint16_t obj);                                       /* $020BBE a5 */
+void Cue4FCHide(uint16_t obj);                                       /* $020BDE a5 */
+void Cue4FCShow1(uint16_t obj);                                      /* $020BEA a5 */
+void Cue4FCShow2(uint16_t obj);                                      /* $020C0C a5 */
+void Cue4FCShow3(uint16_t obj);                                      /* $020C3A a5 */
+void Cue4FCShow4(uint16_t obj);                                      /* $020C68 a5 */
+void BlueType(uint16_t obj);                                         /* $02250E a5 */
+void BlueScene0(uint16_t obj);                                       /* $02252C a5 */
+void BlueStart(uint16_t obj);                                        /* $022542 a5 */
+void BlueWait(uint16_t obj);                                         /* $022580 a5 */
+void BlueSink(uint16_t obj);                                         /* $0225A6 a5 */
+void BlueDrift(uint16_t obj);                                        /* $0225C6 a5 */
+void BlueDriftY(uint16_t obj, uint8_t n);                            /* $0225F0 a5, d0.b */
+void StillType(uint16_t obj);                                        /* $02260C a5 */
+void Still0(uint16_t obj);                                           /* $022642 a5 */
+void Still4(uint16_t obj);                                           /* $02267C a5 */
+void Still8(uint16_t obj);                                           /* $022696 a5 */
+void StillC(uint16_t obj);                                           /* $0226B0 a5 */
+void Still18(uint16_t obj);                                          /* $0226CA a5 */
+void Still10(uint16_t obj);                                          /* $0226E4 a5 */
+void Still14(uint16_t obj);                                          /* $0226FE a5 */
+void StillAt(uint16_t obj);                                          /* $02274C a5 */
+void BearerType(uint16_t obj);                                       /* $022778 a5 */
+void BearerScene0(uint16_t obj);                                     /* $022796 a5 */
+void BearerStart(uint16_t obj);                                      /* $0227B0 a5 */
+void BearerIn(uint16_t obj);                                         /* $0227FE a5 */
+void BearerWait(uint16_t obj);                                       /* $022818 a5 */
+void BearerShow(uint16_t obj);                                       /* $022850 a5 */
+void BearerBob2(uint16_t obj);                                       /* $022888 a5 */
+void BearerShow2(uint16_t obj);                                      /* $0228C0 a5 */
+void BearerBob(uint16_t obj);                                        /* $0228D2 a5 */
+void CarriedType(uint16_t obj);                                      /* $02292C a5 */
+void CarriedHidden(uint16_t obj);                                    /* $022956 a5 */
+void CarriedShown4(uint16_t obj);                                    /* $022972 a5 */
+void CarriedShown8(uint16_t obj);                                    /* $0229A8 a5 */
+void CarriedShownC(uint16_t obj);                                    /* $0229DE a5 */
+void CraftRiderType(uint16_t obj);                                   /* $022BB2 a5 */
+void CraftRiderA(uint16_t obj);                                      /* $022BDC a5 */
+void CraftRiderAStart(uint16_t obj);                                 /* $022BF4 a5 */
+void CraftRiderAPose2(uint16_t obj);                                 /* $022C20 a5 */
+void CraftRiderAPose3(uint16_t obj);                                 /* $022C3A a5 */
+void CraftRiderASlow(uint16_t obj);                                  /* $022C54 a5 */
+void CraftRiderATurn(uint16_t obj);                                  /* $022CA6 a5 */
+void CraftRiderB(uint16_t obj);                                      /* $022CD6 a5 */
+void CraftRiderBStart(uint16_t obj);                                 /* $022CEE a5 */
+void CraftRiderBPose2(uint16_t obj);                                 /* $022D1A a5 */
+void CraftRiderBPose3(uint16_t obj);                                 /* $022D34 a5 */
+void CraftRiderBSlow(uint16_t obj);                                  /* $022D4E a5 */
+void CraftRiderBTurn(uint16_t obj);                                  /* $022DA0 a5 */
+void CraftRiderC(uint16_t obj);                                      /* $022DD0 a5 */
+void CraftRiderCStart(uint16_t obj);                                 /* $022DE8 a5 */
+void CraftRiderCPose2(uint16_t obj);                                 /* $022E14 a5 */
+void CraftRiderCPose3(uint16_t obj);                                 /* $022E2E a5 */
+void CraftRiderCSlow(uint16_t obj);                                  /* $022E48 a5 */
+void CraftRiderCTurn(uint16_t obj);                                  /* $022E9A a5 */
+void CraftRiderD(uint16_t obj);                                      /* $022ECA a5 */
+void CraftRiderDStart(uint16_t obj);                                 /* $022EE2 a5 */
+void CraftRiderDPose2(uint16_t obj);                                 /* $022F0E a5 */
+void CraftRiderDPose3(uint16_t obj);                                 /* $022F28 a5 */
+void CraftRiderDSlow(uint16_t obj);                                  /* $022F42 a5 */
+void CraftRiderDGone(uint16_t obj);                                  /* $022F8E a5 */
+void SmokerType(uint16_t obj);                                       /* $022FCE a5 */
+void SmokerHidden(uint16_t obj);                                     /* $022FFC a5 */
+void Smoker4(uint16_t obj);                                          /* $02300A a5 */
+void Smoker8(uint16_t obj);                                          /* $023058 a5 */
+void SmokerC(uint16_t obj);                                          /* $0230A6 a5 */
+void Smoker10(uint16_t obj);                                         /* $0230F4 a5 */
+void SmokerBob(uint16_t obj);                                        /* $02318C a5 */
+
+/* ---- types $28016-$2D40E (objects28.c) ---- */
+void MaskBlinker(uint16_t obj);                                      /* $028016 a5 */
+void SatellitePair(uint16_t obj);                                    /* $028076 a5 */
+void FallBurst(uint16_t obj);                                        /* $0281E6 a5 */
+void Drifter(uint16_t obj);                                          /* $028262 a5 */
+void BlinkOut(uint16_t obj);                                         /* $0282DA a5 */
+void Swayer(uint16_t obj);                                           /* $028318 a5 */
+void Sprayer(uint16_t obj);                                          /* $0283CC a5 */
+void BoxBouncer(uint16_t obj);                                       /* $028504 a5 */
+void ClusterTimer(uint16_t obj);                                     /* $028838 a5 */
+void ClusterStart(uint16_t obj);                                     /* $028664 a5 */
+void ClusterSteer(uint16_t obj);                                     /* $028866 a5 */
+void ClusterSpread(uint16_t obj);                                    /* $028904 a5 */
+void ClusterBlink(uint16_t obj);                                     /* $0289EA a5 */
+void ClusterLooks(uint16_t obj);                                     /* $028A1C a5 */
+void ClusterFireBurst(uint16_t obj);                                 /* $028AB0 a5 */
+void ClusterFire(uint16_t obj);                                      /* $028AB6 a5 */
+void ClusterMove(uint16_t obj);                                      /* $02873E a5 */
+void ClusterWarn(uint16_t obj);                                      /* $028768 a5 */
+void ClusterAfterBurst(uint16_t obj);                                /* $0287B2 a5 */
+void ClusterSpray(uint16_t obj);                                     /* $0287D0 a5 */
+void ClusterClose(uint16_t obj);                                     /* $0287F2 a5 */
+void Cluster(uint16_t obj);                                          /* $028642 a5 */
+void ClusterShotStart(uint16_t obj);                                 /* $028B24 a5 */
+void ClusterShotFly(uint16_t obj);                                   /* $028B4C a5 */
+void ClusterShotEnd(uint16_t obj);                                   /* $028BE6 a5 */
+void ClusterShotPuff(uint16_t obj, uint16_t dx, uint16_t dy, uint32_t list);/* $028D2A a5, d1.w, d2.w, d3 */
+void ClusterShotBurst(uint16_t obj);                                 /* $028BEE a5 */
+void ClusterShot(uint16_t obj);                                      /* $028B0A a5 */
+void OrbStart(uint16_t obj);                                         /* $028DA6 a5 */
+void OrbAim(uint16_t obj);                                           /* $028E74 a5 */
+void OrbHeld(uint16_t obj);                                          /* $028DE0 a5 */
+void OrbFly(uint16_t obj);                                           /* $028E30 a5 */
+void OrbFade(uint16_t obj);                                          /* $028E5E a5 */
+void Orb(uint16_t obj);                                              /* $028D8C a5 */
+void LauncherSpeed(uint16_t obj);                                    /* $029288 a5 */
+void LauncherOut(uint16_t obj);                                      /* $02929E a5 */
+void LauncherRideTime(uint16_t obj);                                 /* $02935E a5 */
+void LauncherCarrier(uint16_t obj);                                  /* $0291F2 a5 */
+void LauncherFire(uint16_t obj);                                     /* $0292C2 a5 */
+void LauncherStart(uint16_t obj);                                    /* $028EEE a5 */
+void LauncherRide(uint16_t obj);                                     /* $028F44 a5 */
+void LauncherCross(uint16_t obj);                                    /* $028F76 a5 */
+void LauncherAway(uint16_t obj);                                     /* $028FB0 a5 */
+void Launcher(uint16_t obj);                                         /* $028ED4 a5 */
+void LauncherShot(uint16_t obj);                                     /* $028FCC a5 */
+void SmokerLook(uint16_t obj);                                       /* $029422 a5 */
+void SmokerPuff(uint16_t obj);                                       /* $0293CC a5 */
+void SmokerWeave(uint16_t obj);                                      /* $029380 a5 */
+void SmokerStart(uint16_t obj);                                      /* $02904E a5 */
+void SmokerRide(uint16_t obj);                                       /* $02907A a5 */
+void SmokerCross(uint16_t obj);                                      /* $0290D0 a5 */
+void Smoker(uint16_t obj);                                           /* $029038 a5 */
+void PairRiderStart(uint16_t obj);                                   /* $029108 a5 */
+void PairRiderLower(uint16_t obj);                                   /* $02913A a5 */
+void PairRiderRide(uint16_t obj);                                    /* $029172 a5 */
+void PairRiderCross(uint16_t obj);                                   /* $0291C6 a5 */
+void PairRider(uint16_t obj);                                        /* $0290EE a5 */
+void Shell25C(uint16_t obj);                                         /* $029466 a5 */
+void PadMover(uint16_t obj);                                         /* $02A2C2 a5 */
+void ObjectNothing(uint16_t obj);                                    /* $02A68A a5 */
+int SlotFreeFrom(uint16_t *slot, uint16_t *type);                    /* $0560DE -> Z, a0.w, d0.w */
+int SlotFreeFromC980(uint16_t *slot, uint16_t *type);                /* $0560DA -> Z, a0.w, d0.w */
+
+/* ---- the boss on foot, type $380 (objects2f.c) ---- */
+int FrameChance(void);                                               /* $02A2AA -> C */
+void StageColoursFirst(void);                                        /* $02A1C2 */
+void Boss380RideY(uint16_t obj);                                     /* $03074A a5 */
+void Boss380Priority(uint16_t obj);                                  /* $030B76 a5 */
+void Boss380Sparks(uint16_t obj);                                    /* $030AF0 a5 */
+void Boss380BeamClear(void);                                         /* $030A4E */
+void Boss380Down(uint16_t obj);                                      /* $030A6C a5 */
+void Boss380DownFlying(uint16_t obj);                                /* $030ABC a5 */
+void Boss380Blink(uint16_t obj);                                     /* $030D2A a5 */
+void Boss380LandStand(uint16_t obj);                                 /* $030C7C a5 */
+void Boss380StandStart(uint16_t obj);                                /* $030CC2 a5 */
+uint16_t Boss380FacePlayer(uint16_t obj);                            /* $030962 a5 -> d0.w */
+void Boss380Grunt(void);                                             /* $03127C */
+void Boss380SmokeSlow(uint16_t obj);                                 /* $031216 a5 */
+uint8_t Boss380Smoke(uint16_t obj);                                  /* $031222 a5 -> d0.b */
+void Boss380FlyX(uint16_t obj);                                      /* $031108 a5 */
+void Boss380FlyY(uint16_t obj);                                      /* $03107A a5 */
+void Boss380Hover(uint16_t obj);                                     /* $03118C a5 */
+void Boss380Home(uint16_t obj);                                      /* $030D4A a5 */
+void Boss380SwoopX(uint16_t obj);                                    /* $030E46 a5 */
+void Boss380SwoopY(uint16_t obj);                                    /* $030DB8 a5 */
+void Boss380Shot(uint16_t obj, uint32_t vx, uint16_t type, uint16_t x, uint16_t arg); /* $030330 a5, d1, d2.w, d3.w, d4.w */
+void Boss380Setup(uint16_t obj);                                     /* $02FB18 a5 */
+void Boss380Stand(uint16_t obj);                                     /* $02FBC0 a5 */
+void Boss380HitFlying(uint16_t obj);                                 /* $02FC64 a5 */
+void Boss380Hit(uint16_t obj);                                       /* $02FCAC a5 */
+void Boss380Knocked(uint16_t obj);                                   /* $02FCE8 a5 */
+void Boss380Grabbed(uint16_t obj);                                   /* $02FD5E a5 */
+void Boss380Thrown(uint16_t obj);                                    /* $02FD98 a5 */
+void Boss380GrabbedFlying(uint16_t obj);                             /* $02FDF2 a5 */
+void Boss380ThrownFlying(uint16_t obj);                              /* $02FE08 a5 */
+void Boss380Tumble(uint16_t obj);                                    /* $02FE44 a5 */
+void Boss380Rise(uint16_t obj);                                      /* $02FE72 a5 */
+void Boss380Fall(uint16_t obj);                                      /* $02FE84 a5 */
+void Boss380Fly(uint16_t obj);                                       /* $02FEDA a5 */
+void Boss380FlyHold(uint16_t obj);                                   /* $02FF16 a5 */
+void Boss380Swoop(uint16_t obj);                                     /* $02FF3C a5 */
+void Boss380SwoopSparks(uint16_t obj);                               /* $02FF90 a5 */
+void Boss380Charge(uint16_t obj);                                    /* $02FFBC a5 */
+void Boss380Dash(uint16_t obj);                                      /* $02FFD6 a5 */
+void Boss380Leap(uint16_t obj);                                      /* $030026 a5 */
+void Boss380LeapRise(uint16_t obj);                                  /* $03004A a5 */
+void Boss380Lift(uint16_t obj);                                      /* $03008C a5 */
+void Boss380Throw(uint16_t obj);                                     /* $030116 a5 */
+void Boss380AfterThrow(uint16_t obj);                                /* $030174 a5 */
+void Boss380Approach(uint16_t obj);                                  /* $0301B2 a5 */
+void Boss380Retreat(uint16_t obj);                                   /* $0301E2 a5 */
+void Boss380JumpFall(uint16_t obj);                                  /* $030212 a5 */
+void Boss380Crouch(uint16_t obj);                                    /* $030266 a5 */
+void Boss380BeamWait(uint16_t obj);                                  /* $030280 a5 */
+void Boss380Fire(uint16_t obj);                                      /* $0302AC a5 */
+void Boss380Intro(uint16_t obj);                                     /* $030360 a5 */
+void Boss380IntroText(uint16_t obj);                                 /* $0303C0 a5 */
+void Boss380IntroWait(uint16_t obj);                                 /* $0303D4 a5 */
+void Boss380IntroWalk(uint16_t obj);                                 /* $0303E8 a5 */
+void Boss380IntroPause(uint16_t obj);                                /* $03042A a5 */
+void Boss380IntroLook(uint16_t obj);                                 /* $03044C a5 */
+void Boss380IntroReach(uint16_t obj);                                /* $030468 a5 */
+void Boss380IntroToss(uint16_t obj);                                 /* $0304AC a5 */
+void Boss380IntroWatch(uint16_t obj);                                /* $0304D8 a5 */
+void Boss380IntroGone(uint16_t obj);                                 /* $0304F6 a5 */
+void Boss380IntroPose(uint16_t obj);                                 /* $03052A a5 */
+void Boss380IntroTalk(uint16_t obj);                                 /* $03054C a5 */
+void Boss380IntroEnd(uint16_t obj);                                  /* $030572 a5 */
+void Boss380Beaten(uint16_t obj);                                    /* $030754 a5 */
+void Boss380BeatenLand(uint16_t obj);                                /* $030794 a5 */
+void Boss380Recover(uint16_t obj);                                   /* $0307DA a5 */
+void Boss380DefeatLand(uint16_t obj);                                /* $030834 a5 */
+void Boss380DefeatTalk(uint16_t obj);                                /* $030890 a5 */
+void Boss380DefeatLeave(uint16_t obj);                               /* $0308BA a5 */
+void Boss380DefeatHop(uint16_t obj);                                 /* $030926 a5 */
+void Boss380Ejected(uint16_t obj);                                   /* $030592 a5 */
+void Boss380EjectedFall(uint16_t obj);                               /* $0305DA a5 */
+void Boss380Return(uint16_t obj);                                    /* $030608 a5 */
+void Boss380ReturnWalk(uint16_t obj);                                /* $030654 a5 */
+void Boss380ReturnJump(uint16_t obj);                                /* $03067E a5 */
+void Boss380ReturnLand(uint16_t obj);                                /* $0306B2 a5 */
+void Boss380ReturnPose(uint16_t obj);                                /* $030700 a5 */
+void Boss380ReturnDone(uint16_t obj);                                /* $03072E a5 */
+void Boss380Idle(uint16_t obj);                                      /* $030748 a5 */
+void Boss380Think(uint16_t obj);                                     /* $02F80C a5 */
+void Boss380(uint16_t obj);                                          /* $02F804 a5 */
+
+/* ---- types $31292-$36E88 (objects31.c) ---- */
+void HaulerStart(uint16_t obj);                                      /* $032438 a5 */
+void HaulerWait(uint16_t obj);                                       /* $0324C8 a5 */
+void Hauler(uint16_t obj);                                           /* $032412 a5 */
+uint16_t AboveCamera348(uint16_t d0);                                /* $03F768 d0.w -> d0.w */
+void SetYAboveCamera348(uint16_t obj, uint16_t d0);                  /* $03F75E a5, d0.w */
+uint16_t BelowCamera220(uint16_t d1);                                /* $040AC6 d1.w -> d1.w */
+void Boss380Spawn(uint16_t obj);                                     /* $031292 a5 */
+void Lobbed(uint16_t obj);                                           /* $0312BC a5 */
+void FlameBox(uint16_t o);                                           /* $031406 a0 */
+void FlameBob(uint16_t obj);                                         /* $031356 a5 */
+void FlameHoming(uint16_t obj);                                      /* $031422 a5 */
+void RiderSoldierDown(uint16_t obj);                                 /* $03176A a5 */
+void RiderSoldierFlung(uint16_t obj);                                /* $031794 a5 */
+uint16_t RiderSoldierAim(uint16_t obj, uint16_t *d7, uint32_t *a1, uint32_t *a2);/* $0317EE a5 -> a0.w, d7.w, a1, a2 */
+void RiderSoldierWait(uint16_t obj);                                 /* $03180C a5 */
+uint16_t RiderSoldierRide(uint16_t obj);                             /* $03183A a5 -> a0.w */
+void RiderSoldierStart(uint16_t obj);                                /* $031588 a5 */
+void RiderSoldierLie(uint16_t obj);                                  /* $0315E4 a5 */
+void RiderSoldierFly(uint16_t obj);                                  /* $0315EE a5 */
+void RiderSoldierFall(uint16_t obj);                                 /* $031616 a5 */
+void RiderSoldierAimStart(uint16_t obj);                             /* $031676 a5 */
+void RiderSoldierAiming(uint16_t obj);                               /* $03168C a5 */
+void RiderSoldierShot(uint16_t obj);                                 /* $0316B2 a5 */
+void RiderSoldierDropStart(uint16_t obj);                            /* $0316C6 a5 */
+void RiderSoldierDrop(uint16_t obj);                                 /* $0316E0 a5 */
+void RiderSoldier(uint16_t obj);                                     /* $031488 a5 */
+void TrailDust(uint16_t obj);                                        /* $034A28 a5 */
+void OnlookerPlace(uint16_t obj);                                    /* $031924 a5 */
+void Onlooker(uint16_t obj);                                         /* $03184C a5 */
+void WaveSpawn(uint16_t obj);                                        /* $0319C8 a5 */
+void WaveEnd(uint16_t obj);                                          /* $031994 a5 */
+void WaveSpawning(uint16_t obj);                                     /* $03197E a5 */
+void WaveStart(uint16_t obj);                                        /* $03195E a5 */
+void Wave(uint16_t obj);                                             /* $031948 a5 */
+void Idle190(uint16_t obj);                                          /* $031A26 a5 */
+void DropshipDrop(uint16_t obj);                                     /* $031DBC a5 */
+void DropshipExhaust(uint16_t obj);                                  /* $031DF6 a5 */
+void DropshipStart(uint16_t obj);                                    /* $031A9E a5 */
+void DropshipWait(uint16_t obj);                                     /* $031AEE a5 */
+void DropshipRise(uint16_t obj);                                     /* $031B0E a5 */
+void DropshipClimb(uint16_t obj);                                    /* $031B30 a5 */
+void DropshipAway(uint16_t obj);                                     /* $031B5E a5 */
+void DropshipSwoopDown(uint16_t obj);                                /* $031B96 a5 */
+void DropshipSwoopUp(uint16_t obj);                                  /* $031BC6 a5 */
+void DropshipHit(uint16_t obj);                                      /* $031BFE a5 */
+void DropshipThrown(uint16_t obj);                                   /* $031C32 a5 */
+void DropshipBurning(uint16_t obj);                                  /* $031C78 a5 */
+void DropshipLeave(uint16_t obj);                                    /* $031CE2 a5 */
+void Dropship(uint16_t obj);                                         /* $031A28 a5 */
+void LeaperStart(uint16_t obj);                                      /* $031E76 a5 */
+void LeaperHop(uint16_t obj);                                        /* $031EF4 a5 */
+void Leaper(uint16_t obj);                                           /* $031E42 a5 */
+void HoverMount(uint16_t obj, uint16_t which);                       /* $032C1A a5, d7.w */
+void HoverMountAt(uint16_t obj, uint16_t dx, uint16_t dy);           /* $032C96 a5, d2.w, d3.w */
+void HoverMountPlace(uint16_t obj);                                  /* $032C90 a5 */
+void HoverPuff(uint16_t obj);                                        /* $032CC0 a5 */
+void HoverSparks(uint16_t obj);                                      /* $032D1A a5 */
+void HoverFace(uint16_t obj);                                        /* $032E12 a5 */
+void HoverPick(uint16_t obj);                                        /* $032E48 a5 */
+void HoverSteer(uint16_t obj);                                       /* $032E72 a5 */
+void HoverFacePlayer(uint16_t obj);                                  /* $032F32 a5 */
+void HoverDrift(uint16_t obj);                                       /* $032F4C a5 */
+void HoverHum(void);                                                 /* $032FCE */
+void HoverWait(uint16_t obj);                                        /* $032FE6 a5 */
+void CarrierRise(uint16_t obj);                                      /* $0324E8 a5 */
+void CarrierClimb(uint16_t obj);                                     /* $03254E a5 */
+void CarrierTroops(uint16_t obj);                                    /* $03255E a5 */
+void CarrierBoss(uint16_t obj);                                      /* $032594 a5 */
+void CarrierEnd(uint16_t obj);                                       /* $0325BE a5 */
+void EscortStart(uint16_t obj);                                      /* $0325FA a5 */
+void EscortWait(uint16_t obj);                                       /* $03260E a5 */
+void EscortRise(uint16_t obj);                                       /* $032650 a5 */
+void Escort(uint16_t obj);                                           /* $0325D8 a5 */
+void HoverSoldierStart(uint16_t obj);                                /* $032716 a5 */
+void HoverSoldierFly(uint16_t obj);                                  /* $03275C a5 */
+void HoverSoldierDrift(uint16_t obj);                                /* $032784 a5 */
+void HoverSoldierShoot(uint16_t obj);                                /* $0327A8 a5 */
+void HoverSoldierLeave(uint16_t obj);                                /* $0327CE a5 */
+void HoverSoldier(uint16_t obj);                                     /* $0326A6 a5 */
+
+/* ---- types near $3D000 (objects38.c) ---- */
+void DebrisPuff(uint16_t obj);                                       /* $03D2A6 a5 */
+void SparksAt(uint16_t x, uint16_t y);                               /* $03D342 d1.w, d2.w */
+void SparksAtDE80(void);                                             /* $03D33A */
+void GroupPlace(uint16_t obj, uint16_t count);                       /* $043906 a5, d7.w */
+
+/* ---- types $48044-$4B9B2 (objects48.c) ---- */
+void BrawlerAnim(uint16_t obj);                                      /* $047F8C a5 */
+void BrawlerAnimStart(uint16_t obj);                                 /* $047F86 a5 */
+void BrawlerAnimOnFlipped(uint16_t obj);                             /* $047F7A a5 */
+void BrawlerAnimOnBySpeed(uint16_t obj);                             /* $047F70 a5 */
+void BrawlerAnimBySpeed(uint16_t obj);                               /* $047F4C a5 */
+void BrawlerAnimFacing(uint16_t obj);                                /* $047F3E a5 */
+int BrawlerFall(uint16_t obj);                                       /* $047F0E a5 -> Z */
+void BrawlerWalls(uint16_t obj);                                     /* $047E50 a5 */
+void BrawlerHitJump(uint16_t obj);                                   /* $047E9A a5 */
+int BrawlerNear(uint16_t obj);                                       /* $047CE0 a5, a6=reg_a6 -> Z */
+void BrawlerPuff(uint16_t obj);                                      /* $047D4C a5 */
+void DiceRoomClear(void);                                            /* $041044 */
+void DiceRoomMark(void);                                             /* $041E4A */
+void DiceRoomEnd(uint16_t obj);                                      /* $041E10 a5 */
+void BlastSound8(void);                                              /* $02A262 */
+void Brawler4CStart(uint16_t obj);                                   /* $048120 a5 */
+void Brawler4CStand(uint16_t obj);                                   /* $048160 a5 */
+void Brawler4CWalkLeft(uint16_t obj);                                /* $0481A0 a5 */
+void Brawler4CWalkRight(uint16_t obj);                               /* $0481BE a5 */
+void Brawler4CKnocked(uint16_t obj);                                 /* $0481D8 a5 */
+void Brawler4CLying(uint16_t obj);                                   /* $0481E2 a5 */
+void Brawler4CHit(uint16_t obj);                                     /* $0481EC a5 */
+void Brawler4CThrown(uint16_t obj);                                  /* $048200 a5 */
+void Brawler4CFall(uint16_t obj);                                    /* $04821C a5 */
+void Brawler4CCrouch(uint16_t obj, uint32_t d0);                     /* $048258 a5, d0 */
+void Brawler4CJump(uint16_t obj);                                    /* $0482B2 a5 */
+void Brawler4CJumpFall(uint16_t obj);                                /* $0482DA a5 */
+void Brawler4CAttack(uint16_t obj);                                  /* $0482E8 a5 */
+void Brawler4C(uint16_t obj);                                        /* $048044 a5 */
+void FireSpinner(uint16_t obj);                                      /* $048328 a5 */
+
+/* ---- the selects and the stage's start (modes.c) ---- */
+void SelectColours(void);                                            /* $01F4BE */
+void SelectTextBox(uint16_t box);                                    /* $01F456 a0.w */
+void SelectTextBoxB(uint16_t box);                                   /* $01F482 a0.w */
+void SelectScrollLine(void);                                         /* $01F4B0 */
+void Player2KeepChoices(void);                                       /* $00EE0E */
+void PlayersKeepChoices(void);                                       /* $00EDEE */
+void PlayersStart(void);                                             /* $00EB58 */
+void SelectArrows(void);                                             /* $01E2AC */
+void WeaponSelectStart(void);                                        /* $01E18C */
+uint16_t WeaponPending(void);                                        /* $01E4AC -> d0.w */
+void WeaponPlayersReady(void);                                       /* $01E368 */
+void WeaponTextCharacter(void);                                      /* $01E5DA */
+void WeaponTextWeapon(void);                                         /* $01E614 */
+void StageText(void);                                                /* $01E63E */
+void WeaponNothing(uint16_t p, uint16_t arrow);                      /* $01E5D8 a5, a4.w */
+void WeaponPickCharacter(uint16_t p, uint16_t arrow);                /* $01E4E2 a5, a4.w */
+void WeaponPickWeapon(uint16_t p, uint16_t arrow);                   /* $01E552 a5, a4.w */
+void WeaponPlayer(uint16_t p, uint16_t arrow);                       /* $01E4CC a5, a4.w */
+void WeaponArrowDone(uint16_t p, uint16_t arrow);                    /* $01E6B0 a5, a4.w */
+void WeaponArrowCharacter(uint16_t p, uint16_t arrow);               /* $01E676 a5, a4.w */
+void WeaponArrowWeapon(uint16_t p, uint16_t arrow);                  /* $01E68A a5, a4.w */
+void WeaponArrow(uint16_t p, uint16_t arrow);                        /* $01E660 a5, a4.w */
+void WeaponArrow2Done(uint16_t p, uint16_t arrow);                   /* $01E70E a5, a4.w */
+void WeaponArrow2Character(uint16_t p, uint16_t arrow);              /* $01E6D4 a5, a4.w */
+void WeaponArrow2Weapon(uint16_t p, uint16_t arrow);                 /* $01E6E8 a5, a4.w */
+void WeaponFadeIn(void);                                             /* $01E354 */
+void WeaponScrollRows(void);                                         /* $01E42E */
+void WeaponScroll(void);                                             /* $01E412 */
+void WeaponChoose(void);                                             /* $01E38A */
+void WeaponStep(void);                                               /* $01E33E */
+void SelectPalette(void);                                            /* $01E728 */
+void WeaponMark1(void);                                              /* $01E746 */
+void SelectCards(uint16_t x);                                        /* $01E7CE d0.w */
+void WeaponCards(void);                                              /* $01E7A6 */
+void WeaponSelectStep(void);                                         /* $01E332 */
+void WeaponSelect(void);                                             /* $01E2D6 */
+void StageBlocks(void);                                              /* $01EAA6 */
+void StageChunk(uint16_t stage);                                     /* $01EB1C d0.w */
+void StageClearedChunks(void);                                       /* $01EAE0 */
+void StageIcons(void);                                               /* $01EE1E */
+void StageIconsMoved(void);                                          /* $01EE46 */
+void StageIconsPlace(void);                                          /* $01F000 */
+void StageSelectStart(void);                                         /* $01E8C4 */
+uint8_t SelectPressed(void);                                         /* $01EEC8 -> d0.b */
+void StageFadeIn(void);                                              /* $01EBD8 */
+void StageScrollIn(void);                                            /* $01EC04 */
+void StageArrive(void);                                              /* $01EBE2 */
+void StageNothing(uint16_t p);                                       /* $01EDD2 a5 */
+void StagePick(uint16_t p);                                          /* $01ED44 a5 */
+void StageMove(uint16_t p);                                          /* $01ED32 a5 */
+void StageChoose(void);                                              /* $01EC46 */
+void StageDescribe(void);                                            /* $01ECC2 */
+void StageLeave(void);                                               /* $01ED0C */
+void StageMarks(void);                                               /* $01EDDC */
+void StageStep(void);                                                /* $01EBB6 */
+void StageSelectStep(void);                                          /* $01EBAE */
+void StageSelect(void);                                              /* $01EB52 */
+void FirstWait(void);                                                /* $01F3D0 */
+void FirstSwapped(void);                                             /* $01F390 */
+void FirstToggle(void);                                              /* $01F3DE */
+void FirstChoose(void);                                              /* $01F36A */
+void FirstReady(void);                                               /* $01F34A */
+void FirstShow(void);                                                /* $01F32E */
+void FirstAsk(void);                                                 /* $01F304 */
+void FirstText(void);                                                /* $01F2EC */
+void FirstScene(void);                                               /* $01F280 */
+void FirstFadeIn(void);                                              /* $01F26C */
+void FirstLeave(void);                                               /* $01F2A0 */
+void FirstStep(void);                                                /* $01F256 */
+void FirstSelect(void);                                              /* $01F1FA */
+void StageClearTime(void);                                           /* $01F548 */
+void StageEnter(void);                                               /* $01F4DE */
+void ScrollFrameSelect(void);                                        /* $00A2FE */
+
+/* ---- the stage play (modes.c) and its messages (messages.c) ---- */
+void StagePlayNothing(void);                                         /* $01F8EA */
+void PauseText(void);                                                /* $01F686 */
+void StagePlay(void);                                                /* $01F566 */
+void MessageLayout(uint32_t *text, uint16_t *list, uint16_t *y, uint16_t *x); /* $038EF8 -> a0, a1.w, d1.w, d2.w */
+void MessageLayoutTop(uint32_t *text, uint16_t *list, uint16_t *y, uint16_t *x); /* $038EF2 -> a0, a1.w, d1.w, d2.w */
+void MessageNone(void);                                              /* $038926 */
+void MessageStart(void);                                             /* $038928 */
+void MessageWait(void);                                              /* $038978 */
+void MessageType(void);                                              /* $0389C2 */
+void MessageBlink(void);                                             /* $0389AC */
+void MessageVitality(void);                                          /* $038AB0 */
+void MessageVitalityBlink(void);                                     /* $038AD0 */
+void MessageVitalityCount(void);                                     /* $038B22 */
+void MessageVitalityStart(void);                                     /* $038BA0 */
+void MessageVitalityShow(void);                                      /* $038BE8 */
+void MessageShow(void);                                              /* $038E6E */
+void MessageBonusStart(void);                                        /* $038C44 */
+void MessageBonus(void);                                             /* $038C4E */
+void AddBcdAt(uint16_t end_at, uint32_t points);                     /* $038E42 a0.w, d0 */
+void MessageBonusCount(void);                                        /* $038CAC */
+void MessageBonusDone(void);                                         /* $038E24 */
+void PalettesFull(void);                                             /* $00369E */
+void QueueDmaList(uint32_t list);                                    /* $03985C a3 */
+void RingLetter(void);                                               /* $0396A4 */
+void RingLetterBack(void);                                           /* $0396E6 */
+void MessageRing(void);                                              /* $03958E */
+void MessageWarpStart(void);                                         /* $038F38 */
+void MessageWarp(void);                                              /* $038F6A */
+void MessageFlash(void);                                             /* $03902A */
+void MessageFlashStart(void);                                        /* $039016 */
+void MessageOutroStart(void);                                        /* $039052 */
+void MessageOutro(void);                                             /* $039070 */
+void MessageOutroWait(void);                                         /* $03905E */
+void MessageArrow(void);                                             /* $03947C */
+void MessageArrowDown(void);                                         /* $039466 */
+void MessageArrowOther(void);                                        /* $03944C */
+void Messages(void);                                                 /* $038882 */
+
+/* ---- a stage cleared, the continue (modes.c) ---- */
+void StageClearedMark(void);                                         /* $020156 */
+void StageGemMark(void);                                             /* $02013A */
+void StageCleared(void);                                             /* $0200AC */
+void GameOverWaves(void);                                            /* $020172 */
+void ContinueCursor(void);                                           /* $01FE04 */
+void ContinueColours(void);                                          /* $01FEB6 */
+void ContinueFlash(void);                                            /* $01FE72 */
+void ContinueArrow(void);                                            /* $01FF3C */
+void ContinueText(void);                                             /* $01FF56 */
+void ContinueInput(void);                                            /* $01FCAA */
+void GameOverWait(void);                                             /* $01FD62 */
+void GameOver(void);                                                 /* $01FBEE */
 
 /* ---- not ported yet ---- */
 
