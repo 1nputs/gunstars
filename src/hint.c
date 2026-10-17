@@ -2,7 +2,7 @@
  * 4). The first time (v_hintState 0) an effect sets the H-interrupt counter (register 10), runs
  * a command list that copies its handler into work RAM at v_hintCode (the H-interrupt vector),
  * and turns H-interrupts on (register 0 bit 4); each frame it writes those registers again and
- * points hint_data (a6) at the table its handler reads, line by line. */
+ * points a6 (reg_a6) at the table its handler reads, line by line. */
 #include "game.h"
 
 #define RTE 0x4E73
@@ -14,7 +14,7 @@
 #define HANDLER_5 0x001610u
 #define HANDLER_6 0x001654u
 
-uint32_t hint_data;
+uint32_t reg_a6;
 
 /* $001416 */
 void HintEffect(void)
@@ -65,7 +65,7 @@ void HintEffect1(void)
     }
     vdp_ctrl16(rd16(VDP_REG(10)));
     vdp_ctrl16(rd16(VDP_REG(0)));
-    hint_data = 0xFFFF9600;
+    reg_a6 = 0xFFFF9600;
 }
 
 /* $001534. Effect 2: the first frame copies the handler, the second turns H-interrupts on; then
@@ -88,7 +88,7 @@ void HintEffect2(void)
     }
     wr8(VDP_REG(10) + 1, 2);
     vdp_ctrl16(0x8A02);
-    hint_data = 0xFFFF984E;
+    reg_a6 = 0xFFFF984E;
     wr16(v_hintLine, 0);
     HintShiftLines(0x984E);
     vdp_ctrl(0x70000083);                                        /* VRAM $F000: the scroll table */
@@ -118,7 +118,7 @@ void HintEffect3(void)
         hint_on();
         vdp_ctrl16(rd16(VDP_REG(0)));
     }
-    hint_data = 0xFFFF9600;
+    reg_a6 = 0xFFFF9600;
 }
 
 /* $0014EA. Effect 4 (no recorded run used it): every fourth line; each frame the table at
@@ -133,7 +133,7 @@ void HintEffect4(void)
         vdp_ctrl16(rd16(VDP_REG(0)));
     }
     for (int i = 0; i < 28; i++) wr32((uint16_t)(0x9600 + 4 * i), rd32((uint16_t)(0x9400 + 4 * i)));
-    hint_data = 0xFFFF9600;
+    reg_a6 = 0xFFFF9600;
 }
 
 /* $0015C8. Effect 5: H-interrupts on with its handler, and each frame the display off, the
@@ -163,7 +163,7 @@ void HintEffect6(void)
     }
     vdp_ctrl16(rd16(VDP_REG(10)));
     vdp_ctrl16(rd16(VDP_REG(0)));
-    hint_data = 0xFFFF9800;
+    reg_a6 = 0xFFFF9800;
 }
 
 /* $00165E. Effect 7 (no recorded run used it): effect 1's handler every eighth line. */
@@ -176,5 +176,5 @@ void HintEffect7(void)
     }
     vdp_ctrl16(rd16(VDP_REG(10)));
     vdp_ctrl16(rd16(VDP_REG(0)));
-    hint_data = 0xFFFF9600;
+    reg_a6 = 0xFFFF9600;
 }

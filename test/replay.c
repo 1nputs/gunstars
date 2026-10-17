@@ -110,7 +110,7 @@ static void hints_before(uint32_t i)
         if (!c->consumed && is_async(c)) {
             replay_apply(c);
             /* the H-interrupt handler reads its table through a6: the C's a6 moves as much */
-            if (is_hint(c)) hint_data += c->regs_out[R_A6] - c->regs_in[R_A6];
+            if (is_hint(c)) reg_a6 += c->regs_out[R_A6] - c->regs_in[R_A6];
             take(k);
         }
     }

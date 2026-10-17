@@ -5,8 +5,8 @@
 load(path) -> {address: Proto}. A Proto has the C name, return type, parameters [(type, name)],
 the registers of the value parameters (regs_in) and the results (regs_out: the return value
 first when there is one, then the pointer parameters), each ('reg', 'd0', 'b'|'w'|'l') or
-('flag', 'Z'|'N'|'C', negated) or ('ccr',). A register kept in a C global, "a6=hint_data",
-is ('glob', 'a6', 'hint_data'), before the arrow or after it, and takes no parameter. A return
+('flag', 'Z'|'N'|'C', negated) or ('ccr',). A register kept in a C global, "a6=reg_a6",
+is ('glob', 'a6', 'reg_a6'), before the arrow or after it, and takes no parameter. A return
 value no register holds (a C routine's "the track stopped") is '-', ('none',): not checked.
 """
 import re

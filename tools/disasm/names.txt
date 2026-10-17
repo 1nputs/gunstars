@@ -193,7 +193,7 @@ FFF732 v_bitBuffer           # the tile decoder's bits, the next at the top
 06865E SoundFlagFm3
 FFF80A v_soundQueue          # four sounds asked for (QueueSound); the driver takes the highest priority
 FFFF26 v_consoleVersion      # the I/O chip's version byte at the reset: bit 6 PAL, bit 7 overseas
-# ---- clearing (src/clear.c)
+# ---- clearing (src/clear.c) [the engine]
 0029EA ScreenReset
 002A12 ScreenResetAlt
 002A32 ClearVideo

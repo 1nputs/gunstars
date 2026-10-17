@@ -14,7 +14,9 @@
 #define VDP_REG(n) (v_vdpRegs + 2 * (n))
 
 /* Registers the 68k keeps from one routine to another, kept in C globals (states carry them) */
-extern uint32_t hint_data;     /* a6: the table the H-interrupt handler reads (HintEffect sets it) */
+extern uint32_t reg_a6;     /* a6: no routine saves it, so it outlives them; the H-interrupt
+                               handlers read their table through it (HintEffect sets it), and
+                               the Treasure logo's routines leave their pointers in it */
 
 /* ---- the reset and the main loop (boot.c) ---- */
 extern int checksum_check;
@@ -72,15 +74,15 @@ uint32_t WriteTileVram(uint32_t vram);                               /* $0028B2 
 void QueueTileDma(uint32_t bytes, uint32_t *src, uint32_t *vram);    /* $00290C d1 -> a2, a3 */
 
 /* ---- H-interrupt effects (hint.c) ---- */
-void HintEffect(void);                                               /* $001416 a6=hint_data -> a6=hint_data */
+void HintEffect(void);                                               /* $001416 a6=reg_a6 -> a6=reg_a6 */
 void HintNone(void);                                                 /* $001440 */
-void HintEffect1(void);                                              /* $001462 -> a6=hint_data */
-void HintEffect3(void);                                              /* $0014A6 -> a6=hint_data */
-void HintEffect4(void);                                              /* $0014EA -> a6=hint_data */
-void HintEffect2(void);                                              /* $001534 -> a6=hint_data */
+void HintEffect1(void);                                              /* $001462 -> a6=reg_a6 */
+void HintEffect3(void);                                              /* $0014A6 -> a6=reg_a6 */
+void HintEffect4(void);                                              /* $0014EA -> a6=reg_a6 */
+void HintEffect2(void);                                              /* $001534 -> a6=reg_a6 */
 void HintEffect5(void);                                              /* $0015C8 */
-void HintEffect6(void);                                              /* $00161A -> a6=hint_data */
-void HintEffect7(void);                                              /* $00165E -> a6=hint_data */
+void HintEffect6(void);                                              /* $00161A -> a6=reg_a6 */
+void HintEffect7(void);                                              /* $00165E -> a6=reg_a6 */
 void HintShiftLines(uint16_t end);                                   /* $00176E d0.w */
 
 /* ---- the pads (pads.c) ---- */
@@ -260,11 +262,11 @@ void LogoCopy(uint16_t which, uint16_t stride, uint32_t a, uint32_t b, uint16_t 
 void LogoShrinkStep(void);                                           /* $0201C2 */
 void LogoStretch(void);                                              /* $020374 */
 void LogoBrighten(void);                                             /* $020646 */
-void LogoGrow(void);                                                 /* $0202B0 -> a6=hint_data */
-void LogoHold(void);                                                 /* $0202D8 -> a6=hint_data */
-void LogoShrinkBack(void);                                           /* $0202F6 -> a6=hint_data */
-void LogoBounce(void);                                               /* $020314 -> a6=hint_data */
-void LogoFade(void);                                                 /* $020340 -> a6=hint_data */
+void LogoGrow(void);                                                 /* $0202B0 -> a6=reg_a6 */
+void LogoHold(void);                                                 /* $0202D8 -> a6=reg_a6 */
+void LogoShrinkBack(void);                                           /* $0202F6 -> a6=reg_a6 */
+void LogoBounce(void);                                               /* $020314 -> a6=reg_a6 */
+void LogoFade(void);                                                 /* $020340 -> a6=reg_a6 */
 
 /* ---- not ported yet ---- */
 

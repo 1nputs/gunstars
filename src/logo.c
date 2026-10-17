@@ -256,10 +256,10 @@ void LogoBrighten(void)
     AdjustPalettes();
 }
 
-/* $0202B0 ... $020340: the animation's phases. a6 (hint_data) picks the H-interrupt's table. */
+/* $0202B0 ... $020340: the animation's phases. a6 (reg_a6) picks the H-interrupt's table. */
 void LogoGrow(void)              /* stretching, brightening, to step $1C, then a hold of 120 */
 {
-    hint_data = 0xFFFF9640;
+    reg_a6 = 0xFFFF9640;
     LogoStretch();
     LogoBrighten();
     wr16(STEP, (uint16_t)(rd16(STEP) + 2));
@@ -270,7 +270,7 @@ void LogoGrow(void)              /* stretching, brightening, to step $1C, then a
 
 void LogoHold(void)
 {
-    hint_data = 0xFFFF9640;
+    reg_a6 = 0xFFFF9640;
     LogoStretch();
     wr16(0x8040, (uint16_t)(rd16(0x8040) - 1));
     if (rd16(0x8040)) return;
@@ -280,7 +280,7 @@ void LogoHold(void)
 
 void LogoShrinkBack(void)        /* back down to step 6 */
 {
-    hint_data = 0xFFFF9680;
+    reg_a6 = 0xFFFF9680;
     LogoStretch();
     wr16(STEP, (uint16_t)(rd16(STEP) - 2));
     if (rd16(STEP) != 6) return;
@@ -289,7 +289,7 @@ void LogoShrinkBack(void)        /* back down to step 6 */
 
 void LogoBounce(void)            /* up to step $1C again, the counter's times, else back */
 {
-    hint_data = 0xFFFF9600;
+    reg_a6 = 0xFFFF9600;
     LogoStretch();
     wr16(STEP, (uint16_t)(rd16(STEP) + 2));
     if (rd16(STEP) != 0x1C) return;
@@ -300,7 +300,7 @@ void LogoBounce(void)            /* up to step $1C again, the counter's times, e
 
 void LogoFade(void)              /* dimming, down to step 0 */
 {
-    hint_data = 0xFFFF9600;
+    reg_a6 = 0xFFFF9600;
     LogoStretch();
     LogoBrighten();
     wr16(STEP, (uint16_t)(rd16(STEP) - 2));

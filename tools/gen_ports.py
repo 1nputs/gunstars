@@ -13,7 +13,7 @@ Before the arrow, one register per parameter that is not a result pointer, in or
 first is the return value, the rest are the trailing pointer parameters, in order. A register
 result is checked at its width (.b, .w, or all of it; an address register on 24 bits); a flag
 (Z, N, C, or !Z, !N, !C) means the function returns whether it is set (or clear) as the 68k
-left it; ccr means it returns the condition codes (a draft's); "a6=hint_data" is a register the
+left it; ccr means it returns the condition codes (a draft's); "a6=reg_a6" is a register the
 C keeps in a global (set from the record, and checked after when it is a result). A routine
 whose adapter needs more
 is written by hand in test/ports.c and marked "manual" in its comment.
