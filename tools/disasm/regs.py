@@ -735,6 +735,45 @@ class Analysis:
     def results(self, e):
         return self.may[e] & self.exit[e]
 
+    def first_reads(self, e, mask):
+        """where routine e reads a register of mask before writing it on some path: [(address,
+        registers, the callee when a call reads them)]"""
+        r = self.p.routines[e]
+        f = self.facts[e]
+        state = {r.entry: 0}                    # registers written on every path so far
+        work = [r.entry]
+        while work:
+            a = work.pop()
+            st = state[a] | (f.ud[a][1] & ALL)
+            if a in r.calls and r.calls[a]:
+                m = ALL
+                for t in r.calls[a]:
+                    m &= self.must[t]
+                st |= m
+            for s_ in self.succ[e].get(a, []):
+                if s_ not in state:
+                    state[s_] = st
+                    work.append(s_)
+                elif state[s_] & ~st:
+                    state[s_] &= st
+                    work.append(s_)
+        out = []
+        for a in r.body:
+            if a not in state:
+                continue
+            u = f.ud[a][0] & mask & ~state[a]
+            if u:
+                out.append((a, u, None))
+            for t in r.calls.get(a, []) or []:
+                g = self.genuine[t] & mask & ~(state[a] | (f.ud[a][1] & ALL))
+                if g:
+                    out.append((a, g, t))
+            for t in r.tails.get(a, []):
+                g = self.genuine[t] & mask & ~(state[a] | (f.ud[a][1] & ALL))
+                if g:
+                    out.append((a, g, t))
+        return out
+
 
 # ---- reporting ---------------------------------------------------------------------------------
 def describe(mask):
@@ -766,6 +805,7 @@ def signatures(prog, an):
         out[r.name] = {
             'addr': e,
             'in': describe(an.params[e]),
+            'reads_first': describe(an.genuine[e] & an.set_by_caller[e]),
             'out': describe(an.results(e)),
             'changes': describe(an.may[e] & (DREGS | AREGS)),
             'keeps': describe(pres) if pres != (DREGS | AREGS) else ['all'],
@@ -795,6 +835,14 @@ def main():
         s = sig[r.name]
         print('%s $%06X: %s -> %s   changes %s' % (r.name, s['addr'], ', '.join(s['in']) or '-', ', '.join(s['out']) or '-',
                                                 ' '.join(s['changes']) or '-'))
+        if s['reads_first'] != s['in']:
+            print('    reads before writing: %s; the rest of its in are only passed through' % (', '.join(s['reads_first']) or 'none'))
+        sites = {}
+        for a, m, t in an.first_reads(r.entry, an.genuine[r.entry]):
+            for x in describe(m):
+                sites.setdefault(x, []).append('%06X%s' % (a, ' ' + prog.routines[t].name if t else ''))
+        for x, l in sites.items():
+            print('      %s read first at %s%s' % (x, ', '.join(l[:4]), ' ...' if len(l) > 4 else ''))
         for x in s['notes']:
             print('   ', x)
 
