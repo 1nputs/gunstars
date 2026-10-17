@@ -17,6 +17,10 @@
 extern uint32_t reg_a6;     /* a6: no routine saves it, so it outlives them; the H-interrupt
                                handlers read their table through it (HintEffect sets it), and
                                the Treasure logo's routines leave their pointers in it */
+extern uint16_t reg_a5_left; /* a5 as an object's routine left it, when not its object (0: as it
+                               was): one that calls a routine that moves a5 without keeping it
+                               (a NextJob of kind 2: ClearTilePixels leaves it at $FFB480). The
+                               object loop goes on from there, as the 68k's does */
 extern uint32_t reg_sp;     /* a7: the 68k's stack pointer, kept (by the callers on the way, with
                                WITH_SP) for the routines that leave stack addresses in RAM: the
                                Treasure logo's polygons. Natively a vertical blank's in the main
@@ -2870,6 +2874,448 @@ void DeckBoss(uint16_t obj);                                         /* $03D4B2 
 /* ---- types $1567C-$16B9E (objects15.c) ---- */
 void HeldPart(uint16_t obj);                                         /* $016ABE a5 */
 void Settling(uint16_t obj);                                         /* $016B9E a5 */
+
+/* ---- types $501CE-$5717C (objects50.c) ---- */
+void FigureBob(uint16_t a0);                                         /* $050828 a0 */
+void Ally3C8Step00(uint16_t obj);                                    /* $05022C a5 */
+void Ally3C8Step02(uint16_t obj);                                    /* $050250 a5 */
+void Ally3C8Step04(uint16_t obj);                                    /* $050272 a5 */
+void Ally3C8Step06(uint16_t obj);                                    /* $050280 a5 */
+void Ally3C8Step08(uint16_t obj);                                    /* $0502A0 a5 */
+void Ally3C8Step0A(uint16_t obj);                                    /* $0502C2 a5 */
+void Ally3C8Step0C(uint16_t obj);                                    /* $0502F0 a5 */
+void Ally3C8Step0E(uint16_t obj);                                    /* $05030A a5 */
+void Ally3C8Step10(uint16_t obj);                                    /* $050318 a5 */
+void Ally3C8Step12(uint16_t obj);                                    /* $050332 a5 */
+void Ally3C8Step14(uint16_t obj);                                    /* $050354 a5 */
+void Ally3C8Step16(uint16_t obj);                                    /* $050376 a5 */
+void Ally3C8Step18(uint16_t obj);                                    /* $0503B6 a5 */
+void Ally3C8Step1A(uint16_t obj);                                    /* $0503E4 a5 */
+void Ally3C8Step1C(uint16_t obj);                                    /* $0503F8 a5 */
+void Ally3C8Step1E(uint16_t obj);                                    /* $050420 a5 */
+void Ally3C8Step20(uint16_t obj);                                    /* $050446 a5 */
+void Ally3C8Step22(uint16_t obj);                                    /* $050488 a5 */
+void Ally3C8Step24(uint16_t obj);                                    /* $0504AE a5 */
+void Ally3C8Step26(uint16_t obj);                                    /* $0504B8 a5 */
+void Ally3C8Bob(uint16_t obj);                                       /* $050500 a5 */
+void Ally3C8Step28(uint16_t obj);                                    /* $0504D6 a5 */
+void Ally3C8Step2A(uint16_t obj);                                    /* $05051A a5 */
+void Ally3C8Step2C(uint16_t obj);                                    /* $05053A a5 */
+void Ally3C8Step2E(uint16_t obj);                                    /* $050560 a5 */
+void Ally3C8Step30(uint16_t obj);                                    /* $050570 a5 */
+void Ally3C8Step32(uint16_t obj);                                    /* $05058E a5 */
+void Ally3C8Step34(uint16_t obj);                                    /* $0505A6 a5 */
+void Ally3C8Step36(uint16_t obj);                                    /* $0505C0 a5 */
+void Ally3C8Step38(uint16_t obj);                                    /* $0505E0 a5 */
+void Ally3C8Spawn10(uint16_t x);                                     /* $050632 d1.w */
+void Ally3C8Step3A(uint16_t obj);                                    /* $0505EE a5 */
+void Ally3C8Step3C(uint16_t obj);                                    /* $05065E a5 */
+void Ally3C8Step3E(uint16_t obj);                                    /* $050688 a5 */
+void Ally3C8Step40(uint16_t obj);                                    /* $0506AE a5 */
+void Ally3C8Step42(uint16_t obj);                                    /* $0506EA a5 */
+void Ally3C8Step44(uint16_t obj);                                    /* $050710 a5 */
+void Ally3C8Step46(uint16_t obj);                                    /* $050748 a5 */
+void Ally3C8Step48(uint16_t obj);                                    /* $05074A a5 */
+void Ally3C8Step4A(uint16_t obj);                                    /* $05076A a5 */
+void Ally3C8Step4C(uint16_t obj);                                    /* $0507C4 a5 */
+void Ally3C8(uint16_t obj);                                          /* $0501CE a5 */
+void Ally3CCStep00(uint16_t obj);                                    /* $05087A a5 */
+void Ally3CCStep02(uint16_t obj);                                    /* $05089C a5 */
+void Ally3CCStep04(uint16_t obj);                                    /* $0508BC a5 */
+void Ally3CCStep06(uint16_t obj);                                    /* $0508CA a5 */
+void Ally3CCStep08(uint16_t obj);                                    /* $0508E2 a5 */
+void Ally3CCStep0A(uint16_t obj);                                    /* $0508FC a5 */
+void Ally3CCStep0C(uint16_t obj);                                    /* $0508FE a5 */
+void Ally3CCStep0E(uint16_t obj);                                    /* $050916 a5 */
+void Ally3CCStep10(uint16_t obj);                                    /* $050924 a5 */
+void Ally3CCStep12(uint16_t obj);                                    /* $050936 a5 */
+void Ally3CCStep20(uint16_t obj);                                    /* $05093E a5 */
+void Ally3CCStep14(uint16_t obj);                                    /* $050938 a5 */
+void Ally3CCStep16(uint16_t obj);                                    /* $050962 a5 */
+void Ally3CCStep18(uint16_t obj);                                    /* $050992 a5 */
+void Ally3CCStep1A(uint16_t obj);                                    /* $0509B0 a5 */
+void Ally3CCStep1C(uint16_t obj);                                    /* $0509EE a5 */
+void Ally3CCStep1E(uint16_t obj);                                    /* $050A0E a5 */
+void Ally3CCStep22(uint16_t obj);                                    /* $050A28 a5 */
+void Ally3CC(uint16_t obj);                                          /* $050842 a5 */
+void Ally3D0Step00(uint16_t obj);                                    /* $050A7E a5 */
+void Ally3D0Step02(uint16_t obj);                                    /* $050AA0 a5 */
+void Ally3D0Step04(uint16_t obj);                                    /* $050AD4 a5 */
+void Ally3D0Step06(uint16_t obj);                                    /* $050AE2 a5 */
+void Ally3D0Step08(uint16_t obj);                                    /* $050AFA a5 */
+void Ally3D0Step0A(uint16_t obj);                                    /* $050B08 a5 */
+void Ally3D0Step0C(uint16_t obj);                                    /* $050B1C a5 */
+void Ally3D0Step0E(uint16_t obj);                                    /* $050B1E a5 */
+void Ally3D0Step10(uint16_t obj);                                    /* $050B32 a5 */
+void Ally3D0Step12(uint16_t obj);                                    /* $050B34 a5 */
+void Ally3D0Step14(uint16_t obj);                                    /* $050B4C a5 */
+void Ally3D0Step16(uint16_t obj);                                    /* $050B8E a5 */
+void Ally3D0Step18(uint16_t obj);                                    /* $050BAE a5 */
+void Ally3D0Step1A(uint16_t obj);                                    /* $050BE4 a5 */
+void Ally3D0(uint16_t obj);                                          /* $050A52 a5 */
+void Ally3D4Step00(uint16_t obj);                                    /* $050C2C a5 */
+void Ally3D4Step02(uint16_t obj);                                    /* $050C4E a5 */
+void Ally3D4Step04(uint16_t obj);                                    /* $050C6E a5 */
+void Ally3D4Step06(uint16_t obj);                                    /* $050C7C a5 */
+void Ally3D4Step08(uint16_t obj);                                    /* $050C94 a5 */
+void Ally3D4Step0A(uint16_t obj);                                    /* $050CA2 a5 */
+void Ally3D4Step0C(uint16_t obj);                                    /* $050CB4 a5 */
+void Ally3D4Step0E(uint16_t obj);                                    /* $050CB6 a5 */
+void Ally3D4Step10(uint16_t obj);                                    /* $050CC8 a5 */
+void Ally3D4Step12(uint16_t obj);                                    /* $050CCA a5 */
+void Ally3D4Step14(uint16_t obj);                                    /* $050CEC a5 */
+void Ally3D4Step16(uint16_t obj);                                    /* $050D06 a5 */
+void Ally3D4(uint16_t obj);                                          /* $050C04 a5 */
+void Ally3D8Step00(uint16_t obj);                                    /* $050D48 a5 */
+void Ally3D8Step02(uint16_t obj);                                    /* $050D6A a5 */
+void Ally3D8Step04(uint16_t obj);                                    /* $050D8A a5 */
+void Ally3D8Step06(uint16_t obj);                                    /* $050D98 a5 */
+void Ally3D8Step08(uint16_t obj);                                    /* $050DB0 a5 */
+void Ally3D8Step0A(uint16_t obj);                                    /* $050DBE a5 */
+void Ally3D8Step0C(uint16_t obj);                                    /* $050DD0 a5 */
+void Ally3D8Step0E(uint16_t obj);                                    /* $050DD2 a5 */
+void Ally3D8Step10(uint16_t obj);                                    /* $050DE4 a5 */
+void Ally3D8Step12(uint16_t obj);                                    /* $050DE6 a5 */
+void Ally3D8Step14(uint16_t obj);                                    /* $050E08 a5 */
+void Ally3D8Step16(uint16_t obj);                                    /* $050E2E a5 */
+void Ally3D8(uint16_t obj);                                          /* $050D20 a5 */
+void Shot3AC(uint16_t obj);                                          /* $050EA0 a5 */
+void Pod3B0Start(uint16_t obj);                                      /* $050FB4 a5 */
+void Pod3B0Burst(uint16_t obj);                                      /* $050FE8 a5 */
+void Pod3B0(uint16_t obj);                                           /* $050F48 a5 */
+void Crate5A4(uint16_t obj);                                         /* $0510B0 a5 */
+void Block5AC(uint16_t obj);                                         /* $051152 a5 */
+void Piece5B0(uint16_t obj);                                         /* $05128C a5 */
+void Dust65C(uint16_t obj);                                          /* $0512BC a5 */
+void GemSpark(uint16_t *gem);                                        /* $051690 -> a1.w */
+void GemSparks(void);                                                /* $051674 */
+void GemsOrbit(uint16_t obj);                                        /* $051560 a5 */
+void GemsShine(uint16_t obj);                                        /* $051536 a5 */
+void GemsFlash(uint16_t obj);                                        /* $0515D6 a5 */
+void Gems00(uint16_t obj);                                           /* $051370 a5 */
+void Gems04(uint16_t obj);                                           /* $0513CA a5 */
+void Gems08(uint16_t obj);                                           /* $0513EC a5 */
+void Gems0C(uint16_t obj);                                           /* $05140E a5 */
+void Gems10(uint16_t obj);                                           /* $051446 a5 */
+void Gems14(uint16_t obj);                                           /* $051466 a5 */
+void Gems1C(uint16_t obj);                                           /* $051482 a5 */
+void Gems24(uint16_t obj);                                           /* $0514BA a5 */
+void Gems28(uint16_t obj);                                           /* $05150C a5 */
+void Gems(uint16_t obj);                                             /* $05133A a5 */
+void Flash60C(uint16_t obj);                                         /* $051622 a5 */
+void Gunner650Wait(uint16_t obj);                                    /* $0517C4 a5 */
+void Gunner650(uint16_t obj);                                        /* $0516D6 a5 */
+uint16_t MechPart(uint16_t at, uint32_t map, uint16_t d1, uint8_t d2); /* $052640 a0, d0, d1.w, d2.b -> a0.w */
+uint16_t MechPartSmall(uint16_t at, uint16_t d1, uint8_t d2);        /* $052686 a0, d1.w, d2.b -> a0.w */
+uint16_t MechSegments(uint16_t at, uint16_t d1, uint8_t d2);         /* $052666 a0, d1.w, d2.b -> a0.w */
+uint16_t MechShadowLeft(uint16_t at, uint16_t d1, uint8_t d2);       /* $052614 a0, d1.w, d2.b -> a0.w */
+uint16_t MechShadowRight(uint16_t at, uint16_t d1, uint8_t d2);      /* $05262A a0, d1.w, d2.b -> a0.w */
+void MechBuild(uint16_t obj);                                        /* $05258A a5 */
+void MechLeg(uint16_t d0, uint16_t d1, uint16_t d2, uint16_t d3, uint16_t at); /* $052722 d0.w, d1.w, d2.w, d3.w, a0 */
+void MechLegs(uint16_t obj);                                         /* $0526A2 a5 */
+void MechShadow(uint16_t foot, uint16_t left, uint16_t right);       /* $052776 a0, a1, a2 */
+void MechShadows(void);                                              /* $05275A */
+int MechChooseLeft(uint16_t obj, uint16_t *d1);                      /* $0527D2 a5 -> Z, d1.w */
+int MechChooseRight(uint16_t obj, uint16_t *d1);                     /* $0527E2 a5 -> Z, d1.w */
+void MechPause(uint16_t obj);                                        /* $052886 a5 */
+void MechFire(uint16_t obj);                                         /* $0528AC a5 */
+void MechFireDown(uint16_t obj);                                     /* $0528DE a5 */
+void MechHeadBolt(uint16_t obj, uint16_t d5, uint16_t d6, uint16_t d7); /* $052970 a5, d5.w, d6.w, d7.w */
+void MechWreck(uint16_t obj);                                        /* $0529AA a5 */
+void MechHeadFrames(void);                                           /* $05224C */
+void Mech00(uint16_t obj);                                           /* $0519C6 a5 */
+void Mech04(uint16_t obj);                                           /* $051A46 a5 */
+void Mech08(uint16_t obj);                                           /* $051AB0 a5 */
+void Mech0C(uint16_t obj);                                           /* $051AF0 a5 */
+void Mech10(uint16_t obj);                                           /* $051B0E a5 */
+void Mech14(uint16_t obj);                                           /* $051B50 a5 */
+void Mech18(uint16_t obj);                                           /* $051B7E a5 */
+void Mech1C(uint16_t obj);                                           /* $051BDC a5 */
+void Mech20(uint16_t obj);                                           /* $051C20 a5 */
+void Mech24(uint16_t obj);                                           /* $051C50 a5 */
+void Mech28(uint16_t obj);                                           /* $051CAE a5 */
+void Mech2C(uint16_t obj);                                           /* $051CDE a5 */
+void Mech30(uint16_t obj);                                           /* $051D22 a5 */
+void Mech34(uint16_t obj);                                           /* $051D76 a5 */
+void Mech38(uint16_t obj);                                           /* $051DCA a5 */
+void Mech3C(uint16_t obj);                                           /* $051EBC a5 */
+void MechStretch(uint16_t obj, uint16_t d0);                         /* $051F78 a5, d0.w */
+void Mech40(uint16_t obj, uint16_t d0);                              /* $051EEC a5, d0.w */
+void Mech44(uint16_t obj);                                           /* $051F24 a5 */
+void Mech48(uint16_t obj);                                           /* $051FA6 a5 */
+void Mech4C(uint16_t obj);                                           /* $051FCE a5 */
+void Mech50(uint16_t obj);                                           /* $052006 a5 */
+void Mech58(uint16_t obj);                                           /* $052030 a5 */
+void Mech5C(uint16_t obj);                                           /* $052066 a5 */
+void Mech60(uint16_t obj);                                           /* $0520B0 a5 */
+void Mech64(uint16_t obj);                                           /* $052132 a5 */
+void Mech68(uint16_t obj);                                           /* $052158 a5 */
+void Mech6C(uint16_t obj);                                           /* $05216E a5 */
+void Mech70(uint16_t obj);                                           /* $0521C8 a5 */
+void Mech74(uint16_t obj);                                           /* $052200 a5 */
+void Mech78(uint16_t obj);                                           /* $05227A a5 */
+void Mech7C(uint16_t obj);                                           /* $05234A a5 */
+void Mech80(uint16_t obj);                                           /* $0523AC a5 */
+void Mech84(uint16_t obj);                                           /* $052444 a5 */
+void Mech88(uint16_t obj);                                           /* $052484 a5 */
+void Mech8C(uint16_t obj);                                           /* $0524AC a5 */
+void Mech90(uint16_t obj);                                           /* $0524E0 a5 */
+void Mech94(uint16_t obj);                                           /* $052518 a5 */
+void Mech98(uint16_t obj);                                           /* $052554 a5 */
+void Mech9C(uint16_t obj);                                           /* $052574 a5 */
+void MechStep(uint16_t obj, uint16_t d0);                            /* $05191C a5, d0.w */
+void Mech(uint16_t obj);                                             /* $05188E a5 */
+void MechBolt(uint16_t obj);                                         /* $052A5A a5 */
+void Pilot00(uint16_t obj);                                          /* $052CE0 a5 */
+void Pilot04(uint16_t obj);                                          /* $052D1E a5 */
+void Pilot08(uint16_t obj);                                          /* $052D80 a5 */
+void Pilot0C(uint16_t obj);                                          /* $052DD4 a5 */
+void Pilot10(uint16_t obj);                                          /* $052EA0 a5 */
+void Pilot14(uint16_t obj);                                          /* $052F0C a5 */
+void Pilot18(uint16_t obj);                                          /* $052F3C a5 */
+void Pilot1C(uint16_t obj);                                          /* $052F6A a5 */
+void Pilot20(uint16_t obj);                                          /* $052E68 a5 */
+void Pilot24(uint16_t obj);                                          /* $052EC4 a5 */
+void Pilot28(uint16_t obj);                                          /* $052FD4 a5 */
+void Pilot2C(uint16_t obj);                                          /* $052E32 a5 */
+void PilotThink(uint16_t obj);                                       /* $052B38 a5 */
+void Pilot(uint16_t obj);                                            /* $052B2E a5 */
+void ClawSegmentLook(uint16_t d2, uint16_t at);                      /* $053590 d2.w, a0 -> a6=reg_a6 */
+uint16_t ClawUpper(uint16_t d2, uint16_t at, uint32_t *d3, uint32_t *d4); /* $053518 d2.w, a0 -> a0.w, d3, d4, a6=reg_a6 */
+uint16_t ClawLower(uint16_t d2, uint16_t at, uint32_t *d3, uint32_t *d4); /* $05354E d2.w, a0 -> a0.w, d3, d4, a6=reg_a6 */
+void ClawPlace(uint16_t obj);                                        /* $0534AE a5 -> a6=reg_a6 */
+void ClawAngles(uint16_t obj);                                       /* $053374 a5 */
+void ClawShoulder(uint16_t at);                                      /* $0533AA a0 */
+void ClawShoulders(void);                                            /* $05338E */
+void ClawGrip(uint16_t at);                                          /* $053492 a0 */
+void ClawGrips(void);                                                /* $053486 */
+void ClawSegments(uint16_t obj);                                     /* $0533BE a5 */
+void ClawHide(uint16_t obj);                                         /* $053448 a5 */
+void Claw00(uint16_t obj);                                           /* $0530CC a5 */
+void Claw04(uint16_t obj);                                           /* $053152 a5 -> a6=reg_a6 */
+void Claw08(uint16_t obj);                                           /* $05317A a5 -> a6=reg_a6 */
+void Claw18(uint16_t obj);                                           /* $053190 a5 -> a6=reg_a6 */
+void Claw0C(uint16_t obj);                                           /* $0531C8 a5 -> a6=reg_a6 */
+void Claw10(uint16_t obj);                                           /* $0531EC a5 -> a6=reg_a6 */
+void Claw14(uint16_t obj);                                           /* $053228 a5 -> a6=reg_a6 */
+void Claw1C(uint16_t obj);                                           /* $053238 a5 -> a6=reg_a6 */
+void Claw20(uint16_t obj);                                           /* $05325C a5 -> a6=reg_a6 */
+void Claw24(uint16_t obj);                                           /* $05327E a5 -> a6=reg_a6 */
+void Claw28(uint16_t obj);                                           /* $053290 a5 -> a6=reg_a6 */
+void Claw2C(uint16_t obj);                                           /* $0532F0 a5 -> a6=reg_a6 */
+void Nothing400(uint16_t obj);                                       /* $053140 a5 */
+void Claw(uint16_t obj);                                             /* $052FFE a5 -> a6=reg_a6 */
+void ClawSwitch(uint16_t obj);                                       /* $0535F2 a5 */
+void GsClearScroll(void);                                            /* $054436 */
+void GsLightA(void);                                                 /* $0541FE */
+void GsScroll(uint16_t obj);                                         /* $0543AC a5 */
+uint32_t GsTileChunk(uint16_t obj, uint16_t d1, uint32_t a0);        /* $054280 a5, d1.w, a0 -> a0 */
+void GsTiles(uint16_t obj);                                          /* $05424A a5 */
+void GsSpin(uint16_t obj);                                           /* $0541A0 a5 */
+uint16_t GsSine(uint16_t d0);                                        /* $05484C d0.w -> d1.w */
+uint16_t GsCosine(uint16_t d0);                                      /* $05489E d0.w -> d1.w */
+void GsHitFlash(void);                                               /* $0549CC */
+void GsParts(uint16_t obj);                                          /* $054644 a5 */
+void GsHand(uint16_t at);                                            /* $0546DE a0 */
+void GsParts428(void);                                               /* $054692 */
+void GsSpawn424(void);                                               /* $054736 */
+void GsShot42C(void);                                                /* $054796 */
+void GsShotIfWeak(void);                                             /* $05478C */
+void GsBurst(void);                                                  /* $05490A */
+void GsSpark(uint16_t obj);                                          /* $054972 a5 */
+void GsLean(void);                                                   /* $0549FA */
+void GsDepths(void);                                                 /* $054D00 */
+void GsLimbs(void);                                                  /* $054A5A */
+void GsFlip(void);                                                   /* $054D4A */
+void GsAngles(void);                                                 /* $054EFA */
+void GsWalk00(void);                                                 /* $054D7C */
+void GsWalk04(void);                                                 /* $054DCA */
+void GsWalk08(void);                                                 /* $054E0C */
+void GsWalk0C(void);                                                 /* $054E7C */
+void GsWalk10(void);                                                 /* $054EBE */
+void GsWalk(void);                                                   /* $054D5E */
+void GsSway(void);                                                   /* $054F20 */
+void GsBeaten(uint16_t obj);                                         /* $054FCE a5 */
+void GsSmoke(void);                                                  /* $05501E */
+void GsGlow(uint16_t obj);                                           /* $05509C a5 */
+int GsSpinDown(uint16_t obj);                                        /* $0550D6 a5 -> Z */
+void GsSpinStart(uint16_t obj);                                      /* $055106 a5 */
+void GsColours(uint32_t a0);                                         /* $05511E a0 */
+void GsFade(uint16_t obj);                                           /* $05513C a5 */
+void GsClear9600(void);                                              /* $055162 */
+void GsPictures(void);                                               /* $055ACE -> a6=reg_a6 */
+void GsTurnToPlayer(uint16_t obj);                                   /* $053A76 a5 */
+void GsHover(uint16_t obj);                                          /* $0539F8 a5 */
+void Gs00(uint16_t obj);                                             /* $0536E4 a5 -> a6=reg_a6 */
+void Gs08(uint16_t obj);                                             /* $05376E a5 */
+void Gs04(uint16_t obj);                                             /* $053722 a5 */
+void Gs0C(uint16_t obj);                                             /* $05378C a5 */
+void Gs10(uint16_t obj);                                             /* $0537A4 a5 */
+void Gs14(uint16_t obj);                                             /* $0537E0 a5 */
+void Gs18(uint16_t obj);                                             /* $05380A a5 */
+void Gs1C(uint16_t obj);                                             /* $053868 a5 */
+void Gs20(uint16_t obj);                                             /* $05387A a5 */
+void Gs24(uint16_t obj);                                             /* $053920 a5 */
+void Gs28(uint16_t obj);                                             /* $053932 a5 */
+void Gs2C(uint16_t obj);                                             /* $0539BE a5 */
+void Gs30(uint16_t obj);                                             /* $0539D4 a5 */
+void Gs34(uint16_t obj);                                             /* $0539EC a5 */
+void Gs38(uint16_t obj);                                             /* $053AB0 a5 */
+void Gs3C(uint16_t obj);                                             /* $053AFA a5 */
+void Gs40(uint16_t obj);                                             /* $053B0E a5 */
+void Gs58(uint16_t obj);                                             /* $053B24 a5 */
+void Gs44(uint16_t obj);                                             /* $053B88 a5 */
+void Gs48(uint16_t obj);                                             /* $053C1C a5 */
+void Gs4C(uint16_t obj);                                             /* $053C34 a5 */
+void Gs50(uint16_t obj);                                             /* $053C8C a5 */
+void Gs54(uint16_t obj);                                             /* $053CBA a5 */
+void Gs64(uint16_t obj);                                             /* $053D06 a5 */
+void Gs60(uint16_t obj);                                             /* $053CF2 a5 */
+void Gs68(uint16_t obj);                                             /* $053D20 a5 */
+void Gs70(uint16_t obj);                                             /* $053D3C a5 */
+void Gs74(uint16_t obj);                                             /* $053D4E a5 */
+void Gs8C(uint16_t obj);                                             /* $053DA0 a5 */
+void GsSpinOn(uint16_t obj);                                         /* $053EA8 a5 */
+void GsMove(uint16_t obj);                                           /* $053EA0 a5 */
+void Gs90(uint16_t obj);                                             /* $053E1C a5 */
+void GsCC(uint16_t obj);                                             /* $053DBA a5 */
+void Gs94(uint16_t obj);                                             /* $053E80 a5 */
+void Gs98(uint16_t obj);                                             /* $053EB4 a5 */
+void Gs9C(uint16_t obj);                                             /* $053F06 a5 */
+void GsA0(uint16_t obj);                                             /* $053F1E a5 */
+void GsA4(uint16_t obj);                                             /* $053F4C a5 */
+void GsA8(uint16_t obj);                                             /* $053F82 a5 */
+void GsAC(uint16_t obj);                                             /* $053FAA a5 */
+void GsB0(uint16_t obj);                                             /* $053FFE a5 */
+void GsB4(uint16_t obj);                                             /* $05401A a5 */
+void GsB8(uint16_t obj);                                             /* $054066 a5 */
+void GsBC(uint16_t obj);                                             /* $0540A2 a5 */
+void GsC0(uint16_t obj);                                             /* $054126 a5 */
+void GsC8(uint16_t obj);                                             /* $05419C a5 */
+void GsC4(uint16_t obj);                                             /* $054164 a5 */
+void Gs(uint16_t obj);                                               /* $05360A a5 -> a6=reg_a6 */
+void GsPlace(uint16_t obj, uint8_t d5);                              /* $054458 a5, d5.b */
+void GsPlaceDeep(uint16_t obj, uint8_t d5);                          /* $054448 a5, d5.b */
+uint32_t GsLook(uint16_t obj, uint32_t a0);                          /* $0544BE a5, a0 -> a0 */
+uint32_t GsLookBy(uint16_t obj, uint8_t d5);                         /* $0544AA a5, d5.b -> a0 */
+void GsLookFar(uint16_t obj, uint8_t d5);                            /* $0544CC a5, d5.b */
+void GsLookSmall(uint16_t obj);                                      /* $0545F0 a5 */
+void Gs420(uint16_t obj);                                            /* $055198 a5 */
+void Gs424(uint16_t obj);                                            /* $0551F6 a5 */
+void GsTrail(uint16_t obj);                                          /* $055362 a5 */
+void Gs428(uint16_t obj);                                            /* $0552A6 a5 */
+void Gs42C(uint16_t obj);                                            /* $0553C0 a5 */
+void Gs434(uint16_t obj);                                            /* $0558FA a5 */
+void Gs53C(uint16_t obj);                                            /* $055A1E a5 */
+void GsSnakeSwayX(uint16_t obj);                                     /* $05571E a5 */
+void GsSnakeSwayY(uint16_t obj);                                     /* $055784 a5 */
+void GsSnakeMove(uint16_t obj);                                      /* $055638 a5 */
+void GsSnake00(uint16_t obj);                                        /* $0554D0 a5 */
+void GsSnake04(uint16_t obj);                                        /* $05551C a5 */
+void GsSnake08(uint16_t obj);                                        /* $05555C a5 */
+void GsSnake0C(uint16_t obj);                                        /* $055592 a5 */
+void GsSnake10(uint16_t obj);                                        /* $0555CA a5 */
+void GsSnake14(uint16_t obj);                                        /* $0555EC a5 */
+void GsSnake18(uint16_t obj);                                        /* $05560E a5 */
+void GsSnake1C(uint16_t obj);                                        /* $055628 a5 */
+void GsSnake(uint16_t obj);                                          /* $055480 a5 */
+void GsSnakeSegment(uint16_t obj);                                   /* $0557EE a5 */
+void Spark94Start(uint16_t obj, uint16_t d0);                        /* $05718E a5, d0.w */
+void Spark94Idle(uint16_t obj);                                      /* $0571C0 a5 */
+void Spark94(uint16_t obj);                                          /* $05717C a5 */
+int SpawnAtMid(uint16_t obj, uint16_t type, uint16_t dy, uint16_t dx, uint16_t arg, uint16_t *slot); /* $056AFE a5, d4.w, d5.w, d6.w, d7.w -> Z, a0.w */
+uint16_t AngleSixteenth(uint16_t *angle);                            /* $02A240 -> d0.w, d2.w */
+int SpawnAimed(uint16_t obj, uint16_t target, uint16_t type, uint16_t dy, uint16_t dx, uint16_t *slot); /* $056AC8 a5, a0, d4.w, d5.w, d6.w -> Z, a0.w */
+uint16_t PlayerWeaker(void);                                         /* $02A038 -> a0.w */
+void BlinkStart(uint16_t obj);                                       /* $03146E a5 */
+void PuffNear(uint16_t obj);                                         /* $03D2F6 a5 */
+void ScaleShrink(uint16_t list, uint16_t src, uint16_t vram);        /* $020686 a0.w, a1.w, a4.w -> a6=reg_a6 */
+
+/* ---- type $1F8, the captain (objects2d.c) ---- */
+void CaptainFall(uint16_t obj);                                      /* $02F012 a5 */
+void CaptainTire(uint16_t obj);                                      /* $02EC96 a5 */
+void CaptainTireCrouch(uint16_t obj);                                /* $02ED44 a5 */
+void CaptainHop(uint16_t obj);                                       /* $02F098 a5 */
+void CaptainStagger(uint16_t obj);                                   /* $02F2E2 a5 */
+void CaptainKnocked(uint16_t obj);                                   /* $02F324 a5 */
+void CaptainGrab(uint16_t obj);                                      /* $02F39A a5 */
+void CaptainSpark(uint16_t obj, uint16_t vx, uint16_t vy, uint32_t data); /* $02EB84 a5, d2.w, d3.w, d5 */
+void CaptainAimSetup(uint16_t obj, uint16_t *target, uint16_t *type, uint32_t *faces, uint32_t *muzzles); /* $02EB1E a5 -> a0.w, d7.w, a1, a2 */
+void CaptainThinkNone(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F4BA a5, d0.w, d1.w, d5.w */
+void CaptainThinkA(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F4BC a5, d0.w, d1.w, d5.w */
+void CaptainThinkB(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F504 a5, d0.w, d1.w, d5.w */
+void CaptainThinkC(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F550 a5, d0.w, d1.w, d5.w */
+void CaptainThinkD(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F578 a5, d0.w, d1.w, d5.w */
+void CaptainThinkE(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F588 a5, d0.w, d1.w, d5.w */
+void CaptainThinkF(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F596 a5, d0.w, d1.w, d5.w */
+void CaptainThinkG(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F5B8 a5, d0.w, d1.w, d5.w */
+void CaptainThinkH(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F5DA a5, d0.w, d1.w, d5.w */
+void CaptainThinkI(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F5EA a5, d0.w, d1.w, d5.w */
+void CaptainThinkJ(uint16_t obj, uint16_t adx, uint16_t dx, uint16_t dy); /* $02F5FA a5, d0.w, d1.w, d5.w */
+void CaptainS04(uint16_t obj);                                       /* $02D808 a5 */
+void CaptainS104(uint16_t obj);                                      /* $02D82E a5 */
+void CaptainS0C(uint16_t obj);                                       /* $02D87C a5 */
+void CaptainS14(uint16_t obj);                                       /* $02D854 a5 */
+void CaptainS1C(uint16_t obj);                                       /* $02D85C a5 */
+void CaptainS08(uint16_t obj);                                       /* $02D936 a5 */
+void CaptainS18(uint16_t obj);                                       /* $02D90E a5 */
+void CaptainS10(uint16_t obj);                                       /* $02D916 a5 */
+void CaptainSA0(uint16_t obj);                                       /* $02D9F6 a5 */
+void CaptainSA4(uint16_t obj);                                       /* $02DA76 a5 */
+void CaptainS9C(uint16_t obj);                                       /* $02D9C8 a5 */
+void CaptainS10C(uint16_t obj);                                      /* $02DB3A a5 */
+void CaptainS110(uint16_t obj);                                      /* $02DB66 a5 */
+void CaptainS100(uint16_t obj);                                      /* $02DB94 a5 */
+void CaptainS30(uint16_t obj);                                       /* $02DBF6 a5 */
+void CaptainPushed(uint16_t obj, uint16_t by);                       /* $02DC5A a5, a0 */
+void CaptainS108(uint16_t obj);                                      /* $02DC0A a5 */
+void CaptainSB8(uint16_t obj);                                       /* $02DC82 a5 */
+void CaptainSBC(uint16_t obj);                                       /* $02DCB4 a5 */
+void CaptainSB4(uint16_t obj);                                       /* $02DD3E a5 */
+void CaptainS70(uint16_t obj);                                       /* $02DD64 a5 */
+void CaptainSD4(uint16_t obj);                                       /* $02DE06 a5 */
+void CaptainSD8(uint16_t obj);                                       /* $02DE66 a5 */
+void CaptainSDC(uint16_t obj);                                       /* $02DEE0 a5 */
+void CaptainS114(uint16_t obj);                                      /* $02DEFC a5 */
+void CaptainS118(uint16_t obj);                                      /* $02DF68 a5 */
+void CaptainS11C(uint16_t obj);                                      /* $02DFCC a5 */
+void CaptainS120(uint16_t obj);                                      /* $02E01A a5 */
+void CaptainSB0(uint16_t obj);                                       /* $02E086 a5 */
+void CaptainS4C(uint16_t obj);                                       /* $02E036 a5 */
+void CaptainS40(uint16_t obj);                                       /* $02E0E4 a5 */
+void CaptainSD0(uint16_t obj);                                       /* $02E0C8 a5 */
+void CaptainS44(uint16_t obj);                                       /* $02E17C a5 */
+void CaptainSC0(uint16_t obj);                                       /* $02E190 a5 */
+void CaptainSE8(uint16_t obj);                                       /* $02E1C8 a5 */
+void CaptainS34(uint16_t obj);                                       /* $02E210 a5 */
+void CaptainS38(uint16_t obj);                                       /* $02E224 a5 */
+void CaptainS3C(uint16_t obj);                                       /* $02E258 a5 */
+void CaptainSE0(uint16_t obj);                                       /* $02E262 a5 */
+void CaptainSE4(uint16_t obj);                                       /* $02E296 a5 */
+void CaptainS48(uint16_t obj);                                       /* $02E2A0 a5 */
+void CaptainS50(uint16_t obj);                                       /* $02E2BC a5 */
+void CaptainS54(uint16_t obj);                                       /* $02E356 a5 */
+void CaptainS58(uint16_t obj);                                       /* $02E3B2 a5 */
+void CaptainS5C(uint16_t obj);                                       /* $02E40E a5 */
+void CaptainSF4(uint16_t obj);                                       /* $02E4F0 a5 */
+void CaptainSF0(uint16_t obj);                                       /* $02E432 a5 */
+void CaptainS60(uint16_t obj);                                       /* $02E5A2 a5 */
+void CaptainS78(uint16_t obj);                                       /* $02E60A a5 */
+void CaptainS7C(uint16_t obj);                                       /* $02E66A a5 */
+void CaptainS80(uint16_t obj);                                       /* $02E674 a5 */
+void CaptainS84(uint16_t obj);                                       /* $02E694 a5 */
+void CaptainS88(uint16_t obj);                                       /* $02E6D6 a5 */
+void CaptainS8C(uint16_t obj);                                       /* $02E78E a5 */
+void CaptainS90(uint16_t obj);                                       /* $02E7D2 a5 */
+void CaptainS94(uint16_t obj);                                       /* $02E844 a5 */
+void CaptainS98(uint16_t obj);                                       /* $02E91C a5 */
+void CaptainSC4(uint16_t obj);                                       /* $02E926 a5 */
+void CaptainSC8(uint16_t obj);                                       /* $02E94A a5 */
+void CaptainSCC(uint16_t obj);                                       /* $02E9E4 a5 */
+void CaptainSEC(uint16_t obj);                                       /* $02EA0A a5 */
+void CaptainS00(uint16_t obj);                                       /* $02D736 a5 */
+void CaptainFrame(uint16_t obj);                                     /* $02D470 a5 */
+void Captain(uint16_t obj);                                          /* $02D40E a5 */
 
 /* ---- not ported yet ---- */
 

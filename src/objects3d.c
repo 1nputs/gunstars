@@ -1513,7 +1513,11 @@ void DeckBossSink(uint16_t obj)
         wr32(0xA9D4, 0);
         wr16(0xA9C0, 1);
         uint32_t list = 0x0092CE;
+        uint16_t kind = rom16(list);
         NextJob(&list);
+        /* this call does not keep a5: a job of kind 2 (ClearTilePixels) leaves it at $FFB480,
+         * and the rest of the frame works there */
+        if (!(kind & 0x8000) && (kind & 2) && !(kind & 4)) reg_a5_left = obj = 0xB480;
     }
     deck_sink_frame(obj, 1);
 }
@@ -1660,7 +1664,9 @@ void DeckBossDone(uint16_t obj)
 void DeckBoss(uint16_t obj)
 {
     Random();
+    reg_a5_left = 0;
     call_object(rom32(0x03D516 + (uint32_t)(int16_t)rd16(obj + O_STATE)), obj);
+    if (reg_a5_left) obj = reg_a5_left;
     wr16(obj + 0x4C, rd16(obj + 0x4C) & 0xFFE3);
     if ((int16_t)(rd16(obj + O_Y) - 0x150) >= 0) wr8(obj + 0x4D, (uint8_t)(rd8(obj + 0x4D) | 0x10));
     if (!bit8(obj + 0x4D, 5)) return;

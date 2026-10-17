@@ -136,9 +136,13 @@ void ScreenShake(void)
 
 /* an object's routine (by its type), then: its collisions and walls of the frame cleared;
  * removed if it asks (flags bit 12) or, with bit 9, when off the screen; else drawn (`draw`) */
-static void run_object(uint16_t obj, int draw)
+uint16_t reg_a5_left;
+
+static uint16_t run_object(uint16_t obj, int draw)
 {
+    reg_a5_left = 0;
     call_object(rom32(OBJECT_ROUTINES + (uint32_t)(int16_t)rd16(obj + O_TYPE)), obj);
+    if (reg_a5_left) obj = reg_a5_left;
     wr8(obj + 0x22, 0);
     wr8(obj + 0x47, 0);
     if (!bit8(obj + O_FLAGS, 4)) {
@@ -146,10 +150,11 @@ static void run_object(uint16_t obj, int draw)
             wr16(rd16(v_drawPtr), obj);
             wr16(v_drawPtr, (uint16_t)(rd16(v_drawPtr) + 2));
         }
-        if (!bit8(obj + O_FLAGS, 1)) return;
-        if ((uint16_t)(rd16(obj + O_X) - 0x70) <= 0x160 && (uint16_t)(rd16(obj + O_Y) - 0x40) <= 0x130) return;
+        if (!bit8(obj + O_FLAGS, 1)) return obj;
+        if ((uint16_t)(rd16(obj + O_X) - 0x70) <= 0x160 && (uint16_t)(rd16(obj + O_Y) - 0x40) <= 0x130) return obj;
     }
     ObjectClear(obj);
+    return obj;
 }
 
 /* $018BE6. The effects ($FFBFC0-$FFC7FF, $60 each): the players' shots, sparks, dust. */
@@ -157,7 +162,7 @@ void EffectsUpdate(void)
 {
     if (rd8(v_pauseFlags) & 0x80) return;
     for (uint16_t obj = 0xBFC0; obj < 0xC800; obj = (uint16_t)(obj + 0x60))
-        if (rd16(obj + O_TYPE)) run_object(obj, 1);
+        if (rd16(obj + O_TYPE)) obj = run_object(obj, 1);
 }
 
 /* $01ABC8. The objects: the ones the level brings in, the one at $FFA800 (not drawn), then
@@ -172,7 +177,7 @@ void ObjectsUpdate(void)
     ObjectsSpawn();
     if (rd16(0xA800)) run_object(0xA800, 0);
     for (uint16_t obj = 0xC800; obj < 0xE000; obj = (uint16_t)(obj + 0x60))
-        if (rd16(obj + O_TYPE)) run_object(obj, 1);
+        if (rd16(obj + O_TYPE)) obj = run_object(obj, 1);
 }
 
 /* $01ACF0. The level's objects whose x the camera's right edge ($140 on) has reached, while it
