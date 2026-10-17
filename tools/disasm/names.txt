@@ -1403,3 +1403,13 @@ FFF766 v_textLine            # the text box's line (times 8)
 02B1DC SoldierS00
 02AECE Soldier
 02A906 ObjectRelease
+# ---- small objects and the orbiting segments (src/parts.c) [the objects]
+0561D8 AnimListFall
+037D54 HopperStart
+037D82 HopperDone
+037D84 HopperWait
+037D3E Hopper
+0277BE BossColours
+0272E0 OrbiterSetup
+027144 Orbiter
+0277E8 OrbitersStart

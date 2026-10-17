@@ -1364,6 +1364,17 @@ void SoldierSEC(uint16_t obj);                                       /* $02C4D2 
 void SoldierS00(uint16_t obj);                                       /* $02B1DC a5 */
 void Soldier(uint16_t obj);                                          /* $02AECE a5 */
 
+/* ---- small objects and the orbiting segments (parts.c) ---- */
+void AnimListFall(uint16_t obj);                                     /* $0561D8 a5 */
+void HopperStart(uint16_t obj);                                      /* $037D54 a5 */
+void HopperDone(uint16_t obj);                                       /* $037D82 a5 */
+void HopperWait(uint16_t obj);                                       /* $037D84 a5 */
+void Hopper(uint16_t obj);                                           /* $037D3E a5 */
+uint32_t BossColours(uint32_t colours);                              /* $0277BE a4 -> a4 */
+uint16_t OrbiterSetup(uint16_t parent, uint32_t maps, uint32_t radii, uint32_t links, uint16_t count, uint16_t slot, uint32_t *look); /* $0272E0 a5, a0, a1, a2, d7.w, a4.w -> a4.w, a3, a6=reg_a6 */
+void Orbiter(uint16_t obj);                                          /* $027144 a5 */
+void OrbitersStart(uint16_t obj);                                    /* $0277E8 a5 */
+
 /* ---- not ported yet ---- */
 
 /* ---- dispatch (dispatch.c): a jsr / jmp through an address the game computed ---- */
