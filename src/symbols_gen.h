@@ -1467,34 +1467,34 @@
 #define SYM_SceneVoice 0x021600u
 #define SYM_SceneRed 0x02161Cu
 #define SYM_SceneBlue 0x02162Au
-#define SYM_sub_21638 0x021638u
-#define SYM_sub_21662 0x021662u
-#define SYM_sub_216F2 0x0216F2u
-#define SYM_sub_21718 0x021718u
-#define SYM_sub_217A2 0x0217A2u
-#define SYM_sub_217E4 0x0217E4u
-#define SYM_sub_217FE 0x0217FEu
-#define SYM_sub_21836 0x021836u
-#define SYM_sub_2184E 0x02184Eu
-#define SYM_sub_21878 0x021878u
-#define SYM_sub_2189C 0x02189Cu
-#define SYM_sub_218D0 0x0218D0u
+#define SYM_CraftType 0x021638u
+#define SYM_CraftA 0x021662u
+#define SYM_CraftBob 0x0216F2u
+#define SYM_CraftB 0x021718u
+#define SYM_CraftC 0x0217A2u
+#define SYM_CraftD 0x0217E4u
+#define SYM_CraftD0 0x0217FEu
+#define SYM_CraftD1 0x021836u
+#define SYM_CraftD2 0x02184Eu
+#define SYM_CraftD3 0x021878u
+#define SYM_CraftD4 0x02189Cu
+#define SYM_CraftD5 0x0218D0u
 #define SYM_ActorTypeA 0x021900u
 #define SYM_ActorA 0x02191Eu
-#define SYM_sub_219B2 0x0219B2u
-#define SYM_sub_219D8 0x0219D8u
-#define SYM_sub_21A34 0x021A34u
-#define SYM_sub_21A90 0x021A90u
+#define SYM_DebrisType 0x0219B2u
+#define SYM_DebrisA 0x0219D8u
+#define SYM_DebrisB 0x021A34u
+#define SYM_DebrisC 0x021A90u
 #define SYM_FigureTypeC 0x021BEAu
 #define SYM_FigureC 0x021C08u
-#define SYM_sub_21C4A 0x021C4Au
-#define SYM_sub_21C80 0x021C80u
-#define SYM_sub_21CC2 0x021CC2u
-#define SYM_sub_21D3A 0x021D3Au
-#define SYM_sub_21D7C 0x021D7Cu
-#define SYM_sub_21DBE 0x021DBEu
-#define SYM_sub_21E00 0x021E00u
-#define SYM_sub_21E42 0x021E42u
+#define SYM_FigureTypeE 0x021C4Au
+#define SYM_FigureE1 0x021C80u
+#define SYM_FigureE2 0x021CC2u
+#define SYM_FigureE3 0x021D3Au
+#define SYM_FigureE4 0x021D7Cu
+#define SYM_FigureE5 0x021DBEu
+#define SYM_FigureE6 0x021E00u
+#define SYM_FigureE7 0x021E42u
 #define SYM_FigureTypeD 0x021E84u
 #define SYM_FigureD1 0x021EAAu
 #define SYM_FigureD2 0x021EEEu
@@ -6325,34 +6325,34 @@ static const struct sym rom_syms[] = {
     { 0x021600u, "SceneVoice" },
     { 0x02161Cu, "SceneRed" },
     { 0x02162Au, "SceneBlue" },
-    { 0x021638u, "sub_21638" },
-    { 0x021662u, "sub_21662" },
-    { 0x0216F2u, "sub_216F2" },
-    { 0x021718u, "sub_21718" },
-    { 0x0217A2u, "sub_217A2" },
-    { 0x0217E4u, "sub_217E4" },
-    { 0x0217FEu, "sub_217FE" },
-    { 0x021836u, "sub_21836" },
-    { 0x02184Eu, "sub_2184E" },
-    { 0x021878u, "sub_21878" },
-    { 0x02189Cu, "sub_2189C" },
-    { 0x0218D0u, "sub_218D0" },
+    { 0x021638u, "CraftType" },
+    { 0x021662u, "CraftA" },
+    { 0x0216F2u, "CraftBob" },
+    { 0x021718u, "CraftB" },
+    { 0x0217A2u, "CraftC" },
+    { 0x0217E4u, "CraftD" },
+    { 0x0217FEu, "CraftD0" },
+    { 0x021836u, "CraftD1" },
+    { 0x02184Eu, "CraftD2" },
+    { 0x021878u, "CraftD3" },
+    { 0x02189Cu, "CraftD4" },
+    { 0x0218D0u, "CraftD5" },
     { 0x021900u, "ActorTypeA" },
     { 0x02191Eu, "ActorA" },
-    { 0x0219B2u, "sub_219B2" },
-    { 0x0219D8u, "sub_219D8" },
-    { 0x021A34u, "sub_21A34" },
-    { 0x021A90u, "sub_21A90" },
+    { 0x0219B2u, "DebrisType" },
+    { 0x0219D8u, "DebrisA" },
+    { 0x021A34u, "DebrisB" },
+    { 0x021A90u, "DebrisC" },
     { 0x021BEAu, "FigureTypeC" },
     { 0x021C08u, "FigureC" },
-    { 0x021C4Au, "sub_21C4A" },
-    { 0x021C80u, "sub_21C80" },
-    { 0x021CC2u, "sub_21CC2" },
-    { 0x021D3Au, "sub_21D3A" },
-    { 0x021D7Cu, "sub_21D7C" },
-    { 0x021DBEu, "sub_21DBE" },
-    { 0x021E00u, "sub_21E00" },
-    { 0x021E42u, "sub_21E42" },
+    { 0x021C4Au, "FigureTypeE" },
+    { 0x021C80u, "FigureE1" },
+    { 0x021CC2u, "FigureE2" },
+    { 0x021D3Au, "FigureE3" },
+    { 0x021D7Cu, "FigureE4" },
+    { 0x021DBEu, "FigureE5" },
+    { 0x021E00u, "FigureE6" },
+    { 0x021E42u, "FigureE7" },
     { 0x021E84u, "FigureTypeD" },
     { 0x021EAAu, "FigureD1" },
     { 0x021EEEu, "FigureD2" },

@@ -1193,6 +1193,30 @@ void FigureD1(uint16_t obj);                                         /* $021EAA 
 void FigureD2(uint16_t obj);                                         /* $021EEE a5 */
 void FigureD3(uint16_t obj);                                         /* $021F32 a5 */
 void FigureTypeD(uint16_t obj);                                      /* $021E84 a5 */
+void CraftBob(uint16_t obj);                                         /* $0216F2 a5 */
+void CraftA(uint16_t obj);                                           /* $021662 a5 */
+void CraftB(uint16_t obj);                                           /* $021718 a5 */
+void CraftC(uint16_t obj);                                           /* $0217A2 a5 */
+void CraftD0(uint16_t obj);                                          /* $0217FE a5 */
+void CraftD1(uint16_t obj);                                          /* $021836 a5 */
+void CraftD2(uint16_t obj);                                          /* $02184E a5 */
+void CraftD3(uint16_t obj);                                          /* $021878 a5 */
+void CraftD4(uint16_t obj);                                          /* $02189C a5 */
+void CraftD5(uint16_t obj);                                          /* $0218D0 a5 */
+void CraftD(uint16_t obj);                                           /* $0217E4 a5 */
+void CraftType(uint16_t obj);                                        /* $021638 a5 */
+void DebrisA(uint16_t obj);                                          /* $0219D8 a5 */
+void DebrisB(uint16_t obj);                                          /* $021A34 a5 */
+void DebrisC(uint16_t obj);                                          /* $021A90 a5 */
+void DebrisType(uint16_t obj);                                       /* $0219B2 a5 */
+void FigureE1(uint16_t obj);                                         /* $021C80 a5 */
+void FigureE2(uint16_t obj);                                         /* $021CC2 a5 */
+void FigureE3(uint16_t obj);                                         /* $021D3A a5 */
+void FigureE4(uint16_t obj);                                         /* $021D7C a5 */
+void FigureE5(uint16_t obj);                                         /* $021DBE a5 */
+void FigureE6(uint16_t obj);                                         /* $021E00 a5 */
+void FigureE7(uint16_t obj);                                         /* $021E42 a5 */
+void FigureTypeE(uint16_t obj);                                      /* $021C4A a5 */
 
 /* ---- not ported yet ---- */
 
