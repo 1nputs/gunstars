@@ -32,6 +32,7 @@ uint8_t ym_read8(uint16_t off);      /* move.b from $A04000 + off (the busy flag
 void ym_write8(uint16_t off, uint8_t v);       /* move.b to $A04000 + off */
 uint8_t z80_ram_read8(uint16_t off);           /* move.b from Z80 RAM, the bus held */
 void z80_ram_write8(uint16_t off, uint8_t v);  /* move.b to Z80 RAM */
+void z80_ram_write32(uint16_t off, uint32_t v); /* move.l to Z80 RAM (the boot's clear) */
 void z80_busreq(uint16_t v);         /* move.w to $A11100: $100 takes the Z80's bus, 0 gives it back */
 uint8_t z80_busack(void);            /* btst #0,($A11100).l reads this byte: bit 0 set while the Z80 has it */
 void z80_reset(uint16_t v);          /* move.w to $A11200: 0 holds the Z80 (and the YM2612) in reset */

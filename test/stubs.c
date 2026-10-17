@@ -12,3 +12,10 @@ void call68k_missing(uint32_t addr)
     if (!c) { replay_fail("no recorded call of %06x (call68k)", addr & 0xFFFFFF); return; }
     replay_apply(c);
 }
+
+/* $000CCA: the game's frame (every mode's routines) */
+STUB void GameFrame(void)
+{
+    TAKE(GameFrame);
+    replay_apply(c);
+}

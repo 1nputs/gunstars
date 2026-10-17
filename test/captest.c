@@ -6,11 +6,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <setjmp.h>
 #include "game.h"
 #include "replay.h"
 #include "ports.h"
 
 static int verbose, reg_fail;
+static jmp_buf abandon;
+
+void replay_abandon(void) { longjmp(abandon, 1); }
 
 void expect_reg16(const Record *r, int reg, uint32_t got, const char *what)
 {
@@ -59,8 +63,10 @@ static int run_record(Record *r, const Port *p)
     hal_replay_sr((uint16_t)r->regs_in[R_SR]);
     replay_begin(r);
     replay_failures = 0; reg_fail = 0;
-    p->run(r);
-    replay_end();
+    if (!setjmp(abandon)) {
+        p->run(r);
+        replay_end();
+    }
     int bad = 0;
     for (uint32_t i = 0; i < RAM_SIZE; i++) {
         if (i >= STACK_LO && i < STACK_HI) continue;
@@ -97,13 +103,13 @@ static void run_capture(Record *recs, size_t n, const char **only, int nonly, lo
         int tested = 0, passed = 0, skipped = 0;
         for (size_t i = 0; i < n; i++) {
             if (recs[i].pc != p->pc) continue;
-            if ((recs[i].flags & 3) && !record_irqs_clean(&recs[i])) { skipped++; continue; }
+            if ((recs[i].flags & 19) && !record_irqs_clean(&recs[i])) { skipped++; continue; }
             tested++;
             if (verbose) printf("  %s record %zu (frame %u, %u nested blocks)\n", p->name, i, recs[i].frame, recs[i].n_calls);
             if (run_record(&recs[i], p)) passed++;
             else printf("  FAIL %s record %zu (frame %u)\n", p->name, i, recs[i].frame);
         }
-        if (tested || skipped) printf("%-24s %d/%d passed (%d skipped: a vertical blank outside a wait, or an abnormal exit)\n", p->name, passed, tested, skipped);
+        if (tested || skipped) printf("%-24s %d/%d passed (%d skipped: left by unwinding, or RAM written by the host)\n", p->name, passed, tested, skipped);
         *tested_all += tested;
         *failed_all += tested - passed;
         *skipped_all += skipped;

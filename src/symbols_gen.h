@@ -11,8 +11,8 @@
 #define SYM_Nothing 0x000BB0u
 #define SYM_VBlank 0x000BB2u
 #define SYM_CheckPause 0x000C36u
-#define SYM_sub_00C88 0x000C88u
-#define SYM_sub_00CCA 0x000CCAu
+#define SYM_UpdateSound 0x000C88u
+#define SYM_GameFrame 0x000CCAu
 #define SYM_VBlankDma 0x000D36u
 #define SYM_VdpWriteRegs 0x000F4Cu
 #define SYM_VdpWriteReg0 0x000F9Cu
@@ -80,12 +80,12 @@
 #define SYM_sub_02A32 0x002A32u
 #define SYM_sub_02A56 0x002A56u
 #define SYM_sub_02A6C 0x002A6Cu
-#define SYM_sub_02A7C 0x002A7Cu
+#define SYM_FrameInit 0x002A7Cu
 #define SYM_sub_02AAA 0x002AAAu
-#define SYM_sub_02AB4 0x002AB4u
+#define SYM_VdpInitRegs 0x002AB4u
 #define SYM_sub_02AD6 0x002AD6u
 #define SYM_sub_02ADE 0x002ADEu
-#define SYM_sub_02B2A 0x002B2Au
+#define SYM_IoInit 0x002B2Au
 #define SYM_sub_02B68 0x002B68u
 #define SYM_sub_02B82 0x002B82u
 #define SYM_sub_02B9C 0x002B9Cu
@@ -96,7 +96,7 @@
 #define SYM_sub_02CA0 0x002CA0u
 #define SYM_sub_02CB8 0x002CB8u
 #define SYM_sub_02CE8 0x002CE8u
-#define SYM_sub_02D00 0x002D00u
+#define SYM_ClearRamB800 0x002D00u
 #define SYM_sub_02D18 0x002D18u
 #define SYM_sub_02D30 0x002D30u
 #define SYM_sub_02D50 0x002D50u
@@ -104,8 +104,8 @@
 #define SYM_sub_02D80 0x002D80u
 #define SYM_sub_02D98 0x002D98u
 #define SYM_sub_02DB0 0x002DB0u
-#define SYM_sub_02DC8 0x002DC8u
-#define SYM_sub_02DE0 0x002DE0u
+#define SYM_ClearRamF000 0x002DC8u
+#define SYM_ClearDmaArea 0x002DE0u
 #define SYM_sub_02E28 0x002E28u
 #define SYM_sub_02EB8 0x002EB8u
 #define SYM_sub_02EE8 0x002EE8u
@@ -119,7 +119,7 @@
 #define SYM_RemapButtons 0x00311Eu
 #define SYM_CopyBit 0x003148u
 #define SYM_PadId 0x003156u
-#define SYM_sub_03196 0x003196u
+#define SYM_QueueSound 0x003196u
 #define SYM_sub_03202 0x003202u
 #define SYM_sub_03526 0x003526u
 #define SYM_sub_035D6 0x0035D6u
@@ -3151,79 +3151,92 @@
 #define SYM_sub_6347C 0x06347Cu
 #define SYM_sub_6349A 0x06349Au
 #define SYM_sub_634C8 0x0634C8u
-#define SYM_sub_65600 0x065600u
-#define SYM_sub_65604 0x065604u
-#define SYM_sub_656C0 0x0656C0u
-#define SYM_sub_6575E 0x06575Eu
-#define SYM_sub_65788 0x065788u
-#define SYM_sub_657BE 0x0657BEu
-#define SYM_sub_657F0 0x0657F0u
-#define SYM_sub_65810 0x065810u
-#define SYM_sub_65858 0x065858u
-#define SYM_sub_65880 0x065880u
-#define SYM_sub_658D0 0x0658D0u
-#define SYM_sub_6592E 0x06592Eu
-#define SYM_sub_65A1C 0x065A1Cu
+#define SYM_SoundDriver 0x065600u
+#define SYM_SoundInit 0x065604u
+#define SYM_SoundDacTrack 0x0656C0u
+#define SYM_SoundFmTrack 0x06575Eu
+#define SYM_SoundFmNextNote 0x065788u
+#define SYM_SoundFmNote 0x0657BEu
+#define SYM_SoundSetDuration 0x0657F0u
+#define SYM_SoundNoteStart 0x065810u
+#define SYM_SoundNoteFill 0x065858u
+#define SYM_SoundModulate 0x065880u
+#define SYM_SoundFmNoteFreq 0x0658D0u
+#define SYM_SoundFreq 0x06592Eu
+#define SYM_SoundPanStart 0x065A1Cu
 #define SYM_sub_65A2E 0x065A2Eu
-#define SYM_sub_65A30 0x065A30u
-#define SYM_sub_65A32 0x065A32u
-#define SYM_sub_65A34 0x065A34u
-#define SYM_sub_65A36 0x065A36u
+#define SYM_SoundPan1Start 0x065A30u
+#define SYM_SoundPan2Start 0x065A32u
+#define SYM_SoundPan3Start 0x065A34u
+#define SYM_SoundPanStep 0x065A36u
 #define SYM_sub_65A48 0x065A48u
 #define SYM_sub_65A4A 0x065A4Au
-#define SYM_sub_65A4C 0x065A4Cu
-#define SYM_sub_65A4E 0x065A4Eu
-#define SYM_sub_65B86 0x065B86u
-#define SYM_sub_65BC8 0x065BC8u
-#define SYM_sub_65C26 0x065C26u
-#define SYM_sub_65C32 0x065C32u
-#define SYM_sub_65FB8 0x065FB8u
-#define SYM_sub_6606A 0x06606Au
-#define SYM_sub_660FA 0x0660FAu
-#define SYM_sub_66174 0x066174u
-#define SYM_sub_661DC 0x0661DCu
-#define SYM_sub_6624E 0x06624Eu
-#define SYM_sub_6630C 0x06630Cu
-#define SYM_sub_66318 0x066318u
-#define SYM_sub_66324 0x066324u
-#define SYM_sub_6633C 0x06633Cu
-#define SYM_sub_6634E 0x06634Eu
-#define SYM_sub_6635A 0x06635Au
-#define SYM_sub_66380 0x066380u
-#define SYM_sub_6639E 0x06639Eu
-#define SYM_sub_663D0 0x0663D0u
-#define SYM_sub_66480 0x066480u
-#define SYM_sub_664A6 0x0664A6u
-#define SYM_sub_664DA 0x0664DAu
-#define SYM_sub_6650A 0x06650Au
-#define SYM_sub_66556 0x066556u
-#define SYM_sub_665A8 0x0665A8u
-#define SYM_sub_665FA 0x0665FAu
-#define SYM_sub_66600 0x066600u
-#define SYM_sub_685DC 0x0685DCu
-#define SYM_sub_685E6 0x0685E6u
-#define SYM_sub_685EA 0x0685EAu
-#define SYM_sub_685F6 0x0685F6u
-#define SYM_sub_685FE 0x0685FEu
-#define SYM_sub_68602 0x068602u
-#define SYM_sub_68606 0x068606u
-#define SYM_sub_68612 0x068612u
-#define SYM_sub_68616 0x068616u
-#define SYM_sub_68622 0x068622u
-#define SYM_sub_68626 0x068626u
-#define SYM_sub_6862E 0x06862Eu
-#define SYM_sub_68632 0x068632u
-#define SYM_sub_68636 0x068636u
-#define SYM_sub_6863A 0x06863Au
-#define SYM_sub_6863E 0x06863Eu
-#define SYM_sub_68642 0x068642u
-#define SYM_sub_68646 0x068646u
-#define SYM_sub_6864A 0x06864Au
-#define SYM_sub_68652 0x068652u
-#define SYM_sub_68656 0x068656u
-#define SYM_sub_6865A 0x06865Au
-#define SYM_sub_687B4 0x0687B4u
-#define SYM_sub_68826 0x068826u
+#define SYM_SoundPan2Step 0x065A4Cu
+#define SYM_SoundPan3Step 0x065A4Eu
+#define SYM_SoundTakeRequests 0x065B86u
+#define SYM_SoundPlayRequest 0x065BC8u
+#define SYM_SoundCmdFadeOut 0x065C26u
+#define SYM_SoundCmdStopEffects 0x065C2Au
+#define SYM_SoundCmdStopSpecial 0x065C2Eu
+#define SYM_SoundCmdStop 0x065C32u
+#define SYM_SoundStopEffects 0x065FB8u
+#define SYM_SoundStopSpecial 0x06606Au
+#define SYM_SoundFadeOut 0x0660FAu
+#define SYM_SoundTempo 0x066174u
+#define SYM_SoundVoiceSilence 0x0661A8u
+#define SYM_SoundSilenceFm 0x0661DCu
+#define SYM_SoundClearMusic 0x06624Eu
+#define SYM_SoundNoteOff 0x06630Cu
+#define SYM_SoundKeyOff 0x066318u
+#define SYM_SoundYmChannelBus 0x066324u
+#define SYM_SoundYmBus 0x06633Cu
+#define SYM_SoundYmChannel 0x06634Eu
+#define SYM_SoundYm1 0x06635Au
+#define SYM_SoundYm2 0x066380u
+#define SYM_SoundZ80Stop 0x06639Eu
+#define SYM_SoundSlide 0x0663D0u
+#define SYM_SoundPsgTrack 0x066480u
+#define SYM_SoundPsgNextNote 0x0664A6u
+#define SYM_SoundPsgNote 0x0664DAu
+#define SYM_SoundPsgNoteFreq 0x06650Au
+#define SYM_SoundPsgVolume 0x066556u
+#define SYM_SoundPsgSetVolume 0x0665A8u
+#define SYM_SoundPsgNoteOff 0x0665FAu
+#define SYM_SoundPsgOff 0x066600u
+#define SYM_SoundFlag 0x0685DCu
+#define SYM_SoundFlagPan 0x0685E6u
+#define SYM_SoundFlagDetune 0x0685EAu
+#define SYM_SoundFlagE2 0x0685EEu
+#define SYM_SoundFlagSilence 0x0685F2u
+#define SYM_SoundFlagPanAnim 0x0685F6u
+#define SYM_SoundFlagVolumeFmPsg 0x0685FAu
+#define SYM_SoundFlagVolumeFm 0x0685FEu
+#define SYM_SoundFlagTie 0x068602u
+#define SYM_SoundFlagNoteFill 0x068606u
+#define SYM_SoundFlagLfo 0x06860Au
+#define SYM_SoundFlagTempo 0x06860Eu
+#define SYM_SoundFlagQueue 0x068612u
+#define SYM_SoundFlagVolume 0x068616u
+#define SYM_SoundFlagYm 0x06861Au
+#define SYM_SoundFlagYm1 0x06861Eu
+#define SYM_SoundFlagVoice 0x068622u
+#define SYM_SoundFlagModulation 0x068626u
+#define SYM_SoundFlagEnvelopeFmPsg 0x06862Au
+#define SYM_SoundFlagStop 0x06862Eu
+#define SYM_SoundFlagNoise 0x068632u
+#define SYM_SoundFlagEnvelope 0x068636u
+#define SYM_SoundFlagVolEnvelope 0x06863Au
+#define SYM_SoundFlagJump 0x06863Eu
+#define SYM_SoundFlagLoop 0x068642u
+#define SYM_SoundFlagCall 0x068646u
+#define SYM_SoundFlagReturn 0x06864Au
+#define SYM_SoundFlagDivider 0x06864Eu
+#define SYM_SoundFlagTranspose 0x068652u
+#define SYM_SoundFlagModOn 0x068656u
+#define SYM_SoundFlagModOff 0x06865Au
+#define SYM_SoundFlagFm3 0x06865Eu
+#define SYM_SoundLoadVoice 0x0687B4u
+#define SYM_SoundFmVolume 0x068826u
 
 /* work RAM: offsets ($FFxxxx & $FFFF) */
 enum {
@@ -3263,10 +3276,12 @@ enum {
     v_fadeLevel = 0xF75E,
     v_vdpRegs = 0xF7D0,
     v_soundPause = 0xF807,
+    v_soundQueue = 0xF80A,
     v_padId = 0xFF06,
     v_randomSeed = 0xFF08,
     v_gameMode = 0xFF0C,
     v_buttonMap = 0xFF20,
+    v_consoleVersion = 0xFF26,
     v_fadeColor = 0xFF28,
 };
 
@@ -3280,8 +3295,8 @@ static const struct sym rom_syms[] = {
     { 0x000BB0u, "Nothing" },
     { 0x000BB2u, "VBlank" },
     { 0x000C36u, "CheckPause" },
-    { 0x000C88u, "sub_00C88" },
-    { 0x000CCAu, "sub_00CCA" },
+    { 0x000C88u, "UpdateSound" },
+    { 0x000CCAu, "GameFrame" },
     { 0x000D36u, "VBlankDma" },
     { 0x000F4Cu, "VdpWriteRegs" },
     { 0x000F9Cu, "VdpWriteReg0" },
@@ -3349,12 +3364,12 @@ static const struct sym rom_syms[] = {
     { 0x002A32u, "sub_02A32" },
     { 0x002A56u, "sub_02A56" },
     { 0x002A6Cu, "sub_02A6C" },
-    { 0x002A7Cu, "sub_02A7C" },
+    { 0x002A7Cu, "FrameInit" },
     { 0x002AAAu, "sub_02AAA" },
-    { 0x002AB4u, "sub_02AB4" },
+    { 0x002AB4u, "VdpInitRegs" },
     { 0x002AD6u, "sub_02AD6" },
     { 0x002ADEu, "sub_02ADE" },
-    { 0x002B2Au, "sub_02B2A" },
+    { 0x002B2Au, "IoInit" },
     { 0x002B68u, "sub_02B68" },
     { 0x002B82u, "sub_02B82" },
     { 0x002B9Cu, "sub_02B9C" },
@@ -3365,7 +3380,7 @@ static const struct sym rom_syms[] = {
     { 0x002CA0u, "sub_02CA0" },
     { 0x002CB8u, "sub_02CB8" },
     { 0x002CE8u, "sub_02CE8" },
-    { 0x002D00u, "sub_02D00" },
+    { 0x002D00u, "ClearRamB800" },
     { 0x002D18u, "sub_02D18" },
     { 0x002D30u, "sub_02D30" },
     { 0x002D50u, "sub_02D50" },
@@ -3373,8 +3388,8 @@ static const struct sym rom_syms[] = {
     { 0x002D80u, "sub_02D80" },
     { 0x002D98u, "sub_02D98" },
     { 0x002DB0u, "sub_02DB0" },
-    { 0x002DC8u, "sub_02DC8" },
-    { 0x002DE0u, "sub_02DE0" },
+    { 0x002DC8u, "ClearRamF000" },
+    { 0x002DE0u, "ClearDmaArea" },
     { 0x002E28u, "sub_02E28" },
     { 0x002EB8u, "sub_02EB8" },
     { 0x002EE8u, "sub_02EE8" },
@@ -3388,7 +3403,7 @@ static const struct sym rom_syms[] = {
     { 0x00311Eu, "RemapButtons" },
     { 0x003148u, "CopyBit" },
     { 0x003156u, "PadId" },
-    { 0x003196u, "sub_03196" },
+    { 0x003196u, "QueueSound" },
     { 0x003202u, "sub_03202" },
     { 0x003526u, "sub_03526" },
     { 0x0035D6u, "sub_035D6" },
@@ -6420,79 +6435,92 @@ static const struct sym rom_syms[] = {
     { 0x06347Cu, "sub_6347C" },
     { 0x06349Au, "sub_6349A" },
     { 0x0634C8u, "sub_634C8" },
-    { 0x065600u, "sub_65600" },
-    { 0x065604u, "sub_65604" },
-    { 0x0656C0u, "sub_656C0" },
-    { 0x06575Eu, "sub_6575E" },
-    { 0x065788u, "sub_65788" },
-    { 0x0657BEu, "sub_657BE" },
-    { 0x0657F0u, "sub_657F0" },
-    { 0x065810u, "sub_65810" },
-    { 0x065858u, "sub_65858" },
-    { 0x065880u, "sub_65880" },
-    { 0x0658D0u, "sub_658D0" },
-    { 0x06592Eu, "sub_6592E" },
-    { 0x065A1Cu, "sub_65A1C" },
+    { 0x065600u, "SoundDriver" },
+    { 0x065604u, "SoundInit" },
+    { 0x0656C0u, "SoundDacTrack" },
+    { 0x06575Eu, "SoundFmTrack" },
+    { 0x065788u, "SoundFmNextNote" },
+    { 0x0657BEu, "SoundFmNote" },
+    { 0x0657F0u, "SoundSetDuration" },
+    { 0x065810u, "SoundNoteStart" },
+    { 0x065858u, "SoundNoteFill" },
+    { 0x065880u, "SoundModulate" },
+    { 0x0658D0u, "SoundFmNoteFreq" },
+    { 0x06592Eu, "SoundFreq" },
+    { 0x065A1Cu, "SoundPanStart" },
     { 0x065A2Eu, "sub_65A2E" },
-    { 0x065A30u, "sub_65A30" },
-    { 0x065A32u, "sub_65A32" },
-    { 0x065A34u, "sub_65A34" },
-    { 0x065A36u, "sub_65A36" },
+    { 0x065A30u, "SoundPan1Start" },
+    { 0x065A32u, "SoundPan2Start" },
+    { 0x065A34u, "SoundPan3Start" },
+    { 0x065A36u, "SoundPanStep" },
     { 0x065A48u, "sub_65A48" },
     { 0x065A4Au, "sub_65A4A" },
-    { 0x065A4Cu, "sub_65A4C" },
-    { 0x065A4Eu, "sub_65A4E" },
-    { 0x065B86u, "sub_65B86" },
-    { 0x065BC8u, "sub_65BC8" },
-    { 0x065C26u, "sub_65C26" },
-    { 0x065C32u, "sub_65C32" },
-    { 0x065FB8u, "sub_65FB8" },
-    { 0x06606Au, "sub_6606A" },
-    { 0x0660FAu, "sub_660FA" },
-    { 0x066174u, "sub_66174" },
-    { 0x0661DCu, "sub_661DC" },
-    { 0x06624Eu, "sub_6624E" },
-    { 0x06630Cu, "sub_6630C" },
-    { 0x066318u, "sub_66318" },
-    { 0x066324u, "sub_66324" },
-    { 0x06633Cu, "sub_6633C" },
-    { 0x06634Eu, "sub_6634E" },
-    { 0x06635Au, "sub_6635A" },
-    { 0x066380u, "sub_66380" },
-    { 0x06639Eu, "sub_6639E" },
-    { 0x0663D0u, "sub_663D0" },
-    { 0x066480u, "sub_66480" },
-    { 0x0664A6u, "sub_664A6" },
-    { 0x0664DAu, "sub_664DA" },
-    { 0x06650Au, "sub_6650A" },
-    { 0x066556u, "sub_66556" },
-    { 0x0665A8u, "sub_665A8" },
-    { 0x0665FAu, "sub_665FA" },
-    { 0x066600u, "sub_66600" },
-    { 0x0685DCu, "sub_685DC" },
-    { 0x0685E6u, "sub_685E6" },
-    { 0x0685EAu, "sub_685EA" },
-    { 0x0685F6u, "sub_685F6" },
-    { 0x0685FEu, "sub_685FE" },
-    { 0x068602u, "sub_68602" },
-    { 0x068606u, "sub_68606" },
-    { 0x068612u, "sub_68612" },
-    { 0x068616u, "sub_68616" },
-    { 0x068622u, "sub_68622" },
-    { 0x068626u, "sub_68626" },
-    { 0x06862Eu, "sub_6862E" },
-    { 0x068632u, "sub_68632" },
-    { 0x068636u, "sub_68636" },
-    { 0x06863Au, "sub_6863A" },
-    { 0x06863Eu, "sub_6863E" },
-    { 0x068642u, "sub_68642" },
-    { 0x068646u, "sub_68646" },
-    { 0x06864Au, "sub_6864A" },
-    { 0x068652u, "sub_68652" },
-    { 0x068656u, "sub_68656" },
-    { 0x06865Au, "sub_6865A" },
-    { 0x0687B4u, "sub_687B4" },
-    { 0x068826u, "sub_68826" },
+    { 0x065A4Cu, "SoundPan2Step" },
+    { 0x065A4Eu, "SoundPan3Step" },
+    { 0x065B86u, "SoundTakeRequests" },
+    { 0x065BC8u, "SoundPlayRequest" },
+    { 0x065C26u, "SoundCmdFadeOut" },
+    { 0x065C2Au, "SoundCmdStopEffects" },
+    { 0x065C2Eu, "SoundCmdStopSpecial" },
+    { 0x065C32u, "SoundCmdStop" },
+    { 0x065FB8u, "SoundStopEffects" },
+    { 0x06606Au, "SoundStopSpecial" },
+    { 0x0660FAu, "SoundFadeOut" },
+    { 0x066174u, "SoundTempo" },
+    { 0x0661A8u, "SoundVoiceSilence" },
+    { 0x0661DCu, "SoundSilenceFm" },
+    { 0x06624Eu, "SoundClearMusic" },
+    { 0x06630Cu, "SoundNoteOff" },
+    { 0x066318u, "SoundKeyOff" },
+    { 0x066324u, "SoundYmChannelBus" },
+    { 0x06633Cu, "SoundYmBus" },
+    { 0x06634Eu, "SoundYmChannel" },
+    { 0x06635Au, "SoundYm1" },
+    { 0x066380u, "SoundYm2" },
+    { 0x06639Eu, "SoundZ80Stop" },
+    { 0x0663D0u, "SoundSlide" },
+    { 0x066480u, "SoundPsgTrack" },
+    { 0x0664A6u, "SoundPsgNextNote" },
+    { 0x0664DAu, "SoundPsgNote" },
+    { 0x06650Au, "SoundPsgNoteFreq" },
+    { 0x066556u, "SoundPsgVolume" },
+    { 0x0665A8u, "SoundPsgSetVolume" },
+    { 0x0665FAu, "SoundPsgNoteOff" },
+    { 0x066600u, "SoundPsgOff" },
+    { 0x0685DCu, "SoundFlag" },
+    { 0x0685E6u, "SoundFlagPan" },
+    { 0x0685EAu, "SoundFlagDetune" },
+    { 0x0685EEu, "SoundFlagE2" },
+    { 0x0685F2u, "SoundFlagSilence" },
+    { 0x0685F6u, "SoundFlagPanAnim" },
+    { 0x0685FAu, "SoundFlagVolumeFmPsg" },
+    { 0x0685FEu, "SoundFlagVolumeFm" },
+    { 0x068602u, "SoundFlagTie" },
+    { 0x068606u, "SoundFlagNoteFill" },
+    { 0x06860Au, "SoundFlagLfo" },
+    { 0x06860Eu, "SoundFlagTempo" },
+    { 0x068612u, "SoundFlagQueue" },
+    { 0x068616u, "SoundFlagVolume" },
+    { 0x06861Au, "SoundFlagYm" },
+    { 0x06861Eu, "SoundFlagYm1" },
+    { 0x068622u, "SoundFlagVoice" },
+    { 0x068626u, "SoundFlagModulation" },
+    { 0x06862Au, "SoundFlagEnvelopeFmPsg" },
+    { 0x06862Eu, "SoundFlagStop" },
+    { 0x068632u, "SoundFlagNoise" },
+    { 0x068636u, "SoundFlagEnvelope" },
+    { 0x06863Au, "SoundFlagVolEnvelope" },
+    { 0x06863Eu, "SoundFlagJump" },
+    { 0x068642u, "SoundFlagLoop" },
+    { 0x068646u, "SoundFlagCall" },
+    { 0x06864Au, "SoundFlagReturn" },
+    { 0x06864Eu, "SoundFlagDivider" },
+    { 0x068652u, "SoundFlagTranspose" },
+    { 0x068656u, "SoundFlagModOn" },
+    { 0x06865Au, "SoundFlagModOff" },
+    { 0x06865Eu, "SoundFlagFm3" },
+    { 0x0687B4u, "SoundLoadVoice" },
+    { 0x068826u, "SoundFmVolume" },
 };
 static const struct sym ram_syms[] = {
     { 0xA204u, "v_stage4" },
@@ -6531,10 +6559,12 @@ static const struct sym ram_syms[] = {
     { 0xF75Eu, "v_fadeLevel" },
     { 0xF7D0u, "v_vdpRegs" },
     { 0xF807u, "v_soundPause" },
+    { 0xF80Au, "v_soundQueue" },
     { 0xFF06u, "v_padId" },
     { 0xFF08u, "v_randomSeed" },
     { 0xFF0Cu, "v_gameMode" },
     { 0xFF20u, "v_buttonMap" },
+    { 0xFF26u, "v_consoleVersion" },
     { 0xFF28u, "v_fadeColor" },
 };
 /* routines of one instruction (a shared rts, a jump): their recorded calls need no port */
@@ -6553,4 +6583,5 @@ static const uint32_t trivial_syms[] = {
     0x03DC9Cu, 0x040A50u, 0x048F30u, 0x048F66u, 0x049402u, 0x04AB3Eu, 0x04B01Cu, 0x04C20Au,
     0x04C4A6u, 0x04C4A8u, 0x04F4FCu, 0x050828u, 0x0508FCu, 0x050B1Cu, 0x050CB4u, 0x050DD0u,
     0x053140u, 0x058446u, 0x0590DEu, 0x05EF10u, 0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au,
+    0x065C2Au, 0x065C2Eu,
 };

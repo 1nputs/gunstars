@@ -162,7 +162,7 @@ class Disasm:
         out = []
         for k in range(128):
             e = base + k * step
-            if e + step > ROM_SIZE or self.owner[e] == 1 or (k and e in out):
+            if e + step > ROM_SIZE or (self.owner[e] == 1 and kind != 'bra') or (k and e in out):
                 break
             if kind == 'long':
                 t = int.from_bytes(rom[e:e + 4], 'big')

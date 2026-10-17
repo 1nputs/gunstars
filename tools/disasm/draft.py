@@ -626,6 +626,10 @@ class Draft:
             return
         if i.flow == COND and m[0] == 'b':
             c = self.cond(a, m[1:].split('.')[0])
+            if i.target in self.p.entries and i.target != self.r.entry:
+                t = i.target
+                self.items.append(['ifret', c, '{ %s %s }' % (self.call_text(t, self.p.routines[t].name), self.ret_text()), a])
+                return
             self.items.append(['if', c, i.target, a])
             return
         if m.startswith('db'):
@@ -667,7 +671,9 @@ class Draft:
             if c is not None and (c & 0xE00000) == 0xE00000:
                 v = '0xFF0000 | %s' % self.ram(c) if self.p.ram_name(c & 0xFFFF) else '0x%X' % (c | 0xFF000000)
             elif c is not None:
-                v = self.p.name.get(c) and 'SYM_%s' % self.p.name[c] or '0x%X' % c
+                v = 'SYM_%s' % self.p.name[c] if c in self.p.entries else '0x%X' % c
+                if c not in self.p.entries and c in self.p.name:
+                    v += ' /* %s */' % self.p.name[c]
             self.stmt('%s = %s;' % (self.reg('a', ops[1][1]) if ops[1][1] != 7 else 'sp', v), i)
             return
         if base == 'pea':
@@ -924,6 +930,9 @@ class Draft:
             else:
                 self.used_ccr = True
                 self.stmt('ccr = (uint8_t)(ccr %s 0x%X);' % (op, v), i)
+            return
+        if d_op == ('a', 7):
+            self.stmt('/* the stack: %s */' % self.asm(i), i)
             return
         if d_op[0] == 'a':
             r = self.reg('a', d_op[1]) if d_op[1] != 7 else 'sp'
@@ -1335,7 +1344,9 @@ class Draft:
         call = '%s(%s)' % (p.name, ', '.join(args))
         if p.ret != 'void' and p.regs_out:
             first = p.regs_out[0]
-            if first[0] == 'reg':
+            if first[0] == 'none':
+                main = call + ';'
+            elif first[0] == 'reg':
                 main = self.set_result(first, call, p.ret)
             else:
                 main = self.set_flag(first, call)
@@ -1360,10 +1371,31 @@ class Draft:
         on, off = ('0', bit) if reg[2] else (bit, '0')
         return 'ccr = (uint8_t)((ccr & ~%s) | (%s ? %s : %s));' % (bit, v, on, off)
 
+    def unwinds(self, t, seen=None):
+        """how many callers above its own a call of t can skip: an rts with the stack +4k in t,
+        or in a routine t continues into, or a callee's that reaches past t"""
+        seen = seen if seen is not None else set()
+        if t in seen:
+            return 0
+        seen.add(t)
+        f = self.an.facts[t]
+        n = max([d // 4 for a, d in f.depth.items() if self.p.insn[a].flow == RET and d not in (0, None) and d > 0] or [0])
+        r = self.p.routines[t]
+        for ts in r.tails.values():
+            for x in ts:
+                n = max(n, self.unwinds(x, seen))
+        for ts in r.calls.values():
+            for x in ts:
+                n = max(n, self.unwinds(x, seen) - 1)
+        seen.discard(t)
+        return n
+
     def call(self, i):
         ts = self.r.calls.get(i.addr, [])
         if i.target is not None and len(ts) == 1:
             self.stmt(self.call_text(ts[0], self.p.routines[ts[0]].name), i)
+            if self.unwinds(ts[0]):
+                self.items.append(['stmt', 'if (draft_unwind) { draft_unwind--; %s }' % self.ret_text(), i.addr])
             return
         if i.target is not None and i.target >= 0xFF0000:
             self.stmt('call68k(0x%X);   /* code in RAM */' % i.target, i)
@@ -1393,8 +1425,11 @@ class Draft:
 
     def ret(self, i):
         dp = self.f.depth.get(i.addr)
-        if dp not in (0, None):
-            self.items.append(['stmt', 'TODO(returns past its caller: the stack is %+d);' % dp, i.addr])
+        if dp not in (0, None) and dp > 0 and dp % 4 == 0:
+            self.items.append(['stmt', 'draft_unwind = %d;   /* the stack is %+d: returns past %s */'
+                               % (dp // 4, dp, 'its caller' if dp == 4 else '%d callers' % (dp // 4)), i.addr])
+        elif dp not in (0, None):
+            self.items.append(['stmt', 'TODO(returns with the stack %+d);' % dp, i.addr])
         self.items.append(['return', self.ret_text(), i.addr])
 
     def tail(self, t, i, how):

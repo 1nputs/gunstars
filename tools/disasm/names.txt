@@ -7,6 +7,13 @@
 000360 ChecksumLoop          # sums the ROM from $200 to the header's end address
 000434 MainLoop              # move #$2300,sr; jsr RunJobs; bra
 000BB0 Nothing               # rts: the object table's empty entry
+000CCA GameFrame             # the game mode's frame: v_mode's routine from the table at $CE2
+002A7C FrameInit
+002AB4 VdpInitRegs
+002B2A IoInit
+002D00 ClearRamB800
+002DC8 ClearRamF000
+002DE0 ClearDmaArea
 000BB2 VBlank                # the vertical-blank interrupt: the whole frame's logic (PLAN.md)
 0022DE RunCommands           # a command list (a0): copies, decodes, RLE, to RAM or VRAM, until a negative word
 002310 CmdCopyToRam
@@ -99,3 +106,91 @@ FFF728 v_jobSrc
 FFF72C v_jobDst              # a RAM address (sign-extended) or a VRAM address
 FFF730 v_bitsLeft            # the tile decoder's bits left in v_bitBuffer; as a long, an RLE job's source end
 FFF732 v_bitBuffer           # the tile decoder's bits, the next at the top
+# ---- the sound driver (src/sound.c)
+000C88 UpdateSound
+003196 QueueSound
+065600 SoundDriver
+065604 SoundInit
+0656C0 SoundDacTrack
+06575E SoundFmTrack
+065788 SoundFmNextNote
+0657BE SoundFmNote
+0657F0 SoundSetDuration
+065810 SoundNoteStart
+065858 SoundNoteFill
+065880 SoundModulate
+0658D0 SoundFmNoteFreq
+06592E SoundFreq
+065A1C SoundPanStart
+065A30 SoundPan1Start
+065A32 SoundPan2Start
+065A34 SoundPan3Start
+065A36 SoundPanStep
+065A4C SoundPan2Step
+065A4E SoundPan3Step
+065B86 SoundTakeRequests
+065BC8 SoundPlayRequest
+065C26 SoundCmdFadeOut
+065C2A SoundCmdStopEffects
+065C2E SoundCmdStopSpecial
+065C32 SoundCmdStop
+065FB8 SoundStopEffects
+06606A SoundStopSpecial
+0660FA SoundFadeOut
+066174 SoundTempo
+0661A8 SoundVoiceSilence
+0661DC SoundSilenceFm
+06624E SoundClearMusic
+06630C SoundNoteOff
+066318 SoundKeyOff
+066324 SoundYmChannelBus
+06633C SoundYmBus
+06634E SoundYmChannel
+06635A SoundYm1
+066380 SoundYm2
+06639E SoundZ80Stop
+0663D0 SoundSlide
+066480 SoundPsgTrack
+0664A6 SoundPsgNextNote
+0664DA SoundPsgNote
+06650A SoundPsgNoteFreq
+066556 SoundPsgVolume
+0665A8 SoundPsgSetVolume
+0665FA SoundPsgNoteOff
+066600 SoundPsgOff
+0685DC SoundFlag
+0687B4 SoundLoadVoice
+068826 SoundFmVolume
+0685E6 SoundFlagPan
+0685EA SoundFlagDetune
+0685EE SoundFlagE2
+0685F2 SoundFlagSilence
+0685F6 SoundFlagPanAnim
+0685FA SoundFlagVolumeFmPsg
+0685FE SoundFlagVolumeFm
+068602 SoundFlagTie
+068606 SoundFlagNoteFill
+06860A SoundFlagLfo
+06860E SoundFlagTempo
+068612 SoundFlagQueue
+068616 SoundFlagVolume
+06861A SoundFlagYm
+06861E SoundFlagYm1
+068622 SoundFlagVoice
+068626 SoundFlagModulation
+06862A SoundFlagEnvelopeFmPsg
+06862E SoundFlagStop
+068632 SoundFlagNoise
+068636 SoundFlagEnvelope
+06863A SoundFlagVolEnvelope
+06863E SoundFlagJump
+068642 SoundFlagLoop
+068646 SoundFlagCall
+06864A SoundFlagReturn
+06864E SoundFlagDivider
+068652 SoundFlagTranspose
+068656 SoundFlagModOn
+06865A SoundFlagModOff
+06865E SoundFlagFm3
+FFF80A v_soundQueue          # four sounds asked for (QueueSound); the driver takes the highest priority
+FFFF26 v_consoleVersion      # the I/O chip's version byte at the reset: bit 6 PAL, bit 7 overseas

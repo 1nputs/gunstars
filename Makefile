@@ -20,7 +20,7 @@ PY      := python3
 .PHONY: test oracle evidence disasm gen clean
 
 DRAFT   ?=
-DRAFTFLAGS := $(if $(DRAFT),-Itools/disasm -DDRAFT_TEST -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-label -Wno-missing-prototypes)
+DRAFTFLAGS := $(if $(DRAFT),-Itools/disasm -DDRAFT_TEST -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-label -Wno-unused-parameter -Wno-missing-prototypes)
 
 .PHONY: build/ports_gen.inc
 build/ports_gen.inc:

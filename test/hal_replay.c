@@ -14,6 +14,7 @@ uint8_t ym_read8(uint16_t off) { return (uint8_t)replay_io_read(YM_BASE + off, 1
 void ym_write8(uint16_t off, uint8_t v) { replay_io_write(YM_BASE + off, 1, v); }
 uint8_t z80_ram_read8(uint16_t off) { return (uint8_t)replay_io_read(Z80_RAM_BASE + off, 1); }
 void z80_ram_write8(uint16_t off, uint8_t v) { replay_io_write(Z80_RAM_BASE + off, 1, v); }
+void z80_ram_write32(uint16_t off, uint32_t v) { replay_io_write(Z80_RAM_BASE + off, 4, v); }
 void z80_busreq(uint16_t v) { replay_io_write(Z80_BUSREQ, 2, v); }
 uint8_t z80_busack(void) { return (uint8_t)replay_io_read(Z80_BUSREQ, 1); }
 void z80_reset(uint16_t v) { replay_io_write(Z80_RESET, 2, v); }
@@ -33,8 +34,11 @@ void hal_replay_sr(uint16_t v) { sr = v; }
 uint16_t cpu_get_sr(void) { return sr; }
 void cpu_set_sr(uint16_t v) { sr = v; replay_io_write(SR_PSEUDO, 2, v); }
 
-/* a wait for the vertical blank: the one the 68k took in its wait loop, replayed */
+/* a wait for the vertical blank: the one the 68k took in its wait loop, replayed. With none
+ * left the C would wait for ever: the record is abandoned (a failure). */
 void hal_wait_vblank(void)
 {
-    if (!replay_irq()) replay_fail("a vertical-blank wait with no recorded interrupt");
+    if (replay_irq()) return;
+    replay_fail("a vertical-blank wait with no recorded interrupt");
+    replay_abandon();
 }

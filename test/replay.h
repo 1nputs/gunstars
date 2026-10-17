@@ -42,6 +42,7 @@ const Call *replay_next(uint32_t pc);         /* the next recorded call of routi
 void replay_apply(const Call *c);             /* a call's RAM changes, into ram[] */
 int replay_unconsumed(const Record *r, int (*is_ported)(uint32_t));
 int replay_irq(void);                         /* the next recorded vertical blank (a wait); 0: none */
+void replay_abandon(void);                    /* the record cannot go on: back to the runner (captest.c) */
 int record_irqs_clean(const Record *r);       /* every interrupt can be replayed: H-interrupts, and
                                                  vertical blanks that came in a wait loop */
 uint32_t replay_io_read(uint32_t addr, int width);

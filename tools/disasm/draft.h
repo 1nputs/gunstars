@@ -5,6 +5,10 @@
 #include <stdint.h>
 #include "game.h"
 
+/* callers a routine that popped return addresses skips on its way out (an rts with the stack
+ * +4 returns past its caller): each call site of such a routine returns while it is set */
+__attribute__((weak)) int draft_unwind;
+
 /* part of a data register written, the rest kept */
 #define SETB(r, v) ((r) = ((r) & 0xFFFFFF00u) | (uint8_t)(v))
 #define SETW(r, v) ((r) = ((r) & 0xFFFF0000u) | (uint16_t)(v))

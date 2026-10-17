@@ -149,11 +149,17 @@ uint32_t replay_io_read(uint32_t addr, int width)
     return 0;
 }
 
+/* A wait: the next vertical blank. One the 68k took outside a wait loop that comes first is
+ * the one (the 68k's wait then found its condition met; the C's loop checks again). */
 int replay_irq(void)
 {
     for (uint32_t i = cursor; i < cur->n_calls; i++) {
         Call *c = &cur->calls[i];
-        if (c->consumed || !(c->pc & IRQ_FLAG) || is_async(c)) continue;
+        if (c->consumed || !(c->pc & IRQ_FLAG) || is_hint(c)) continue;
+        if (is_async(c)) {
+            hints_before(i + 1);
+            return 1;
+        }
         hints_before(i);
         if (c->consumed) continue;
         cursor = take(i);
@@ -186,6 +192,7 @@ static int in_wait_loop(uint32_t pc)
 int record_irqs_clean(const Record *r)
 {
     if (r->flags & 2) return 0;                    /* left by unwinding */
+    if (r->flags & 16) return 0;                   /* the host wrote RAM meanwhile (a session's hold) */
     if ((r->flags & 1) && !(r->flags & 4)) return 0;
     return 1;
 }

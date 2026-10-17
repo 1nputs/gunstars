@@ -231,6 +231,14 @@ class Core:
         b[0::2], b[1::2] = raw[1::2], raw[0::2]
         return bytes(b)
 
+    def peek_w(self, addr):
+        """A big-endian word of 68k work RAM."""
+        p = self.lib.retro_get_memory_data(RETRO_MEMORY_SYSTEM_RAM)
+        n = self.lib.retro_get_memory_size(RETRO_MEMORY_SYSTEM_RAM)
+        buf = (C.c_uint8 * n).from_address(p)
+        o = addr & 0xFFFF
+        return buf[o ^ 1] << 8 | buf[(o + 1) ^ 1]
+
     def poke_w(self, addr, val):
         """Write a big-endian word into 68k work RAM (GPGX keeps it word-swapped on little-endian hosts)."""
         p = self.lib.retro_get_memory_data(RETRO_MEMORY_SYSTEM_RAM)

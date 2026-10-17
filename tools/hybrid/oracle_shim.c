@@ -30,6 +30,8 @@
  *   interrupted, its diff everything the handler changed; the handler's own calls and port
  *   accesses nest under it. Frames with an interrupt get flags bit 0, and bit 2 when the
  *   interrupts were logged this way (so a test can replay them at the C code's vblank waits).
+ *   Flags bit 4: the host wrote work RAM while the record was open (a session's poke or hold),
+ *   which no instruction did: the tests skip such a record.
  *
  * Beside the capture, FILE.cov (gzip) has what each written record ran, for the tests' coverage
  * report (tools/hybrid/capcov.py): per record, u32 record number, u32 pc, u32 n, then n u32
@@ -643,6 +645,8 @@ uint32_t oracle_capture_close(void) {
   return cap_records;
 }
 void oracle_capture_spread(int on) { cap_spread = on; }
+/* the host is about to change work RAM: the open records cannot be replayed */
+void oracle_capture_taint(void) { for (int d = 0; d < depth; d++) frames[d].flags |= 16; }
 void oracle_capture_novel(int on) {
   cap_novel = on;
   for (int i = 0; i < BPTAB; i++) { free(novel_seen[i]); novel_seen[i] = NULL; }

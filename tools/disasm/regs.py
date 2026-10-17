@@ -617,7 +617,7 @@ class Analysis:
         self.genuine = dict(self.params)
         while True:
             rounds += 1
-            ex = {e: 0 for e in self.p.routines}
+            ex = dict(self.exit)                   # (accumulated: the exits only grow, so this ends)
             self.live_after = {}
             for e in self.p.routines:
                 self.full_in[e] = self.live(e, True, record=True) & ALL
@@ -644,7 +644,7 @@ class Analysis:
         self.exit = {e: 0 for e in self.p.routines}
         while True:
             rounds += 1
-            ex = {e: 0 for e in self.p.routines}
+            ex = dict(self.exit)                   # (accumulated: the exits only grow, so this ends)
             self.live_after = {}
             for e in self.p.routines:
                 self.full_in[e] = self.live(e, True, record=True) & ALL
@@ -684,11 +684,13 @@ class Analysis:
             if a in r.calls or a in r.tails:
                 out[a] = out.get(a, 0) | st
             st |= f.ud[a][1] & ALL
-            if a in r.calls:
-                for t in r.calls[a]:
-                    st |= self.may[t]
-                if not r.calls[a]:
-                    st |= ALL
+            if a in r.calls:                    # what a callee always writes (a result, not a leftover)
+                ts = r.calls[a]
+                if ts:
+                    m = ALL
+                    for t in ts:
+                        m &= self.must[t]
+                    st |= m
             for s in self.succ[e].get(a, []):
                 if s not in state or st & ~state[s]:
                     state[s] = state.get(s, 0) | st

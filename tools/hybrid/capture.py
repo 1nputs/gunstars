@@ -61,9 +61,9 @@ def main():
             for fn in fns:
                 o.bp(fn)
         script.at(o, f)
-        for ad, v in pokes.get(f, ()):
-            o.poke_w(ad, v)
-        for ad, v in hold:
+        for ad, v in list(pokes.get(f, ())) + list(hold):
+            if o.peek_w(ad) != v:
+                o.lib.oracle_capture_taint()           # an open record would not replay
             o.poke_w(ad, v)
         o.run()
     n = o.capture_close()

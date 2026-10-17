@@ -28,7 +28,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 REG = {**{'d%d' % i: 'R_D%d' % i for i in range(8)}, **{'a%d' % i: 'R_A%d' % i for i in range(7)}}
 
 
-def adapter(p):
+def adapter(p, draft=False):
     name, ret = p.name, p.ret
     vals, ptrs = p.values(), p.pointers()
     extra = p.results_after_return()
@@ -36,7 +36,7 @@ def adapter(p):
         raise ValueError('%s: %d parameters, %d registers' % (name, len(vals), len(p.regs_in)))
     if len(ptrs) != len(extra):
         raise ValueError('%s: %d result pointers, %d results after the first' % (name, len(ptrs), len(extra)))
-    lines = ['static void run_%s(const Record *r)' % name, '{']
+    lines = ['static void run_%s(const Record *r)' % name, '{', '    (void)r;']
     args, decl = [], []
     vi = pi = 0
     for ctype, pname in p.params:
@@ -55,6 +55,8 @@ def adapter(p):
             args.append('(%s)r->regs_in[%s]' % (ctype, REG[reg[1]]))
             vi += 1
     lines += decl
+    if draft:
+        lines.append('    draft_unwind = 0;')
     for g in p.globs_in + p.globs_out:                   # a register the C keeps in a global
         lines.append('    %s = r->regs_in[%s];' % (g[2], REG[g[1]]))
     call = '%s(%s)' % (name, ', '.join(args))
@@ -67,7 +69,9 @@ def adapter(p):
     for (ctype, pname), reg in zip(ptrs, extra):
         checks.append((reg, pname))
     for reg, v in checks:
-        if reg[0] == 'flag':
+        if reg[0] == 'none':
+            lines.append('    (void)%s;' % v)
+        elif reg[0] == 'flag':
             bit = {'Z': 'CCR_Z', 'N': 'CCR_N', 'C': 'CCR_C'}[reg[1]]
             want = '!%s(r)' % bit if reg[2] else '%s(r)' % bit
             lines.append('    expect_flag(r, (%s) != 0, %s, "%s%s");' % (v, want, '!' if reg[2] else '', reg[1]))
@@ -82,8 +86,6 @@ def adapter(p):
                 lines.append('    expect_reg(r, %s, (uint32_t)%s, %s, "%s");' % (r_, v, m, reg[1] + ('.' + reg[2] if reg[2] != 'l' else '')))
     for g in p.globs_out:
         lines.append('    expect_reg(r, %s, %s, %s, "%s");' % (REG[g[1]], g[2], '0xFFFFFF' if g[1][0] == 'a' else '0xFFFFFFFF', g[1]))
-    if not checks and not p.globs_in and not p.globs_out:
-        lines.append('    (void)r;')
     lines.append('}')
     return '\n'.join(lines)
 
@@ -101,11 +103,13 @@ def main():
     for addr in sorted(drafted):
         p = drafted[addr]
         out.append('%s %s(%s);' % (p.ret, p.name, ', '.join('%s %s' % x for x in p.params) or 'void'))
+    if drafted:
+        out.append('extern int draft_unwind;')
     for addr in sorted(found):
         p = found[addr]
         if p.manual:
             continue
-        out.append(adapter(p))
+        out.append(adapter(p, addr in drafted))
         rows.append('    { 0x%06XU, "%s", run_%s },' % (addr, p.name, p.name))
     out.append('#define PORTS_GEN \\')
     out.append(' \\\n'.join(rows))
