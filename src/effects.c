@@ -1307,12 +1307,16 @@ void SplashUp(uint16_t obj)
 /* $057E46. count+1 puffs (type $F8, animation list `list`) from the object, at angles from
  * `angle` on by `step` (masked by `mask`), speeds from the tables at `sines` (y, by ry) and
  * `cosines` (x, by rx); a slot taken from a puff if need be (which loses the angle and the sine
- * table: the 68k then reads its speeds from the RAM after that slot). */
-void RadialBurst(uint16_t obj, uint32_t sines, uint32_t cosines, uint16_t angle, uint16_t step, uint16_t rx,
+ * table: the 68k then reads its speeds from the RAM after that slot; the table pointer, a1, is
+ * left as it ends, for a caller's next burst). */
+void RadialBurst(uint16_t obj, uint32_t *a1, uint32_t cosines, uint16_t angle, uint16_t step, uint16_t rx,
                  uint16_t ry, uint32_t list, uint16_t mask, uint16_t count)
 {
     uint16_t slot, t;
-    if (!SlotFreeOrPuff(&slot, &t, &angle, &sines)) return;
+    uint32_t sines = *a1;
+    int found = SlotFreeOrPuff(&slot, &t, &angle, &sines);
+    *a1 = sines;
+    if (!found) return;
     for (;;) {
         wr16(slot + O_TYPE, 0xF8);
         wr32(slot + 0x48, list);
@@ -1322,7 +1326,9 @@ void RadialBurst(uint16_t obj, uint32_t sines, uint32_t cosines, uint16_t angle,
         wr32(slot + 0x18, (uint32_t)((int32_t)(int16_t)bus_rd16(cosines + (uint32_t)(int16_t)angle) * (int16_t)rx));
         angle = (uint16_t)((angle + step) & mask);
         if (count-- == 0) return;
-        if (!SlotFreeOrPuff(&slot, &t, &angle, &sines)) return;
+        found = SlotFreeOrPuff(&slot, &t, &angle, &sines);
+        *a1 = sines;
+        if (!found) return;
     }
 }
 
