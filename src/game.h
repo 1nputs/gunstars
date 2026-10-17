@@ -17,6 +17,12 @@
 extern uint32_t reg_a6;     /* a6: no routine saves it, so it outlives them; the H-interrupt
                                handlers read their table through it (HintEffect sets it), and
                                the Treasure logo's routines leave their pointers in it */
+extern uint32_t reg_sp;     /* a7: the 68k's stack pointer, kept (by the callers on the way, with
+                               WITH_SP) for the routines that leave stack addresses in RAM: the
+                               Treasure logo's polygons. Natively a vertical blank's in the main
+                               loop */
+/* a call the 68k makes with `bytes` more on its stack (its return address, registers saved) */
+#define WITH_SP(bytes, call) do { reg_sp -= (bytes); call; reg_sp += (bytes); } while (0)
 
 /* ---- the reset and the main loop (boot.c) ---- */
 extern int checksum_check;
@@ -31,7 +37,7 @@ void ClearRamB800(void);                                             /* $002D00 
 void ResetPads(void);                                                /* $003050 */
 
 /* ---- the vertical blank (vblank.c) ---- */
-void VBlank(void);                                                   /* $000BB2 */
+void VBlank(void);                                                   /* $000BB2 a6=reg_a6, a7=reg_sp -> a6=reg_a6 */
 void CheckPause(void);                                               /* $000C36 */
 
 /* ---- the VDP and the palette (vdp.c) ---- */
@@ -227,7 +233,7 @@ void SelectAnimation(uint16_t obj, uint32_t table);                  /* $0021E8 
 void DrawSpriteList(uint32_t list);                                  /* $00222C a0 */
 
 /* ---- the modes (game.c) ---- */
-void GameFrame(void);                                                /* $000CCA */
+void GameFrame(void);                                                /* $000CCA a6=reg_a6, a7=reg_sp -> a6=reg_a6 */
 void Mode0(void);                                                    /* $00048C */
 void StageStart(void);                                               /* $003900 */
 void StageFrame(void);                                               /* $00391C */
@@ -242,11 +248,11 @@ void AddScore(uint16_t obj, uint32_t points);                        /* $0035D6 
 void AddBcd(uint16_t end, uint32_t points);                          /* $003602 a0, d0 */
 
 /* ---- the SEGA logo (logo.c) ---- */
-void Mode4(void);                                                    /* $01B45E */
+void Mode4(void);                                                    /* $01B45E -> a6=reg_a6 */
 void Mode4Start(void);                                               /* $01B478 */
 void Mode4Shrink(void);                                              /* $01B4F2 */
 void Mode4Show(void);                                                /* $01B508 */
-void Mode4Animate(void);                                             /* $01B52E */
+void Mode4Animate(void);                                             /* $01B52E -> a6=reg_a6 */
 void LogoAnimStart(void);                                            /* $020256 */
 void LogoAnimEnd(void);                                              /* $020270 */
 void ClearLineTable(void);                                           /* $020360 */
@@ -267,6 +273,40 @@ void LogoHold(void);                                                 /* $0202D8 
 void LogoShrinkBack(void);                                           /* $0202F6 -> a6=reg_a6 */
 void LogoBounce(void);                                               /* $020314 -> a6=reg_a6 */
 void LogoFade(void);                                                 /* $020340 -> a6=reg_a6 */
+
+/* ---- the Treasure logo (treasure.c) ---- */
+void Mode48(void);                                                   /* $062892 a7=reg_sp -> a6=reg_a6 */
+void Mode48Start(void);                                              /* $0633B0 */
+void Mode48Init(void);                                               /* $0628BC */
+void Mode48Approach(void);                                           /* $062902 a7=reg_sp -> a6=reg_a6 */
+void Mode48Unfold(void);                                             /* $062958 a7=reg_sp -> a6=reg_a6 */
+void Mode48Settle(void);                                             /* $06299C a7=reg_sp -> a6=reg_a6 */
+void Mode48Morph(void);                                              /* $062A74 a7=reg_sp -> a6=reg_a6 */
+void Mode48Hold(void);                                               /* $062AE0 */
+void TreasureDraw(void);                                             /* $0629B0 a7=reg_sp -> a6=reg_a6 */
+void TreasurePalette(void);                                          /* $0629D4 */
+void TreasureSnapshot(void);                                         /* $062A10 */
+int16_t TreasureSinCos(uint16_t angle, int16_t *sin);                /* $063392 d0.w -> d0.w, d1.w */
+void TreasureSineTable(void);                                        /* $063366 */
+void TreasureSolidTiles(void);                                       /* $063408 */
+void TreasureQueueDma(uint32_t tmpl);                                /* $06343E a0 */
+void TreasureClear(void);                                            /* $06347C -> a6=reg_a6 */
+void TreasureQueue(void);                                            /* $06349A a6=reg_a6 */
+void TreasureSprites(void);                                          /* $0634C8 */
+void TreasureCopyFill(void);                                         /* $062F64 */
+void TreasureBlend(uint16_t t, uint16_t from, uint32_t to, uint16_t dst);/* $062F40 d5.w, a2, a3, a5 */
+void TreasureLerp(uint16_t t, uint16_t *from, uint32_t *to, uint16_t *dst);/* $062F50 d5.w -> a2, a3, a5 */
+void TreasureFadeList(uint16_t t, uint32_t list, uint16_t dst, uint16_t from);/* $062D78 d4.w, a1, a2, a3 */
+void TreasureMixEntry(uint16_t t, uint16_t dst, uint32_t *list);     /* $062D8A d4.w, a2 -> a1 */
+void TreasureMix(uint16_t from, uint16_t t, uint16_t at, uint16_t dst, uint32_t *list);/* $062D8E d3.w, d4.w, d5.w, a2 -> a1 */
+uint16_t TreasureMixComponent(uint16_t mask, uint16_t from, uint16_t t, uint16_t to);/* $062DAE d2.w, d3.w, d4.w, d6.w -> d0.w */
+void TreasureMixLine(uint16_t from, uint16_t t, uint16_t dst, uint32_t *list);/* $062DC2 d3.w, d4.w, a2 -> a1 */
+void TreasureTransform(uint16_t dst, uint32_t model);                /* $062DD4 a1, a4 */
+void TreasureProject(uint32_t px, uint32_t pz, uint32_t turn, uint16_t *dst, uint32_t *model);/* $062E68 d4, d5, d7 -> a1, a4 */
+void TreasureDrawPolys(uint32_t list, uint16_t verts);               /* $062ED2 a4, a5, a6=reg_a6, a7=reg_sp -> a6=reg_a6 */
+void TreasureFillRam(uint16_t first, uint16_t end);                  /* $062FCC a0, a1, a6=reg_a6 -> a6=reg_a6 */
+/* the fill, in RAM (TreasureCopyFill) */
+void TreasureFill(uint16_t first, uint16_t end);                     /* $FF2058 a0, a1, a6=reg_a6 -> a6=reg_a6 */
 
 /* ---- not ported yet ---- */
 

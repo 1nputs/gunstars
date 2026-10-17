@@ -7,6 +7,7 @@ out/evidence (oracle_shim.c, "disassembly evidence"), merged with what earlier r
   z80_cov.u32    executions in Z80 RAM ($0000-$1FFF, u32 each)
   rom_flags.u8   per ROM byte: 1 read as data by the 68k, 2 read by DMA; at a conditional branch
                  or dbcc, 4 taken, 8 fell through
+  ram_flags.u8   per work RAM byte, at a conditional branch or dbcc run there: 4 taken, 8 fell
   rom_reader.u32 per ROM byte: the PC of the last instruction seen reading it (| 0x80000000; 0 none;
                  a checksum's sweep of the whole ROM never replaces another reader)
   ram_rw.u8      per work RAM byte: the widths it was read (bits 0-2: byte, word, long) and written
@@ -125,13 +126,17 @@ def main():
             if v:
                 acc[i] = min(0xFFFFFFFF, acc[i] + v)
         open(p, 'wb').write(acc.tobytes())
-    p = os.path.join(a.out, 'rom_flags.u8')
-    acc = bytearray(open(p, 'rb').read()) if os.path.exists(p) else bytearray(ROM_SIZE)
-    nf = bytes(flags)
-    for i in range(ROM_SIZE):
-        if nf[i]:
-            acc[i] |= nf[i]
-    open(p, 'wb').write(acc)
+    lib.oracle_evidence_ram_flags.argtypes = [C.c_void_p]
+    ram_flags = (C.c_uint8 * 0x10000)()
+    lib.oracle_evidence_ram_flags(ram_flags)
+    for name, new, size in (('rom_flags.u8', flags, ROM_SIZE), ('ram_flags.u8', ram_flags, 0x10000)):
+        p = os.path.join(a.out, name)
+        acc = bytearray(open(p, 'rb').read()) if os.path.exists(p) else bytearray(size)
+        nf = bytes(new)
+        for i in range(size):
+            if nf[i]:
+                acc[i] |= nf[i]
+        open(p, 'wb').write(acc)
     # a reader that read most of the ROM is a checksum's sweep: it never replaces another reader
     p = os.path.join(a.out, 'rom_reader.u32')
     acc = load_u32(p, ROM_SIZE)

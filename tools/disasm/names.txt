@@ -287,3 +287,34 @@ FFA286 v_modeState           # the mode's own step
 0202F6 LogoShrinkBack
 020314 LogoBounce
 020340 LogoFade
+# ---- the Treasure logo (src/treasure.c)
+062892 Mode48                # the Treasure logo: a shape of polygons filled into tiles in RAM, morphing into the logo
+0633B0 Mode48Start
+0628BC Mode48Init
+062902 Mode48Approach
+062958 Mode48Unfold
+06299C Mode48Settle
+062A74 Mode48Morph
+062AE0 Mode48Hold
+0629B0 TreasureDraw
+0629D4 TreasurePalette
+062A10 TreasureSnapshot
+063392 TreasureSinCos
+063366 TreasureSineTable
+063408 TreasureSolidTiles
+06343E TreasureQueueDma
+06347C TreasureClear
+06349A TreasureQueue
+0634C8 TreasureSprites
+062F64 TreasureCopyFill
+062F40 TreasureBlend
+062F50 TreasureLerp
+062D78 TreasureFadeList
+062D8A TreasureMixEntry
+062D8E TreasureMix
+062DAE TreasureMixComponent
+062DC2 TreasureMixLine
+062DD4 TreasureTransform
+062E68 TreasureProject
+062ED2 TreasureDrawPolys
+062FCC TreasureFillRam

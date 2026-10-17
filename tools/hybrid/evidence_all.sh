@@ -11,11 +11,13 @@
 #               base, the space shooter, the final battle: there is no stage select for them) by
 #               writing $FFA204, the stage times 4, after stage 0 is picked; Start every 5000
 # Needs build/oracle.so (make -f tools/hybrid/Makefile) and ref/tas/samsara-gunstarheroes.bk2.
+# EVIDENCE=DIR writes there instead of out/evidence (to compare a rebuild with the last).
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 ROM="Gunstar Heroes (U) [!].gen"
 PY="python3"
 FRAMES=${FRAMES:-30000}
+EV=${EVIDENCE:-out/evidence}
 mkdir -p out/scripts
 [ -f out/scripts/tas2p.txt ] || $PY tools/oracle/bk2script.py ref/tas/samsara-gunstarheroes.bk2 out/scripts/tas2p.txt
 for n in 0 1 2 3; do
@@ -25,10 +27,10 @@ for n in 0 1 2 3; do
   $PY tools/oracle/randscript.py out/scripts/stage$n.txt --seed $((100 + n)) --frames "$FRAMES" \
       --prefix @out/scripts/tas2p.txt --cut 841 --insert "$ins" --from 1500 --start-every 600
 done
-rm -rf out/evidence
-$PY tools/hybrid/evidence.py "$ROM" --name attract --frames 20000 > /dev/null
+rm -rf "$EV"
+$PY tools/hybrid/evidence.py "$ROM" --out "$EV" --name attract --frames 20000 > /dev/null
 for n in 0 1 2 3; do
-  $PY tools/hybrid/evidence.py "$ROM" --name stage$n --frames "$FRAMES" --script @out/scripts/stage$n.txt > /dev/null
+  $PY tools/hybrid/evidence.py "$ROM" --out "$EV" --name stage$n --frames "$FRAMES" --script @out/scripts/stage$n.txt > /dev/null
 done
 INV="FFA424=03E7,FFA624=03E7,FFC9A4=0001"
 for n in 0 1 2 3 4 5 6; do
@@ -37,6 +39,6 @@ for n in 0 1 2 3 4 5 6; do
       --prefix @out/scripts/stage$s.txt --cut 1500 --from 1500 --start-every 5000 > /dev/null
   poke=""
   [ $n -gt 3 ] && poke=$($PY -c "print(';'.join(f'{f}:FFA204={4 * $n:04X}' for f in range(1334, 1480)))")
-  $PY tools/hybrid/evidence.py "$ROM" --name inv$n --frames 60000 --script @out/scripts/inv$n.txt --hold "$INV" --poke "$poke" > /dev/null
+  $PY tools/hybrid/evidence.py "$ROM" --out "$EV" --name inv$n --frames 60000 --script @out/scripts/inv$n.txt --hold "$INV" --poke "$poke" > /dev/null
 done
-$PY tools/hybrid/evidence.py "$ROM" --summary
+$PY tools/hybrid/evidence.py "$ROM" --out "$EV" --summary

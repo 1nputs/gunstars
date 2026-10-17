@@ -6,6 +6,8 @@ A test record runs the C code of its routine and of every ported routine it reac
 beside each capture (oracle_shim.c) says what each record ran on the 68k. An instruction counts
 as tested when a record of a ported routine ran it. A direction the runs took and no record did
 is a path no test checks: record a session that takes it (the CheckPause pause branch was one).
+A ported routine in code the game copies to work RAM (tools/disasm/ramcode.py's RAM_CODE) is
+checked against the runs' executions and branch directions there (ram_cov.u32, ram_flags.u8).
 
 usage: capcov.py [NAME ...] [--all]    (the ported routines by default; --all lists covered ones too)
 """
@@ -13,6 +15,7 @@ import argparse, glob, gzip, os, re, struct, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'disasm'))
 from program import Program, ROOT  # noqa: E402
 from m68k import COND  # noqa: E402
+import ramcode  # noqa: E402
 
 
 def ported():
@@ -56,28 +59,38 @@ def main():
     port = ported()
     cov = load_cov(set(port))
     names = a.names or [port[e] for e in sorted(port)]
+    by_name = {v: k for k, v in port.items()}
+    ram_cov, ram_flags = ramcode.ram_cov(), ramcode.ram_flags()
     gaps = 0
     for n in names:
         r = prog.by_name(n)
-        if not r:
+        c = ramcode.copy_of(by_name.get(n, 0))
+        if r:
+            body, insn = r.body, prog.insn
+            ran, took = (lambda x: x in prog.executed), (lambda x: flags[x])
+        elif c:
+            insn = ramcode.decode(c[0], c[1], c[2], [by_name[n]])
+            body = sorted(insn)
+            ran, took = (lambda x: ram_cov[x & 0xFFFF] > 0), (lambda x: ram_flags[x & 0xFFFF])
+        else:
             print('%s: not a routine' % n)
             continue
         missing = []
-        for x in r.body:
-            i = prog.insn[x]
-            if x in prog.executed and not cov.get(x, 0) & 1:
+        for x in body:
+            i = insn[x]
+            if ran(x) and not cov.get(x, 0) & 1:
                 missing.append('%06X %s not run' % (x, i.mnem))
                 continue
-            if i.flow == COND and x in prog.executed:
+            if i.flow == COND and ran(x):
                 for bit, what in ((4, 'taken'), (8, 'not taken')):
-                    if flags[x] & bit and not cov.get(x, 0) & bit:
+                    if took(x) & bit and not cov.get(x, 0) & bit:
                         missing.append('%06X %s %s' % (x, i.mnem, what))
         # report the first instruction of each run of untested ones
         if missing:
             gaps += 1
-            print('%-16s %d untested: %s' % (r.name, len(missing), '; '.join(missing[:6]) + (' ...' if len(missing) > 6 else '')))
+            print('%-16s %d untested: %s' % (n, len(missing), '; '.join(missing[:6]) + (' ...' if len(missing) > 6 else '')))
         elif a.all:
-            print('%-16s covered' % r.name)
+            print('%-16s covered' % n)
     print('%d of %d routines have paths the runs took and no test record does' % (gaps, len(names)))
     return 1 if gaps else 0
 

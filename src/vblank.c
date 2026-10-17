@@ -27,7 +27,7 @@ void VBlank(void)
     CheckPause();
     UpdateSound();
     Random();
-    GameFrame();
+    WITH_SP(60, GameFrame());                    /* the registers saved, a return address */
     FadePalette();
     QueueHScroll();
     QueueVScroll();

@@ -109,8 +109,13 @@ static uint32_t fn_ram[16];
 static int n_fn_ram;
 static int fn_ram_test(uint32_t pc) { for (int i = 0; i < n_fn_ram; i++) if (fn_ram[i] == pc) return 1; return 0; }
 static uint8_t diffbuf[RAM_SIZE * 4];
-/* coverage of the records (FILE.cov): per ROM address, the serial of the frame that last noted
- * it as executed, taken and fell through */
+/* coverage of the records (FILE.cov): per ROM address (then per work RAM address, for code run
+ * there), the serial of the frame that last noted it as executed, taken and fell through */
+#define COV_SIZE (ROM_SIZE + 0x10000)
+static int cov_index(uint32_t pc) {
+  pc &= 0xFFFFFF;
+  return pc < ROM_SIZE ? (int)pc : (pc & 0xFF0000) == 0xFF0000 ? (int)(ROM_SIZE + (pc & 0xFFFF)) : -1;
+}
 static uint16_t op_at(uint32_t pc);
 static gzFile cov_out;
 static uint32_t *cov_exec, *cov_taken, *cov_fell, cov_serial, cov_prev_pc;
@@ -260,11 +265,12 @@ static void finish_frame(void) {
   int keep = 1;
   if (cap_novel && cap && !(f->flags & 8)) {
     uint8_t *seen = novel_seen[f->bp];
-    if (!seen) seen = novel_seen[f->bp] = calloc(ROM_SIZE, 1);
+    if (!seen) seen = novel_seen[f->bp] = calloc(COV_SIZE, 1);
     keep = 0;
     for (uint32_t i = 0; i < f->cov_len && seen; i++) {
-      uint32_t a = f->cov[i] & 0xFFFFFF, fl = f->cov[i] >> 24;
-      if ((seen[a] & fl) != fl) { keep = 1; seen[a] |= (uint8_t)fl; }
+      int a = cov_index(f->cov[i]);
+      uint32_t fl = f->cov[i] >> 24;
+      if (a >= 0 && (seen[a] & fl) != fl) { keep = 1; seen[a] |= (uint8_t)fl; }
     }
     if (!keep) bptab[f->bp].captured--;
   }
@@ -311,7 +317,7 @@ static void enter_frame(uint32_t pc) {
   f->serial = ++cov_serial;
   f->cov_len = 0;
   f->bp = k;
-  if (cov_exec && pc < ROM_SIZE) { cov_exec[pc] = f->serial; cov_add(f, pc | 1u << 24); }
+  if (cov_exec && cov_index(pc) >= 0) { cov_exec[cov_index(pc)] = f->serial; cov_add(f, (pc & 0xFFFFFF) | 1u << 24); }
   cov_prev_pc = pc; cov_prev_op = op_at(pc);
   bptab[k].captured++;
 }
@@ -386,8 +392,8 @@ static int ls_counted(int type, uint32_t a) {
  * RAM; the ROM bytes the 68k read as data (pc-relative reads too: tools/patches/
  * gpgx-evidence-hooks.sh) and the ones DMA read; every control transfer by jsr, bsr and jmp, with
  * its site and target (a hash set: it resolves jump tables and calls through RAM); which way each
- * conditional branch and dbcc in ROM went (taken, fell through). The ROM's executed PCs are the
- * coverage above. */
+ * conditional branch and dbcc in ROM and in work RAM went (taken, fell through). The ROM's
+ * executed PCs are the coverage above. */
 #define EV_EDGES (1u << 17)
 #define EV_DATA 1u
 #define EV_DMA 2u
@@ -396,6 +402,7 @@ static int ls_counted(int type, uint32_t a) {
 static int ev_on;
 static uint32_t *ev_ram_cov, *ev_z80_cov;            /* 64K for $FF0000-$FFFFFF, 8K for Z80 RAM */
 static uint8_t *ev_rom;                              /* per ROM byte: EV_DATA | EV_DMA, and at a branch EV_TAKEN | EV_FELL */
+static uint8_t *ev_ram_flags;                        /* per work RAM byte, at a branch run there: EV_TAKEN | EV_FELL */
 static uint32_t *ev_reader;                          /* per ROM byte: the PC of the last instruction that read it as data */
 static struct { uint32_t site, target, kind, count; } *ev_edges;
 static uint32_t ev_n_edges, ev_prev_pc;
@@ -441,11 +448,12 @@ static void ev_exec(uint32_t pc) {
   for (int i = 0; i < n_irq_pcs; i++) if ((pc & 0xFFFFFF) == irq_pcs[i]) irq = 1;
   if (kind && !irq) ev_edge(ev_prev_pc, pc, kind);
   if (irq) ev_edge(0xFFFFFFFFu, pc, 4);                  /* an interrupt's entry */
-  else if (ev_prev_pc < ROM_SIZE) {
+  else if (ev_prev_pc < ROM_SIZE || (ev_prev_pc & 0xFF0000) == 0xFF0000) {
+    uint8_t *at = ev_prev_pc < ROM_SIZE ? &ev_rom[ev_prev_pc] : &ev_ram_flags[ev_prev_pc & 0xFFFF];
     if ((op & 0xF000) == 0x6000 && (op & 0x0E00))         /* bcc (not bra, bsr) */
-      ev_rom[ev_prev_pc] |= pc == ev_prev_pc + ((op & 0xFF) ? 2u : 4u) ? EV_FELL : EV_TAKEN;
+      *at |= pc == ev_prev_pc + ((op & 0xFF) ? 2u : 4u) ? EV_FELL : EV_TAKEN;
     else if ((op & 0xF0F8) == 0x50C8)                    /* dbcc */
-      ev_rom[ev_prev_pc] |= pc == ev_prev_pc + 4 ? EV_FELL : EV_TAKEN;
+      *at |= pc == ev_prev_pc + 4 ? EV_FELL : EV_TAKEN;
   }
   ev_prev_pc = pc; ev_prev_op = op_at(pc);
 }
@@ -574,15 +582,16 @@ static void hook(hook_type_t type, int width, unsigned int address, unsigned int
       Frame *f = &frames[depth - 1];
       int irq_entry = 0;
       for (int i = 0; i < n_irq_pcs; i++) if (pc == irq_pcs[i]) irq_entry = 1;
-      if (!irq_entry && cov_prev_pc < ROM_SIZE) {      /* which way the last instruction, a branch, went */
+      int pi = cov_index(cov_prev_pc), ci = cov_index(pc);
+      if (!irq_entry && pi >= 0) {                       /* which way the last instruction, a branch, went */
         uint16_t pop = cov_prev_op;
         int taken = -1;
         if ((pop & 0xF000) == 0x6000 && (pop & 0x0E00)) taken = pc != cov_prev_pc + ((pop & 0xFF) ? 2u : 4u);
         else if ((pop & 0xF0F8) == 0x50C8) taken = pc != cov_prev_pc + 4;
         uint32_t *st = taken == 1 ? cov_taken : taken == 0 ? cov_fell : NULL;
-        if (st && st[cov_prev_pc] != f->serial) { st[cov_prev_pc] = f->serial; cov_add(f, cov_prev_pc | (taken ? 4u : 8u) << 24); }
+        if (st && st[pi] != f->serial) { st[pi] = f->serial; cov_add(f, (cov_prev_pc & 0xFFFFFF) | (taken ? 4u : 8u) << 24); }
       }
-      if (pc < ROM_SIZE && cov_exec[pc] != f->serial) { cov_exec[pc] = f->serial; cov_add(f, pc | 1u << 24); }
+      if (ci >= 0 && cov_exec[ci] != f->serial) { cov_exec[ci] = f->serial; cov_add(f, (pc & 0xFFFFFF) | 1u << 24); }
       cov_prev_pc = pc; cov_prev_op = op;
     }
   }
@@ -630,7 +639,7 @@ int oracle_capture_open(const char *path, uint32_t max_per_bp, uint32_t stride) 
   snprintf(covp, sizeof covp, "%s.cov", path);
   cov_out = gzopen(covp, "wb6");
   if (!cov_exec) {
-    cov_exec = calloc(ROM_SIZE, 4); cov_taken = calloc(ROM_SIZE, 4); cov_fell = calloc(ROM_SIZE, 4);
+    cov_exec = calloc(COV_SIZE, 4); cov_taken = calloc(COV_SIZE, 4); cov_fell = calloc(COV_SIZE, 4);
   }
   cap_max_per_bp = max_per_bp; cap_stride = stride ? stride : 1; cap_records = 0; depth = 0; n_open = 0;
   for (int i = 0; i < BPTAB; i++) bptab[i].captured = 0;
@@ -666,7 +675,8 @@ int oracle_evidence_enable(int on) {
     ev_edges = calloc(EV_EDGES, sizeof *ev_edges);
     ev_reader = calloc(ROM_SIZE, sizeof *ev_reader);
     ev_ram_rw = calloc(0x10000, 1);
-    if (!ev_ram_cov || !ev_z80_cov || !ev_rom || !ev_edges || !ev_reader || !ev_ram_rw) return 0;
+    ev_ram_flags = calloc(0x10000, 1);
+    if (!ev_ram_cov || !ev_z80_cov || !ev_rom || !ev_edges || !ev_reader || !ev_ram_rw || !ev_ram_flags) return 0;
   }
   ev_on = on && ev_ram_cov;
   ev_prev_op = 0;
@@ -686,6 +696,8 @@ uint32_t oracle_evidence_ram(uint8_t *rw) {
   if (ev_ram_rw) memcpy(rw, ev_ram_rw, 0x10000);
   return ev_min_sp;
 }
+/* the branch directions of code run in work RAM u8[65536] (EV_TAKEN | EV_FELL) */
+void oracle_evidence_ram_flags(uint8_t *out) { if (ev_ram_flags) memcpy(out, ev_ram_flags, 0x10000); }
 /* the transfers: up to max of (site, target, kind 1 jsr / 2 bsr / 3 jmp / 4 interrupt, count); returns how many */
 uint32_t oracle_evidence_edges(uint32_t *out, uint32_t max) {
   uint32_t n = 0;

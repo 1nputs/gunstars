@@ -135,6 +135,7 @@ const Call *replay_next(uint32_t pc)
         hints_before(i);
         if (c->consumed) continue;                 /* it was the interrupt's own */
         cursor = take(i);
+        reg_a6 = c->regs_out[R_A6];                /* no routine saves a6: as the call left it */
         return c;
     }
     return NULL;
