@@ -356,6 +356,11 @@ void PlayerFloor3(uint16_t obj);                                     /* $0123BC 
 void PlayerFloor2(uint16_t obj);                                     /* $01241A a5 */
 void PlayerFloor1(uint16_t obj);                                     /* $012464 a5 */
 void PlayerKnockTime(uint16_t obj);                                  /* $012B8E a5 */
+void PlayerCharacter(uint16_t obj);                                  /* $00EFF6 a5 */
+void PlayerInit(uint16_t obj);                                       /* $00EE94 a5 */
+void Player1Init(void);                                              /* $00EE50 */
+void Player2Init(void);                                              /* $00EE72 */
+void PlayersInit(void);                                              /* $00EE2A */
 void PlayerUpAgain(uint16_t obj);                                    /* $012B78 a5 */
 void PlayerLimits(uint16_t obj);                                     /* $012BA0 a5 */
 void PlayerLimitsX(uint16_t obj);                                    /* $012BB4 a5 */
@@ -796,6 +801,314 @@ void Stage0Back10(void);                                             /* $0043BA 
 void Stage0Back14(void);                                             /* $0043E2 */
 void Stage0Back18(void);                                             /* $00441C */
 void Stage0Back1C(void);                                             /* $00442C */
+void PlayersUnpin(void);                                             /* $00424E */
+void PlayersPin(void);                                               /* $00422C */
+void Stage1Frame(void);                                              /* $0047FC */
+void Stage1Camera(void);                                             /* $004808 */
+void Stage1Back(void);                                               /* $0055B8 */
+void Stage1Cam00(void);                                              /* $004866 */
+void Stage1Cam04(void);                                              /* $0048B0 */
+void Stage1Cam08(void);                                              /* $004906 */
+void Stage1Cam0C(void);                                              /* $00495C */
+void Stage1Cam10(void);                                              /* $00496E */
+void Stage1Cam14(void);                                              /* $004A1E */
+void Stage1Cam18(void);                                              /* $004A44 */
+void Stage1Cam1C(void);                                              /* $004A82 */
+void Stage1Cam20(void);                                              /* $004AC4 */
+void Stage1Cam24(void);                                              /* $004B0A */
+void Stage1Cam28(void);                                              /* $004B3C */
+void Stage1Cam2C(void);                                              /* $004B62 */
+void Stage1Cam30(void);                                              /* $004BA0 */
+void Stage1Cam34(void);                                              /* $004BD8 */
+void Stage1Cam38(void);                                              /* $004C22 */
+void Stage1Cam3C(void);                                              /* $004C54 */
+void Stage1Cam40(void);                                              /* $004C86 */
+void Stage1Cam44(void);                                              /* $004CC0 */
+void Stage1Cam48(void);                                              /* $004D12 */
+void Stage1Go4C(void);                                               /* $004D24 */
+void Stage1Cam4C(void);                                              /* $004D66 */
+void Stage1Stay(void);                                               /* $004D72 */
+void Stage1Go50(void);                                               /* $004D8E */
+void Stage1Cam50(void);                                              /* $004DD0 */
+void Stage1Stay2(void);                                              /* $004DDC */
+void Stage1Go54(void);                                               /* $004DF8 */
+void Stage1Cam54(void);                                              /* $004E3A */
+void Stage1Stay3(void);                                              /* $004E46 */
+void Stage1Junction54(void);                                         /* $004E4E */
+void Stage1Go58(void);                                               /* $004E62 */
+void Stage1Cam58(void);                                              /* $004EA4 */
+void Stage1Stay4(void);                                              /* $004EB0 */
+void Stage1Go5C(void);                                               /* $004ECC */
+void Stage1Cam5C(void);                                              /* $004F3A */
+void Stage1Cam60(void);                                              /* $004F72 */
+void Stage1Go64(void);                                               /* $004FA0 */
+void Stage1Cam64(void);                                              /* $00500E */
+void Stage1Cam68(void);                                              /* $005046 */
+void Stage1Go6C(void);                                               /* $005074 */
+void Stage1Cam6C(void);                                              /* $0050E2 */
+void Stage1Cam70(void);                                              /* $00511A */
+void Stage1Go74(void);                                               /* $005148 */
+void Stage1Cam74(void);                                              /* $0051B6 */
+void Stage1Cam78(void);                                              /* $0051EE */
+void Stage1Go7C(void);                                               /* $00521C */
+void Stage1Cam7C(void);                                              /* $00528A */
+void Stage1Go84(void);                                               /* $0052C6 */
+void Stage1Cam84(void);                                              /* $005334 */
+void Stage1Go8C(void);                                               /* $005370 */
+void Stage1Cam8C(void);                                              /* $0053DE */
+void Stage1Go94(void);                                               /* $00541A */
+void Stage1Cam94(void);                                              /* $005488 */
+void Stage1Cam9C(void);                                              /* $0054C4 */
+void Stage1Back00(void);                                             /* $0055CE */
+void Stage1Back04(void);                                             /* $0055E0 */
+void Stage1Back08(void);                                             /* $005600 */
+void Stage1Back0C(void);                                             /* $00561E */
+void ChunkDma(uint32_t src, uint16_t vram);                          /* $001AB0 d0, d1.w */
+void PlaneAChunk(uint32_t src, uint16_t vram);                       /* $001AB8 d0, d1.w */
+void PlayerPlace(uint16_t obj, uint16_t x, uint16_t y, uint16_t state); /* $00F0BC a5, d0.w, d1.w, d2.w */
+void Player1Place(uint16_t x, uint16_t y, uint16_t state);           /* $00F074 d0.w, d1.w, d2.w */
+void Player2Place(uint16_t x, uint16_t y, uint16_t state);           /* $00F098 d0.w, d1.w, d2.w */
+void PlayersPlace(uint16_t x, uint16_t y, uint16_t state);           /* $00F070 d0.w, d1.w, d2.w */
+void PlayersStageHold(void);                                         /* $00427E */
+void BackSpeed(uint32_t x, uint32_t y);                              /* $00419A d0, d1 */
+void Stage2Frame(void);                                              /* $0058F4 */
+void Stage2Camera(void);                                             /* $0058FC */
+void Stage2Rumble(void);                                             /* $005E3C */
+void Stage2Bob(void);                                                /* $005F66 */
+void Stage2BowPull(void);                                            /* $005FB4 */
+void Stage2BowColumn(void);                                          /* $005FD2 */
+void Stage2BowColumnPlain(void);                                     /* $006030 */
+void Stage2Lights(void);                                             /* $006060 */
+void Stage2SideA(uint16_t vram, uint16_t frame, uint16_t y);         /* $0061E2 d1.w, d2.w, d3.w */
+void Stage2SideB(uint16_t vram, uint16_t frame, uint16_t y);         /* $0061C2 d1.w, d2.w, d3.w */
+void Stage2SideC(uint16_t vram, uint16_t frame, uint16_t y);         /* $0061A2 d1.w, d2.w, d3.w */
+void Stage2SideD(uint16_t vram, uint16_t frame, uint16_t y);         /* $006182 d1.w, d2.w, d3.w */
+void Stage2SideE(uint16_t vram, uint16_t frame, uint16_t y);         /* $006162 d1.w, d2.w, d3.w */
+void Stage2Side(void);                                               /* $0060FA */
+void Stage2DeckA(uint16_t vram, uint16_t frame, uint16_t x);         /* $006376 d1.w, d2.w, d3.w */
+void Stage2DeckB(uint16_t vram, uint16_t frame, uint16_t x);         /* $006356 d1.w, d2.w, d3.w */
+void Stage2DeckC(uint16_t vram, uint16_t frame, uint16_t x);         /* $006336 d1.w, d2.w, d3.w */
+void Stage2DeckD(uint16_t vram, uint16_t frame, uint16_t x);         /* $006316 d1.w, d2.w, d3.w */
+void Stage2DeckE(uint16_t vram, uint16_t frame, uint16_t x);         /* $0062F6 d1.w, d2.w, d3.w */
+void Stage2DeckF(uint16_t vram, uint16_t frame, uint16_t x);         /* $0062D6 d1.w, d2.w, d3.w */
+void Stage2DeckG(uint16_t vram, uint16_t frame, uint16_t x);         /* $0062B6 d1.w, d2.w, d3.w */
+void Stage2DeckH(uint16_t vram, uint16_t frame, uint16_t x);         /* $006296 d1.w, d2.w, d3.w */
+void Stage2DeckI(uint16_t vram, uint16_t frame, uint16_t x);         /* $006276 d1.w, d2.w, d3.w */
+void Stage2ColumnScroll(void);                                       /* $006396 */
+void Stage2Catch(void);                                              /* $006402 */
+void Stage2Catch2(void);                                             /* $006442 */
+void PlayersUnlimitY(void);                                          /* $006474 */
+void PlayersLimitY(void);                                            /* $006496 */
+void Stage2SceneInput(void);                                         /* $005E76 */
+void Stage2StateX(void);                                             /* $005EA4 */
+void Player2PinOnFloor(void);                                        /* $005F0A */
+void Stage2Cam00(void);                                              /* $005932 */
+void Stage2Cam04(void);                                              /* $0059A4 */
+void Stage2Cam08(void);                                              /* $005A16 */
+void Stage2Cam0C(void);                                              /* $005A82 */
+void Stage2Cam10(void);                                              /* $005AE4 */
+void Stage2Cam14(void);                                              /* $005B22 */
+void Stage2Cam18(void);                                              /* $005B96 */
+void Stage2Cam1C(void);                                              /* $005BB8 */
+void Stage2Cam20(void);                                              /* $005C16 */
+void Stage2Cam24(void);                                              /* $005C3E */
+void Stage2Cam28(void);                                              /* $005C68 */
+void Stage2Cam2C(void);                                              /* $005CAC */
+void Stage2Cam30(void);                                              /* $005CC2 */
+void Stage2Cam34(void);                                              /* $005CFC */
+void Stage2Cam38(void);                                              /* $005D36 */
+void Stage2Cam3C(void);                                              /* $005DB0 */
+void Stage2Cam40(void);                                              /* $005DC4 */
+void Stage2Cam44(void);                                              /* $005DEC */
+void Stage2Cam48(void);                                              /* $005E26 */
+void Stage2Cam4C(void);                                              /* $005E3A */
+void Stage2BandsStart(void);                                         /* $006A06 */
+void Stage2Band(uint16_t top, uint16_t bottom, uint16_t scroll, uint16_t from, uint16_t to, uint32_t table); /* $006AA0 d0.w, d1.w, d2.w, d3.w, d4.w, a0 */
+void Stage2Bands(void);                                              /* $006A20 */
+void Stage2Back00(void);                                             /* $006758 */
+void Stage2Back04(void);                                             /* $00676A */
+void Stage2Back08(void);                                             /* $006796 */
+void Stage2Back0C(void);                                             /* $0067C8 */
+void Stage2Back10(void);                                             /* $0067E8 */
+void Stage2Back14(void);                                             /* $00680E */
+void Stage2Back18(void);                                             /* $00688E */
+void Stage2Back1C(void);                                             /* $0068C2 */
+void Stage2Back20(void);                                             /* $006914 */
+void Stage2Back24(void);                                             /* $006962 */
+void Stage2Back28(void);                                             /* $006986 */
+void Stage2Back2C(void);                                             /* $0069C6 */
+void Stage2Back30(void);                                             /* $0069E6 */
+void Stage2Back34(void);                                             /* $0069E8 */
+void CameraPlace(uint16_t ax, uint16_t ay, uint16_t bx, uint16_t by); /* $008EE8 d0.w, d1.w, d2.w, d3.w */
+void Stage3Frame(void);                                              /* $006D1C */
+void Stage3Camera(void);                                             /* $006D24 */
+void Stage3Cam00(void);                                              /* $006D42 */
+void Stage3Cam04(void);                                              /* $006D72 */
+void Stage3Cam08(void);                                              /* $006D84 */
+void Stage3Cam0C(void);                                              /* $006DB4 */
+void Stage3Cam10(void);                                              /* $006DE0 */
+void Stage3Cam14(void);                                              /* $006E7E */
+void Stage3Cam18(void);                                              /* $006E9C */
+void Stage3Cam1C(void);                                              /* $006EAA */
+void Stage3Back00(void);                                             /* $006EC0 */
+void Stage3Back04(void);                                             /* $006ED6 */
+void Stage3Back08(void);                                             /* $006ED8 */
+void Stage4Frame(void);                                              /* $00715C */
+void Stage4Camera(void);                                             /* $0071BA */
+void Stage4Follow(void);                                             /* $007558 */
+void Stage4Cam00(void);                                              /* $0071EE */
+void Stage4Cam04(void);                                              /* $007206 */
+void Stage4Cam08(void);                                              /* $007244 */
+void Stage4Cam0C(void);                                              /* $007252 */
+void Stage4Cam10(void);                                              /* $00726A */
+void Stage4Cam14(void);                                              /* $0072A8 */
+void Stage4Cam18(void);                                              /* $0072B6 */
+void Stage4Cam1C(void);                                              /* $0072CE */
+void Stage4Cam20(void);                                              /* $00730C */
+void Stage4Cam24(void);                                              /* $00731A */
+void Stage4Cam28(void);                                              /* $007332 */
+void Stage4ClearCells(void);                                         /* $00751E */
+void Stage4ClearCollision(void);                                     /* $0080D0 */
+void Stage4Cam2C(void);                                              /* $007370 */
+void Stage4Cam30(void);                                              /* $00737C */
+void Stage4Cam34(void);                                              /* $0073B2 */
+void Stage4Cam38(void);                                              /* $0073C0 */
+void Stage4Cam3C(void);                                              /* $00741E */
+void Stage4Cam40(void);                                              /* $007462 */
+void Stage4Cam44(void);                                              /* $007486 */
+void Stage4Cam48(void);                                              /* $0074B6 */
+void Stage4Back00(void);                                             /* $00769A */
+void Stage4Back04(void);                                             /* $0076CC */
+void Stage4Back08(void);                                             /* $0076E8 */
+void Stage4StripsLikeA(void);                                        /* $0077DA */
+void Stage4Back0C(void);                                             /* $007700 */
+void Stage4Back10(void);                                             /* $00771C */
+void Stage4Back14(void);                                             /* $00771E */
+void EffectsClear(void);                                             /* $002D50 */
+void PlayersAt(uint16_t x, uint16_t y);                              /* $008E62 d0.w, d1.w */
+void PlayersSet20(uint8_t v);                                        /* $0041E0 d0.b */
+void Stage5Drift(void);                                              /* $007F54 */
+void Stage5Frame(void);                                              /* $007A3A */
+void Stage5Camera(void);                                             /* $007A42 */
+void Stage5Cam00(void);                                              /* $007A72 */
+void Stage5Cam04(void);                                              /* $007AB2 */
+void Stage5Cam08(void);                                              /* $007AE8 */
+void Stage5Cam0C(void);                                              /* $007B08 */
+void Stage5Cam10(void);                                              /* $007B60 */
+void Stage5Cam14(void);                                              /* $007BB8 */
+void Stage5Cam18(void);                                              /* $007BEE */
+void Stage5Cam1C(void);                                              /* $007C0E */
+void Stage5Cam20(void);                                              /* $007C66 */
+void Stage5Cam24(void);                                              /* $007CBE */
+void Stage5Cam28(void);                                              /* $007CF4 */
+void Stage5Cam2C(void);                                              /* $007D14 */
+void Stage5Cam30(void);                                              /* $007D3E */
+void Stage5Cam34(void);                                              /* $007E52 */
+void Stage5Cam38(void);                                              /* $007E76 */
+void Stage5Cam3C(void);                                              /* $007F50 */
+void Stage5Cam40(void);                                              /* $007F52 */
+void Stage5Tiles(uint16_t i);                                        /* $008534 d0.w */
+void Stage5Back00(void);                                             /* $008106 */
+void Stage5Back04(void);                                             /* $00811C */
+void Stage5Back08(void);                                             /* $008140 */
+void Stage5Back0C(void);                                             /* $008160 */
+void Stage5Back10(void);                                             /* $008174 */
+void Stage5Back14(void);                                             /* $0081AA */
+void Stage5Back18(void);                                             /* $0081AC */
+void Stage6Frame(void);                                              /* $00872E */
+void Stage6Camera(void);                                             /* $008736 */
+void Stage6Lamps(uint32_t pal, uint32_t target);                     /* $008D52 a0, a1 */
+void CameraFollowUp(void);                                           /* $008CB4 */
+void Stage6Gate(void);                                               /* $008B58 */
+void Stage6GateOpen(void);                                           /* $008C06 */
+void PlayersToScene(uint16_t s);                                     /* $008AFC d0.w */
+void PlayersCharacters(void);                                        /* $008B2E */
+void Stage6Cam00(void);                                              /* $00876A */
+void Stage6Cam04(void);                                              /* $0087A2 */
+void Stage6Cam08(void);                                              /* $0087AE */
+void Stage6Cam0C(void);                                              /* $0087D6 */
+void Stage6Cam10(void);                                              /* $0087FE */
+void Stage6Cam14(void);                                              /* $008836 */
+void Stage6Cam18(void);                                              /* $008842 */
+void Stage6Cam1C(void);                                              /* $00887A */
+void Stage6Cam20(void);                                              /* $008886 */
+void Stage6Cam24(void);                                              /* $0088CE */
+void Stage6Cam28(void);                                              /* $0088EC */
+void Stage6Cam2C(void);                                              /* $008916 */
+void Stage6Cam30(void);                                              /* $00894E */
+void Stage6Cam34(void);                                              /* $0089AA */
+void Stage6Cam38(void);                                              /* $0089DE */
+void Stage6Cam3C(void);                                              /* $008A02 */
+void Stage6Cam40(void);                                              /* $008A28 */
+void Stage6Cam44(void);                                              /* $008AF6 */
+void Stage6Cam48(void);                                              /* $008AFA */
+void StageTilesJapan(void);                                          /* $01B7EA */
+void PlayerVitality(uint16_t obj);                                   /* $00EFA0 a5 */
+void PlayersVitality(void);                                          /* $00EF94 */
+void StageColoursCopy(uint32_t colours, uint16_t stage);             /* $02A13C a0, d0.w */
+void StageColoursFor(uint16_t stage);                                /* $02A132 d0.w */
+void StageColours(void);                                             /* $02A12E */
+void StageColoursCopy2(uint32_t colours);                            /* $02A1DA a0 */
+void StageColours2(void);                                            /* $02A1C8 */
+void StageLayout(void);                                              /* $01ACDE */
+int SlotFreeLow(uint16_t *slot);                                     /* $01ABAC -> Z, a0.w */
+void Spawn1F0(void);                                                 /* $033A96 */
+void Stage1DirectorAtCheckpoint(void);                               /* $03351C */
+void Stage2Objects(void);                                            /* $0064B8 */
+void StarsStart(void);                                               /* $0081D0 */
+void Stage0Start(void);                                              /* $003942 */
+void Stage1Start(void);                                              /* $0045A6 */
+void Stage2Start(void);                                              /* $0056AA */
+void Stage3Start(void);                                              /* $006B46 */
+void Stage4Start(void);                                              /* $006F66 */
+void Stage5Start(void);                                              /* $00785C */
+void Stage6Start(void);                                              /* $00855C */
+
+/* ---- the objects' shared helpers (objects.c) ---- */
+int SlotFreeMid(uint16_t *slot, uint16_t *type);                     /* $055F6A -> Z, a0.w, d0.w */
+int SlotFreeHigh(uint16_t *slot, uint16_t *type);                    /* $055FC0 -> Z, a0.w, d0.w */
+int SlotFree24(uint16_t *slot, uint16_t *type);                      /* $055FEC -> Z, a0.w, d0.w */
+int SlotFree12(uint16_t *slot, uint16_t *type);                      /* $056064 -> Z, a0.w, d0.w */
+int SlotFree9(uint16_t *slot, uint16_t *type);                       /* $056082 -> Z, a0.w, d0.w */
+int SlotFree6(uint16_t *slot, uint16_t *type);                       /* $0560A0 -> Z, a0.w, d0.w */
+int SlotFree4(uint16_t *slot, uint16_t *type);                       /* $0560B4 -> Z, a0.w, d0.w */
+uint16_t PlayerTarget(void);                                         /* $029E9C -> a0.w */
+void ObjectSetup(uint16_t obj, uint32_t *data, uint16_t *count);     /* $04C4AC a5 -> a0, d7.w */
+void ObjectSetupNext(uint16_t obj, uint32_t *data, uint16_t *count); /* $04C4A8 a5 -> a0, d7.w */
+void ObjectSetupAll(uint16_t obj, uint32_t *data, uint16_t *count);  /* $04C4A6 a5 -> a0, d7.w */
+uint16_t AngleIndex(uint16_t *angle);                                /* $02A252 -> d0.w, d2.w */
+void ObjectRemoveOffscreen(uint16_t obj);                            /* $04C3EA a5 */
+void ObjectVanish(uint16_t slot, uint16_t keep1, uint16_t keep2);    /* $02A10E a0, d0.w, d1.w */
+void ObjectsVanishFrom(uint16_t from, uint16_t keep1, uint16_t keep2); /* $02A0E0 a0, d0.w, d1.w */
+uint16_t EffectOwner(uint16_t obj);                                  /* $019D88 a5 -> a0.w */
+void EffectAtHand(uint16_t obj, uint16_t player);                    /* $019DA6 a5, a0 */
+void EffectPriority(uint16_t obj);                                   /* $019DFA a5 */
+void EffectFlicker(uint16_t obj);                                    /* $019E16 a5 */
+void SpeedFromAngle(uint16_t obj, uint16_t shift);                   /* $019142 a5, d7.w */
+uint16_t NearestPlayer(uint16_t obj, uint16_t *dx, uint16_t *dy, uint16_t *player); /* $029F7A a5 -> d0.w, d1.w, d5.w, a0.w */
+int SpawnAt(uint16_t obj, uint16_t type, uint16_t dy, uint16_t dx, uint16_t arg, uint16_t *slot); /* $056AF4 a5, d4.w, d5.w, d6.w, d7.w -> Z, a0.w */
+int SpawnTowardPlayer(uint16_t obj, uint16_t *slot);                 /* $04C16E a5 -> Z, a0.w */
+void AnimListStart(uint16_t obj);                                    /* $056206 a5 */
+void AnimList(uint16_t obj);                                         /* $0561F4 a5 */
+int SlotFreeBelowCE(uint16_t *slot, uint16_t *type);                 /* $032288 -> Z, a0.w, d0.w */
+uint16_t AngleEighthOf(uint16_t index);                              /* $02A234 d2.w -> d0.w */
+uint16_t AngleEighth(uint16_t *angle);                               /* $02A22E -> d0.w, d2.w */
+int Spawn4A8(uint16_t angle, uint16_t x, uint16_t y, uint32_t ytable, uint32_t xtable, uint16_t *slot); /* $04C2F0 d5.w, d6.w, d7.w, a1, a2 -> Z, a0.w */
+int Spawn4A8Round(uint16_t angle, uint16_t x, uint16_t y, uint16_t *slot); /* $04C2E4 d5.w, d6.w, d7.w -> Z, a0.w */
+void FaceAngle(uint16_t obj, uint16_t dir, uint32_t table, uint16_t *d6, uint16_t *d7); /* $02A6CA a5, d0.w, a1 -> d6.w, d7.w */
+void FaceToward(uint16_t obj, uint16_t target, uint32_t table, uint16_t *d0, uint16_t *d5, uint16_t *d6, uint16_t *d7); /* $02A6A8 a5, a0, a1 -> d0.w, d5.w, d6.w, d7.w */
+int ObjFloor4A(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029CD8 a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor4B(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029CF2 a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor4C(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029D10 a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor8(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029D2C a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloorC(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029D4E a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor10A(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029D6E a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor10B(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029D94 a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor14A(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029DBC a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjFloor14B(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t mask, uint16_t *d4); /* $029DE0 a5, d0.w, d1.w, d3.w, d7.w -> Z, d4.w */
+int ObjectFloor(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4); /* $029B82 a5, d1.w -> Z, d3.w, d4.w */
+int ObjectFloor16(uint16_t obj, uint16_t *d3, uint16_t *d4);         /* $029B7E a5 -> Z, d3.w, d4.w */
+int ObjectCeiling(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4); /* $029C48 a5, d1.w -> Z, d3.w, d4.w */
 
 /* ---- not ported yet ---- */
 

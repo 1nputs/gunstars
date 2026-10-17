@@ -660,3 +660,114 @@ void PlayerKnockTime(uint16_t obj)
 {
     wr16(obj + 0x7E, (uint16_t)((Random() & 3) + 4));
 }
+
+/* ---- a player set up for a stage ---- */
+
+#define SHIP_SWAP 0xA298         /* in space with two players: 0 player 1 flies ship $3FC, 4 ship $540 */
+
+/* $00EFF6. The player's type by v_playerMode and its character (P_ANIM_BANK), and +$9C; in space
+ * ($C) one of the two ships. */
+void PlayerCharacter(uint16_t obj)
+{
+    if (rd16(v_playerMode) != 0xC) {
+        uint16_t i = (uint16_t)((int16_t)rd16(obj + P_ANIM_BANK) >> 1);
+        wr16(obj + 0x9C, rom16(0x00F016 + i));
+        i = (uint16_t)(i + rd16(v_playerMode));
+        wr16(obj + O_TYPE, rom16(0x00F01A + i));
+        return;
+    }
+    if (rd8(v_players) != 3) {
+        wr16(obj + O_TYPE, 0x3FC);
+        wr16(SHIP_SWAP, obj == v_player1 ? 0 : 4);
+        return;
+    }
+    int first = obj == v_player1 ? !rd16(SHIP_SWAP) : rd16(SHIP_SWAP) != 0;
+    wr16(obj + O_TYPE, first ? 0x3FC : 0x540);
+}
+
+/* $00EE94. Its fields as a stage starts. */
+void PlayerInit(uint16_t obj)
+{
+    PlayerCharacter(obj);
+    wr16(obj + O_STATE, 0);
+    wr8(obj + P_HELD, 0);
+    wr8(obj + P_PRESSED, 0);
+    wr8(obj + P_RELEASED, 0);
+    wr32(obj + O_X, 0);
+    wr32(obj + O_Y, 0);
+    wr32(obj + P_VX, 0);
+    wr32(obj + P_VY, 0);
+    wr16(obj + 6, 0);
+    wr16(obj + O_FLAGS, 0xED00);
+    wr8(obj + 0x20, 0x80);
+    wr16(obj + P_SPRITE, 0);
+    wr16(obj + 0x44, 4);
+    wr8(obj + 0x46, 0);
+    wr8(obj + P_HITS, 0);
+    for (uint16_t f = P_INPUT; f <= P_BLINK; f += 2) wr16(obj + f, 0);
+    PlayerKnockTime(obj);
+    wr8(obj + P_RECENTRE, 0);
+    wr8(obj + 0x81, 0x80);
+    wr16(obj + P_FLOOR, 0);
+    wr16(obj + P_WALL, 0);
+    wr8(obj + P_LIMITS, 3);
+    wr32(obj + 0x88, 0);
+    wr32(obj + 0x8C, 0);
+    wr16(obj + P_ANIM_SET, 0);
+    wr16(obj + 0x92, 0);
+    wr16(obj + 0x94, 0);
+    wr8(obj + 0x96, 0);
+    wr8(obj + 0x97, 0);
+    wr16(obj + 0x98, 0);
+    wr16(obj + 0x9A, 0);
+    wr16(obj + 0x9E, 0);
+    wr16(obj + 0xA0, 0);
+    wr16(obj + 0xA2, obj);
+    wr16(obj + 0xA4, 0);
+    wr16(obj + 0xA6, 0);
+    wr8(obj + 0xAA, 0);
+    wr8(obj + 0xAB, 0);
+    wr16(obj + 0xAC, 0);
+    wr16(obj + 0xAE, 0);
+    wr32(obj + 0xB0, 0);
+    wr32(obj + 0xB4, 0);
+    for (uint16_t f = 0xB8; f <= 0xBE; f += 2) wr16(obj + f, 0);
+    wr16(obj + 0xC0, rd16(obj + 0xC0) & 0x7FFF);
+    wr8(obj + 0xCC, 0);
+    wr8(obj + 0xCD, 0);
+    wr16(obj + P_MOTION, 0);
+    wr8(obj + P_MOTION_DIR, 0);
+    wr8(obj + P_MOTION_TIME, 0);
+    wr16(obj + 0xD2, 0);
+    wr16(obj + 0xD6, 0);
+    wr32(obj + 0xDC, 0);
+}
+
+/* $00EE50. Player 1: its sprite's tiles and palette, +$23, +$DA, its pad may pause. */
+void Player1Init(void)
+{
+    PlayerInit(v_player1);
+    wr16(v_player1 + P_SPRITE, 0x45C0);
+    wr8(v_player1 + 0x23, 0x80);
+    wr16(v_player1 + 0xDA, 0xB800);
+    set8(v_pauseFlags, 0);
+}
+
+/* $00EE72. Player 2. */
+void Player2Init(void)
+{
+    PlayerInit(v_player2);
+    wr16(v_player2 + P_SPRITE, 0x65E0);
+    wr8(v_player2 + 0x23, 0x40);
+    wr16(v_player2 + 0xDA, 0xBC00);
+    set8(v_pauseFlags, 1);
+}
+
+/* $00EE2A. Both no longer held by a stage's scene; those playing set up. */
+void PlayersInit(void)
+{
+    clr8(v_player1 + 0xC0, 7);
+    clr8(v_player2 + 0xC0, 7);
+    if (bit8(v_players, 0)) Player1Init();
+    if (bit8(v_players, 1)) Player2Init();
+}

@@ -387,7 +387,7 @@ void SolidPushPlayer(uint16_t obj, uint16_t solid) { PlayerOnSolid(obj, solid); 
 /* $012574. A player against a solid, by its state (the table at $01258C). */
 void PlayerOnSolid(uint16_t obj, uint16_t solid)
 {
-    if (rd16(v_noSolids)) return;
+    if (rd16(v_playerMode)) return;
     uint32_t at = 0x01258C + (uint32_t)((int16_t)rd16(obj + O_STATE) >> 1);
     uint32_t fn = at + (uint32_t)(int16_t)rom16(at);
     switch (fn) {

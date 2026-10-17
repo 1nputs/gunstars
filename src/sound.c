@@ -271,11 +271,11 @@ void SoundSilenceFm(void)
  * from the vertical blank this one interrupted (v_soundBusy). */
 void UpdateSound(void)
 {
-    uint16_t delay = rd16(0xF762);
-    if (delay) wr16(0xF762, (uint16_t)(delay - 1));
+    uint16_t delay = rd16(v_soundDelay);
+    if (delay) wr16(v_soundDelay, (uint16_t)(delay - 1));
     else {
-        uint8_t id = rd8(0xF764);
-        if (id && QueueSound(id)) wr8(0xF764, 0);
+        uint8_t id = rd8(v_soundNext);
+        if (id && QueueSound(id)) wr8(v_soundNext, 0);
     }
     if (rd8(0xF745)) return;
     wr8(0xF745, 1);
