@@ -1,0 +1,147 @@
+/* The native game's entry: a window (pulseman's SDL2 platform), or headless with pictures.
+ *
+ *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
+ *
+ * A routine not ported yet stops the game with its address (call68k_missing). */
+#include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "game.h"
+#include "native.h"
+
+static jmp_buf out;
+static long stop_after = -1;
+static const char *shot_path, *shots_dir;
+static long shots_every = 60;
+static uint16_t picture[320 * 240];
+static int pic_w, pic_h;
+
+void native_quit(void) { longjmp(out, 1); }
+
+/* a routine the game reached that is not ported: the game stops there */
+void call68k_missing(uint32_t addr)
+{
+    fprintf(stderr, "frame %ld: routine $%06X is not ported yet\n", native_frames(), addr & 0xFFFFFF);
+    native_quit();
+}
+
+void call_object_missing(uint32_t addr, uint16_t obj)
+{
+    fprintf(stderr, "frame %ld: object type routine $%06X (slot $%04X, type $%03X) is not ported yet\n",
+            native_frames(), addr & 0xFFFFFF, obj, rd16(obj));
+    native_quit();
+}
+
+static uint8_t read68k(void *user, uint32_t addr)
+{
+    (void)user;
+    addr &= 0xFFFFFF;
+    if (addr >= 0xFF0000) return ram[addr & 0xFFFF];
+    if (addr < ROM_SIZE) return rom8(addr);
+    return 0;
+}
+
+static void write_ppm(const char *path)
+{
+    FILE *f = fopen(path, "wb");
+    if (!f) { fprintf(stderr, "cannot write %s\n", path); return; }
+    fprintf(f, "P6\n%d %d\n255\n", pic_w, pic_h);
+    for (int i = 0; i < pic_w * pic_h; i++) {
+        uint32_t rgb = mdrt_vdp_rgb(picture[i], 0);
+        uint8_t px[3] = { (uint8_t)(rgb >> 16), (uint8_t)(rgb >> 8), (uint8_t)rgb };
+        fwrite(px, 1, 3, f);
+    }
+    fclose(f);
+}
+
+static void keep_picture(void *user, const uint16_t *px, int w, int h, int pitch)
+{
+    (void)user;
+    pic_w = w > 320 ? 320 : w;
+    pic_h = h > 240 ? 240 : h;
+    for (int y = 0; y < pic_h; y++) memcpy(picture + y * pic_w, px + y * pitch, (size_t)pic_w * 2);
+}
+
+void native_frame_done(long frame)
+{
+    static int trace = -1;
+    if (trace < 0) trace = getenv("GUNSTAR_TRACE") != NULL;
+    if (trace && frame % 30 == 0)
+        fprintf(stderr, "frame %ld: mode %02X step %02X fade %04X/%04X display %02X timer %04X jobs %04X\n", frame,
+                rd16(v_mode), rd16(v_modeState), rd16(v_fadeSpeed), rd16(v_fadeLevel), rd8(v_displayOn),
+                rd16(v_modeTimer), rd16(0xF720));
+    if (shots_dir && frame % shots_every == 0) {
+        char path[1024];
+        snprintf(path, sizeof path, "%s/%06ld.ppm", shots_dir, frame);
+        write_ppm(path);
+    }
+    if (stop_after >= 0 && frame >= stop_after) native_quit();
+}
+
+void native_game(mdrt *m, void *user)
+{
+    (void)user;
+    if (setjmp(out)) return;
+    native_hal_start(m);
+    for (uint32_t a = 0; a < RAM_SIZE; a++) ram[a] = 0;
+    Start();
+    MainLoop();
+}
+
+static const char *rom_ok(const uint8_t *b, size_t n, void *user)
+{
+    (void)user;
+    return rom_check(b, (long)n) ? NULL : "not Gunstar Heroes (U), 1 MB";
+}
+
+static void rom_use(const uint8_t *b, size_t n, void *user) { (void)n; (void)user; rom_image = b; }
+
+int main(int argc, char **argv)
+{
+    const char *rom = "Gunstar Heroes (U) [!].gen", *rom_given = NULL;
+    int headless = 0, scale = 0;
+    for (int i = 1; i < argc; i++) {
+        if (!strcmp(argv[i], "--rom") && i + 1 < argc) rom = rom_given = argv[++i];
+        else if (!strcmp(argv[i], "--headless")) headless = 1;
+        else if (!strcmp(argv[i], "--frames") && i + 1 < argc) stop_after = atol(argv[++i]);
+        else if (!strcmp(argv[i], "--shot") && i + 1 < argc) shot_path = argv[++i];
+        else if (!strcmp(argv[i], "--shots") && i + 1 < argc) shots_dir = argv[++i];
+        else if (!strcmp(argv[i], "--every") && i + 1 < argc) shots_every = atol(argv[++i]);
+        else if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
+        else {
+            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N]\n", argv[0]);
+            return 2;
+        }
+    }
+    mdrt_config c = { 0 };
+    c.audio_rate = 48000;
+    c.read68k = read68k;
+    if (!headless) {
+        mdrt_sdl_options o = { .title = "Gunstar Heroes", .scale = scale, .app = "gunstar",
+                               .rom_path = rom_given, .rom_default = rom,
+                               .rom_hint = "Gunstar Heroes (U): the 1 MB cartridge",
+                               .rom_check = rom_ok, .rom_use = rom_use };
+        return mdrt_sdl_run(&c, &o, native_game, NULL);
+    }
+    if (!rom_load(rom)) { fprintf(stderr, "cannot load the ROM %s\n", rom); return 1; }
+    c.platform = (mdrt_platform){ .present = keep_picture };
+    mdrt *m = mdrt_new(&c);
+    if (!m) return 1;
+    native_game(m, NULL);
+    if (shot_path) write_ppm(shot_path);
+    if (getenv("GUNSTAR_TRACE")) {
+        mdrt_vdp_state st;
+        mdrt_vdp_get_state(mdrt_get_vdp(m), &st);
+        fprintf(stderr, "VDP registers:");
+        for (int i = 0; i < 24; i++) fprintf(stderr, " %02X", mdrt_vdp_reg(mdrt_get_vdp(m), i));
+        fprintf(stderr, "\nCRAM:");
+        for (int i = 0; i < 64; i++) fprintf(stderr, "%s%03X", i % 16 ? " " : "\n  ", st.cram[i]);
+        fprintf(stderr, "\nRAM palette:");
+        for (int i = 0; i < 64; i++) fprintf(stderr, "%s%03X", i % 16 ? " " : "\n  ", rd16((uint16_t)(v_palette + 2 * i)));
+        fprintf(stderr, "\n");
+    }
+    printf("%ld frames\n", native_frames());
+    mdrt_free(m);
+    return 0;
+}

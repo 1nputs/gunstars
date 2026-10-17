@@ -178,3 +178,113 @@ void HintEffect7(void)
     vdp_ctrl16(rd16(VDP_REG(0)));
     reg_a6 = 0xFFFF9600;
 }
+
+/* ---- the handlers: the code the effects copy to v_hintCode ($FFEE00), which the 68k runs at
+ * each H-interrupt. Natively the runtime calls HintHandler (native/hal_native.c), which runs the
+ * one whose bytes are there; the tests replay the 68k's (an interrupt is a recorded block). Their
+ * waits (dbf, to reach the line's blank) are cpu_spin. ---- */
+
+/* $001698 (effects 1, 7): plane A's vertical scroll for this line, from the table at a6 */
+static void handler_vscroll_a(void)
+{
+    vdp_ctrl(0x40000010);
+    vdp_data(rd16((uint16_t)reg_a6));
+    reg_a6 += 2;
+}
+
+/* $0016B0 (effects 3, 4): plane B's */
+static void handler_vscroll_b(void)
+{
+    vdp_ctrl(0x40020010);
+    vdp_data(rd16((uint16_t)reg_a6));
+    reg_a6 += 2;
+}
+
+/* $0016C8 (effect 6): colour 5 for this line */
+static void handler_colour(void)
+{
+    vdp_ctrl(0xC00A0000);
+    vdp_data(rd16((uint16_t)reg_a6));
+    reg_a6 += 2;
+}
+
+/* $001704 (effect 2): two register writes on the first two H-interrupts ($FF801C, $FF801E), the
+ * counter set to every third line on the third, then each time this line's horizontal and
+ * vertical scroll */
+static void handler_scroll(void)
+{
+    uint16_t n = (uint16_t)(rd16(v_hintLine) + 1);
+    wr16(v_hintLine, n);
+    if (n == 1) {
+        vdp_ctrl16(rd16(0x801C));
+        return;
+    }
+    if (n == 2) {
+        vdp_ctrl16(rd16(0x801E));
+        return;
+    }
+    if (n == 3) vdp_ctrl16(0x8A80);
+    vdp_ctrl(0x70000083);
+    vdp_data(rd16((uint16_t)reg_a6));
+    reg_a6 += 2;
+    vdp_ctrl(0x40000010);
+    vdp_data(rd16((uint16_t)reg_a6));
+    reg_a6 += 2;
+}
+
+/* $001782 (effect 5): the story's letterbox: 32 lines down the next interrupt, 144 further the
+ * picture's top (the display on, the backdrop colour $10), then its bottom: the display off, the
+ * text box's planes and scroll ($FF7766 less $68), and the display on again unless $FFF765 */
+static void handler_letterbox(void)
+{
+    uint16_t s = rd16(v_hintLine);
+    if (s == 0) {
+        vdp_ctrl16(0x8A1F);
+        wr16(v_hintLine, 4);
+        return;
+    }
+    if (s == 4) {
+        vdp_ctrl16(0x8A8F);
+        wr16(v_hintLine, 8);
+        return;
+    }
+    if (s == 8) {
+        wr16(v_hintLine, 0xC);
+        cpu_spin(0x1F);
+        vdp_ctrl16((uint16_t)(rd16(VDP_REG(1)) | 0x40));
+        vdp_ctrl16(0x8710);
+        return;
+    }
+    cpu_spin(0x21);
+    vdp_ctrl16((uint16_t)(rd16(VDP_REG(1)) & ~0x40));
+    vdp_ctrl16(0x8700);
+    vdp_ctrl(0x82008400);
+    vdp_ctrl16(0x8B00);
+    vdp_ctrl16(0x8F02);
+    vdp_ctrl(0x70000003);
+    vdp_data32(0);
+    vdp_ctrl(0x40000010);
+    uint16_t v = (uint16_t)(rd16(0xF766) - 0x68);
+    vdp_data(v);
+    vdp_data(v);
+    if (rd8(0xF765)) return;
+    cpu_spin(0x11);
+    vdp_ctrl16((uint16_t)(rd16(VDP_REG(1)) | 0x40));
+}
+
+/* the H-interrupt: the handler whose code was copied to v_hintCode (an rte there: none) */
+void HintHandler(void)
+{
+    static const struct { uint32_t rom; void (*run)(void); } handlers[] = {
+        { 0x001698, handler_vscroll_a }, { 0x0016B0, handler_vscroll_b }, { 0x0016C8, handler_colour },
+        { 0x001704, handler_scroll }, { 0x001782, handler_letterbox },
+    };
+    for (unsigned k = 0; k < sizeof handlers / sizeof *handlers; k++) {
+        int same = 1;
+        for (uint32_t i = 0; i < 16 && same; i++) same = rd8((uint16_t)(v_hintCode + i)) == rom8(handlers[k].rom + i);
+        if (same) {
+            handlers[k].run();
+            return;
+        }
+    }
+}

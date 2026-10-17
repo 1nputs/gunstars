@@ -1266,6 +1266,7 @@ void AimedSpawn(uint16_t obj, uint16_t target, uint32_t faces, uint32_t offsets,
 void ThrowAt(uint16_t obj, uint16_t target, uint16_t type);
 void SoldierDying(uint16_t obj);
 void LampColours(void);
+void HintHandler(void);                  /* the H-interrupt handler copied to v_hintCode, as C (native) */
 int ObjectFloorA0(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4, uint32_t *a0);
 void DebrisEmit(uint16_t obj);
 void ThrownFly(uint16_t obj);                                        /* $02AA00 a5 */
