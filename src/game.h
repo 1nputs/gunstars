@@ -1109,6 +1109,90 @@ int ObjFloor14B(uint16_t obj, uint16_t x, uint16_t y, uint16_t attr, uint16_t ma
 int ObjectFloor(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4); /* $029B82 a5, d1.w -> Z, d3.w, d4.w */
 int ObjectFloor16(uint16_t obj, uint16_t *d3, uint16_t *d4);         /* $029B7E a5 -> Z, d3.w, d4.w */
 int ObjectCeiling(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4); /* $029C48 a5, d1.w -> Z, d3.w, d4.w */
+int ObjectFloorUp16(uint16_t obj, uint16_t *d3, uint16_t *d4);       /* $029AF0 a5 -> Z, d3.w, d4.w */
+int ObjectFloorUp30(uint16_t obj, uint16_t *d3, uint16_t *d4);       /* $029AF8 a5 -> Z, d3.w, d4.w */
+int ObjectWalls(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4); /* $029A42 a5, d1.w -> Z, d3.w, d4.w */
+int ObjectWalls8(uint16_t obj, uint16_t *d3, uint16_t *d4);          /* $029A40 a5 -> Z, d3.w, d4.w */
+int ObjectWallsAny(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4); /* $029AA2 a5, d1.w -> Z, d3.w, d4.w */
+int ObjectWallsAny8(uint16_t obj, uint16_t *d3, uint16_t *d4);       /* $029AA0 a5 -> Z, d3.w, d4.w */
+uint16_t PlayerBySlot(uint16_t obj);                                 /* $029F04 a5 -> a0.w */
+
+/* ---- the soldiers' spawner (spawner.c) ---- */
+void SpawnTimer(uint32_t table, uint16_t timer);                     /* $03210A a0, a1 */
+void SpawnTimersTick(void);                                          /* $032302 */
+void SpawnRight(uint32_t kinds);                                     /* $032316 d7 */
+void SpawnRightLow(uint32_t kinds);                                  /* $032350 d7 */
+int PlayersLeftEdge(void);                                           /* $03229E -> N */
+void SpawnLeft(uint16_t kind);                                       /* $032376 d7.w */
+int SpawnSlot(uint16_t *slot, uint16_t *type);                       /* $032282 -> Z, a0.w, d0.w */
+void SpawnPatternA(uint16_t obj);                                    /* $031FF8 a5 */
+void SpawnPatternB(uint16_t obj);                                    /* $03205A a5 */
+void SpawnPatternC(uint16_t obj);                                    /* $032028 a5 */
+void SpawnPatternD(uint16_t obj);                                    /* $0320D4 a5 */
+void SpawnPatternE(uint16_t obj);                                    /* $0320CA a5 */
+void SpawnPatternF(uint16_t obj);                                    /* $0320B6 a5 */
+void SpawnPatternG(uint16_t obj);                                    /* $0320C0 a5 */
+void SpawnPatternH(uint16_t obj);                                    /* $03208C a5 */
+void SpawnerSetupNone(void);                                         /* $03222C */
+void SpawnerSetupC(void);                                            /* $032238 */
+void SpawnerSetup8(void);                                            /* $032240 */
+void SpawnerSetupBase(void);                                         /* $032248 */
+void SpawnerStart(uint16_t obj);                                     /* $031F5E a5 */
+void SpawnerWait(uint16_t obj);                                      /* $031F72 a5 */
+void SpawnerPattern(uint16_t obj);                                   /* $031F92 a5 */
+void SpawnerAgain(uint16_t obj);                                     /* $031FEC a5 */
+void SpawnerBecome1F8(uint16_t obj);                                 /* $0321A0 a5 */
+void SpawnerEnd(uint16_t obj);                                       /* $0321AC a5 */
+void SpawnerBoss(uint16_t obj);                                      /* $0321B4 a5 */
+void Spawner3C4(uint16_t obj);                                       /* $0321C8 a5 */
+void Spawner(uint16_t obj);                                          /* $031F3A a5 */
+
+/* ---- the text box (textbox.c) ---- */
+uint8_t TextButtonsHeld(uint16_t obj);                               /* $00C6D6 a5 -> d0.b */
+uint8_t TextButtonsPressed(uint16_t obj);                            /* $00C6FE a5 -> d0.b */
+void TextSound(uint16_t obj);                                        /* $00C6A8 a5 */
+void TextVramAddress(uint16_t obj);                                  /* $00C6BC a5 */
+void TextClear8(void);                                               /* $00C726 */
+void TextClear2(void);                                               /* $00C8A0 */
+void TextBoxPrint(uint16_t obj);                                     /* $00C580 a5 */
+void TextBoxRun(uint16_t obj);                                       /* $00C488 a5 */
+void TextBoxStart(uint16_t obj);                                     /* $00C46C a5 */
+void TextBox(uint16_t obj);                                          /* $00C45A a5 */
+
+/* ---- the items (items.c) ---- */
+void ItemLook(uint16_t obj);                                         /* $01A5E4 a5 */
+void ItemStart(uint16_t obj);                                        /* $01A2D0 a5 */
+void ItemFall(uint16_t obj);                                         /* $01A2F6 a5 */
+void ItemRest(uint16_t obj);                                         /* $01A392 a5 */
+void ItemDrift(uint16_t obj);                                        /* $01A5C0 a5 */
+void ItemMineStart(uint16_t obj);                                    /* $01A41C a5 */
+void ItemMineFall(uint16_t obj);                                     /* $01A442 a5 */
+void ItemMineRest(uint16_t obj);                                     /* $01A4D8 a5 */
+void ItemSpaceStart(uint16_t obj);                                   /* $01A56A a5 */
+void ItemSpaceRest(uint16_t obj);                                    /* $01A596 a5 */
+void Item(uint16_t obj);                                             /* $01A2A2 a5 */
+
+/* ---- the story scenes' actors (actors.c) ---- */
+void ActorA(uint16_t obj);                                           /* $02191E a5 */
+void ActorTypeA(uint16_t obj);                                       /* $021900 a5 */
+void ActorB(uint16_t obj);                                           /* $021FBE a5 */
+void ActorTypeB(uint16_t obj);                                       /* $021FA0 a5 */
+void BannerStart(uint16_t obj);                                      /* $020D30 a5 */
+void BannerWait(uint16_t obj);                                       /* $020D60 a5 */
+void BannerFlip(uint16_t obj);                                       /* $020D62 a5 */
+void BannerDone(uint16_t obj);                                       /* $020D76 a5 */
+void BannerA(uint16_t obj);                                          /* $020D16 a5 */
+void BannerBStart(uint16_t obj);                                     /* $020D92 a5 */
+void BannerBWait(uint16_t obj);                                      /* $020DC2 a5 */
+void BannerBFlip(uint16_t obj);                                      /* $020DC4 a5 */
+void BannerBDone(uint16_t obj);                                      /* $020DD8 a5 */
+void BannerB(uint16_t obj);                                          /* $020D78 a5 */
+void FigureC(uint16_t obj);                                          /* $021C08 a5 */
+void FigureTypeC(uint16_t obj);                                      /* $021BEA a5 */
+void FigureD1(uint16_t obj);                                         /* $021EAA a5 */
+void FigureD2(uint16_t obj);                                         /* $021EEE a5 */
+void FigureD3(uint16_t obj);                                         /* $021F32 a5 */
+void FigureTypeD(uint16_t obj);                                      /* $021E84 a5 */
 
 /* ---- not ported yet ---- */
 

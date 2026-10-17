@@ -1151,3 +1151,88 @@ FFA002 v_stageClear          # bit 7: the stage is over (its end follows)
 029B82 ObjectFloor
 029B7E ObjectFloor16
 029C48 ObjectCeiling
+029AF0 ObjectFloorUp16
+029AF8 ObjectFloorUp30
+029A42 ObjectWalls
+029A40 ObjectWalls8
+029AA2 ObjectWallsAny
+029AA0 ObjectWallsAny8
+029F04 PlayerBySlot
+
+# ---- the soldiers' spawner (src/spawner.c) [the objects]
+03210A SpawnTimer
+032302 SpawnTimersTick
+032316 SpawnRight
+032350 SpawnRightLow
+03229E PlayersLeftEdge
+032376 SpawnLeft
+032282 SpawnSlot
+031FF8 SpawnPatternA
+03205A SpawnPatternB
+032028 SpawnPatternC
+0320D4 SpawnPatternD
+0320CA SpawnPatternE
+0320B6 SpawnPatternF
+0320C0 SpawnPatternG
+03208C SpawnPatternH
+03222C SpawnerSetupNone
+032238 SpawnerSetupC
+032240 SpawnerSetup8
+032248 SpawnerSetupBase
+031F5E SpawnerStart
+031F72 SpawnerWait
+031F92 SpawnerPattern
+031FEC SpawnerAgain
+0321A0 SpawnerBecome1F8
+0321AC SpawnerEnd
+0321B4 SpawnerBoss
+0321C8 Spawner3C4
+031F3A Spawner
+
+# ---- the text box (src/textbox.c) [the objects]
+00C6D6 TextButtonsHeld
+00C6FE TextButtonsPressed
+00C6A8 TextSound
+00C6BC TextVramAddress
+00C726 TextClear8
+00C8A0 TextClear2
+00C580 TextBoxPrint
+00C488 TextBoxRun
+00C46C TextBoxStart
+00C45A TextBox
+FFF766 v_textLine            # the text box's line (times 8)
+
+# ---- the items (src/items.c) [the objects]
+01A5E4 ItemLook
+01A2D0 ItemStart
+01A2F6 ItemFall
+01A392 ItemRest
+01A5C0 ItemDrift
+01A41C ItemMineStart
+01A442 ItemMineFall
+01A4D8 ItemMineRest
+01A56A ItemSpaceStart
+01A596 ItemSpaceRest
+01A2A2 Item
+
+# ---- the story scenes' actors (src/actors.c) [the objects]
+02191E ActorA
+021900 ActorTypeA
+021FBE ActorB
+021FA0 ActorTypeB
+020D30 BannerStart
+020D60 BannerWait
+020D62 BannerFlip
+020D76 BannerDone
+020D16 BannerA
+020D92 BannerBStart
+020DC2 BannerBWait
+020DC4 BannerBFlip
+020DD8 BannerBDone
+020D78 BannerB
+021C08 FigureC
+021BEA FigureTypeC
+021EAA FigureD1
+021EEE FigureD2
+021F32 FigureD3
+021E84 FigureTypeD

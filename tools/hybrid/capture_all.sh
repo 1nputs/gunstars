@@ -37,7 +37,7 @@ names() {
 import sys, re
 want = {'the engine': ('clearing', 'sprites'), 'the game': ('modes',), 'the logo': ('the SEGA logo',),
         'the treasure': ('the Treasure logo',), 'the players': ('the players',), 'the engine frame': ('the engine frame',),
-        'the stages': ('the stages',), 'the objects': ('the objects',)}[sys.argv[1]]
+        'the stages': ('the stages',), 'the objects': ('[the objects]',)}[sys.argv[1]]
 out, on = [], False
 for line in open('tools/disasm/names.txt'):
     if line.startswith('# ----'):

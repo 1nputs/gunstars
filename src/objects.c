@@ -519,6 +519,26 @@ static int wall_left(uint16_t obj, uint16_t x, uint16_t *d3, uint16_t *d4)
     return 0;
 }
 
+/* $029BEE: the floor an attribute found at (x, y) is: the object put on it */
+static int floor_attr(uint16_t obj, uint16_t x, uint16_t y, uint16_t a, uint16_t *d3, uint16_t *d4)
+{
+    if ((int16_t)(a - 0x30) < 0) {
+        if (a == 0x18 || a == 0x19) {
+            wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) - 8));
+            return wall_left(obj, x, d3, d4);
+        }
+        if (a == 0x1C || a == 0x1D) {
+            wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) + 8));
+            return wall_right(obj, x, d3, d4);
+        }
+        *d4 = 0;
+        *d3 = 0;
+        return 1;
+    }
+    uint32_t fn = rom32(0x029C08 + (uint32_t)(int16_t)(uint16_t)((a - 0x30) << 2));
+    return floor_kind(fn, obj, x, y, a, d4);
+}
+
 /* $029B82. The floor at dy below the object, looked for from 8 above to 8 below (the object
  * moved by 8 when found there): the object put on it, its kind in d4, its attribute in d3; Z
  * set when there is none (also for an attribute of exactly $60). Attributes $18/$19 and $1C/$1D
@@ -541,22 +561,90 @@ int ObjectFloor(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4)
     }
     if (k == 0) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) - 8));
     if (k == 2) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) + 8));
-    y = (uint16_t)(y - 8 + 8 * k);
-    if ((int16_t)(a - 0x30) < 0) {
-        if (a == 0x18 || a == 0x19) {
-            wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) - 8));
-            return wall_left(obj, x, d3, d4);
+    return floor_attr(obj, x, (uint16_t)(y - 8 + 8 * k), a, d3, d4);
+}
+
+/* $029AFC: the same, a ceiling's cell (bit 3) not a floor; none found below one: d3, d4 0 */
+static int floor_not_ceiling(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4)
+{
+    uint16_t y = (uint16_t)(dy + rd16(obj + O_Y)), x = rd16(obj + O_X), a = 0;
+    int k;
+    for (k = 0; k < 3; k++) {
+        a = MapAttr(x, (uint16_t)(y - 8 + 8 * k));
+        *d3 = a;
+        if (!a) {
+            if (k == 2) return 1;
+            continue;
         }
-        if (a == 0x1C || a == 0x1D) {
-            wr16(obj + O_X, (uint16_t)(rd16(obj + O_X) + 8));
-            return wall_right(obj, x, d3, d4);
+        if (a & 8) {
+            if (k == 2) {
+                *d3 = 0;
+                *d4 = 0;
+                return 1;
+            }
+            continue;
         }
-        *d4 = 0;
-        *d3 = 0;
-        return 1;
+        if ((int16_t)(a - 0x60) < 0) break;
+        if (k == 2) return a == 0x60;
     }
-    uint32_t fn = rom32(0x029C08 + (uint32_t)(int16_t)(uint16_t)((a - 0x30) << 2));
-    return floor_kind(fn, obj, x, y, a, d4);
+    if (k == 0) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) - 8));
+    if (k == 2) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) + 8));
+    return floor_attr(obj, x, (uint16_t)(y - 8 + 8 * k), a, d3, d4);
+}
+
+/* $029AF0. The floor 16 above (not a ceiling). */
+int ObjectFloorUp16(uint16_t obj, uint16_t *d3, uint16_t *d4)
+{
+    return floor_not_ceiling(obj, 0xFFF0, d3, d4);
+}
+
+/* $029AF8. And 30 above. */
+int ObjectFloorUp30(uint16_t obj, uint16_t *d3, uint16_t *d4)
+{
+    return floor_not_ceiling(obj, 0xFFE2, d3, d4);
+}
+
+/* a wall (an attribute with bit 3; for ObjectWalls below $20) 8 to the right or left at dy:
+ * the object put against it, d3 $10 (right) or $14 (left); none: d3, d4 0 (Z set). With +$47 bit 2
+ * or 3 (against a wall already) d3 $1C or $18. */
+static int walls(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4, int below20)
+{
+    uint16_t y = (uint16_t)(dy + rd16(obj + O_Y));
+    if (bit8(obj + 0x47, 2)) { *d3 = 0x1C; return 0; }
+    if (bit8(obj + 0x47, 3)) { *d3 = 0x18; return 0; }
+    uint16_t x = (uint16_t)(rd16(obj + O_X) + 8);
+    uint16_t a = MapAttr(x, y);
+    *d3 = a;
+    if ((a & 8) && (!below20 || (int16_t)(a - 0x20) < 0)) return wall_left(obj, x, d3, d4);
+    x = (uint16_t)(rd16(obj + O_X) - 8);
+    a = MapAttr(x, y);
+    *d3 = a;
+    if ((a & 8) && (!below20 || (int16_t)(a - 0x20) < 0)) return wall_right(obj, x, d3, d4);
+    *d4 = 0;
+    *d3 = 0;
+    return 1;
+}
+
+/* $029A42 */
+int ObjectWalls(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4) { return walls(obj, dy, d3, d4, 1); }
+/* $029A40. At 8 below. */
+int ObjectWalls8(uint16_t obj, uint16_t *d3, uint16_t *d4) { return walls(obj, 8, d3, d4, 1); }
+/* $029AA2. Any wall cell. */
+int ObjectWallsAny(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4) { return walls(obj, dy, d3, d4, 0); }
+/* $029AA0 */
+int ObjectWallsAny8(uint16_t obj, uint16_t *d3, uint16_t *d4) { return walls(obj, 8, d3, d4, 0); }
+
+/* $029F04. The player an object goes after by its slot (alternate slots: alternate players),
+ * the other when that one is hidden and not blinking; the one playing alone. */
+uint16_t PlayerBySlot(uint16_t obj)
+{
+    uint8_t p = rd8(v_players);
+    if (!(p & 1)) return (p & 2) ? v_player2 : v_player1;
+    if (!(p & 2)) return v_player1;
+    uint16_t want = (obj & 0x20) ? v_player2 : v_player1, other = want == v_player1 ? v_player2 : v_player1;
+    if (bit8(want + 0x23, 2)) return want;
+    if (!bit8(want + O_FLAGS, 7)) return other;
+    return want;
 }
 
 /* $029B7E. The floor at 16 below. */
