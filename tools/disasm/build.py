@@ -10,7 +10,8 @@ targets, dat_XXXXX for data the code points at.
 
 Writes build/disasm/: gunstar.s (the source), gunstar.bin (assembled, checked against the ROM),
 symbols.json (name -> address), routines.json (each routine: its range, instructions, callees,
-whether it ran), report.txt.
+whether it ran), code.json (every instruction's address, the executed ones, the entries: what
+program.py loads for the analyses), report.txt.
 
 usage: build.py ROM [--evidence DIR] [--out DIR]
 """
@@ -311,6 +312,8 @@ def main():
     json.dump(dict(sorted(syms.items(), key=lambda kv: kv[1])), open(os.path.join(a.out, 'symbols.json'), 'w'), indent=0)
     routines = d.routines()
     json.dump(routines, open(os.path.join(a.out, 'routines.json'), 'w'), indent=1)
+    json.dump({'insns': sorted(d.insn), 'executed': sorted(d.executed & set(d.insn)), 'entries': sorted(d.entries)},
+              open(os.path.join(a.out, 'code.json'), 'w'))
     n_exec = len(d.executed)
     n_static = len(d.insn) - sum(1 for x in d.insn if x in d.executed)
     code_bytes = sum(i.size for i in d.insn.values())

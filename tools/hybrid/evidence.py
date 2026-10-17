@@ -5,7 +5,8 @@ out/evidence (oracle_shim.c, "disassembly evidence"), merged with what earlier r
   rom_cov.u32    executions of each ROM address as an instruction (u32 a byte of the 1 MB ROM)
   ram_cov.u32    executions in 68k work RAM ($FF0000-$FFFFFF, u32 each)
   z80_cov.u32    executions in Z80 RAM ($0000-$1FFF, u32 each)
-  rom_flags.u8   per ROM byte: 1 read as data by the 68k, 2 read by DMA
+  rom_flags.u8   per ROM byte: 1 read as data by the 68k, 2 read by DMA; at a conditional branch
+                 or dbcc, 4 taken, 8 fell through
   rom_reader.u32 per ROM byte: the PC of the last instruction seen reading it (| 0x80000000; 0 none;
                  a checksum's sweep of the whole ROM never replaces another reader)
   ram_rw.u8      per work RAM byte: the widths it was read (bits 0-2: byte, word, long) and written

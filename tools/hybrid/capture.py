@@ -2,13 +2,13 @@
 """Record function-level captures from the oracle during scripted play.
 
 usage: capture.py ROM --fn NAME[,NAME...] --out FILE [--state STATE] [--frames N] [--script S]
-                  [--max N] [--stride N] [--coverage FILE] [--from N]
+                  [--max N] [--stride N] [--coverage FILE] [--from N] [--poke P] [--hold H]
 """
 import argparse, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from oracle import Oracle, ROOT  # noqa: E402
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'oracle'))
-from run import parse_pokes  # noqa: E402
+from run import parse_pokes, parse_hold  # noqa: E402
 from script import Player  # noqa: E402
 
 
@@ -25,6 +25,7 @@ def main():
     ap.add_argument('--coverage', default='', help='write per-PC execution counts (raw uint32[1M]) here')
     ap.add_argument('--no-calls', action='store_true', help='do not log nested calls')
     ap.add_argument('--poke', default='', help='RAM words to write: "FRAME:ADDR=VAL,...;FRAME:..." (hex)')
+    ap.add_argument('--hold', default='', help='RAM words written before every frame: "ADDR=VAL,..." (hex)')
     ap.add_argument('--max-log', type=int, default=128, help='MB of call log per record; a longer capture is dropped (memory)')
     ap.add_argument('--spread', action='store_true', help='capture call numbers 1,2,3,4,6,8,12,16,... of each routine instead of the first N')
     ap.add_argument('--from', dest='from_frame', type=int, default=0, help='capture from this frame on')
@@ -52,12 +53,15 @@ def main():
     o.capture_open(a.out, a.max, a.stride)
     script = Player(a.script)
     pokes = parse_pokes(a.poke)
+    hold = parse_hold(a.hold)
     for f in range(a.frames):
         if a.from_frame and f == a.from_frame:
             for fn in fns:
                 o.bp(fn)
         script.at(o, f)
         for ad, v in pokes.get(f, ()):
+            o.poke_w(ad, v)
+        for ad, v in hold:
             o.poke_w(ad, v)
         o.run()
     n = o.capture_close()

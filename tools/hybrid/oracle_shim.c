@@ -334,14 +334,17 @@ static int ls_counted(int type, uint32_t a) {
  * 68k executed in work RAM (code copied there, such as an H-interrupt handler) and the Z80 in its
  * RAM; the ROM bytes the 68k read as data (pc-relative reads too: tools/patches/
  * gpgx-evidence-hooks.sh) and the ones DMA read; every control transfer by jsr, bsr and jmp, with
- * its site and target (a hash set: it resolves jump tables and calls through RAM). The ROM's
- * executed PCs are the coverage above. */
+ * its site and target (a hash set: it resolves jump tables and calls through RAM); which way each
+ * conditional branch and dbcc in ROM went (taken, fell through). The ROM's executed PCs are the
+ * coverage above. */
 #define EV_EDGES (1u << 17)
 #define EV_DATA 1u
 #define EV_DMA 2u
+#define EV_TAKEN 4u
+#define EV_FELL 8u
 static int ev_on;
 static uint32_t *ev_ram_cov, *ev_z80_cov;            /* 64K for $FF0000-$FFFFFF, 8K for Z80 RAM */
-static uint8_t *ev_rom;                              /* per ROM byte: EV_DATA | EV_DMA */
+static uint8_t *ev_rom;                              /* per ROM byte: EV_DATA | EV_DMA, and at a branch EV_TAKEN | EV_FELL */
 static uint32_t *ev_reader;                          /* per ROM byte: the PC of the last instruction that read it as data */
 static struct { uint32_t site, target, kind, count; } *ev_edges;
 static uint32_t ev_n_edges, ev_prev_pc;
@@ -387,6 +390,12 @@ static void ev_exec(uint32_t pc) {
   for (int i = 0; i < n_irq_pcs; i++) if ((pc & 0xFFFFFF) == irq_pcs[i]) irq = 1;
   if (kind && !irq) ev_edge(ev_prev_pc, pc, kind);
   if (irq) ev_edge(0xFFFFFFFFu, pc, 4);                  /* an interrupt's entry */
+  else if (ev_prev_pc < ROM_SIZE) {
+    if ((op & 0xF000) == 0x6000 && (op & 0x0E00))         /* bcc (not bra, bsr) */
+      ev_rom[ev_prev_pc] |= pc == ev_prev_pc + ((op & 0xFF) ? 2u : 4u) ? EV_FELL : EV_TAKEN;
+    else if ((op & 0xF0F8) == 0x50C8)                    /* dbcc */
+      ev_rom[ev_prev_pc] |= pc == ev_prev_pc + 4 ? EV_FELL : EV_TAKEN;
+  }
   ev_prev_pc = pc; ev_prev_op = op_at(pc);
 }
 
