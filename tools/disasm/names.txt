@@ -748,3 +748,25 @@ FFF758 v_drawPtr             # the draw list's end as it fills
 01263C SolidSides
 012710 SolidTop
 FFA202 v_noSolids            # not 0: the players stand on no solid object
+# ---- the planes' scrolling (src/scroll.c) [the engine frame]
+00976C ScrollRowA
+009790 ScrollRowAShort
+0097B4 ScrollColumnA
+0097D8 ScrollRowB
+0097F4 ScrollColumnB
+009870 ScrollRowBDma
+00988C ScrollColumnBDma
+009DF0 QueueVram
+009E0A QueueSource
+009F8E ColumnGather
+00A040 ColumnGather2
+00A37A ScrollFrame
+00A3B8 ScrollPlaneAColumns
+00A3F6 ScrollPlaneB
+00A418 ScrollPlaneBColumns
+00A434 HScrollTable
+00A53E VScrollTable
+FFA95A v_planeFlagsA         # bit 2 no new rows, 3 no new columns, 5 tall, 4 wide, 7 and 6 the per-cell scroll's plane
+FFA95B v_planeFlagsB
+FFA98E v_battleship          # not 0 (in the battleship's stage): half rows, 11 chunks
+FFF70E v_columnBuffer        # where the next column for DMA is gathered (from $FFF400)

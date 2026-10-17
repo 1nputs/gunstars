@@ -698,6 +698,25 @@ void SolidHanging(uint16_t obj, uint16_t solid);                     /* $01262A 
 void SolidSides(uint16_t obj, uint16_t solid);                       /* $01263C a5, a4 */
 void SolidTop(uint16_t obj, uint16_t solid);                         /* $012710 a5, a4 */
 
+/* ---- the planes' scrolling (scroll.c) ---- */
+void ScrollRowA(void);                                               /* $00976C */
+void ScrollRowAShort(void);                                          /* $009790 */
+void ScrollColumnA(void);                                            /* $0097B4 */
+void ScrollRowB(void);                                               /* $0097D8 */
+void ScrollColumnB(void);                                            /* $0097F4 */
+void ScrollRowBDma(void);                                            /* $009870 */
+void ScrollColumnBDma(void);                                         /* $00988C */
+uint16_t QueueVram(uint16_t q, uint16_t vram);                       /* $009DF0 a0, d2.w -> a0 */
+uint16_t QueueSource(uint16_t q, uint32_t src);                      /* $009E0A a0, d2 -> a0 */
+uint16_t ColumnGather(uint16_t col, uint16_t y, uint16_t to);        /* $009F8E d0.w, d1.w, a1 -> a1 */
+void ColumnGather2(uint16_t col, uint16_t y, uint16_t *even, uint16_t *odd);/* $00A040 d0.w, d1.w -> a4, a1 */
+void ScrollFrame(void);                                              /* $00A37A */
+void ScrollPlaneAColumns(void);                                      /* $00A3B8 */
+void ScrollPlaneB(void);                                             /* $00A3F6 */
+void ScrollPlaneBColumns(void);                                      /* $00A418 */
+void HScrollTable(void);                                             /* $00A434 */
+void VScrollTable(void);                                             /* $00A53E */
+
 /* ---- the level's collision (map.c) ---- */
 uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
 uint16_t MapBoundsY(uint16_t x, uint16_t *y);                       /* $00C31C d0.w -> d2.w, d1.w */

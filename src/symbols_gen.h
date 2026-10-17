@@ -435,30 +435,30 @@
 #define SYM_sub_08EE8 0x008EE8u
 #define SYM_sub_0970C 0x00970Cu
 #define SYM_sub_0973C 0x00973Cu
-#define SYM_sub_0976C 0x00976Cu
-#define SYM_sub_09790 0x009790u
-#define SYM_sub_097B4 0x0097B4u
-#define SYM_sub_097D8 0x0097D8u
-#define SYM_sub_097F4 0x0097F4u
-#define SYM_sub_09870 0x009870u
-#define SYM_sub_0988C 0x00988Cu
+#define SYM_ScrollRowA 0x00976Cu
+#define SYM_ScrollRowAShort 0x009790u
+#define SYM_ScrollColumnA 0x0097B4u
+#define SYM_ScrollRowB 0x0097D8u
+#define SYM_ScrollColumnB 0x0097F4u
+#define SYM_ScrollRowBDma 0x009870u
+#define SYM_ScrollColumnBDma 0x00988Cu
 #define SYM_sub_098AC 0x0098ACu
 #define SYM_sub_09974 0x009974u
 #define SYM_sub_099D2 0x0099D2u
 #define SYM_sub_09A4E 0x009A4Eu
 #define SYM_sub_09AD0 0x009AD0u
 #define SYM_sub_09B94 0x009B94u
-#define SYM_sub_09DF0 0x009DF0u
-#define SYM_sub_09E0A 0x009E0Au
-#define SYM_sub_09F8E 0x009F8Eu
-#define SYM_sub_0A040 0x00A040u
+#define SYM_QueueVram 0x009DF0u
+#define SYM_QueueSource 0x009E0Au
+#define SYM_ColumnGather 0x009F8Eu
+#define SYM_ColumnGather2 0x00A040u
 #define SYM_sub_0A2FE 0x00A2FEu
-#define SYM_sub_0A37A 0x00A37Au
-#define SYM_sub_0A3B8 0x00A3B8u
-#define SYM_sub_0A3F6 0x00A3F6u
-#define SYM_sub_0A418 0x00A418u
-#define SYM_sub_0A434 0x00A434u
-#define SYM_sub_0A53E 0x00A53Eu
+#define SYM_ScrollFrame 0x00A37Au
+#define SYM_ScrollPlaneAColumns 0x00A3B8u
+#define SYM_ScrollPlaneB 0x00A3F6u
+#define SYM_ScrollPlaneBColumns 0x00A418u
+#define SYM_HScrollTable 0x00A434u
+#define SYM_VScrollTable 0x00A53Eu
 #define SYM_CameraMove 0x00A630u
 #define SYM_sub_0A692 0x00A692u
 #define SYM_sub_0A6A2 0x00A6A2u
@@ -3280,12 +3280,15 @@ enum {
     v_mapX = 0xA954,
     v_mapY = 0xA956,
     v_scenePlayers = 0xA958,
+    v_planeFlagsA = 0xA95A,
+    v_planeFlagsB = 0xA95B,
     v_boundsX0 = 0xA960,
     v_boundsY0 = 0xA964,
     v_boundsX1 = 0xA968,
     v_boundsY1 = 0xA96C,
     v_speedLimitX = 0xA978,
     v_speedLimitY = 0xA97C,
+    v_battleship = 0xA98E,
     v_tilePixels = 0xB400,
     v_jobBuffer = 0xB600,
     v_targets = 0xB980,
@@ -3302,6 +3305,7 @@ enum {
     v_padPressed = 0xF708,
     v_padReleased = 0xF70A,
     v_dmaQueue = 0xF70C,
+    v_columnBuffer = 0xF70E,
     v_hscrollSrc = 0xF710,
     v_vscrollSrc = 0xF714,
     v_jobKind = 0xF720,
@@ -3769,30 +3773,30 @@ static const struct sym rom_syms[] = {
     { 0x008EE8u, "sub_08EE8" },
     { 0x00970Cu, "sub_0970C" },
     { 0x00973Cu, "sub_0973C" },
-    { 0x00976Cu, "sub_0976C" },
-    { 0x009790u, "sub_09790" },
-    { 0x0097B4u, "sub_097B4" },
-    { 0x0097D8u, "sub_097D8" },
-    { 0x0097F4u, "sub_097F4" },
-    { 0x009870u, "sub_09870" },
-    { 0x00988Cu, "sub_0988C" },
+    { 0x00976Cu, "ScrollRowA" },
+    { 0x009790u, "ScrollRowAShort" },
+    { 0x0097B4u, "ScrollColumnA" },
+    { 0x0097D8u, "ScrollRowB" },
+    { 0x0097F4u, "ScrollColumnB" },
+    { 0x009870u, "ScrollRowBDma" },
+    { 0x00988Cu, "ScrollColumnBDma" },
     { 0x0098ACu, "sub_098AC" },
     { 0x009974u, "sub_09974" },
     { 0x0099D2u, "sub_099D2" },
     { 0x009A4Eu, "sub_09A4E" },
     { 0x009AD0u, "sub_09AD0" },
     { 0x009B94u, "sub_09B94" },
-    { 0x009DF0u, "sub_09DF0" },
-    { 0x009E0Au, "sub_09E0A" },
-    { 0x009F8Eu, "sub_09F8E" },
-    { 0x00A040u, "sub_0A040" },
+    { 0x009DF0u, "QueueVram" },
+    { 0x009E0Au, "QueueSource" },
+    { 0x009F8Eu, "ColumnGather" },
+    { 0x00A040u, "ColumnGather2" },
     { 0x00A2FEu, "sub_0A2FE" },
-    { 0x00A37Au, "sub_0A37A" },
-    { 0x00A3B8u, "sub_0A3B8" },
-    { 0x00A3F6u, "sub_0A3F6" },
-    { 0x00A418u, "sub_0A418" },
-    { 0x00A434u, "sub_0A434" },
-    { 0x00A53Eu, "sub_0A53E" },
+    { 0x00A37Au, "ScrollFrame" },
+    { 0x00A3B8u, "ScrollPlaneAColumns" },
+    { 0x00A3F6u, "ScrollPlaneB" },
+    { 0x00A418u, "ScrollPlaneBColumns" },
+    { 0x00A434u, "HScrollTable" },
+    { 0x00A53Eu, "VScrollTable" },
     { 0x00A630u, "CameraMove" },
     { 0x00A692u, "sub_0A692" },
     { 0x00A6A2u, "sub_0A6A2" },
@@ -6613,12 +6617,15 @@ static const struct sym ram_syms[] = {
     { 0xA954u, "v_mapX" },
     { 0xA956u, "v_mapY" },
     { 0xA958u, "v_scenePlayers" },
+    { 0xA95Au, "v_planeFlagsA" },
+    { 0xA95Bu, "v_planeFlagsB" },
     { 0xA960u, "v_boundsX0" },
     { 0xA964u, "v_boundsY0" },
     { 0xA968u, "v_boundsX1" },
     { 0xA96Cu, "v_boundsY1" },
     { 0xA978u, "v_speedLimitX" },
     { 0xA97Cu, "v_speedLimitY" },
+    { 0xA98Eu, "v_battleship" },
     { 0xB400u, "v_tilePixels" },
     { 0xB600u, "v_jobBuffer" },
     { 0xB980u, "v_targets" },
@@ -6635,6 +6642,7 @@ static const struct sym ram_syms[] = {
     { 0xF708u, "v_padPressed" },
     { 0xF70Au, "v_padReleased" },
     { 0xF70Cu, "v_dmaQueue" },
+    { 0xF70Eu, "v_columnBuffer" },
     { 0xF710u, "v_hscrollSrc" },
     { 0xF714u, "v_vscrollSrc" },
     { 0xF720u, "v_jobKind" },
