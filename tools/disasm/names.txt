@@ -194,3 +194,54 @@ FFF732 v_bitBuffer           # the tile decoder's bits, the next at the top
 06865E SoundFlagFm3
 FFF80A v_soundQueue          # four sounds asked for (QueueSound); the driver takes the highest priority
 FFFF26 v_consoleVersion      # the I/O chip's version byte at the reset: bit 6 PAL, bit 7 overseas
+# ---- clearing (src/clear.c)
+0029EA ScreenReset
+002A12 ScreenResetAlt
+002A32 ClearVideo
+002A56 ClearObjects
+002A6C ClearPalettes
+002AAA ClearBuffers
+002AD6 VdpShadowRegs
+002ADE VdpShadowRegsAlt
+002B68 ClearRamFF0000
+002B9C ClearRamFF8000
+002BB4 ClearRamA000
+002BE2 ClearRamA200
+002C5A ClearPlayers
+002C88 ClearRamA800
+002CA0 ClearRamA800Head
+002CB8 ClearRamA900
+002CE8 ClearTileBuffer
+002D18 ClearRamBE00
+002D30 ClearObjectRam
+002D68 ClearSprites
+002D80 ClearPaletteRam
+002D98 ClearHScroll
+002DB0 ClearVScroll
+002E28 ClearVram
+002EB8 ClearVramC000
+002EE8 ClearVramD000
+002F18 ClearVramE000
+002F48 ClearVramF000
+002F78 ClearVramF400
+001BE4 LoadPalettes
+# ---- sprites (src/sprites.c)
+001C32 BuildSprites
+001E6E SpritesStart
+001DE4 Animate
+001E10 AnimateFrames
+001EE2 DrawSprite
+001F50 DrawMapping
+002010 DrawMappingDma
+0020D6 DrawMappingDma2
+001CBA DrawPlayerSprites
+001D1A DrawObjectSprites
+001B86 QueueDmaBlock
+0021E8 SelectAnimation
+00222C DrawSpriteList
+FFA012 v_cameraY             # added to every object's y that is not fixed on screen
+FFED00 v_drawList            # the objects to draw (words), v_drawCount of them
+FFF744 v_spritesStarted      # the sprite table was started this frame (SpritesStart)
+FFF756 v_reservedSprites     # sprites at the table's head that BuildSprites leaves alone
+FFF75A v_drawCount
+001BFE LoadPaletteLine

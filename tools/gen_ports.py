@@ -61,6 +61,8 @@ def adapter(p, draft=False):
         lines.append('    %s = r->regs_in[%s];' % (g[2], REG[g[1]]))
     call = '%s(%s)' % (name, ', '.join(args))
     checks = []
+    types = {pname: ctype[:-1].strip() for ctype, pname in ptrs}
+    types['ret'] = ret
     if ret != 'void':
         lines.append('    %s ret = %s;' % (ret, call))
         checks.append((p.regs_out[0], 'ret'))
@@ -80,7 +82,8 @@ def adapter(p, draft=False):
         else:
             r_ = REG[reg[1]]
             if reg[1][0] == 'a':
-                lines.append('    expect_reg(r, %s, (uint32_t)%s, 0xFFFFFF, "%s");' % (r_, v, reg[1]))
+                m = '0xFFFF' if types.get(v) == 'uint16_t' else '0xFFFFFF'   # a RAM offset: its low word
+                lines.append('    expect_reg(r, %s, (uint32_t)%s, %s, "%s");' % (r_, v, m, reg[1]))
             else:
                 m = {'b': '0xFF', 'w': '0xFFFF', 'l': '0xFFFFFFFF'}[reg[2]]
                 lines.append('    expect_reg(r, %s, (uint32_t)%s, %s, "%s");' % (r_, v, m, reg[1] + ('.' + reg[2] if reg[2] != 'l' else '')))

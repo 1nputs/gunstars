@@ -31,28 +31,28 @@
 #define SYM_HintShiftLines 0x00176Eu
 #define SYM_sub_01AB0 0x001AB0u
 #define SYM_sub_01AB8 0x001AB8u
-#define SYM_sub_01B86 0x001B86u
-#define SYM_sub_01BE4 0x001BE4u
-#define SYM_sub_01BFE 0x001BFEu
-#define SYM_sub_01C32 0x001C32u
-#define SYM_sub_01CBA 0x001CBAu
-#define SYM_sub_01D1A 0x001D1Au
-#define SYM_sub_01DE4 0x001DE4u
-#define SYM_sub_01E10 0x001E10u
-#define SYM_sub_01E6E 0x001E6Eu
-#define SYM_sub_01EE2 0x001EE2u
-#define SYM_sub_01F50 0x001F50u
+#define SYM_QueueDmaBlock 0x001B86u
+#define SYM_LoadPalettes 0x001BE4u
+#define SYM_LoadPaletteLine 0x001BFEu
+#define SYM_BuildSprites 0x001C32u
+#define SYM_DrawPlayerSprites 0x001CBAu
+#define SYM_DrawObjectSprites 0x001D1Au
+#define SYM_Animate 0x001DE4u
+#define SYM_AnimateFrames 0x001E10u
+#define SYM_SpritesStart 0x001E6Eu
+#define SYM_DrawSprite 0x001EE2u
+#define SYM_DrawMapping 0x001F50u
 #define SYM_sub_01FE0 0x001FE0u
 #define SYM_sub_01FF0 0x001FF0u
-#define SYM_sub_02010 0x002010u
+#define SYM_DrawMappingDma 0x002010u
 #define SYM_sub_020A8 0x0020A8u
 #define SYM_sub_020B6 0x0020B6u
-#define SYM_sub_020D6 0x0020D6u
+#define SYM_DrawMappingDma2 0x0020D6u
 #define SYM_sub_0216E 0x00216Eu
 #define SYM_sub_0217C 0x00217Cu
 #define SYM_sub_0219C 0x00219Cu
-#define SYM_sub_021E8 0x0021E8u
-#define SYM_sub_0222C 0x00222Cu
+#define SYM_SelectAnimation 0x0021E8u
+#define SYM_DrawSpriteList 0x00222Cu
 #define SYM_RunCommands 0x0022DEu
 #define SYM_CmdCopyToRam 0x002310u
 #define SYM_CmdCopyToVram 0x002326u
@@ -75,43 +75,43 @@
 #define SYM_PackTile 0x002886u
 #define SYM_WriteTileVram 0x0028B2u
 #define SYM_QueueTileDma 0x00290Cu
-#define SYM_sub_029EA 0x0029EAu
-#define SYM_sub_02A12 0x002A12u
-#define SYM_sub_02A32 0x002A32u
-#define SYM_sub_02A56 0x002A56u
-#define SYM_sub_02A6C 0x002A6Cu
+#define SYM_ScreenReset 0x0029EAu
+#define SYM_ScreenResetAlt 0x002A12u
+#define SYM_ClearVideo 0x002A32u
+#define SYM_ClearObjects 0x002A56u
+#define SYM_ClearPalettes 0x002A6Cu
 #define SYM_FrameInit 0x002A7Cu
-#define SYM_sub_02AAA 0x002AAAu
+#define SYM_ClearBuffers 0x002AAAu
 #define SYM_VdpInitRegs 0x002AB4u
-#define SYM_sub_02AD6 0x002AD6u
-#define SYM_sub_02ADE 0x002ADEu
+#define SYM_VdpShadowRegs 0x002AD6u
+#define SYM_VdpShadowRegsAlt 0x002ADEu
 #define SYM_IoInit 0x002B2Au
-#define SYM_sub_02B68 0x002B68u
+#define SYM_ClearRamFF0000 0x002B68u
 #define SYM_sub_02B82 0x002B82u
-#define SYM_sub_02B9C 0x002B9Cu
-#define SYM_sub_02BB4 0x002BB4u
-#define SYM_sub_02BE2 0x002BE2u
-#define SYM_sub_02C5A 0x002C5Au
-#define SYM_sub_02C88 0x002C88u
-#define SYM_sub_02CA0 0x002CA0u
-#define SYM_sub_02CB8 0x002CB8u
-#define SYM_sub_02CE8 0x002CE8u
+#define SYM_ClearRamFF8000 0x002B9Cu
+#define SYM_ClearRamA000 0x002BB4u
+#define SYM_ClearRamA200 0x002BE2u
+#define SYM_ClearPlayers 0x002C5Au
+#define SYM_ClearRamA800 0x002C88u
+#define SYM_ClearRamA800Head 0x002CA0u
+#define SYM_ClearRamA900 0x002CB8u
+#define SYM_ClearTileBuffer 0x002CE8u
 #define SYM_ClearRamB800 0x002D00u
-#define SYM_sub_02D18 0x002D18u
-#define SYM_sub_02D30 0x002D30u
+#define SYM_ClearRamBE00 0x002D18u
+#define SYM_ClearObjectRam 0x002D30u
 #define SYM_sub_02D50 0x002D50u
-#define SYM_sub_02D68 0x002D68u
-#define SYM_sub_02D80 0x002D80u
-#define SYM_sub_02D98 0x002D98u
-#define SYM_sub_02DB0 0x002DB0u
+#define SYM_ClearSprites 0x002D68u
+#define SYM_ClearPaletteRam 0x002D80u
+#define SYM_ClearHScroll 0x002D98u
+#define SYM_ClearVScroll 0x002DB0u
 #define SYM_ClearRamF000 0x002DC8u
 #define SYM_ClearDmaArea 0x002DE0u
-#define SYM_sub_02E28 0x002E28u
-#define SYM_sub_02EB8 0x002EB8u
-#define SYM_sub_02EE8 0x002EE8u
-#define SYM_sub_02F18 0x002F18u
-#define SYM_sub_02F48 0x002F48u
-#define SYM_sub_02F78 0x002F78u
+#define SYM_ClearVram 0x002E28u
+#define SYM_ClearVramC000 0x002EB8u
+#define SYM_ClearVramD000 0x002EE8u
+#define SYM_ClearVramE000 0x002F18u
+#define SYM_ClearVramF000 0x002F48u
+#define SYM_ClearVramF400 0x002F78u
 #define SYM_ResetPads 0x003050u
 #define SYM_ReadPads 0x003066u
 #define SYM_ReadPad1 0x003094u
@@ -3240,6 +3240,7 @@
 
 /* work RAM: offsets ($FFxxxx & $FFFF) */
 enum {
+    v_cameraY = 0xA012,
     v_stage4 = 0xA204,
     v_stagesCleared = 0xA208,
     v_player1 = 0xA400,
@@ -3250,6 +3251,7 @@ enum {
     v_sprites = 0xE000,
     v_palette = 0xE300,
     v_paletteTarget = 0xE380,
+    v_drawList = 0xED00,
     v_hintCode = 0xEE00,
     v_dmaCommand = 0xF700,
     v_frameReady = 0xF704,
@@ -3267,11 +3269,14 @@ enum {
     v_jobDst = 0xF72C,
     v_bitsLeft = 0xF730,
     v_bitBuffer = 0xF732,
+    v_spritesStarted = 0xF744,
     v_hintEffect = 0xF74A,
     v_hintState = 0xF74E,
     v_hintLine = 0xF750,
     v_jobBufferFull = 0xF754,
     v_displayOn = 0xF755,
+    v_reservedSprites = 0xF756,
+    v_drawCount = 0xF75A,
     v_fadeSpeed = 0xF75C,
     v_fadeLevel = 0xF75E,
     v_vdpRegs = 0xF7D0,
@@ -3315,28 +3320,28 @@ static const struct sym rom_syms[] = {
     { 0x00176Eu, "HintShiftLines" },
     { 0x001AB0u, "sub_01AB0" },
     { 0x001AB8u, "sub_01AB8" },
-    { 0x001B86u, "sub_01B86" },
-    { 0x001BE4u, "sub_01BE4" },
-    { 0x001BFEu, "sub_01BFE" },
-    { 0x001C32u, "sub_01C32" },
-    { 0x001CBAu, "sub_01CBA" },
-    { 0x001D1Au, "sub_01D1A" },
-    { 0x001DE4u, "sub_01DE4" },
-    { 0x001E10u, "sub_01E10" },
-    { 0x001E6Eu, "sub_01E6E" },
-    { 0x001EE2u, "sub_01EE2" },
-    { 0x001F50u, "sub_01F50" },
+    { 0x001B86u, "QueueDmaBlock" },
+    { 0x001BE4u, "LoadPalettes" },
+    { 0x001BFEu, "LoadPaletteLine" },
+    { 0x001C32u, "BuildSprites" },
+    { 0x001CBAu, "DrawPlayerSprites" },
+    { 0x001D1Au, "DrawObjectSprites" },
+    { 0x001DE4u, "Animate" },
+    { 0x001E10u, "AnimateFrames" },
+    { 0x001E6Eu, "SpritesStart" },
+    { 0x001EE2u, "DrawSprite" },
+    { 0x001F50u, "DrawMapping" },
     { 0x001FE0u, "sub_01FE0" },
     { 0x001FF0u, "sub_01FF0" },
-    { 0x002010u, "sub_02010" },
+    { 0x002010u, "DrawMappingDma" },
     { 0x0020A8u, "sub_020A8" },
     { 0x0020B6u, "sub_020B6" },
-    { 0x0020D6u, "sub_020D6" },
+    { 0x0020D6u, "DrawMappingDma2" },
     { 0x00216Eu, "sub_0216E" },
     { 0x00217Cu, "sub_0217C" },
     { 0x00219Cu, "sub_0219C" },
-    { 0x0021E8u, "sub_021E8" },
-    { 0x00222Cu, "sub_0222C" },
+    { 0x0021E8u, "SelectAnimation" },
+    { 0x00222Cu, "DrawSpriteList" },
     { 0x0022DEu, "RunCommands" },
     { 0x002310u, "CmdCopyToRam" },
     { 0x002326u, "CmdCopyToVram" },
@@ -3359,43 +3364,43 @@ static const struct sym rom_syms[] = {
     { 0x002886u, "PackTile" },
     { 0x0028B2u, "WriteTileVram" },
     { 0x00290Cu, "QueueTileDma" },
-    { 0x0029EAu, "sub_029EA" },
-    { 0x002A12u, "sub_02A12" },
-    { 0x002A32u, "sub_02A32" },
-    { 0x002A56u, "sub_02A56" },
-    { 0x002A6Cu, "sub_02A6C" },
+    { 0x0029EAu, "ScreenReset" },
+    { 0x002A12u, "ScreenResetAlt" },
+    { 0x002A32u, "ClearVideo" },
+    { 0x002A56u, "ClearObjects" },
+    { 0x002A6Cu, "ClearPalettes" },
     { 0x002A7Cu, "FrameInit" },
-    { 0x002AAAu, "sub_02AAA" },
+    { 0x002AAAu, "ClearBuffers" },
     { 0x002AB4u, "VdpInitRegs" },
-    { 0x002AD6u, "sub_02AD6" },
-    { 0x002ADEu, "sub_02ADE" },
+    { 0x002AD6u, "VdpShadowRegs" },
+    { 0x002ADEu, "VdpShadowRegsAlt" },
     { 0x002B2Au, "IoInit" },
-    { 0x002B68u, "sub_02B68" },
+    { 0x002B68u, "ClearRamFF0000" },
     { 0x002B82u, "sub_02B82" },
-    { 0x002B9Cu, "sub_02B9C" },
-    { 0x002BB4u, "sub_02BB4" },
-    { 0x002BE2u, "sub_02BE2" },
-    { 0x002C5Au, "sub_02C5A" },
-    { 0x002C88u, "sub_02C88" },
-    { 0x002CA0u, "sub_02CA0" },
-    { 0x002CB8u, "sub_02CB8" },
-    { 0x002CE8u, "sub_02CE8" },
+    { 0x002B9Cu, "ClearRamFF8000" },
+    { 0x002BB4u, "ClearRamA000" },
+    { 0x002BE2u, "ClearRamA200" },
+    { 0x002C5Au, "ClearPlayers" },
+    { 0x002C88u, "ClearRamA800" },
+    { 0x002CA0u, "ClearRamA800Head" },
+    { 0x002CB8u, "ClearRamA900" },
+    { 0x002CE8u, "ClearTileBuffer" },
     { 0x002D00u, "ClearRamB800" },
-    { 0x002D18u, "sub_02D18" },
-    { 0x002D30u, "sub_02D30" },
+    { 0x002D18u, "ClearRamBE00" },
+    { 0x002D30u, "ClearObjectRam" },
     { 0x002D50u, "sub_02D50" },
-    { 0x002D68u, "sub_02D68" },
-    { 0x002D80u, "sub_02D80" },
-    { 0x002D98u, "sub_02D98" },
-    { 0x002DB0u, "sub_02DB0" },
+    { 0x002D68u, "ClearSprites" },
+    { 0x002D80u, "ClearPaletteRam" },
+    { 0x002D98u, "ClearHScroll" },
+    { 0x002DB0u, "ClearVScroll" },
     { 0x002DC8u, "ClearRamF000" },
     { 0x002DE0u, "ClearDmaArea" },
-    { 0x002E28u, "sub_02E28" },
-    { 0x002EB8u, "sub_02EB8" },
-    { 0x002EE8u, "sub_02EE8" },
-    { 0x002F18u, "sub_02F18" },
-    { 0x002F48u, "sub_02F48" },
-    { 0x002F78u, "sub_02F78" },
+    { 0x002E28u, "ClearVram" },
+    { 0x002EB8u, "ClearVramC000" },
+    { 0x002EE8u, "ClearVramD000" },
+    { 0x002F18u, "ClearVramE000" },
+    { 0x002F48u, "ClearVramF000" },
+    { 0x002F78u, "ClearVramF400" },
     { 0x003050u, "ResetPads" },
     { 0x003066u, "ReadPads" },
     { 0x003094u, "ReadPad1" },
@@ -6523,6 +6528,7 @@ static const struct sym rom_syms[] = {
     { 0x068826u, "SoundFmVolume" },
 };
 static const struct sym ram_syms[] = {
+    { 0xA012u, "v_cameraY" },
     { 0xA204u, "v_stage4" },
     { 0xA208u, "v_stagesCleared" },
     { 0xA400u, "v_player1" },
@@ -6533,6 +6539,7 @@ static const struct sym ram_syms[] = {
     { 0xE000u, "v_sprites" },
     { 0xE300u, "v_palette" },
     { 0xE380u, "v_paletteTarget" },
+    { 0xED00u, "v_drawList" },
     { 0xEE00u, "v_hintCode" },
     { 0xF700u, "v_dmaCommand" },
     { 0xF704u, "v_frameReady" },
@@ -6550,11 +6557,14 @@ static const struct sym ram_syms[] = {
     { 0xF72Cu, "v_jobDst" },
     { 0xF730u, "v_bitsLeft" },
     { 0xF732u, "v_bitBuffer" },
+    { 0xF744u, "v_spritesStarted" },
     { 0xF74Au, "v_hintEffect" },
     { 0xF74Eu, "v_hintState" },
     { 0xF750u, "v_hintLine" },
     { 0xF754u, "v_jobBufferFull" },
     { 0xF755u, "v_displayOn" },
+    { 0xF756u, "v_reservedSprites" },
+    { 0xF75Au, "v_drawCount" },
     { 0xF75Cu, "v_fadeSpeed" },
     { 0xF75Eu, "v_fadeLevel" },
     { 0xF7D0u, "v_vdpRegs" },

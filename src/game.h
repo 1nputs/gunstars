@@ -41,6 +41,8 @@ void QueueHScroll(void);                                             /* $0012F4 
 void QueueVScroll(void);                                             /* $00134A */
 uint32_t Random(void);                                               /* $003630 -> d0 */
 void QueueDma(uint32_t command, uint32_t src, uint32_t length_regs); /* (a helper: a DMA into the queue) */
+void LoadPalettes(uint32_t list);                                    /* $001BE4 a0 */
+void LoadPaletteLine(uint32_t *list, uint16_t *pal, uint16_t *target);   /* $001BFE -> a0, a2, a3 */
 
 /* ---- background graphics: the job list, command lists, the decoders (jobs.c) ---- */
 void RunCommands(uint32_t list);                                     /* $0022DE a0 */
@@ -172,6 +174,52 @@ int SoundFlagTranspose(uint16_t t, uint32_t *data);                  /* $068652 
 int SoundFlagModOn(uint16_t t, uint32_t *data);                      /* $068656 a5 -> -, a4 */
 int SoundFlagModOff(uint16_t t, uint32_t *data);                     /* $06865A a5 -> -, a4 */
 int SoundFlagFm3(uint16_t t, uint32_t *data);                        /* $06865E a5 -> -, a4 */
+
+/* ---- clearing (clear.c) ---- */
+void ScreenReset(void);                                              /* $0029EA */
+void ScreenResetAlt(void);                                           /* $002A12 */
+void ClearVideo(void);                                               /* $002A32 */
+void ClearObjects(void);                                             /* $002A56 */
+void ClearPalettes(void);                                            /* $002A6C */
+void ClearBuffers(void);                                             /* $002AAA */
+void VdpShadowRegs(void);                                            /* $002AD6 */
+void VdpShadowRegsAlt(void);                                         /* $002ADE */
+void ClearRamFF0000(void);                                           /* $002B68 */
+void ClearRamFF8000(void);                                           /* $002B9C */
+void ClearRamA000(void);                                             /* $002BB4 */
+void ClearRamA200(void);                                             /* $002BE2 */
+void ClearPlayers(void);                                             /* $002C5A */
+void ClearRamA800(void);                                             /* $002C88 */
+void ClearRamA800Head(void);                                         /* $002CA0 */
+void ClearRamA900(void);                                             /* $002CB8 */
+void ClearTileBuffer(void);                                          /* $002CE8 */
+void ClearRamBE00(void);                                             /* $002D18 */
+void ClearObjectRam(void);                                           /* $002D30 */
+void ClearSprites(void);                                             /* $002D68 */
+void ClearPaletteRam(void);                                          /* $002D80 */
+void ClearHScroll(void);                                             /* $002D98 */
+void ClearVScroll(void);                                             /* $002DB0 */
+void ClearVram(void);                                                /* $002E28 */
+void ClearVramC000(void);                                            /* $002EB8 */
+void ClearVramD000(void);                                            /* $002EE8 */
+void ClearVramE000(void);                                            /* $002F18 */
+void ClearVramF000(void);                                            /* $002F48 */
+void ClearVramF400(void);                                            /* $002F78 */
+
+/* ---- sprites (sprites.c) ---- */
+void BuildSprites(void);                                             /* $001C32 */
+void SpritesStart(void);                                             /* $001E6E */
+uint32_t Animate(uint16_t obj, uint32_t script);                     /* $001DE4 a5, a4 -> a4 */
+uint32_t AnimateFrames(uint16_t obj, uint32_t script);               /* $001E10 a5, a4 -> a4 */
+void DrawSprite(uint16_t obj, uint16_t *count, uint16_t *at);        /* $001EE2 a5 -> d4.w, a3 */
+void DrawMapping(uint16_t obj, uint32_t map, uint16_t *count, uint16_t *at);   /* $001F50 a5, a4 -> d4.w, a3 */
+void DrawMappingDma(uint16_t obj, uint32_t map, uint16_t *count, uint16_t *at, uint16_t *dma);   /* $002010 a5, a4 -> d4.w, a3, a2 */
+void DrawMappingDma2(uint16_t obj, uint32_t map, uint16_t *count, uint16_t *at, uint16_t *dma);  /* $0020D6 a5, a4 -> d4.w, a3, a2 */
+void DrawPlayerSprites(uint16_t obj, uint16_t *count, uint16_t *at); /* $001CBA a5 -> d4.w, a3 */
+void DrawObjectSprites(uint16_t obj, uint16_t *count, uint16_t *at); /* $001D1A a5 -> d4.w, a3 */
+void QueueDmaBlock(uint16_t *q, uint32_t src, uint16_t *vram);       /* $001B86 a1 -> a0, d0.w */
+void SelectAnimation(uint16_t obj, uint32_t table);                  /* $0021E8 a5, a0 */
+void DrawSpriteList(uint32_t list);                                  /* $00222C a0 */
 
 /* ---- not ported yet ---- */
 void GameFrame(void);                    /* the game mode's frame ($000CCA) */

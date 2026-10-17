@@ -198,3 +198,29 @@ uint32_t Random(void)
     wr32(v_randomSeed, (uint32_t)sum << 16 | (uint16_t)m);
     return (seed & 0xFFFF0000) | sum;
 }
+
+/* $001BE4. Four palette lines from a list of four pointers (0 leaves the line), into the
+ * palette and the fade's target. */
+void LoadPalettes(uint32_t list)
+{
+    uint16_t pal = v_palette, target = v_paletteTarget;
+    for (int i = 0; i < 4; i++) LoadPaletteLine(&list, &pal, &target);
+}
+
+/* $001BFE. One line (16 colours) of the list's next pointer. */
+void LoadPaletteLine(uint32_t *list, uint16_t *pal, uint16_t *target)
+{
+    uint32_t src = bus_rd32(*list);
+    *list += 4;
+    if (!src) {
+        *pal += 0x20;
+        *target += 0x20;
+        return;
+    }
+    for (int i = 0; i < 8; i++, src += 4) {
+        wr32(*pal, bus_rd32(src));
+        wr32(*target, bus_rd32(src));
+        *pal += 4;
+        *target += 4;
+    }
+}
