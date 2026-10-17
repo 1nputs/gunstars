@@ -1001,6 +1001,8 @@ void EffectsClear(void);                                             /* $002D50 
 void PlayersAt(uint16_t x, uint16_t y);                              /* $008E62 d0.w, d1.w */
 void PlayersSet20(uint8_t v);                                        /* $0041E0 d0.b */
 void Stage5Drift(void);                                              /* $007F54 */
+void CameraTrailLeft(uint16_t speed);                                /* $007FF4 d1.w */
+void CameraClampY(void);                                             /* $008044 */
 void Stage5Frame(void);                                              /* $007A3A */
 void Stage5Camera(void);                                             /* $007A42 */
 void Stage5Cam00(void);                                              /* $007A72 */
@@ -2248,6 +2250,42 @@ void MessageArrowDown(void);                                         /* $039466 
 void MessageArrowOther(void);                                        /* $03944C */
 void Messages(void);                                                 /* $038882 */
 
+/* ---- the options (options.c) ---- */
+void DrawHex(uint16_t value, uint32_t cmd, uint16_t digits, uint16_t attr);/* $001A10 d1.w, d2, d3.w, d0.w */
+void Options(void);                                                  /* $01C18A */
+void OptionsSetup(void);                                             /* $01C1A8 */
+void OptionsMenu(void);                                              /* $01C23C */
+void OptionsToConfig(void);                                          /* $01C2D0 */
+void OptionsConfig(void);                                            /* $01C33E */
+void OptionsFromConfig(void);                                        /* $01C370 */
+void OptionsInput(void);                                             /* $01C3E0 */
+void OptionsIdle(void);                                              /* $01C40A */
+void OptionsCursor(uint8_t press);                                   /* $01C40C d7.b */
+uint16_t OptionsUpDown(uint8_t press, uint16_t last, uint16_t at);   /* $01C41E d7.b, d1.w, d2.w -> d2.w */
+void OptionsLevel(uint8_t press);                                    /* $01C458 d7.b */
+uint16_t OptionsLeftRight(uint8_t press, uint16_t last, uint16_t at);/* $01C46E d7.b, d1.w, d2.w -> d2.w */
+void OptionsSoundTest(uint8_t press);                                /* $01C4A8 d7.b */
+void OptionsSoundPick(uint8_t press);                                /* $01C4DA d7.b */
+void OptionsEffectTest(uint8_t press);                               /* $01C528 d7.b */
+void OptionsEffectPick(uint8_t press);                               /* $01C57C d7.b */
+void OptionsConfigInput(void);                                       /* $01C5CA */
+uint16_t OptionsConfigUpDown(uint8_t press, uint16_t at);            /* $01C5FC d7.b, d2.w -> d2.w */
+void OptionsConfigPick(uint8_t press, uint16_t at, uint16_t map);    /* $01C63A d7.b, d2.w, a0 */
+uint8_t ConfigNext(uint8_t key);                                     /* $01C776 d2.b -> d1.b */
+uint8_t ConfigPrev(uint8_t key);                                     /* $01C798 d2.b -> d1.b */
+void OptionsDraw(void);                                              /* $01C7BA */
+void OptionsDrawLevel(void);                                         /* $01C7CE */
+void OptionsDrawConfig(void);                                        /* $01C80C */
+void OptionsDrawSound(void);                                         /* $01C82A */
+void OptionsDrawEffect(void);                                        /* $01C85C */
+void OptionsDrawPad1(void);                                          /* $01C99C */
+void OptionsSelect1(void);                                           /* $01C9A8 */
+void OptionsShot1(void);                                             /* $01C9DE */
+uint8_t ConfigLetter(uint8_t key);                                   /* $01CA4A d1.b -> d1.b */
+void OptionsDrawPad2(void);                                          /* $01CA6C */
+void OptionsSelect2(void);                                           /* $01CA78 */
+void OptionsShot2(void);                                             /* $01CAAC */
+
 /* ---- a stage cleared, the continue (modes.c) ---- */
 void StageClearedMark(void);                                         /* $020156 */
 void StageGemMark(void);                                             /* $02013A */
@@ -2256,6 +2294,7 @@ void GameOverWaves(void);                                            /* $020172 
 void ContinueCursor(void);                                           /* $01FE04 */
 void ContinueColours(void);                                          /* $01FEB6 */
 void ContinueFlash(void);                                            /* $01FE72 */
+void ContinueBlink(void);                                            /* $01FE26 */
 void ContinueArrow(void);                                            /* $01FF3C */
 void ContinueText(void);                                             /* $01FF56 */
 void ContinueInput(void);                                            /* $01FCAA */

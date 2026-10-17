@@ -31,6 +31,7 @@
 #define SYM_HintShiftLines 0x00176Eu
 #define SYM_DrawText 0x00187Cu
 #define SYM_DrawTextPlain 0x0018F8u
+#define SYM_DrawHex 0x001A10u
 #define SYM_ChunkDma 0x001AB0u
 #define SYM_PlaneAChunk 0x001AB8u
 #define SYM_QueueDmaBlock 0x001B86u
@@ -392,8 +393,8 @@
 #define SYM_Stage5Cam3C 0x007F50u
 #define SYM_Stage5Cam40 0x007F52u
 #define SYM_Stage5Drift 0x007F54u
-#define SYM_sub_07FF4 0x007FF4u
-#define SYM_sub_08044 0x008044u
+#define SYM_CameraTrailLeft 0x007FF4u
+#define SYM_CameraClampY 0x008044u
 #define SYM_Stage4ClearCollision 0x0080D0u
 #define SYM_Stage5Back00 0x008106u
 #define SYM_Stage5Back04 0x00811Cu
@@ -1158,39 +1159,39 @@
 #define SYM_EndingWarp 0x01BE5Eu
 #define SYM_EndingSkew 0x01BF6Cu
 #define SYM_EndingColumns 0x01BFB2u
-#define SYM_sub_1C18A 0x01C18Au
-#define SYM_sub_1C1A8 0x01C1A8u
-#define SYM_sub_1C23C 0x01C23Cu
-#define SYM_sub_1C2D0 0x01C2D0u
-#define SYM_sub_1C33E 0x01C33Eu
-#define SYM_sub_1C370 0x01C370u
-#define SYM_sub_1C3E0 0x01C3E0u
-#define SYM_sub_1C40A 0x01C40Au
-#define SYM_sub_1C40C 0x01C40Cu
-#define SYM_sub_1C41E 0x01C41Eu
-#define SYM_sub_1C458 0x01C458u
-#define SYM_sub_1C46E 0x01C46Eu
-#define SYM_sub_1C4A8 0x01C4A8u
-#define SYM_sub_1C4DA 0x01C4DAu
-#define SYM_sub_1C528 0x01C528u
-#define SYM_sub_1C57C 0x01C57Cu
-#define SYM_sub_1C5CA 0x01C5CAu
-#define SYM_sub_1C5FC 0x01C5FCu
-#define SYM_sub_1C63A 0x01C63Au
-#define SYM_sub_1C776 0x01C776u
-#define SYM_sub_1C798 0x01C798u
-#define SYM_sub_1C7BA 0x01C7BAu
-#define SYM_sub_1C7CE 0x01C7CEu
-#define SYM_sub_1C80C 0x01C80Cu
-#define SYM_sub_1C82A 0x01C82Au
-#define SYM_sub_1C85C 0x01C85Cu
-#define SYM_sub_1C99C 0x01C99Cu
-#define SYM_sub_1C9A8 0x01C9A8u
-#define SYM_sub_1C9DE 0x01C9DEu
-#define SYM_sub_1CA4A 0x01CA4Au
-#define SYM_sub_1CA6C 0x01CA6Cu
-#define SYM_sub_1CA78 0x01CA78u
-#define SYM_sub_1CAAC 0x01CAACu
+#define SYM_Options 0x01C18Au
+#define SYM_OptionsSetup 0x01C1A8u
+#define SYM_OptionsMenu 0x01C23Cu
+#define SYM_OptionsToConfig 0x01C2D0u
+#define SYM_OptionsConfig 0x01C33Eu
+#define SYM_OptionsFromConfig 0x01C370u
+#define SYM_OptionsInput 0x01C3E0u
+#define SYM_OptionsIdle 0x01C40Au
+#define SYM_OptionsCursor 0x01C40Cu
+#define SYM_OptionsUpDown 0x01C41Eu
+#define SYM_OptionsLevel 0x01C458u
+#define SYM_OptionsLeftRight 0x01C46Eu
+#define SYM_OptionsSoundTest 0x01C4A8u
+#define SYM_OptionsSoundPick 0x01C4DAu
+#define SYM_OptionsEffectTest 0x01C528u
+#define SYM_OptionsEffectPick 0x01C57Cu
+#define SYM_OptionsConfigInput 0x01C5CAu
+#define SYM_OptionsConfigUpDown 0x01C5FCu
+#define SYM_OptionsConfigPick 0x01C63Au
+#define SYM_ConfigNext 0x01C776u
+#define SYM_ConfigPrev 0x01C798u
+#define SYM_OptionsDraw 0x01C7BAu
+#define SYM_OptionsDrawLevel 0x01C7CEu
+#define SYM_OptionsDrawConfig 0x01C80Cu
+#define SYM_OptionsDrawSound 0x01C82Au
+#define SYM_OptionsDrawEffect 0x01C85Cu
+#define SYM_OptionsDrawPad1 0x01C99Cu
+#define SYM_OptionsSelect1 0x01C9A8u
+#define SYM_OptionsShot1 0x01C9DEu
+#define SYM_ConfigLetter 0x01CA4Au
+#define SYM_OptionsDrawPad2 0x01CA6Cu
+#define SYM_OptionsSelect2 0x01CA78u
+#define SYM_OptionsShot2 0x01CAACu
 #define SYM_DemoStart 0x01CBF4u
 #define SYM_DemoStage 0x01CC9Cu
 #define SYM_DemoInput 0x01CCF4u
@@ -1332,6 +1333,7 @@
 #define SYM_ContinueInput 0x01FCAAu
 #define SYM_GameOverWait 0x01FD62u
 #define SYM_ContinueCursor 0x01FE04u
+#define SYM_ContinueBlink 0x01FE26u
 #define SYM_ContinueFlash 0x01FE72u
 #define SYM_ContinueColours 0x01FEB6u
 #define SYM_ContinueArrow 0x01FF3Cu
@@ -5033,6 +5035,7 @@ static const struct sym rom_syms[] = {
     { 0x00176Eu, "HintShiftLines" },
     { 0x00187Cu, "DrawText" },
     { 0x0018F8u, "DrawTextPlain" },
+    { 0x001A10u, "DrawHex" },
     { 0x001AB0u, "ChunkDma" },
     { 0x001AB8u, "PlaneAChunk" },
     { 0x001B86u, "QueueDmaBlock" },
@@ -5394,8 +5397,8 @@ static const struct sym rom_syms[] = {
     { 0x007F50u, "Stage5Cam3C" },
     { 0x007F52u, "Stage5Cam40" },
     { 0x007F54u, "Stage5Drift" },
-    { 0x007FF4u, "sub_07FF4" },
-    { 0x008044u, "sub_08044" },
+    { 0x007FF4u, "CameraTrailLeft" },
+    { 0x008044u, "CameraClampY" },
     { 0x0080D0u, "Stage4ClearCollision" },
     { 0x008106u, "Stage5Back00" },
     { 0x00811Cu, "Stage5Back04" },
@@ -6160,39 +6163,39 @@ static const struct sym rom_syms[] = {
     { 0x01BE5Eu, "EndingWarp" },
     { 0x01BF6Cu, "EndingSkew" },
     { 0x01BFB2u, "EndingColumns" },
-    { 0x01C18Au, "sub_1C18A" },
-    { 0x01C1A8u, "sub_1C1A8" },
-    { 0x01C23Cu, "sub_1C23C" },
-    { 0x01C2D0u, "sub_1C2D0" },
-    { 0x01C33Eu, "sub_1C33E" },
-    { 0x01C370u, "sub_1C370" },
-    { 0x01C3E0u, "sub_1C3E0" },
-    { 0x01C40Au, "sub_1C40A" },
-    { 0x01C40Cu, "sub_1C40C" },
-    { 0x01C41Eu, "sub_1C41E" },
-    { 0x01C458u, "sub_1C458" },
-    { 0x01C46Eu, "sub_1C46E" },
-    { 0x01C4A8u, "sub_1C4A8" },
-    { 0x01C4DAu, "sub_1C4DA" },
-    { 0x01C528u, "sub_1C528" },
-    { 0x01C57Cu, "sub_1C57C" },
-    { 0x01C5CAu, "sub_1C5CA" },
-    { 0x01C5FCu, "sub_1C5FC" },
-    { 0x01C63Au, "sub_1C63A" },
-    { 0x01C776u, "sub_1C776" },
-    { 0x01C798u, "sub_1C798" },
-    { 0x01C7BAu, "sub_1C7BA" },
-    { 0x01C7CEu, "sub_1C7CE" },
-    { 0x01C80Cu, "sub_1C80C" },
-    { 0x01C82Au, "sub_1C82A" },
-    { 0x01C85Cu, "sub_1C85C" },
-    { 0x01C99Cu, "sub_1C99C" },
-    { 0x01C9A8u, "sub_1C9A8" },
-    { 0x01C9DEu, "sub_1C9DE" },
-    { 0x01CA4Au, "sub_1CA4A" },
-    { 0x01CA6Cu, "sub_1CA6C" },
-    { 0x01CA78u, "sub_1CA78" },
-    { 0x01CAACu, "sub_1CAAC" },
+    { 0x01C18Au, "Options" },
+    { 0x01C1A8u, "OptionsSetup" },
+    { 0x01C23Cu, "OptionsMenu" },
+    { 0x01C2D0u, "OptionsToConfig" },
+    { 0x01C33Eu, "OptionsConfig" },
+    { 0x01C370u, "OptionsFromConfig" },
+    { 0x01C3E0u, "OptionsInput" },
+    { 0x01C40Au, "OptionsIdle" },
+    { 0x01C40Cu, "OptionsCursor" },
+    { 0x01C41Eu, "OptionsUpDown" },
+    { 0x01C458u, "OptionsLevel" },
+    { 0x01C46Eu, "OptionsLeftRight" },
+    { 0x01C4A8u, "OptionsSoundTest" },
+    { 0x01C4DAu, "OptionsSoundPick" },
+    { 0x01C528u, "OptionsEffectTest" },
+    { 0x01C57Cu, "OptionsEffectPick" },
+    { 0x01C5CAu, "OptionsConfigInput" },
+    { 0x01C5FCu, "OptionsConfigUpDown" },
+    { 0x01C63Au, "OptionsConfigPick" },
+    { 0x01C776u, "ConfigNext" },
+    { 0x01C798u, "ConfigPrev" },
+    { 0x01C7BAu, "OptionsDraw" },
+    { 0x01C7CEu, "OptionsDrawLevel" },
+    { 0x01C80Cu, "OptionsDrawConfig" },
+    { 0x01C82Au, "OptionsDrawSound" },
+    { 0x01C85Cu, "OptionsDrawEffect" },
+    { 0x01C99Cu, "OptionsDrawPad1" },
+    { 0x01C9A8u, "OptionsSelect1" },
+    { 0x01C9DEu, "OptionsShot1" },
+    { 0x01CA4Au, "ConfigLetter" },
+    { 0x01CA6Cu, "OptionsDrawPad2" },
+    { 0x01CA78u, "OptionsSelect2" },
+    { 0x01CAACu, "OptionsShot2" },
     { 0x01CBF4u, "DemoStart" },
     { 0x01CC9Cu, "DemoStage" },
     { 0x01CCF4u, "DemoInput" },
@@ -6334,6 +6337,7 @@ static const struct sym rom_syms[] = {
     { 0x01FCAAu, "ContinueInput" },
     { 0x01FD62u, "GameOverWait" },
     { 0x01FE04u, "ContinueCursor" },
+    { 0x01FE26u, "ContinueBlink" },
     { 0x01FE72u, "ContinueFlash" },
     { 0x01FEB6u, "ContinueColours" },
     { 0x01FF3Cu, "ContinueArrow" },

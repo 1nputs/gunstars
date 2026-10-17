@@ -3164,6 +3164,39 @@ void Stage5Drift(void)
     }
 }
 
+/* $007FF4. A camera that keeps left and the back plane trailing it: the vertical speeds (the
+ * camera's, the plane's at $A934) set to speed's whole part, the camera's x speed at least -4,
+ * CameraClampY, the plane following camX - $40 by up to 6 a frame. Nothing calls it (the
+ * routine round it, from $7FE0, never runs). */
+void CameraTrailLeft(uint16_t speed)
+{
+    wr16(v_planeSpeeds + 4, speed);
+    wr16(v_camSpeedY, speed);
+    if ((int32_t)rd32(v_camSpeedX) <= -0x40000) wr32(v_camSpeedX, 0xFFFC0000);
+    CameraClampY();
+    uint32_t d = rd32(v_camX) - 0x400000;
+    if ((int32_t)d >= (int32_t)rd32(v_planes)) {
+        wr32(v_planes, d);
+        return;
+    }
+    d -= rd32(v_planes);
+    if ((int32_t)d < -0x60000) d = 0xFFFA0000;
+    wr32(v_planeSpeeds, d);
+}
+
+/* $008044. The vertical speeds held to 4 either way. Only the dead code calls it. */
+void CameraClampY(void)
+{
+    if ((int32_t)rd32(v_camSpeedY) >= 0x40000) {
+        wr32(v_camSpeedY, 0x40000);
+        wr32(v_planeSpeeds + 4, 0x40000);
+    }
+    if ((int32_t)rd32(v_camSpeedY) <= -0x40000) {
+        wr32(v_camSpeedY, 0xFFFC0000);
+        wr32(v_planeSpeeds + 4, 0xFFFC0000);
+    }
+}
+
 /* $007A3A */
 void Stage5Frame(void)
 {

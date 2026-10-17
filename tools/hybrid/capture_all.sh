@@ -10,6 +10,8 @@
 #              frames: pauses, continues); inv4-inv6: the later stages, vitality held
 #   sound_*    the sound driver: the title and demos' music, stage music and effects
 #   vblank_*   VBlank (each record a whole frame) and the reset's set-up routines
+#   game_options, game_options2: the options screen (tools/hybrid/options_script.py's input); its
+#              states, then the routines under them
 #   engine_*, game_*, logo_*, treasure_*, players_*, stages_*, objects_*: the engine's routines,
 #              the modes', the logos', the players', the stages' own, the objects' (rushN:
 #              evidence_all.sh's)
@@ -37,7 +39,7 @@ names() {
 import sys, re
 want = {'the engine': ('clearing', 'sprites'), 'the game': ('modes',), 'the logo': ('the SEGA logo',),
         'the treasure': ('the Treasure logo',), 'the players': ('the players',), 'the engine frame': ('the engine frame',),
-        'the stages': ('the stages',), 'the objects': ('[the objects]',)}[sys.argv[1]]
+        'the stages': ('the stages',), 'the options': ("the options' modes",), 'the objects': ('[the objects]',)}[sys.argv[1]]
 out, on = [], False
 for line in open('tools/disasm/names.txt'):
     if line.startswith('# ----'):
@@ -58,6 +60,9 @@ GAME=$(names "the game")
 LOGO=$(names "the logo")
 TREASURE=$(names "the treasure"),FF2058
 PLAYERS=$(names "the players")
+# the options' routines below its states (game_options records those, and the capture frames
+# nest only 4 deep)
+OPTLEAVES=$(names "the options" | tr , '\n' | grep -vxE 'Options|OptionsSetup|OptionsMenu|OptionsToConfig|OptionsConfig|OptionsFromConfig' | paste -sd,)
 ENGINEFRAME=$(names "the engine frame")
 OBJECTS=$(names "the objects")
 STAGES=$(names "the stages"),PlaneAFill,PlaneBFill,PlaneADmaFirst,PlaneADmaSecond,PlaneADma,PlaneBDma,PlaneARedraw,PlaneBRedraw
@@ -100,6 +105,12 @@ run() {
     game_stage0|game_stage2)
       n=${1#game_stage}
       session $1 --fn "$GAME" --frames 30000 --max 48 --novel --script @out/scripts/stage$n.txt ;;
+    game_options)
+      [ -f out/scripts/options.txt ] || $PY tools/hybrid/options_script.py out/scripts/options.txt
+      session $1 --fn "$GAME" --frames 3400 --max 48 --novel --script @out/scripts/options.txt ;;
+    game_options2)
+      [ -f out/scripts/options.txt ] || $PY tools/hybrid/options_script.py out/scripts/options.txt
+      session $1 --fn "$OPTLEAVES" --frames 3400 --max 48 --novel --script @out/scripts/options.txt ;;
     logo_attract) session $1 --fn "$LOGO" --frames 1000 --max 64 --novel ;;
     logo_spread) session $1 --fn "$LOGO" --frames 1000 --max 12 --spread ;;
     treasure_attract) session $1 --fn "$TREASURE" --frames 1000 --max 64 --novel ;;
@@ -152,7 +163,7 @@ run() {
 NOVEL="novel_attract novel_stage0 novel_stage1 novel_stage2 novel_stage3 novel_inv0 novel_inv1 novel_inv2 novel_inv3 novel_inv4 novel_inv5 novel_inv6"
 SOUNDS="sound_attract sound_spread sound_stage0 sound_stage1 sound_stage2 sound_stage3 sound_inv4 sound_inv5 sound_inv6"
 ALL="frame_attract frame_stage0 frame_inv4 frame_inv5 frame_inv6 $NOVEL $SOUNDS vblank_attract vblank_stage0
-     engine_attract engine_stage0 engine_spread engine_inv5 game_attract game_stage0 game_stage2 logo_attract logo_spread treasure_attract treasure_spread
+     engine_attract engine_stage0 engine_spread engine_inv5 game_attract game_stage0 game_stage2 game_options game_options2 logo_attract logo_spread treasure_attract treasure_spread
      players_attract players_stage0 players_stage2 players_spread players_inv0 players_inv1 players_inv2
      players_inv3 players_inv4 players_inv5 players_inv6 frame2_attract frame2_stage0 frame2_stage1 frame2_stage2 frame2_stage3
      stages_attract stages_stage0 stages_rush0 stages_stage1 stages_rush1 stages_stage2 stages_rush2 stages_stage3 stages_rush3 stages_rush4 stages_rush5 stages_rush6

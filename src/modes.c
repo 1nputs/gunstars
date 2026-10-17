@@ -1182,8 +1182,8 @@ void ContinueFlash(void)
     wr16((uint16_t)(v_paletteTarget + 0x3E), c);
 }
 
-/* loc_01FE26: the colours, and colour $1D blinking every 5th frame */
-static void continue_blink(void)
+/* $01FE26: the colours, and colour $1D blinking every 5th frame */
+void ContinueBlink(void)
 {
     ContinueColours();
     ContinueFlash();
@@ -1277,7 +1277,7 @@ void ContinueInput(void)
     }
     ContinueArrow();
     ContinueText();
-    continue_blink();
+    ContinueBlink();
 }
 
 /* $01FD62. GAME OVER until Start or its time: the SEGA logo (mode 4). */
