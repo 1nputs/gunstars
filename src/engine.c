@@ -131,3 +131,99 @@ void ScreenShake(void)
     wr16(v_cameraY, (uint16_t)(a >> 2));
     wr16(v_planeShake, (uint16_t)(b >> 2));
 }
+
+/* ---- the objects' loops ---- */
+
+/* an object's routine (by its type), then: its collisions and walls of the frame cleared;
+ * removed if it asks (flags bit 12) or, with bit 9, when off the screen; else drawn (`draw`) */
+static void run_object(uint16_t obj, int draw)
+{
+    call_object(rom32(OBJECT_ROUTINES + (uint32_t)(int16_t)rd16(obj + O_TYPE)), obj);
+    wr8(obj + 0x22, 0);
+    wr8(obj + 0x47, 0);
+    if (!bit8(obj + O_FLAGS, 4)) {
+        if (draw) {
+            wr16(rd16(v_drawPtr), obj);
+            wr16(v_drawPtr, (uint16_t)(rd16(v_drawPtr) + 2));
+        }
+        if (!bit8(obj + O_FLAGS, 1)) return;
+        if ((uint16_t)(rd16(obj + O_X) - 0x70) <= 0x160 && (uint16_t)(rd16(obj + O_Y) - 0x40) <= 0x130) return;
+    }
+    ObjectClear(obj);
+}
+
+/* $018BE6. The effects ($FFBFC0-$FFC7FF, $60 each): the players' shots, sparks, dust. */
+void EffectsUpdate(void)
+{
+    if (rd8(v_pauseFlags) & 0x80) return;
+    for (uint16_t obj = 0xBFC0; obj < 0xC800; obj = (uint16_t)(obj + 0x60))
+        if (rd16(obj + O_TYPE)) run_object(obj, 1);
+}
+
+/* $01ABC8. The objects: the ones the level brings in, the one at $FFA800 (not drawn), then
+ * $FFC800-$FFDFFF; v_playersIn the players still in (with vitality). */
+void ObjectsUpdate(void)
+{
+    if (rd8(v_pauseFlags) & 0x80) return;
+    if (!(rd16(v_bossTimer) & 0x8000)) wr16(v_bossTimer, (uint16_t)(rd16(v_bossTimer) - 1));
+    wr8(v_playersIn, rd8(v_players));
+    if ((int16_t)rd16(v_player1 + O_VITALITY) <= 0) clr8(v_playersIn, 0);
+    if ((int16_t)rd16(v_player2 + O_VITALITY) <= 0) clr8(v_playersIn, 1);
+    ObjectsSpawn();
+    if (rd16(0xA800)) run_object(0xA800, 0);
+    for (uint16_t obj = 0xC800; obj < 0xE000; obj = (uint16_t)(obj + 0x60))
+        if (rd16(obj + O_TYPE)) run_object(obj, 1);
+}
+
+/* $01ACF0. The level's objects whose x the camera's right edge ($140 on) has reached, while it
+ * moves right (not while the players walk in). The layout (v_layout points into a list of
+ * pointers) is in order of x. */
+void ObjectsSpawn(void)
+{
+    if (bit8(v_scenePlayers, 6) || bit8(v_scenePlayers, 5)) return;
+    if (rd16(v_camSpeedX) & 0x8000) return;
+    for (;;) {
+        uint32_t entry = bus_rd32(rd32(v_layout));
+        if ((int16_t)(rd16(v_camX) + 0x140) < (int16_t)bus_rd16(entry)) return;
+        ObjectSpawn(entry);
+        wr32(v_layout, rd32(v_layout) + 4);
+    }
+}
+
+/* $01AD32. A layout entry (x, y, type, its +6, then the slots it may go in: from, to) into a
+ * free slot of its range, else one of type $D8 (made to be reused) looked for from where the
+ * free search stopped (so only the slot just past the range); none: it is lost. */
+void ObjectSpawn(uint32_t entry)
+{
+    uint16_t from = bus_rd16(entry + 8), to = bus_rd16(entry + 0xA), slot;
+    if (!SlotFree(from, to, &slot) && !SlotReusable(slot, to, &slot)) return;
+    ObjectClear(slot);
+    wr16(slot + O_TYPE, bus_rd16(entry + 4));
+    wr16(slot + 6, bus_rd16(entry + 6));
+    wr16(slot + O_X, (uint16_t)(bus_rd16(entry) - rd16(v_camX) + 0x80));
+    wr16(slot + O_X + 2, 0);
+    wr16(slot + O_Y, (uint16_t)(bus_rd16(entry + 2) - rd16(v_camY) + 0x80));
+    wr16(slot + O_Y + 2, 0);
+}
+
+/* $01AD86. A free slot from `from` (before `to`); whether there is one (Z). */
+int SlotFree(uint16_t from, uint16_t to, uint16_t *slot)
+{
+    uint16_t a = from;
+    for (;;) {
+        if (!rd16(a)) { *slot = a; return 1; }
+        a = (uint16_t)(a + 0x60);
+        if (a >= to) { *slot = a; return 0; }
+    }
+}
+
+/* $01AD9A. One of type $D8 from `from`. */
+int SlotReusable(uint16_t from, uint16_t to, uint16_t *slot)
+{
+    uint16_t a = from;
+    for (;;) {
+        if (rd16(a) == 0xD8) { *slot = a; return 1; }
+        a = (uint16_t)(a + 0x60);
+        if (a >= to) { *slot = a; return 0; }
+    }
+}

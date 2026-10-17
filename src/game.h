@@ -668,6 +668,12 @@ void ObjectsMove(void);                                              /* $01F6F6 
 void PlayerMoveLimited(uint16_t obj, uint8_t f);                     /* $01F862 a5, d2.b */
 void PlayerMoveWithFloor(uint16_t obj, uint8_t f, uint16_t dx, uint16_t dy);/* $01F8C0 a5, d2.b, d0.w, d1.w */
 void ScreenShake(void);                                              /* $01F914 */
+void EffectsUpdate(void);                                            /* $018BE6 */
+void ObjectsUpdate(void);                                            /* $01ABC8 */
+void ObjectsSpawn(void);                                             /* $01ACF0 */
+void ObjectSpawn(uint32_t entry);                                    /* $01AD32 a4 */
+int SlotFree(uint16_t from, uint16_t to, uint16_t *slot);            /* $01AD86 a5, a0 -> Z, a5 */
+int SlotReusable(uint16_t from, uint16_t to, uint16_t *slot);        /* $01AD9A a5, a0 -> Z, a5 */
 
 /* ---- the objects' collisions (collide.c) ---- */
 void Collisions(void);                                               /* $00B188 */

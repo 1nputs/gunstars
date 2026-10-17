@@ -704,6 +704,15 @@ FFA000 v_gameFrames          # the engine's frames (each mode's frame adds one)
 01F862 PlayerMoveLimited
 01F8C0 PlayerMoveWithFloor
 01F914 ScreenShake
+018BE6 EffectsUpdate
+01ABC8 ObjectsUpdate
+01ACF0 ObjectsSpawn
+01AD32 ObjectSpawn
+01AD86 SlotFree
+01AD9A SlotReusable
+FF808C v_bossTimer           # counted down by the objects' loop while not negative
+FF80E6 v_playersIn           # v_players without the ones out of vitality
+FFA20E v_layout              # long: where the level's next object to bring in is listed
 FFA900 v_camX                # the camera (16.16), its speeds after; +8 a second pair (v_camX + 8, ...)
 FFA904 v_camY
 FFA910 v_camSpeedX

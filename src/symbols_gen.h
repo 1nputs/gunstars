@@ -1025,7 +1025,7 @@
 #define SYM_MuzzleFlash 0x018B3Au
 #define SYM_MuzzlePriority 0x018BC2u
 #define SYM_ShotPriority 0x018BD4u
-#define SYM_sub_18BE6 0x018BE6u
+#define SYM_EffectsUpdate 0x018BE6u
 #define SYM_sub_18C58 0x018C58u
 #define SYM_sub_18D1E 0x018D1Eu
 #define SYM_sub_18EAC 0x018EACu
@@ -1102,12 +1102,12 @@
 #define SYM_sub_1AB4E 0x01AB4Eu
 #define SYM_sub_1AB5E 0x01AB5Eu
 #define SYM_sub_1ABAC 0x01ABACu
-#define SYM_sub_1ABC8 0x01ABC8u
+#define SYM_ObjectsUpdate 0x01ABC8u
 #define SYM_sub_1ACDE 0x01ACDEu
-#define SYM_sub_1ACF0 0x01ACF0u
-#define SYM_sub_1AD32 0x01AD32u
-#define SYM_sub_1AD86 0x01AD86u
-#define SYM_sub_1AD9A 0x01AD9Au
+#define SYM_ObjectsSpawn 0x01ACF0u
+#define SYM_ObjectSpawn 0x01AD32u
+#define SYM_SlotFree 0x01AD86u
+#define SYM_SlotReusable 0x01AD9Au
 #define SYM_ObjectClear 0x01ADB0u
 #define SYM_Mode4 0x01B45Eu
 #define SYM_Mode4Start 0x01B478u
@@ -3244,6 +3244,8 @@
 
 /* work RAM: offsets ($FFxxxx & $FFFF) */
 enum {
+    v_bossTimer = 0x808C,
+    v_playersIn = 0x80E6,
     v_gameFrames = 0xA000,
     v_shakeSprites = 0xA010,
     v_cameraY = 0xA012,
@@ -3261,6 +3263,7 @@ enum {
     v_stage4 = 0xA204,
     v_stagesCleared = 0xA208,
     v_difficulty = 0xA20A,
+    v_layout = 0xA20E,
     v_frameCount = 0xA280,
     v_modeTimer = 0xA282,
     v_mode = 0xA284,
@@ -4356,7 +4359,7 @@ static const struct sym rom_syms[] = {
     { 0x018B3Au, "MuzzleFlash" },
     { 0x018BC2u, "MuzzlePriority" },
     { 0x018BD4u, "ShotPriority" },
-    { 0x018BE6u, "sub_18BE6" },
+    { 0x018BE6u, "EffectsUpdate" },
     { 0x018C58u, "sub_18C58" },
     { 0x018D1Eu, "sub_18D1E" },
     { 0x018EACu, "sub_18EAC" },
@@ -4433,12 +4436,12 @@ static const struct sym rom_syms[] = {
     { 0x01AB4Eu, "sub_1AB4E" },
     { 0x01AB5Eu, "sub_1AB5E" },
     { 0x01ABACu, "sub_1ABAC" },
-    { 0x01ABC8u, "sub_1ABC8" },
+    { 0x01ABC8u, "ObjectsUpdate" },
     { 0x01ACDEu, "sub_1ACDE" },
-    { 0x01ACF0u, "sub_1ACF0" },
-    { 0x01AD32u, "sub_1AD32" },
-    { 0x01AD86u, "sub_1AD86" },
-    { 0x01AD9Au, "sub_1AD9A" },
+    { 0x01ACF0u, "ObjectsSpawn" },
+    { 0x01AD32u, "ObjectSpawn" },
+    { 0x01AD86u, "SlotFree" },
+    { 0x01AD9Au, "SlotReusable" },
     { 0x01ADB0u, "ObjectClear" },
     { 0x01B45Eu, "Mode4" },
     { 0x01B478u, "Mode4Start" },
@@ -6574,6 +6577,8 @@ static const struct sym rom_syms[] = {
     { 0x068826u, "SoundFmVolume" },
 };
 static const struct sym ram_syms[] = {
+    { 0x808Cu, "v_bossTimer" },
+    { 0x80E6u, "v_playersIn" },
     { 0xA000u, "v_gameFrames" },
     { 0xA010u, "v_shakeSprites" },
     { 0xA012u, "v_cameraY" },
@@ -6591,6 +6596,7 @@ static const struct sym ram_syms[] = {
     { 0xA204u, "v_stage4" },
     { 0xA208u, "v_stagesCleared" },
     { 0xA20Au, "v_difficulty" },
+    { 0xA20Eu, "v_layout" },
     { 0xA280u, "v_frameCount" },
     { 0xA282u, "v_modeTimer" },
     { 0xA284u, "v_mode" },
