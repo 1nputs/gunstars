@@ -155,3 +155,38 @@ uint16_t MapSlopeDownHigh(uint16_t x, uint16_t y, uint16_t *d2)
     *d2 = falling(x) >> 1;
     return (uint16_t)(cell_y(y) + *d2);
 }
+
+/* $00C31C. A box's floor and ceiling (corners v_boundsX0/Y0 and v_boundsX1/Y1): y held to the
+ * edge it is past ($20 the floor, $28 the ceiling, 0 neither). The second corner's side of the
+ * first decides which edges count and where x must be for the first corner's. */
+uint16_t MapBoundsY(uint16_t x, uint16_t *y)
+{
+    int16_t x0 = (int16_t)rd16(v_boundsX0), y0 = (int16_t)rd16(v_boundsY0);
+    int16_t x1 = (int16_t)rd16(v_boundsX1), y1 = (int16_t)rd16(v_boundsY1);
+    int16_t px = (int16_t)x, py = (int16_t)*y;
+    uint16_t a = 0;
+    if (y1 == y0) return 0;
+    if (x1 == x0) {
+        if (y1 < y0) {
+            if (y1 >= py) { *y = (uint16_t)y1; return 0x28; }
+            if (y0 > py) return 0;
+            *y = (uint16_t)y0;
+            return 0x20;
+        }
+        if (y1 <= py) { py = y1; *y = (uint16_t)y1; a = 0x20; }
+        if (y0 < py) return a;
+        *y = (uint16_t)y0;
+        return 0x28;
+    }
+    int beyond = x1 > x0 ? x0 < px : x0 > px;           /* x on the wrong side of the first corner */
+    if (y1 < y0) {
+        if (y1 >= py) { py = y1; *y = (uint16_t)y1; a = 0x28; }
+        if (beyond || y0 > py) return a;
+        *y = (uint16_t)y0;
+        return 0x20;
+    }
+    if (y1 <= py) { py = y1; *y = (uint16_t)y1; a = 0x20; }
+    if (beyond || y0 < py) return a;
+    *y = (uint16_t)y0;
+    return 0x28;
+}

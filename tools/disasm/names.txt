@@ -675,6 +675,7 @@ FFFF27 v_demoRecord          # never set by the game: a developers' switch, the 
 00BDCC MapSlopeDown
 00BDE6 MapSlopeDownLow
 00BE04 MapSlopeDownHigh
+00C31C MapBoundsY
 FFA01C v_deathLine          # below it (when not 0) a player falls out of the level
 FFA200 v_players            # bit 0 player 1 is in the game, bit 1 player 2
 FFA20A v_difficulty         # times 2
@@ -688,7 +689,30 @@ FFA028 v_sceneSignal         # the scenes' director: bit 1, or the byte, lets th
 FFA02A v_sceneDone           # 4: the scene's item has been taken
 FFA288 v_sceneStep           # the mode's own step, the scenes' cue
 FFA958 v_scenePlayers        # bit 7: the players still walking in
+FFA960 v_boundsX0            # a box the players are kept in (MapBoundsY): a corner
+FFA964 v_boundsY0
+FFA968 v_boundsX1            # and the other
+FFA96C v_boundsY1
 FFA954 v_mapX                # the map's scroll: a position on the screen plus these is one in the map
 FFA956 v_mapY
 FFA000 v_gameFrames          # the engine's frames (each mode's frame adds one)
-
+# ---- the engine's frame (src/engine.c) [the engine frame]
+00A630 CameraMove
+01F65E DrawListStart
+01F66E DrawListEnd
+01F6F6 ObjectsMove
+01F862 PlayerMoveLimited
+01F8C0 PlayerMoveWithFloor
+01F914 ScreenShake
+FFA900 v_camX                # the camera (16.16), its speeds after; +8 a second pair (v_camX + 8, ...)
+FFA904 v_camY
+FFA910 v_camSpeedX
+FFA914 v_camSpeedY
+FFA920 v_planes              # the background planes' scrolls (four longs), their speeds after
+FFA930 v_planeSpeeds
+FFA978 v_speedLimitX         # the players' speeds held within these
+FFA97C v_speedLimitY
+FFA010 v_shakeSprites        # the shake's frames left: the sprites' (v_cameraY), the plane's (v_planeShake)
+FFA014 v_shakePlane
+FFA016 v_planeShake
+FFF758 v_drawPtr             # the draw list's end as it fills

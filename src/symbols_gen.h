@@ -459,7 +459,7 @@
 #define SYM_sub_0A418 0x00A418u
 #define SYM_sub_0A434 0x00A434u
 #define SYM_sub_0A53E 0x00A53Eu
-#define SYM_sub_0A630 0x00A630u
+#define SYM_CameraMove 0x00A630u
 #define SYM_sub_0A692 0x00A692u
 #define SYM_sub_0A6A2 0x00A6A2u
 #define SYM_sub_0A6B2 0x00A6B2u
@@ -525,7 +525,7 @@
 #define SYM_MapSlopeDownLow 0x00BDE6u
 #define SYM_MapSlopeDownHigh 0x00BE04u
 #define SYM_sub_0C1F6 0x00C1F6u
-#define SYM_sub_0C31C 0x00C31Cu
+#define SYM_MapBoundsY 0x00C31Cu
 #define SYM_sub_0C45A 0x00C45Au
 #define SYM_sub_0C46C 0x00C46Cu
 #define SYM_sub_0C488 0x00C488u
@@ -1300,14 +1300,14 @@
 #define SYM_sub_1F4DE 0x01F4DEu
 #define SYM_sub_1F548 0x01F548u
 #define SYM_sub_1F566 0x01F566u
-#define SYM_sub_1F65E 0x01F65Eu
-#define SYM_sub_1F66E 0x01F66Eu
+#define SYM_DrawListStart 0x01F65Eu
+#define SYM_DrawListEnd 0x01F66Eu
 #define SYM_sub_1F686 0x01F686u
-#define SYM_sub_1F6F6 0x01F6F6u
-#define SYM_sub_1F862 0x01F862u
-#define SYM_sub_1F8C0 0x01F8C0u
+#define SYM_ObjectsMove 0x01F6F6u
+#define SYM_PlayerMoveLimited 0x01F862u
+#define SYM_PlayerMoveWithFloor 0x01F8C0u
 #define SYM_sub_1F8EA 0x01F8EAu
-#define SYM_sub_1F914 0x01F914u
+#define SYM_ScreenShake 0x01F914u
 #define SYM_sub_1FBEE 0x01FBEEu
 #define SYM_sub_1FCAA 0x01FCAAu
 #define SYM_sub_1FD62 0x01FD62u
@@ -3245,7 +3245,10 @@
 /* work RAM: offsets ($FFxxxx & $FFFF) */
 enum {
     v_gameFrames = 0xA000,
+    v_shakeSprites = 0xA010,
     v_cameraY = 0xA012,
+    v_shakePlane = 0xA014,
+    v_planeShake = 0xA016,
     v_deathLine = 0xA01C,
     v_limitLeft = 0xA01E,
     v_limitRight = 0xA020,
@@ -3264,9 +3267,21 @@ enum {
     v_sceneStep = 0xA288,
     v_player1 = 0xA400,
     v_player2 = 0xA600,
+    v_camX = 0xA900,
+    v_camY = 0xA904,
+    v_camSpeedX = 0xA910,
+    v_camSpeedY = 0xA914,
+    v_planes = 0xA920,
+    v_planeSpeeds = 0xA930,
     v_mapX = 0xA954,
     v_mapY = 0xA956,
     v_scenePlayers = 0xA958,
+    v_boundsX0 = 0xA960,
+    v_boundsY0 = 0xA964,
+    v_boundsX1 = 0xA968,
+    v_boundsY1 = 0xA96C,
+    v_speedLimitX = 0xA978,
+    v_speedLimitY = 0xA97C,
     v_tilePixels = 0xB400,
     v_jobBuffer = 0xB600,
     v_targets = 0xB980,
@@ -3300,6 +3315,7 @@ enum {
     v_jobBufferFull = 0xF754,
     v_displayOn = 0xF755,
     v_reservedSprites = 0xF756,
+    v_drawPtr = 0xF758,
     v_drawCount = 0xF75A,
     v_fadeSpeed = 0xF75C,
     v_fadeLevel = 0xF75E,
@@ -3773,7 +3789,7 @@ static const struct sym rom_syms[] = {
     { 0x00A418u, "sub_0A418" },
     { 0x00A434u, "sub_0A434" },
     { 0x00A53Eu, "sub_0A53E" },
-    { 0x00A630u, "sub_0A630" },
+    { 0x00A630u, "CameraMove" },
     { 0x00A692u, "sub_0A692" },
     { 0x00A6A2u, "sub_0A6A2" },
     { 0x00A6B2u, "sub_0A6B2" },
@@ -3839,7 +3855,7 @@ static const struct sym rom_syms[] = {
     { 0x00BDE6u, "MapSlopeDownLow" },
     { 0x00BE04u, "MapSlopeDownHigh" },
     { 0x00C1F6u, "sub_0C1F6" },
-    { 0x00C31Cu, "sub_0C31C" },
+    { 0x00C31Cu, "MapBoundsY" },
     { 0x00C45Au, "sub_0C45A" },
     { 0x00C46Cu, "sub_0C46C" },
     { 0x00C488u, "sub_0C488" },
@@ -4614,14 +4630,14 @@ static const struct sym rom_syms[] = {
     { 0x01F4DEu, "sub_1F4DE" },
     { 0x01F548u, "sub_1F548" },
     { 0x01F566u, "sub_1F566" },
-    { 0x01F65Eu, "sub_1F65E" },
-    { 0x01F66Eu, "sub_1F66E" },
+    { 0x01F65Eu, "DrawListStart" },
+    { 0x01F66Eu, "DrawListEnd" },
     { 0x01F686u, "sub_1F686" },
-    { 0x01F6F6u, "sub_1F6F6" },
-    { 0x01F862u, "sub_1F862" },
-    { 0x01F8C0u, "sub_1F8C0" },
+    { 0x01F6F6u, "ObjectsMove" },
+    { 0x01F862u, "PlayerMoveLimited" },
+    { 0x01F8C0u, "PlayerMoveWithFloor" },
     { 0x01F8EAu, "sub_1F8EA" },
-    { 0x01F914u, "sub_1F914" },
+    { 0x01F914u, "ScreenShake" },
     { 0x01FBEEu, "sub_1FBEE" },
     { 0x01FCAAu, "sub_1FCAA" },
     { 0x01FD62u, "sub_1FD62" },
@@ -6558,7 +6574,10 @@ static const struct sym rom_syms[] = {
 };
 static const struct sym ram_syms[] = {
     { 0xA000u, "v_gameFrames" },
+    { 0xA010u, "v_shakeSprites" },
     { 0xA012u, "v_cameraY" },
+    { 0xA014u, "v_shakePlane" },
+    { 0xA016u, "v_planeShake" },
     { 0xA01Cu, "v_deathLine" },
     { 0xA01Eu, "v_limitLeft" },
     { 0xA020u, "v_limitRight" },
@@ -6577,9 +6596,21 @@ static const struct sym ram_syms[] = {
     { 0xA288u, "v_sceneStep" },
     { 0xA400u, "v_player1" },
     { 0xA600u, "v_player2" },
+    { 0xA900u, "v_camX" },
+    { 0xA904u, "v_camY" },
+    { 0xA910u, "v_camSpeedX" },
+    { 0xA914u, "v_camSpeedY" },
+    { 0xA920u, "v_planes" },
+    { 0xA930u, "v_planeSpeeds" },
     { 0xA954u, "v_mapX" },
     { 0xA956u, "v_mapY" },
     { 0xA958u, "v_scenePlayers" },
+    { 0xA960u, "v_boundsX0" },
+    { 0xA964u, "v_boundsY0" },
+    { 0xA968u, "v_boundsX1" },
+    { 0xA96Cu, "v_boundsY1" },
+    { 0xA978u, "v_speedLimitX" },
+    { 0xA97Cu, "v_speedLimitY" },
     { 0xB400u, "v_tilePixels" },
     { 0xB600u, "v_jobBuffer" },
     { 0xB980u, "v_targets" },
@@ -6613,6 +6644,7 @@ static const struct sym ram_syms[] = {
     { 0xF754u, "v_jobBufferFull" },
     { 0xF755u, "v_displayOn" },
     { 0xF756u, "v_reservedSprites" },
+    { 0xF758u, "v_drawPtr" },
     { 0xF75Au, "v_drawCount" },
     { 0xF75Cu, "v_fadeSpeed" },
     { 0xF75Eu, "v_fadeLevel" },

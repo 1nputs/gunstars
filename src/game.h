@@ -660,8 +660,18 @@ void SceneVoice(uint16_t obj);                                       /* $021600 
 void SceneRed(uint16_t obj);                                         /* $02161C a5 */
 void SceneBlue(uint16_t obj);                                        /* $02162A a5 */
 
+/* ---- the engine's frame (engine.c) ---- */
+void CameraMove(void);                                               /* $00A630 */
+void DrawListStart(void);                                            /* $01F65E */
+void DrawListEnd(void);                                              /* $01F66E */
+void ObjectsMove(void);                                              /* $01F6F6 */
+void PlayerMoveLimited(uint16_t obj, uint8_t f);                     /* $01F862 a5, d2.b */
+void PlayerMoveWithFloor(uint16_t obj, uint8_t f, uint16_t dx, uint16_t dy);/* $01F8C0 a5, d2.b, d0.w, d1.w */
+void ScreenShake(void);                                              /* $01F914 */
+
 /* ---- the level's collision (map.c) ---- */
 uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
+uint16_t MapBoundsY(uint16_t x, uint16_t *y);                       /* $00C31C d0.w -> d2.w, d1.w */
 uint16_t MapAttr(uint16_t x, uint16_t y);                            /* $00B94A d0.w, d1.w -> d2.w */
 uint16_t MapAttrHigh(uint16_t x, uint16_t y);                        /* $00BA4C d0.w, d1.w -> d2.w */
 uint16_t MapFloor(uint16_t x, uint16_t y);                           /* $00BA74 d0.w, d1.w -> d2.w */

@@ -35,7 +35,7 @@ names() {
   $PY - "$1" <<'PYEOF'
 import sys, re
 want = {'the engine': ('clearing', 'sprites'), 'the game': ('modes',), 'the logo': ('the SEGA logo',),
-        'the treasure': ('the Treasure logo',), 'the players': ('the players',)}[sys.argv[1]]
+        'the treasure': ('the Treasure logo',), 'the players': ('the players',), 'the engine frame': ('the engine frame',)}[sys.argv[1]]
 out, on = [], False
 for line in open('tools/disasm/names.txt'):
     if line.startswith('# ----'):
@@ -56,6 +56,7 @@ GAME=$(names "the game")
 LOGO=$(names "the logo")
 TREASURE=$(names "the treasure"),FF2058
 PLAYERS=$(names "the players")
+ENGINEFRAME=$(names "the engine frame")
 
 stage_poke() {   # the pokes that pick stage $1 (4-6) after stage 0's select
   $PY -c "print(';'.join(f'{f}:FFA204={4 * $1:04X}' for f in range(1334, 1480)))"
@@ -104,6 +105,10 @@ run() {
       n=${1#players_stage}
       session $1 --fn "$PLAYERS" --frames 20000 --max 48 --novel --script @out/scripts/stage$n.txt ;;
     players_spread) session $1 --fn "$PLAYERS" --frames 20000 --max 12 --spread --script @out/scripts/stage1.txt ;;
+    frame2_attract) session $1 --fn "$ENGINEFRAME" --frames 9000 --max 48 --novel ;;
+    frame2_stage0|frame2_stage2)
+      n=${1#frame2_stage}
+      session $1 --fn "$ENGINEFRAME" --frames 20000 --max 48 --novel --script @out/scripts/stage$n.txt ;;
     players_inv0|players_inv1|players_inv2|players_inv3|players_inv4|players_inv5|players_inv6)
       n=${1#players_inv}; poke=""
       [ $n -gt 3 ] && poke=$(stage_poke $n)
@@ -127,5 +132,5 @@ SOUNDS="sound_attract sound_spread sound_stage0 sound_stage1 sound_stage2 sound_
 ALL="frame_attract frame_stage0 frame_inv4 frame_inv5 frame_inv6 $NOVEL $SOUNDS vblank_attract vblank_stage0
      engine_attract engine_stage0 engine_spread engine_inv5 game_attract game_stage0 game_stage2 logo_attract logo_spread treasure_attract treasure_spread
      players_attract players_stage0 players_stage2 players_spread players_inv0 players_inv1 players_inv2
-     players_inv3 players_inv4 players_inv5 players_inv6"
+     players_inv3 players_inv4 players_inv5 players_inv6 frame2_attract frame2_stage0 frame2_stage2"
 for s in ${@:-$ALL}; do run "$s"; done
