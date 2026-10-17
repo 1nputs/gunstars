@@ -38,6 +38,27 @@ int SlotFreeHigh(uint16_t *slot, uint16_t *type)
     return slots_from(slot, type, 28);
 }
 
+/* $055F84. A free slot from $D400 to $DE20; none, a puff's (type $100 or $104) taken, cleared
+ * (d0 then -1; the clearing leaves d1 0 and a1 past the slot, the caller's as they are); none of
+ * those either: d0 1, no slot (Z clear). */
+int SlotFreeOrPuff(uint16_t *slot, uint16_t *type, uint16_t *d1, uint32_t *a1)
+{
+    if (SlotFreeHigh(slot, type)) return 1;
+    for (uint16_t a = 0xD400; (int16_t)(a - 0xDE80) < 0; a = (uint16_t)(a + 0x60)) {
+        if (rd16(a) == 0x100 || rd16(a) == 0x104) {
+            *slot = a;
+            for (uint16_t k = 0; k < 0x60; k += 4) wr32((uint16_t)(a + k), 0);
+            *type = 0xFFFF;
+            *d1 = 0;
+            *a1 = 0xFFFF0000u | (uint16_t)(a + 0x60);
+            return 1;
+        }
+    }
+    *slot = 0xDE80;
+    *type = 1;
+    return 0;
+}
+
 /* $055FEC. The same search from a slot with 24 left. */
 int SlotFree24(uint16_t *slot, uint16_t *type) { return slots_from(slot, type, 24); }
 
@@ -272,6 +293,77 @@ void AnimListStart(uint16_t obj)
     wr16(obj + 0x0A, bus_rd16(a)); a += 2;
     wr32(obj + 0x48, a);
     wr16(obj + 0x0E, rd16(obj + 0x0E) | rd16(0x808A));
+}
+
+/* $05801A. A looping list of frames (+$58, started over from +$5C): each a count of frames to
+ * show it, its sprite word and the two words at +8 (a negative count: start over); +$56 counts
+ * the frames down. */
+void FrameList(uint16_t obj)
+{
+    wr16(obj + 0x56, (uint16_t)(rd16(obj + 0x56) - 1));
+    if (!(rd16(obj + 0x56) & 0x8000)) return;
+    for (;;) {
+        uint32_t a = rd32(obj + 0x58);
+        wr16(obj + 0x56, bus_rd16(a));
+        if (!(rd16(obj + 0x56) & 0x8000)) {
+            wr16(obj + 0x0E, bus_rd16(a + 2));
+            wr16(obj + 0x08, bus_rd16(a + 4));
+            wr16(obj + 0x0A, bus_rd16(a + 6));
+            wr32(obj + 0x58, a + 8);
+            return;
+        }
+        wr32(obj + 0x58, rd32(obj + 0x5C));
+    }
+}
+
+/* where an emitter's object goes: around the emitter, by the random bytes at $FF08 (x, masked by
+ * +$4C) and $FF09 (y, by +$4E), $FF0A's and $FF0B's signs taking the side. d0's top byte is
+ * SlotFreeHigh's; d1's is taken as 0 (+$4E is below $100 for every caller) */
+static void emit_place(uint16_t obj, uint16_t slot, uint16_t t, uint32_t *flip)
+{
+    uint16_t d0 = (uint16_t)((t & 0xFF00) | rd8(0xFF08));
+    uint16_t d1 = rd8(0xFF09);
+    d0 &= rd16(obj + 0x4C);
+    d1 &= rd16(obj + 0x4E);
+    if (rd8(0xFF0A) & 0x80) {
+        d0 = (uint16_t)~d0;
+        if (flip) *flip = ~*flip;
+    }
+    if (!(rd8(0xFF0B) & 0x80)) d1 = (uint16_t)~d1;
+    wr16(slot + O_TYPE, rd16(obj + 0x58));
+    wr32(slot + 0x48, rd32(obj + 0x54));
+    wr16(slot + O_X, (uint16_t)(d0 + rd16(obj + O_X)));
+    wr16(slot + O_Y, (uint16_t)(d1 + rd16(obj + O_Y)));
+}
+
+/* $057BC2. Every +$4A+1 frames an object (type +$58, its animation list +$54) around this one
+ * (see emit_place), thrown out sideways and up; a sound every 8th frame. */
+void DebrisBurst(uint16_t obj)
+{
+    wr16(obj + 0x5A, (uint16_t)(rd16(obj + 0x5A) - 1));
+    if (!(rd16(obj + 0x5A) & 0x8000)) return;
+    wr16(obj + 0x5A, rd16(obj + 0x4A));
+    uint16_t slot, t;
+    if (!SlotFreeHigh(&slot, &t)) return;
+    uint32_t vx = 0x18000;
+    emit_place(obj, slot, t, &vx);
+    wr32(slot + 0x18, vx);
+    wr16(slot + 0x1C, 0xFFFC);
+    if (rd16(v_gameFrames) & 7) return;
+    QueueSound(0xCE);
+}
+
+/* loc_0577BA (in $057790): the same, its speed's whole parts +$50, +$52 */
+void DebrisEmit(uint16_t obj)
+{
+    wr16(obj + 0x5A, (uint16_t)(rd16(obj + 0x5A) - 1));
+    if (!(rd16(obj + 0x5A) & 0x8000)) return;
+    wr16(obj + 0x5A, rd16(obj + 0x4A));
+    uint16_t slot, t;
+    if (!SlotFreeHigh(&slot, &t)) return;
+    emit_place(obj, slot, t, 0);
+    wr16(slot + 0x18, rd16(obj + 0x50));
+    wr16(slot + 0x1C, rd16(obj + 0x52));
 }
 
 /* $0561F4. An object that plays its animation list once ($20 = $B0), then is removed. */
@@ -519,8 +611,9 @@ static int wall_left(uint16_t obj, uint16_t x, uint16_t *d3, uint16_t *d4)
     return 0;
 }
 
-/* $029BEE: the floor an attribute found at (x, y) is: the object put on it */
-static int floor_attr(uint16_t obj, uint16_t x, uint16_t y, uint16_t a, uint16_t *d3, uint16_t *d4)
+/* $029BEE: the floor an attribute found at (x, y) is: the object put on it. A floor kind's
+ * routine is left in a0 (when a0 is wanted). */
+static int floor_attr(uint16_t obj, uint16_t x, uint16_t y, uint16_t a, uint16_t *d3, uint16_t *d4, uint32_t *a0)
 {
     if ((int16_t)(a - 0x30) < 0) {
         if (a == 0x18 || a == 0x19) {
@@ -536,6 +629,7 @@ static int floor_attr(uint16_t obj, uint16_t x, uint16_t y, uint16_t a, uint16_t
         return 1;
     }
     uint32_t fn = rom32(0x029C08 + (uint32_t)(int16_t)(uint16_t)((a - 0x30) << 2));
+    if (a0) *a0 = fn;
     return floor_kind(fn, obj, x, y, a, d4);
 }
 
@@ -544,6 +638,12 @@ static int floor_attr(uint16_t obj, uint16_t x, uint16_t y, uint16_t a, uint16_t
  * set when there is none (also for an attribute of exactly $60). Attributes $18/$19 and $1C/$1D
  * are a wall's edge. */
 int ObjectFloor(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4)
+{
+    return ObjectFloorA0(obj, dy, d3, d4, 0);
+}
+
+/* ObjectFloor, and a0 as it leaves it: a floor kind's routine, or unchanged */
+int ObjectFloorA0(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4, uint32_t *a0)
 {
     uint16_t y = (uint16_t)(dy + rd16(obj + O_Y)), x = rd16(obj + O_X), a = 0;
     if (bit8(obj + 0x47, 1)) {
@@ -561,7 +661,7 @@ int ObjectFloor(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4)
     }
     if (k == 0) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) - 8));
     if (k == 2) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) + 8));
-    return floor_attr(obj, x, (uint16_t)(y - 8 + 8 * k), a, d3, d4);
+    return floor_attr(obj, x, (uint16_t)(y - 8 + 8 * k), a, d3, d4, a0);
 }
 
 /* $029AFC: the same, a ceiling's cell (bit 3) not a floor; none found below one: d3, d4 0 */
@@ -589,7 +689,7 @@ static int floor_not_ceiling(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *
     }
     if (k == 0) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) - 8));
     if (k == 2) wr16(obj + O_Y, (uint16_t)(rd16(obj + O_Y) + 8));
-    return floor_attr(obj, x, (uint16_t)(y - 8 + 8 * k), a, d3, d4);
+    return floor_attr(obj, x, (uint16_t)(y - 8 + 8 * k), a, d3, d4, 0);
 }
 
 /* $029AF0. The floor 16 above (not a ceiling). */

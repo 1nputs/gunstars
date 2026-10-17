@@ -19,7 +19,7 @@ def main():
     for line in open(os.path.join(ROOT, 'tools', 'disasm', 'names.txt')):
         f = line.split('#', 1)[0].split()
         if len(f) >= 2:
-            names[int(f[0], 16)] = f[1]
+            names[int(f[0], 16)] = f[1].lstrip('.')     # '.': an inner label
     rom = {}
     for n, r in routines.items():
         rom[r['addr']] = n

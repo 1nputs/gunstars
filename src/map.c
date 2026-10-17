@@ -27,6 +27,18 @@ uint16_t MapAttribute(uint16_t x, uint16_t y)
 /* $00B94A. The same, keeping the caller's registers. */
 uint16_t MapAttr(uint16_t x, uint16_t y) { return MapAttribute(x, y); }
 
+/* $00BB74. Whether the tile at a position is one of the four (attributes $20, $21, $28, $29,
+ * unflipped) the table at $0BBAE marks: 1, else 0 (Z). */
+uint16_t MapMarked(uint16_t x, uint16_t y)
+{
+    x = (uint16_t)(x + rd16(v_mapX));
+    y = (uint16_t)(y + rd16(v_mapY));
+    uint16_t cell = (uint16_t)(((x >> 2) & 0x7E) + ((y << 4) & 0x1F80));
+    uint16_t a = rd8((uint16_t)(ATTRIBUTES + (rd16((uint16_t)(MAP + cell)) & 0x7FF)));
+    if (!a) return 0;
+    return rom8(0x00BBAE + a);
+}
+
 /* $00BA4C. An attribute from $20 up, else 0. */
 uint16_t MapAttrHigh(uint16_t x, uint16_t y)
 {

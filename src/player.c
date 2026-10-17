@@ -771,3 +771,82 @@ void PlayersInit(void)
     if (bit8(v_players, 0)) Player1Init();
     if (bit8(v_players, 1)) Player2Init();
 }
+
+/* loc_00EC1A: a player's score, second weapon and the rest cleared */
+static void join_clear(uint16_t p)
+{
+    wr16(p + 0x70, 0);
+    wr8(p + 0x72, 3);
+    wr32(p + 0x64, 0);
+    wr8(p + 0x68, 0);
+    wr8(p + 0x6C, 0);
+    wr16(p + 0xC8, 0);
+}
+
+/* $00EBF6. Player 1 back to its chosen character ($A220) and weapon ($A224), its score and the
+ * rest cleared. */
+void Player1JoinReset(void)
+{
+    wr16(v_player1 + 0xCA, rd16(0xA220));
+    wr16(v_player1 + 0x6E, rd16(0xA224));
+    join_clear(v_player1);
+}
+
+/* $00EC0A. Player 2 the same ($A222, $A226). */
+void Player2JoinReset(void)
+{
+    wr16(v_player2 + 0xCA, rd16(0xA222));
+    wr16(v_player2 + 0x6E, rd16(0xA226));
+    join_clear(v_player2);
+}
+
+/* $00EBEE */
+void PlayerJoinReset(uint16_t p)
+{
+    if (p != v_player1) Player2JoinReset();
+    else Player1JoinReset();
+}
+
+/* the joining player put where the other is, as it is (in mode $38, the boss rush, taking half
+ * the other's vitality); with both playing, $20 to the left */
+static void join_beside(uint16_t p, uint16_t other)
+{
+    QueueSound(0xA1);
+    wr16(p + O_STATE, rd16(other + O_STATE));
+    if (rd16(v_mode) == 0x38) {
+        wr16(p + O_STATE, 0);
+        uint16_t half = (uint16_t)((int16_t)rd16(other + O_VITALITY) >> 1);
+        wr16(other + O_VITALITY, (uint16_t)(rd16(other + O_VITALITY) - half));
+        wr16(p + O_VITALITY, half);
+    }
+    wr16(p + O_X, rd16(other + O_X));
+    wr16(p + O_Y, rd16(other + O_Y));
+    wr32(p + 0x18, rd32(other + 0x18));
+    wr32(p + 0x1C, rd32(other + 0x1C));
+    wr16(p + O_FLAGS, rd16(other + O_FLAGS) | 0x8000);
+    wr8(p + 0x86, rd8(other + 0x86));
+    wr16(p + 0x0E, rd16(p + 0x0E) | (rd16(other + 0x0E) & 0x9800));
+    wr8(p + 0x20, rd8(other + 0x20));
+    wr16(p + 0xC8, rd16(other + 0xC8));
+    wr16(p + 0xD8, rd16(other + 0xD8));
+    if (rd8(v_players) == 3) wr16(p + O_X, (uint16_t)(rd16(p + O_X) - 0x20));
+}
+
+/* $00EC3C. A player joins: its choices kept for the next start, set up beside the other. */
+void PlayerJoin(uint16_t p)
+{
+    wr16(p + 0xC0, (uint16_t)(rd16(p + 0xC0) + 1));
+    if (p == v_player1) {
+        set8(v_players, 0);
+        wr16(0xA220, rd16(p + 0xCA));
+        wr16(0xA224, rd16(p + 0x6E));
+        Player1Init();
+        join_beside(v_player1, v_player2);
+        return;
+    }
+    set8(v_players, 1);
+    wr16(0xA222, rd16(p + 0xCA));
+    wr16(0xA226, rd16(p + 0x6E));
+    Player2Init();
+    join_beside(v_player2, v_player1);
+}

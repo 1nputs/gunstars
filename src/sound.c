@@ -696,15 +696,21 @@ static void pan_restart(uint16_t t)
 /* $065A1C. At a new note: modes 2 and 3 start the animation again, mode 1 steps it. */
 void SoundPanStart(uint16_t t)
 {
-    if (flags(t) & TF_REST) return;
+    if (flags(t) & TF_REST) {
+        SoundPan0Start(t);
+        return;
+    }
     switch (tr8(t, TR_PAN_MODE)) {
-    case 0: return;
+    case 0: SoundPan0Start(t); return;
     case 1: SoundPan1Start(t); return;
     case 2: SoundPan2Start(t); return;
     case 3: SoundPan3Start(t); return;
     default: call68k_missing(SYM_SoundPanStart); return;     /* past the table: not in the game */
     }
 }
+
+/* $065A2E. Mode 0: nothing (and the rest's return). */
+void SoundPan0Start(uint16_t t) { (void)t; }
 
 /* $065A30, $065A32, $065A34: the table's entries */
 void SoundPan1Start(uint16_t t) { pan_step(t); }
@@ -714,14 +720,24 @@ void SoundPan3Start(uint16_t t) { pan_restart(t); }
 /* $065A36. Each frame: modes 2 and 3 step the animation. */
 void SoundPanStep(uint16_t t)
 {
-    if (flags(t) & TF_REST) return;
+    if (flags(t) & TF_REST) {
+        SoundPan0Step(t);
+        return;
+    }
     switch (tr8(t, TR_PAN_MODE)) {
-    case 0: case 1: return;
+    case 0: SoundPan0Step(t); return;
+    case 1: SoundPan1Step(t); return;
     case 2: SoundPan2Step(t); return;
     case 3: SoundPan3Step(t); return;
     default: call68k_missing(SYM_SoundPanStep); return;
     }
 }
+
+/* $065A48. Modes 0 and 1: nothing each frame (and the rest's return). */
+void SoundPan0Step(uint16_t t) { (void)t; }
+
+/* $065A4A */
+void SoundPan1Step(uint16_t t) { (void)t; }
 
 /* $065A4C, $065A4E */
 void SoundPan2Step(uint16_t t) { pan_step(t); }

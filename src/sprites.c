@@ -329,6 +329,27 @@ void QueueDmaBlock(uint16_t *q, uint32_t src, uint16_t *vram)
     *q -= 2; wr16(*q, (uint16_t)(0x9700 | (s >> 16 & 0xFF)));
 }
 
+/* $00219C. SelectAnimation, the sprite word's top bit (priority) kept. */
+void SelectAnimationKeep(uint16_t obj, uint32_t table)
+{
+    uint8_t delay = rd8((uint16_t)(obj + 9));
+    uint16_t e;
+    if (!delay) e = rd16((uint16_t)(obj + 0xC));
+    else {
+        if (delay == 0xFF) return;
+        wr8((uint16_t)(obj + 9), (uint8_t)(delay - 1));
+        if (delay != 1) return;
+        e = (uint16_t)(rd16((uint16_t)(obj + 0xC)) + 6);
+    }
+    uint32_t script;
+    while ((int32_t)(script = bus_rd32(table + (uint32_t)(int16_t)e)) < 0) e = (uint16_t)script;
+    wr32((uint16_t)(obj + 8), script);
+    uint16_t look = bus_rd16(table + (uint32_t)(int16_t)e + 4);
+    wr16((uint16_t)(obj + 0xE), rd16((uint16_t)(obj + 0xE)) & 0x8000);
+    wr16((uint16_t)(obj + 0xE), rd16((uint16_t)(obj + 0xE)) ^ look);
+    wr16((uint16_t)(obj + 0xC), e);
+}
+
 /* $0021E8. The animation from a table of 6-byte entries (the script, the tile word; a negative
  * script is the entry to go to): +$C the entry, +9 frames until the next (0: now, $FF: never). */
 void SelectAnimation(uint16_t obj, uint32_t table)

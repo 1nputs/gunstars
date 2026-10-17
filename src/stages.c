@@ -784,7 +784,12 @@ void Stage1Frame(void)
 {
     Stage1Camera();
     Stage1Back();
-    /* $00563E: the lamps' colours, a step every 4 frames */
+    LampColours();
+}
+
+/* loc_00563E (in $0047FC): the lamps' colours, a step every 4 frames */
+void LampColours(void)
+{
     uint16_t i = (uint16_t)(((int16_t)rd16(v_gameFrames) >> 2) & 0xE);
     wr16(v_palette + 0x22, rom16(0x00566A + i));
     wr16(v_palette + 0x24, rom16(0x00567A + i));

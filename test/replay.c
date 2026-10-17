@@ -200,6 +200,7 @@ int record_irqs_clean(const Record *r)
 {
     if (r->flags & 2) return 0;                    /* left by unwinding */
     if (r->flags & 16) return 0;                   /* the host wrote RAM meanwhile (a session's hold) */
+    if (r->flags & 8) return 0;                    /* nested calls beyond what the log keeps */
     if ((r->flags & 1) && !(r->flags & 4)) return 0;
     return 1;
 }

@@ -595,3 +595,33 @@ void ScrollFrame(void)
     ScrollRowA();
     dma_row_a();
 }
+
+/* $00970C. Plane A from the top left, still: drawn and sent. */
+void PlaneAReset(void)
+{
+    wr32(v_planes, 0x800000);
+    wr32(0xA924, 0);
+    wr32(v_camX, 0);
+    wr32(v_camY, 0);
+    wr32(v_planeSpeeds, 0);
+    wr32(0xA934, 0);
+    wr32(v_camSpeedX, 0);
+    wr32(v_camSpeedY, 0);
+    PlaneAFill();
+    PlaneADma();
+}
+
+/* $00973C. Plane B the same. */
+void PlaneBReset(void)
+{
+    wr32(0xA928, 0x800000);
+    wr32(0xA92C, 0);
+    wr32(0xA908, 0);
+    wr32(0xA90C, 0);
+    wr32(0xA938, 0);
+    wr32(0xA93C, 0);
+    wr32(0xA918, 0);
+    wr32(0xA91C, 0);
+    PlaneBFill();
+    PlaneBDma();
+}

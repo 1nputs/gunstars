@@ -103,13 +103,13 @@ static void run_capture(Record *recs, size_t n, const char **only, int nonly, lo
         int tested = 0, passed = 0, skipped = 0;
         for (size_t i = 0; i < n; i++) {
             if (recs[i].pc != p->pc) continue;
-            if ((recs[i].flags & 19) && !record_irqs_clean(&recs[i])) { skipped++; continue; }
+            if ((recs[i].flags & 27) && !record_irqs_clean(&recs[i])) { skipped++; continue; }
             tested++;
             if (verbose) printf("  %s record %zu (frame %u, %u nested blocks)\n", p->name, i, recs[i].frame, recs[i].n_calls);
             if (run_record(&recs[i], p)) passed++;
             else printf("  FAIL %s record %zu (frame %u)\n", p->name, i, recs[i].frame);
         }
-        if (tested || skipped) printf("%-24s %d/%d passed (%d skipped: left by unwinding, or RAM written by the host)\n", p->name, passed, tested, skipped);
+        if (tested || skipped) printf("%-24s %d/%d passed (%d skipped: left by unwinding, RAM written by the host, or nested too deep)\n", p->name, passed, tested, skipped);
         *tested_all += tested;
         *failed_all += tested - passed;
         *skipped_all += skipped;

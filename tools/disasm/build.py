@@ -49,6 +49,8 @@ def load_u32(path, n):
 
 
 def load_names(path):
+    """ADDRESS NAME lines; a name starting with '.' is an inner label: a place a routine jumps to
+    through a register inside itself (its own loop), not a routine of its own"""
     names = {}
     if os.path.exists(path):
         for line in open(path):
@@ -230,7 +232,9 @@ class Disasm:
         for a, ts in self.tables.items():
             entries.update(ts)
         entries.update(code_table_entries(self.rom))
-        self.entries = {e for e in entries if e in self.insn}
+        inner = {a for a, n in names.items() if n.startswith('.')}
+        names = {a: n.lstrip('.') for a, n in names.items()}
+        self.entries = {e for e in entries if e in self.insn and e not in inner}
         for e in self.entries:
             kind[e] = 'sub'
         for i in self.insn.values():

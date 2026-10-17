@@ -17,7 +17,9 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: test oracle evidence disasm gen clean
+.PHONY: all test oracle evidence disasm gen clean
+
+all: build/captest                   # the default: the tests' build (not just their adapters)
 
 DRAFT   ?=
 DRAFTFLAGS := $(if $(DRAFT),-Itools/disasm -DDRAFT_TEST -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-label -Wno-unused-parameter -Wno-missing-prototypes)

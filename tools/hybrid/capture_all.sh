@@ -44,7 +44,7 @@ for line in open('tools/disasm/names.txt'):
         on = any(w in line for w in want)
         continue
     w = line.split('#', 1)[0].split()
-    if on and len(w) >= 2 and int(w[0], 16) < 0xFF0000:
+    if on and len(w) >= 2 and int(w[0], 16) < 0xFF0000 and not w[1].startswith('.'):   # '.': inner
         out.append(w[1])
 if 'the engine' == sys.argv[1]:
     out += ['LoadPalettes', 'LoadPaletteLine']

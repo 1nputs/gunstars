@@ -30,6 +30,8 @@
  *   interrupted, its diff everything the handler changed; the handler's own calls and port
  *   accesses nest under it. Frames with an interrupt get flags bit 0, and bit 2 when the
  *   interrupts were logged this way (so a test can replay them at the C code's vblank waits).
+ *   Flags bit 3: more calls were open at once than the log keeps (MAXOPEN); some nested calls
+ *   or interrupts went unlogged (their port accesses did not): the tests skip such a record.
  *   Flags bit 4: the host wrote work RAM while the record was open (a session's poke or hold),
  *   which no instruction did: the tests skip such a record.
  *
@@ -50,7 +52,8 @@
 #define RAM_SIZE 0x10000u
 #define NREGS 18                 /* d0-d7 a0-a7 pc sr */
 #define MAXDEPTH 4               /* simultaneously open capture frames */
-#define MAXOPEN 32               /* simultaneously open nested calls */
+#define MAXOPEN 128              /* simultaneously open nested calls (a loop that branches back to
+                                    its routine's entry opens one each time round) */
 #define BPTAB 1024
 #define CAP_MAGIC 0x43434C48u    /* 'HLCC' */
 #define REC_HDR_WORDS 6
@@ -207,7 +210,10 @@ static void log_io(uint32_t flag, int width, uint32_t address, uint32_t value) {
 
 /* ---- nested calls ----------------------------------------------------------------------- */
 static void open_call(uint32_t pc) {
-  if (n_open >= MAXOPEN) return;
+  if (n_open >= MAXOPEN) {                 /* not logged: the records open now are incomplete */
+    for (int d = 0; d < depth; d++) frames[d].flags |= 8;
+    return;
+  }
   Open *o = &open_calls[n_open];
   o->pc = pc; o->frame = depth - 1; o->depth = (uint32_t)n_open + 1;
   regs_get(o->regs);
@@ -221,7 +227,10 @@ static void open_call(uint32_t pc) {
 
 /* an interrupt: its frame on the stack is SR (2 bytes) + PC (4); it ends at the rte */
 static void open_irq(uint32_t pc) {
-  if (n_open >= MAXOPEN) return;
+  if (n_open >= MAXOPEN) {
+    for (int d = 0; d < depth; d++) frames[d].flags |= 8;
+    return;
+  }
   open_call(pc);
   Open *o = &open_calls[n_open - 1];
   uint32_t sp = o->regs[15];

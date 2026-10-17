@@ -125,7 +125,10 @@ void SoundModulate(uint16_t t);                                      /* $065880 
 void SoundFmNoteFreq(uint16_t t);                                    /* $0658D0 a5 */
 uint16_t SoundFreq(uint16_t t);                                      /* $06592E a5 -> d6.w */
 void SoundPanStart(uint16_t t);                                      /* $065A1C a5 */
+void SoundPan0Start(uint16_t t);                                     /* $065A2E a5 */
 void SoundPan1Start(uint16_t t);                                     /* $065A30 a5 */
+void SoundPan0Step(uint16_t t);                                      /* $065A48 a5 */
+void SoundPan1Step(uint16_t t);                                      /* $065A4A a5 */
 void SoundPan2Start(uint16_t t);                                     /* $065A32 a5 */
 void SoundPan3Start(uint16_t t);                                     /* $065A34 a5 */
 void SoundPanStep(uint16_t t);                                       /* $065A36 a5 */
@@ -734,6 +737,7 @@ void PlaneBRedraw(void);                                             /* $00A6A2 
 uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
 uint16_t MapBoundsY(uint16_t x, uint16_t *y);                       /* $00C31C d0.w -> d2.w, d1.w */
 uint16_t MapAttr(uint16_t x, uint16_t y);                            /* $00B94A d0.w, d1.w -> d2.w */
+uint16_t MapMarked(uint16_t x, uint16_t y);                          /* $00BB74 d0.w, d1.w -> d1.w */
 uint16_t MapAttrHigh(uint16_t x, uint16_t y);                        /* $00BA4C d0.w, d1.w -> d2.w */
 uint16_t MapFloor(uint16_t x, uint16_t y);                           /* $00BA74 d0.w, d1.w -> d2.w */
 uint16_t MapThinFloor(uint16_t x, uint16_t y);                       /* $00BAA4 d0.w, d1.w -> d2.w */
@@ -1067,6 +1071,7 @@ void Stage6Start(void);                                              /* $00855C 
 /* ---- the objects' shared helpers (objects.c) ---- */
 int SlotFreeMid(uint16_t *slot, uint16_t *type);                     /* $055F6A -> Z, a0.w, d0.w */
 int SlotFreeHigh(uint16_t *slot, uint16_t *type);                    /* $055FC0 -> Z, a0.w, d0.w */
+int SlotFreeOrPuff(uint16_t *slot, uint16_t *type, uint16_t *d1, uint32_t *a1); /* $055F84 -> Z, a0.w, d0.w, d1.w, a1 */
 int SlotFree24(uint16_t *slot, uint16_t *type);                      /* $055FEC -> Z, a0.w, d0.w */
 int SlotFree12(uint16_t *slot, uint16_t *type);                      /* $056064 -> Z, a0.w, d0.w */
 int SlotFree9(uint16_t *slot, uint16_t *type);                       /* $056082 -> Z, a0.w, d0.w */
@@ -1259,6 +1264,10 @@ uint16_t ObjectRelease(uint16_t obj);                                /* $02A906 
 /* labels other objects jump into (no routines of their own: their code runs in the caller's) */
 void AimedSpawn(uint16_t obj, uint16_t target, uint32_t faces, uint32_t offsets, uint16_t type);
 void ThrowAt(uint16_t obj, uint16_t target, uint16_t type);
+void SoldierDying(uint16_t obj);
+void LampColours(void);
+int ObjectFloorA0(uint16_t obj, uint16_t dy, uint16_t *d3, uint16_t *d4, uint32_t *a0);
+void DebrisEmit(uint16_t obj);
 void ThrownFly(uint16_t obj);                                        /* $02AA00 a5 */
 void Thrown(uint16_t obj);                                           /* $02A918 a5 */
 void KnockedStart(uint16_t obj);                                     /* $02ABFA a5 */
@@ -1363,6 +1372,17 @@ void SoldierSC8(uint16_t obj);                                       /* $02C434 
 void SoldierSEC(uint16_t obj);                                       /* $02C4D2 a5 */
 void SoldierS00(uint16_t obj);                                       /* $02B1DC a5 */
 void Soldier(uint16_t obj);                                          /* $02AECE a5 */
+void RiderStart(uint16_t obj);                                       /* $02A436 a5 */
+void RiderMachine(uint16_t obj);                                     /* $02A652 a5 */
+uint16_t RiderSpawn(uint16_t obj);                                   /* $02A4B6 a5 -> a0.w */
+void RiderA(uint16_t obj);                                           /* $02A48C a5 */
+void RiderB(uint16_t obj);                                           /* $02A4FC a5 */
+void RiderC(uint16_t obj);                                           /* $02A538 a5 */
+void RiderD(uint16_t obj);                                           /* $02A552 a5 */
+void RiderFall(uint16_t obj);                                        /* $02A5BA a5 */
+void RiderOff(uint16_t obj);                                         /* $02A5EC a5 */
+void RiderHit(uint16_t obj);                                         /* $02A642 a5 */
+void Rider(uint16_t obj);                                            /* $02A3C4 a5 */
 
 /* ---- small objects and the orbiting segments (parts.c) ---- */
 void AnimListFall(uint16_t obj);                                     /* $0561D8 a5 */
@@ -1374,6 +1394,240 @@ uint32_t BossColours(uint32_t colours);                              /* $0277BE 
 uint16_t OrbiterSetup(uint16_t parent, uint32_t maps, uint32_t radii, uint32_t links, uint16_t count, uint16_t slot, uint32_t *look); /* $0272E0 a5, a0, a1, a2, d7.w, a4.w -> a4.w, a3, a6=reg_a6 */
 void Orbiter(uint16_t obj);                                          /* $027144 a5 */
 void OrbitersStart(uint16_t obj);                                    /* $0277E8 a5 */
+
+/* ---- the scenery's figures (figures.c) ---- */
+void FrameList(uint16_t obj);                                        /* $05801A a5 */
+void SelectAnimationKeep(uint16_t obj, uint32_t table);              /* $00219C a5, a0 */
+void BouncerStart(uint16_t obj);                                     /* $0381E8 a5 */
+void BouncerWalk(uint16_t obj);                                      /* $038268 a5 */
+void BouncerRise(uint16_t obj);                                      /* $0382A2 a5 */
+void BouncerFall(uint16_t obj);                                      /* $0382B4 a5 */
+void BouncerStill(uint16_t obj);                                     /* $0382CC a5 */
+void BouncerSparks(uint16_t obj);                                    /* $0382CE a5 */
+void BouncerBurst(uint16_t obj);                                     /* $03833A a5 */
+void BouncerBurstWait(uint16_t obj);                                 /* $03839A a5 */
+void BouncerBounceStart(uint16_t obj);                               /* $0383AA a5 */
+void BouncerBounce(uint16_t obj);                                    /* $0383C6 a5 */
+void Bouncer(uint16_t obj);                                          /* $0381B2 a5 */
+void FlyerStart(uint16_t obj);                                       /* $03792E a5 */
+void FlyerFly(uint16_t obj);                                         /* $0379A4 a5 */
+void FlyerDart(uint16_t obj);                                        /* $037AAA a5 */
+void FlyerAim(uint16_t obj);                                         /* $037AC8 a5 */
+void FlyerFire(uint16_t obj);                                        /* $037AFC a5 */
+void FlyerStep(uint16_t obj);                                        /* $037910 a5 */
+void Flyer(uint16_t obj);                                            /* $037858 a5 */
+void CaughtStart(uint16_t obj);                                      /* $037C08 a5 */
+void CaughtHeld(uint16_t obj);                                       /* $037C2E a5 */
+void CaughtRise(uint16_t obj);                                       /* $037C98 a5 */
+void CaughtFall(uint16_t obj);                                       /* $037CC6 a5 */
+void CaughtBounce(uint16_t obj);                                     /* $037D20 a5 */
+void FlyerCaught(uint16_t obj);                                      /* $037BE2 a5 */
+void DebrisBurst(uint16_t obj);                                      /* $057BC2 a5 */
+void WallStart(uint16_t obj);                                        /* $037E00 a5 */
+void WallWhole(uint16_t obj);                                        /* $037E38 a5 */
+void WallDamaged(uint16_t obj);                                      /* $037E58 a5 */
+void WallBroken(uint16_t obj);                                       /* $037E70 a5 */
+void WallFallStart(uint16_t obj);                                    /* $037E7C a5 */
+void WallFall(uint16_t obj);                                         /* $037EAE a5 */
+void WallSmokeStart(uint16_t obj);                                   /* $037F0A a5 */
+void WallSmoke(uint16_t obj);                                        /* $037F9E a5 */
+void WallCrumbleStart(uint16_t obj);                                 /* $037FA4 a5 */
+void WallCrumble(uint16_t obj);                                      /* $037F42 a5 */
+void Wall(uint16_t obj);                                             /* $037DC2 a5 */
+void RockStart(uint16_t obj);                                        /* $037332 a5 */
+void RockRise(uint16_t obj);                                         /* $03737A a5 */
+void RockWait(uint16_t obj);                                         /* $037398 a5 */
+void RockDrop(uint16_t obj);                                         /* $0373F6 a5 */
+void Rock(uint16_t obj);                                             /* $037318 a5 */
+void WormStart(uint16_t obj);                                        /* $03745C a5 */
+void WormDrop(uint16_t obj);                                         /* $0374B2 a5 */
+void WormWait(uint16_t obj);                                         /* $0374CE a5 */
+void WormSegments(uint16_t obj);                                     /* $0374DC a5 */
+void WormStretch(uint16_t obj);                                      /* $0375AA a5 */
+void WormPlace(uint16_t obj);                                        /* $037690 a5 */
+void WormSway(uint16_t obj);                                         /* $037630 a5 */
+void Worm(uint16_t obj);                                             /* $03743A a5 */
+void WormSegment(uint16_t obj);                                      /* $0377EC a5 */
+
+/* ---- the effects (effects.c) ---- */
+void Glint(uint16_t obj);                                            /* $056130 a5 */
+void GlintFall(uint16_t obj);                                        /* $056128 a5 */
+void AnimListLater(uint16_t obj);                                    /* $0561B2 a5 */
+void AnimListBehind(uint16_t obj);                                   /* $0561CC a5 */
+void AnimListSpeeding(uint16_t obj);                                 /* $0561E4 a5 */
+void AnimListRepeat(uint16_t obj);                                   /* $056264 a5 */
+void AnimListLow(uint16_t obj);                                      /* $0562E6 a5 */
+void AnimLoop(uint16_t obj);                                         /* $056360 a5 */
+void AnimLoopFor(uint16_t obj);                                      /* $05631E a5 */
+void AnimLoopForFall(uint16_t obj);                                  /* $056302 a5 */
+void AnimLoopForSpeeding(uint16_t obj);                              /* $05630E a5 */
+void Blinker(uint16_t obj);                                          /* $056824 a5 */
+void Reach(uint16_t obj);                                            /* $05684E a5 */
+void SparkFall(uint16_t obj);                                        /* $0568CA a5 */
+void Spark(uint16_t obj);                                            /* $0568DE a5 */
+void Flash(uint16_t obj);                                            /* $056922 a5 */
+void FlashFall(uint16_t obj);                                        /* $056912 a5 */
+void Chip(uint16_t obj);                                             /* $056946 a5 */
+void Lasting(uint16_t obj);                                          /* $0569A2 a5 */
+void LastingSpeeding(uint16_t obj);                                  /* $056992 a5 */
+void BlinkWhile(uint16_t obj);                                       /* $0569B2 a5 */
+void Circler(uint16_t obj);                                          /* $056A06 a5 */
+void FallThenDie(uint16_t obj);                                      /* $056AA8 a5 */
+void Pellet(uint16_t obj);                                           /* $056B36 a5 */
+void PelletHarmless(uint16_t obj);                                   /* $056B20 a5 */
+void PelletBehind(uint16_t obj);                                     /* $056B2A a5 */
+void PelletAimed(uint16_t obj);                                      /* $056C92 a5 */
+void Bolt(uint16_t obj);                                             /* $056E10 a5 */
+void Ember(uint16_t obj);                                            /* $056F1E a5 */
+void SeekerStart(uint16_t obj);                                      /* $056FD4 a5 */
+void SeekerFly(uint16_t obj);                                        /* $05703E a5 */
+void Seeker(uint16_t obj);                                           /* $056FBA a5 */
+void BombStart(uint16_t obj);                                        /* $0571F2 a5 */
+void BombBurst(uint16_t obj);                                        /* $057282 a5 */
+void BombFall(uint16_t obj);                                         /* $05722C a5 */
+void BombFire(uint16_t obj);                                         /* $057336 a5 */
+void BombFireStart(uint16_t obj);                                    /* $05732C a5 */
+void BombNow(uint16_t obj);                                          /* $0571C2 a5 */
+void Bomb(uint16_t obj);                                             /* $0571D8 a5 */
+void CinderStart(uint16_t obj);                                      /* $0573FA a5 */
+void CinderFall(uint16_t obj);                                       /* $05743A a5 */
+void Cinder(uint16_t obj);                                           /* $0573E8 a5 */
+void ShellStart(uint16_t obj);                                       /* $0574D6 a5 */
+void ShellDown(uint16_t obj);                                        /* $05750E a5 */
+void ShellUp(uint16_t obj);                                          /* $057526 a5 */
+void Shell(uint16_t obj);                                            /* $0574C0 a5 */
+void FrameNext(uint16_t obj);                                        /* $0560F4 a5 */
+void Blast(uint16_t obj);                                            /* $057574 a5 */
+void Spiral(uint16_t obj);                                           /* $057632 a5 */
+void Ring(uint16_t obj);                                             /* $0576F4 a5 */
+void RingKept(uint16_t obj);                                         /* $0576EC a5 */
+void Emitter(uint16_t obj);                                          /* $057790 a5 */
+void Pieces(uint16_t obj);                                           /* $05790E a5 */
+void Crash(uint16_t obj);                                            /* $057872 a5 */
+void Scatter(uint16_t obj);                                          /* $05798C a5 */
+void Wheel(uint16_t obj);                                            /* $057A4C a5 */
+void Burster(uint16_t obj);                                          /* $057B96 a5 */
+void SparkThrower(uint16_t obj);                                     /* $057C4C a5 */
+void Fan(uint16_t obj);                                              /* $057CD0 a5 */
+void Splash(uint16_t obj);                                           /* $057D7E a5 */
+void SplashUp(uint16_t obj);                                         /* $057D68 a5 */
+void RadialBurster(uint16_t obj);                                    /* $057E18 a5 */
+void Burst4(uint16_t obj);                                           /* $057E80 a5 */
+void Scrap(uint16_t obj);                                            /* $057F10 a5 */
+void Sparkle(uint16_t obj);                                          /* $01A246 a5 */
+void FrameFrom(uint16_t obj, uint32_t list);                         /* $056100 a5, a0 */
+int SparkThrow(uint16_t obj, uint16_t *slot);                        /* $057C88 a5 -> Z, a0.w */
+void RadialBurst(uint16_t obj, uint32_t sines, uint32_t cosines, uint16_t angle, uint16_t step, uint16_t rx, uint16_t ry, uint32_t list, uint16_t mask, uint16_t count); /* $057E46 a5, a1, a2, d1.w, d2.w, d3.w, d4.w, d5, d6.w, d7.w */
+
+/* ---- the title screen (title.c) ---- */
+void SpriteColumn(uint32_t buf, uint16_t x, uint16_t attr, uint32_t list, uint16_t y, uint16_t count); /* $01B908 a0, d0.w, d1.w, a2, d3.w, d4.w */
+void TitleMenu(void);                                                /* $01B922 */
+void TitleCursor(void);                                              /* $01B830 */
+void TitleSelect(void);                                              /* $01B828 */
+void TitleChoose(void);                                              /* $01B800 */
+void CubeShow(void);                                                 /* $01BD40 */
+void CubeClear(void);                                                /* $01BD08 */
+uint16_t CubeShade(uint16_t bit, uint16_t angle);                    /* $01BD1E d0.w, d7.w -> d0.w */
+void CubeEdge(uint16_t angle, uint16_t size, uint16_t centre, uint16_t base, uint16_t *up, uint16_t *down, uint16_t *uprow, uint16_t *downrow, uint16_t *d1, uint16_t *d2, uint16_t *d3); /* $01BC46 d6.w, d1.w, d5.w, d3.w -> a0.w, a1.w, a3.w, a4.w, d1.w, d2.w, d3.w */
+uint32_t CubeSlope(uint16_t angle, uint16_t height, uint32_t *count); /* $01BC9C d6.w, d7.w -> d0, d7 */
+void CubeRows(uint16_t up, uint16_t down, uint16_t uprow, uint16_t downrow, uint16_t step, uint16_t d1, uint16_t d2, uint16_t scroll, uint16_t count); /* $01BCC8 a0.w, a1.w, a3.w, a4.w, d0.w, d1.w, d2.w, d3.w, d7.w */
+void CubeFaceA(uint16_t angle);                                      /* $01BB6E d7.w */
+void CubeFaceB(uint16_t angle);                                      /* $01BBA4 d7.w */
+void CubeFaceC(uint16_t angle);                                      /* $01BBDA d7.w */
+void CubeFaceD(uint16_t angle);                                      /* $01BC10 d7.w */
+void CubeTurn(void);                                                 /* $01BA74 */
+void TitleCube(void);                                                /* $01BA6E */
+void TitleSetup(void);                                               /* $01B7AA */
+void TitleInput(void);                                               /* $01B67E */
+void Title(void);                                                    /* $01B5B0 */
+void PlaneAReset(void);                                              /* $00970C */
+void PlaneBReset(void);                                              /* $00973C */
+
+/* ---- the status bar (hud.c), the players joining (player.c) ---- */
+void HudClear(void);                                                 /* $00A7B8 */
+void HudSprites(void);                                               /* $00A7CC */
+void HudBlank(uint16_t buf);                                         /* $00AF54 a4.w */
+void HudIconsOff(uint16_t p);                                        /* $00AF72 a5 */
+void HudIcons(uint16_t p);                                           /* $00AF94 a5 */
+void HudFrame(uint16_t p, uint16_t buf);                             /* $00AB60 a5, a4.w */
+uint16_t HudCanJoin(uint16_t p);                                     /* $00A964 a5 -> d0.w */
+void HudAbsent(uint16_t p, uint16_t buf);                            /* $00A8B6 a5, a4.w */
+void HudSwapCharacter(uint16_t p);                                   /* $00AA32 a5 */
+void HudPickWeapon(uint16_t p);                                      /* $00AAA6 a5 */
+void HudBlinkCharacter(uint16_t p, uint16_t buf);                    /* $00AB94 a5, a4.w */
+void HudBlinkWeapon(uint16_t p, uint16_t buf);                       /* $00AC5A a5, a4.w */
+void HudFace(uint16_t p, uint16_t buf);                              /* $00AD22 a5, a4.w */
+void HudDigit(uint16_t digit, uint16_t *at, uint16_t *shown);        /* $00ADD4 d1.w -> a0.w, d3.w */
+void HudScore(uint16_t p, uint16_t buf);                             /* $00AD8A a5, a4.w */
+void HudVitality(uint16_t p, uint16_t buf);                          /* $00ADF0 a5, a4.w */
+void HudHealth(uint16_t p);                                          /* $00AE50 a5 */
+void HudIcon(uint16_t at, uint16_t weapon);                          /* $00AF42 a0.w, d0.w */
+void HudWeapons(uint16_t p);                                         /* $00AEEA a5 */
+void HudSelectCharacter(uint16_t p, uint16_t buf);                   /* $00A9E8 a5, a4.w */
+void HudSelectWeapon(uint16_t p, uint16_t buf);                      /* $00AA5C a5, a4.w */
+int HudOut(uint16_t p);                                              /* $00AB48 a5 -> Z */
+uint16_t HudFlashLine(uint16_t p);                                   /* $00B0FE a5 -> d2.w */
+void HudTint(uint16_t at, uint16_t count, uint16_t pal);             /* $00B0EE a0.w, d1.w, d2.w */
+void HudPlayer(uint16_t p, uint16_t buf);                            /* $00AB08 a5, a4.w */
+void HudPlayer1(void);                                               /* $00A86C */
+void HudUpdate(void);                                                /* $00A82A */
+void HudStart(void);                                                 /* $00A6DE */
+void Player1JoinReset(void);                                         /* $00EBF6 */
+void Player2JoinReset(void);                                         /* $00EC0A */
+void PlayerJoinReset(uint16_t p);                                    /* $00EBEE a5 */
+void PlayerJoin(uint16_t p);                                         /* $00EC3C a5 */
+
+/* ---- the demo (demo.c), the difficulty (engine.c) ---- */
+void DemoStage(void);                                                /* $01CC9C */
+void DemoInput(void);                                                /* $01CCF4 */
+void DemoStart(void);                                                /* $01CBF4 */
+void Demo(void);                                                     /* $01CD42 */
+void DifficultyAdjust(void);                                         /* $029636 */
+void DifficultyUpdate(void);                                         /* $0295D0 */
+
+/* ---- the story (story.c) ---- */
+void SceneStill(void);                                               /* $01DD66 */
+void SceneTextClear(void);                                           /* $01DE32 */
+void SceneText(uint16_t text);                                       /* $01DD94 d0.w */
+void SceneTextB(uint16_t text);                                      /* $01DDCA d0.w */
+void SceneTextC(uint16_t text);                                      /* $01DE00 d0.w */
+void SceneSprite(uint16_t x, uint16_t y);                            /* $01DFAC d0.w, d1.w */
+void PlanePriority(uint32_t map, uint16_t count);                    /* $01DFD8 a0, d0.w */
+void StoryA1Start(void);                                             /* $01CFA2 */
+void StoryA1(void);                                                  /* $01D094 */
+void StoryA2Start(void);                                             /* $01D142 */
+void StoryA2Top(void);                                               /* $01D2E0 */
+void StoryA2Climb(void);                                             /* $01D2C4 */
+void StoryA2Wait(void);                                              /* $01D284 */
+void StoryA2Pause(void);                                             /* $01D270 */
+void StoryA2Done(void);                                              /* $01D30A */
+void StoryA2(void);                                                  /* $01D21A */
+void StoryA3Start(void);                                             /* $01D34E */
+void StoryA3(void);                                                  /* $01D474 */
+void StoryA4Actors(void);                                            /* $01D656 */
+void StoryA4Start(void);                                             /* $01D534 */
+void StoryA4(void);                                                  /* $01D5F8 */
+void StoryPauseStart(void);                                          /* $01DCEE */
+void StoryPause(void);                                               /* $01DCF8 */
+void StoryToTitle(void);                                             /* $01DD3A */
+void StoryToDemo(void);                                              /* $01DD50 */
+void StoryB1Actors(void);                                            /* $01D778 */
+void StoryB1Start(void);                                             /* $01D692 */
+void StoryB1(void);                                                  /* $01D73E */
+void StoryBob(void);                                                 /* $01D968 */
+void StoryB2Soldiers(void);                                          /* $01D990 */
+void StoryB2Others(void);                                            /* $01D9FA */
+void StoryB2Start(void);                                             /* $01D7DC */
+void StoryB2(void);                                                  /* $01D8B0 */
+void StoryB3Actors(void);                                            /* $01DB66 */
+void StoryB3Start(void);                                             /* $01DA44 */
+void StoryB3(void);                                                  /* $01DB22 */
+void StoryB4Start(void);                                             /* $01DBA2 */
+void StoryB4(void);                                                  /* $01DC6E */
+void StoryAStep(void);                                               /* $01CEA2 */
+void StoryBStep(void);                                               /* $01CF72 */
+void StoryA(void);                                                   /* $01CDFE */
+void StoryB(void);                                                   /* $01CEDA */
 
 /* ---- not ported yet ---- */
 

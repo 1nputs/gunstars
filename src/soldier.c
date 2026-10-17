@@ -69,9 +69,9 @@ static int floor_up16(uint16_t obj, uint16_t *d3) { uint16_t d4 = 0; return !Obj
 
 /* ---- what a soldier turns into ---- */
 
-/* $02AAE2: dead: a dying type ($7C falling, $70, $74, $54) by the random, still moving if it
+/* loc_02AAE2: dead: a dying type ($7C falling, $70, $74, $54) by the random, still moving if it
  * was falling */
-static void become_dying(uint16_t obj)
+void SoldierDying(uint16_t obj)
 {
     wr16(obj + S_LINK, 0);
     set_state(obj, 0);
@@ -166,7 +166,7 @@ void ThrownFly(uint16_t obj)
     if (MapAttribute(rd16(obj + O_X), (uint16_t)(rd16(obj + O_Y) + 0xC))) {
         wr32(obj + 0x18, 0);
         wr32(obj + 0x1C, 0);
-        become_dying(obj);
+        SoldierDying(obj);
     }
 }
 
@@ -193,7 +193,7 @@ void KnockedHeld(uint16_t obj)
     uint8_t s = rd8(obj + 0x23);
     wr8(obj + 0x23, (uint8_t)(s & ~2));
     if (s & 2) return;
-    if (!bit8(obj + 0x23, 4)) { become_dying(obj); return; }
+    if (!bit8(obj + 0x23, 4)) { SoldierDying(obj); return; }
     wr16(obj + 0x26, 0x28);
     wr16(obj + S_TIMER, 0xC);
     thrown_touch(obj);
@@ -204,7 +204,7 @@ static void knocked_stop(uint16_t obj)
 {
     wr32(obj + 0x18, 0);
     wr32(obj + 0x1C, 0);
-    become_dying(obj);
+    SoldierDying(obj);
 }
 
 /* $02AC5E. Rising (slowing); at the top its falling look. A ceiling cell (bit 3) 8 above stops
@@ -2077,7 +2077,7 @@ void Soldier(uint16_t obj)
     if ((rd16(obj + O_VITALITY) & 0x8000) && !bit8(obj + S_MODE, 3)) {
         AddScore(obj, 0x180);
         ObjectRelease(obj);
-        if (!bit8(obj + 0x23, 4)) { become_dying(obj); return; }
+        if (!bit8(obj + 0x23, 4)) { SoldierDying(obj); return; }
         set_state(obj, 0);
         wr16(obj + S_LINK, 0);
         wr16(obj + O_TYPE, 0x110);
@@ -2120,4 +2120,166 @@ void Soldier(uint16_t obj)
     }
 step:
     call_object(rom32(0x02B0B8 + (uint32_t)(int16_t)rd16(obj + O_STATE)), obj);
+}
+
+/* ---- type $C4: a soldier riding the machine in slot $C9E0 (type $B4), what it does there by its
+ * kind (+6); when the machine is destroyed it drops off and goes on as a soldier ---- */
+
+/* $02A436 */
+void RiderStart(uint16_t obj)
+{
+    uint16_t k = rd16(obj + 6);
+    wr16(obj + O_STATE, rom16(0x02A47C + (uint32_t)(int16_t)k));
+    wr16(obj + O_VITALITY, rom16(0x02A484 + (uint32_t)(int16_t)k));
+    wr32(obj + 0x08, 0x0DF4FC);
+    wr16(obj + O_FLAGS, 0xEF00);
+    wr16(obj + 0x0E, 0x300);
+    wr8(obj + 0x20, 0xA0);
+    wr32(obj + 0x28, 0xF40EF808);
+    wr8(obj + 0x21, 0x20);
+}
+
+/* $02A652. The machine destroyed (its vitality, $CA04, negative): dropping off. */
+void RiderMachine(uint16_t obj)
+{
+    if (rd16(obj + O_STATE) == 0x18) return;
+    if (rd16(0xC9E0) != 0xB4) return;
+    if (!(rd16(0xCA04) & 0x8000)) return;
+    wr16(obj + 0x0C, 0);
+    wr32(obj + 0x08, 0x0DF4FC);
+    wr16(obj + O_STATE, 0x18);
+    wr16(obj + 0x48, 0x40);
+}
+
+/* $02A4B6. A type $A8 tied to it both ways. The slot is returned (a0) also when none was free. */
+uint16_t RiderSpawn(uint16_t obj)
+{
+    uint16_t slot, t;
+    if (!SlotFreeMid(&slot, &t)) return slot;
+    wr16(slot + 0x48, 6);
+    wr16(slot + 0x4A, 0x20);
+    wr16(slot + 0x4C, 0);
+    wr16(slot + 0x58, obj);
+    wr16(obj + 0x58, slot);
+    wr16(slot + O_TYPE, 0xA8);
+    wr16(slot + 0x26, 1);
+    wr8(slot + 0x21, 0x50);
+    wr32(slot + 0x2C, 0xFC03FA06);
+    wr32(slot + 0x28, 0xFC03FA06);
+    return slot;
+}
+
+/* $02A48C. Every $40 frames its look again; $18 frames in, a $A8. */
+void RiderA(uint16_t obj)
+{
+    RiderMachine(obj);
+    wr16(obj + 0x4A, (uint16_t)(rd16(obj + 0x4A) - 1));
+    if (rd16(obj + 0x4A) & 0x8000) {
+        wr16(obj + 0x4A, 0x40);
+        wr16(obj + 0x0C, 0);
+        wr32(obj + 0x08, 0x0DFDA8);
+    }
+    if (rd16(obj + 0x4A) != 0x28) return;
+    RiderSpawn(obj);
+}
+
+/* $02A4FC. The same facing left, every $30 frames; $1C in, a $A8 the other way (+$4A -$20). */
+void RiderB(uint16_t obj)
+{
+    RiderMachine(obj);
+    wr16(obj + 0x0E, 0xB00);
+    wr16(obj + 0x4A, (uint16_t)(rd16(obj + 0x4A) - 1));
+    if (rd16(obj + 0x4A) & 0x8000) {
+        wr16(obj + 0x4A, 0x30);
+        wr16(obj + 0x0C, 0);
+        wr32(obj + 0x08, 0x0DF6D4);
+    }
+    if (rd16(obj + 0x4A) != 0x14) return;
+    uint16_t slot = RiderSpawn(obj);
+    wr16(slot + 0x4A, 0xFFE0);
+}
+
+/* $02A538. Just riding. */
+void RiderC(uint16_t obj)
+{
+    RiderMachine(obj);
+    wr16(obj + 0x0E, 0x2B00);
+    wr32(obj + 0x08, 0x0DFA3E);
+    wr16(obj + 0x0C, 0);
+}
+
+/* $02A552. Every 5th frame a $DC beside it, its +$48 going 0, 4, 0, -4. */
+void RiderD(uint16_t obj)
+{
+    RiderMachine(obj);
+    wr32(obj + 0x08, 0x0DF8C8);
+    wr16(obj + 0x0C, 0);
+    wr16(obj + 0x48, (uint16_t)(rd16(obj + 0x48) - 1));
+    if (!(rd16(obj + 0x48) & 0x8000)) return;
+    wr16(obj + 0x48, 4);
+    uint16_t slot, t;
+    if (!SlotFreeMid(&slot, &t)) return;
+    wr16(slot + O_TYPE, 0xDC);
+    uint16_t d0 = (uint16_t)((rd16(obj + 0x4A) + 4) & 0xC);
+    wr16(obj + 0x4A, d0);
+    if (d0 == 0xC) d0 = 4;
+    wr16(slot + 0x48, (uint16_t)(d0 - 4));
+    wr16(slot + O_X, (uint16_t)(rd16(obj + O_X) + 0x1A));
+    wr16(slot + O_Y, (uint16_t)(rd16(obj + O_Y) - 4));
+}
+
+/* $02A5BA. Falling, until the floor. */
+void RiderFall(uint16_t obj)
+{
+    wr32(obj + 0x1C, rd32(obj + 0x1C) + 0x4000);
+    uint16_t d3, d4;
+    if (ObjectFloor(obj, 0x10, &d3, &d4)) return;
+    wr16(obj + O_STATE, 0x18);
+    wr16(obj + 0x0C, 0);
+    wr32(obj + 0x08, 0x0E0108);
+    wr16(obj + 0x48, 0x40);
+}
+
+/* $02A5EC. Off the machine: $40 frames on the floor, then a soldier of a kind by its own (no
+ * floor: falling). */
+void RiderOff(uint16_t obj)
+{
+    uint16_t d3, d4;
+    if (ObjectFloor(obj, 0x10, &d3, &d4)) {
+        wr16(obj + O_STATE, 0x14);
+        wr16(obj + 0x0C, 0);
+        wr32(obj + 0x08, 0x0DF468);
+        return;
+    }
+    wr16(obj + 0x48, (uint16_t)(rd16(obj + 0x48) - 1));
+    if (!(rd16(obj + 0x48) & 0x8000)) return;
+    wr16(obj + O_TYPE, 0x48);
+    wr16(obj + O_STATE, 0);
+    wr16(obj + 6, rom16(0x02A63A + (uint32_t)(int16_t)rd16(obj + 6)));
+    SoldierS00(obj);
+}
+
+/* $02A642. Hit: 5 frames' look, then back to what it was doing. */
+void RiderHit(uint16_t obj)
+{
+    wr16(obj + 0x48, (uint16_t)(rd16(obj + 0x48) - 1));
+    if (rd16(obj + 0x48) & 0x8000) wr16(obj + O_STATE, rd16(obj + 0x5C));
+}
+
+/* $02A3C4. Type $C4. */
+void Rider(uint16_t obj)
+{
+    if (rd16(obj + O_VITALITY) & 0x8000) {
+        SoldierDying(obj);
+        return;
+    }
+    if (rd16(obj + O_STATE) != 0x1C && bit8(obj + 0x22, 5)) {
+        wr16(obj + 0x5C, rd16(obj + O_STATE));
+        wr16(obj + O_STATE, 0x1C);
+        wr16(obj + 0x48, 4);
+        wr16(obj + 0x4A, 0);
+        wr32(obj + 0x08, 0x0DFFAE);
+        wr16(obj + 0x0C, 0);
+    }
+    call_object(rom32(0x02A416 + (uint32_t)(int16_t)rd16(obj + O_STATE)), obj);
 }

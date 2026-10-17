@@ -227,3 +227,42 @@ int SlotReusable(uint16_t from, uint16_t to, uint16_t *slot)
         if (a >= to) { *slot = a; return 0; }
     }
 }
+
+/* $029636. The difficulty's step ($A20C) a notch (2) toward its level's base, or above it while
+ * the players are healthy (their vitality, averaged with two, from $B9 up: 4 above). */
+void DifficultyAdjust(void)
+{
+    uint16_t want = rom16(0x0296A4 + (uint32_t)(int16_t)rd16(v_difficulty));
+    uint16_t v = 0;
+    if (bit8(v_players, 0)) v = (uint16_t)(v + rd16(v_player1 + O_VITALITY));
+    if (bit8(v_players, 1)) v = (uint16_t)(v + rd16(v_player2 + O_VITALITY));
+    if (rd8(v_players) == 3) v = (uint16_t)(v >> 1);
+    if ((int16_t)(v - 0xB9) >= 0) want = (uint16_t)(want + 4);
+    else if ((int16_t)(v - 0x87) >= 0) want = (uint16_t)(want + 2);
+    if (want == rd16(0xA20C)) return;
+    if ((int16_t)(want - rd16(0xA20C)) < 0) wr16(0xA20C, (uint16_t)(rd16(0xA20C) - 2));
+    else wr16(0xA20C, (uint16_t)(rd16(0xA20C) + 2));
+}
+
+/* $0295D0. The difficulty's step kept within a notch above its level's base (the demo's level,
+ * 6: the top step), and what it sets ($80C0). */
+void DifficultyUpdate(void)
+{
+    DifficultyAdjust();
+    uint16_t level = rd16(v_difficulty);
+    if (level == 6) {
+        wr16(0xA20C, 0xE);
+        return;
+    }
+    uint16_t base = rom16(0x0296A4 + (uint32_t)(int16_t)level);
+    if (base != rd16(0xA20C)) {
+        if ((int16_t)(base - rd16(0xA20C)) >= 0) {
+            wr16(0xA20C, base);
+        } else {
+            base = (uint16_t)(base + 4);
+            if ((int16_t)(base - 0x10) >= 0) base = 0xE;
+            if (base != rd16(0xA20C) && (int16_t)(base - rd16(0xA20C)) < 0) wr16(0xA20C, base);
+        }
+    }
+    wr16(0x80C0, rom16(0x0296AC + (uint32_t)(int16_t)rd16(0xA20C)));
+}
