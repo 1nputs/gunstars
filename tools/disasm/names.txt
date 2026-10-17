@@ -342,6 +342,41 @@ FFA286 v_modeState           # the mode's own step
 00F4D2 PlayerInput20
 00F4EC PlayerSceneType
 00F500 PlayerWeaponButton
-00F5D0 PlayerHitKind
+00F5D0 PlayerFloorKind
+01212A PlayerCollide
+01218E CollideNone
+012190 CollideGround
+01219C CollideAir
+0121C6 CollideAirNoGrab
+0121D6 CollideHanging
+01220C PlayerWallsFeet
+0122A0 PlayerWalls
+012324 PlayerWallsHead
+0123BC PlayerFloor3
+01241A PlayerFloor2
+012464 PlayerFloor1
 01ADB0 ObjectClear
 FFFF27 v_demoRecord          # never set by the game: a developers' switch, the demo's pads recorded
+# ---- the level's collision (src/map.c) [the players]
+00B95A MapAttribute
+00B94A MapAttr
+00BA4C MapAttrHigh
+00BA74 MapFloor
+00BAA4 MapThinFloor
+00BAFC MapWallRight
+00BB34 MapWallLeft
+00BC2E MapSnap
+00BD2E MapFloorTop
+00BD3C MapFloorBottom
+00BD4C MapSlopeUp
+00BD6A MapSlopeUpLow
+00BD8C MapSlopeUpHigh
+00BDAC MapFloorMiddle
+00BDBC MapFloorMiddleHigh
+00BDCC MapSlopeDown
+00BDE6 MapSlopeDownLow
+00BE04 MapSlopeDownHigh
+FFA954 v_mapX                # the map's scroll: a position on the screen plus these is one in the map
+FFA956 v_mapY
+FFA000 v_gameFrames          # the engine's frames (each mode's frame adds one)
+

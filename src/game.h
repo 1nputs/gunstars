@@ -342,13 +342,44 @@ void PlayerInput1C(uint16_t obj);                                    /* $00F498 
 void PlayerInput20(uint16_t obj);                                    /* $00F4D2 a5 */
 void PlayerSceneType(uint16_t obj);                                  /* $00F4EC a5 */
 void PlayerWeaponButton(uint16_t obj);                               /* $00F500 a5 */
-void PlayerHitKind(uint16_t obj);                                    /* $00F5D0 a5 */
+void PlayerFloorKind(uint16_t obj);                                    /* $00F5D0 a5 */
+void PlayerCollide(uint16_t obj);                                    /* $01212A a5 */
+void CollideNone(uint16_t obj);                                      /* $01218E a5 */
+void CollideGround(uint16_t obj);                                    /* $012190 a5 */
+void CollideAir(uint16_t obj);                                       /* $01219C a5 */
+void CollideAirNoGrab(uint16_t obj);                                 /* $0121C6 a5 */
+void CollideHanging(uint16_t obj);                                   /* $0121D6 a5 */
+void PlayerWallsFeet(uint16_t obj);                                  /* $01220C a5 */
+void PlayerWalls(uint16_t obj);                                      /* $0122A0 a5 */
+void PlayerWallsHead(uint16_t obj);                                  /* $012324 a5 */
+void PlayerFloor3(uint16_t obj);                                     /* $0123BC a5 */
+void PlayerFloor2(uint16_t obj);                                     /* $01241A a5 */
+void PlayerFloor1(uint16_t obj);                                     /* $012464 a5 */
 void ObjectClear(uint16_t obj);                                      /* $01ADB0 a5 */
+
+/* ---- the level's collision (map.c) ---- */
+uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
+uint16_t MapAttr(uint16_t x, uint16_t y);                            /* $00B94A d0.w, d1.w -> d2.w */
+uint16_t MapAttrHigh(uint16_t x, uint16_t y);                        /* $00BA4C d0.w, d1.w -> d2.w */
+uint16_t MapFloor(uint16_t x, uint16_t y);                           /* $00BA74 d0.w, d1.w -> d2.w */
+uint16_t MapThinFloor(uint16_t x, uint16_t y);                       /* $00BAA4 d0.w, d1.w -> d2.w */
+uint16_t MapWallRight(uint16_t x, uint16_t y);                       /* $00BAFC d0.w, d1.w -> d2.w */
+uint16_t MapWallLeft(uint16_t x, uint16_t y);                        /* $00BB34 d0.w, d1.w -> d2.w */
+void MapSnap(uint16_t *x, uint16_t *y, uint16_t *attr);              /* $00BC2E -> d0.w, d1.w, d2.w */
+uint16_t MapFloorTop(uint16_t y);                                    /* $00BD2E d1.w -> d1.w */
+uint16_t MapFloorBottom(uint16_t y);                                 /* $00BD3C d1.w -> d1.w */
+uint16_t MapSlopeUp(uint16_t x, uint16_t y, uint16_t *d2);           /* $00BD4C d0.w, d1.w -> d1.w, d2.w */
+uint16_t MapSlopeUpLow(uint16_t x, uint16_t y, uint16_t *d2);        /* $00BD6A d0.w, d1.w -> d1.w, d2.w */
+uint16_t MapSlopeUpHigh(uint16_t x, uint16_t y, uint16_t *d2);       /* $00BD8C d0.w, d1.w -> d1.w, d2.w */
+uint16_t MapFloorMiddle(uint16_t y);                                 /* $00BDAC d1.w -> d1.w */
+uint16_t MapFloorMiddleHigh(uint16_t y);                             /* $00BDBC d1.w -> d1.w */
+uint16_t MapSlopeDown(uint16_t x, uint16_t y, uint16_t *d2);         /* $00BDCC d0.w, d1.w -> d1.w, d2.w */
+uint16_t MapSlopeDownLow(uint16_t x, uint16_t y, uint16_t *d2);      /* $00BDE6 d0.w, d1.w -> d1.w, d2.w */
+uint16_t MapSlopeDownHigh(uint16_t x, uint16_t y, uint16_t *d2);     /* $00BE04 d0.w, d1.w -> d1.w, d2.w */
 
 /* ---- not ported yet ---- */
 void sub_0F64E(uint16_t obj);
 void sub_11560(uint16_t obj);
-void sub_1212A(uint16_t obj);
 void sub_12BA0(uint16_t obj);
 void sub_16BF6(uint16_t obj);
 

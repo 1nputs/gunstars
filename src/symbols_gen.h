@@ -505,25 +505,25 @@
 #define SYM_sub_0B78C 0x00B78Cu
 #define SYM_sub_0B798 0x00B798u
 #define SYM_sub_0B79C 0x00B79Cu
-#define SYM_sub_0B94A 0x00B94Au
-#define SYM_sub_0B95A 0x00B95Au
-#define SYM_sub_0BA4C 0x00BA4Cu
-#define SYM_sub_0BA74 0x00BA74u
-#define SYM_sub_0BAA4 0x00BAA4u
-#define SYM_sub_0BAFC 0x00BAFCu
-#define SYM_sub_0BB34 0x00BB34u
+#define SYM_MapAttr 0x00B94Au
+#define SYM_MapAttribute 0x00B95Au
+#define SYM_MapAttrHigh 0x00BA4Cu
+#define SYM_MapFloor 0x00BA74u
+#define SYM_MapThinFloor 0x00BAA4u
+#define SYM_MapWallRight 0x00BAFCu
+#define SYM_MapWallLeft 0x00BB34u
 #define SYM_sub_0BB74 0x00BB74u
-#define SYM_sub_0BC2E 0x00BC2Eu
-#define SYM_sub_0BD2E 0x00BD2Eu
-#define SYM_sub_0BD3C 0x00BD3Cu
-#define SYM_sub_0BD4C 0x00BD4Cu
-#define SYM_sub_0BD6A 0x00BD6Au
-#define SYM_sub_0BD8C 0x00BD8Cu
-#define SYM_sub_0BDAC 0x00BDACu
-#define SYM_sub_0BDBC 0x00BDBCu
-#define SYM_sub_0BDCC 0x00BDCCu
-#define SYM_sub_0BDE6 0x00BDE6u
-#define SYM_sub_0BE04 0x00BE04u
+#define SYM_MapSnap 0x00BC2Eu
+#define SYM_MapFloorTop 0x00BD2Eu
+#define SYM_MapFloorBottom 0x00BD3Cu
+#define SYM_MapSlopeUp 0x00BD4Cu
+#define SYM_MapSlopeUpLow 0x00BD6Au
+#define SYM_MapSlopeUpHigh 0x00BD8Cu
+#define SYM_MapFloorMiddle 0x00BDACu
+#define SYM_MapFloorMiddleHigh 0x00BDBCu
+#define SYM_MapSlopeDown 0x00BDCCu
+#define SYM_MapSlopeDownLow 0x00BDE6u
+#define SYM_MapSlopeDownHigh 0x00BE04u
 #define SYM_sub_0C1F6 0x00C1F6u
 #define SYM_sub_0C31C 0x00C31Cu
 #define SYM_sub_0C45A 0x00C45Au
@@ -576,7 +576,7 @@
 #define SYM_PlayerInput20 0x00F4D2u
 #define SYM_PlayerSceneType 0x00F4ECu
 #define SYM_PlayerWeaponButton 0x00F500u
-#define SYM_PlayerHitKind 0x00F5D0u
+#define SYM_PlayerFloorKind 0x00F5D0u
 #define SYM_sub_0F64E 0x00F64Eu
 #define SYM_sub_0F782 0x00F782u
 #define SYM_sub_0F7D4 0x00F7D4u
@@ -695,18 +695,18 @@
 #define SYM_sub_120BA 0x0120BAu
 #define SYM_sub_1211E 0x01211Eu
 #define SYM_sub_12120 0x012120u
-#define SYM_sub_1212A 0x01212Au
-#define SYM_sub_1218E 0x01218Eu
-#define SYM_sub_12190 0x012190u
-#define SYM_sub_1219C 0x01219Cu
-#define SYM_sub_121C6 0x0121C6u
-#define SYM_sub_121D6 0x0121D6u
-#define SYM_sub_1220C 0x01220Cu
-#define SYM_sub_122A0 0x0122A0u
-#define SYM_sub_12324 0x012324u
-#define SYM_sub_123BC 0x0123BCu
-#define SYM_sub_1241A 0x01241Au
-#define SYM_sub_12464 0x012464u
+#define SYM_PlayerCollide 0x01212Au
+#define SYM_CollideNone 0x01218Eu
+#define SYM_CollideGround 0x012190u
+#define SYM_CollideAir 0x01219Cu
+#define SYM_CollideAirNoGrab 0x0121C6u
+#define SYM_CollideHanging 0x0121D6u
+#define SYM_PlayerWallsFeet 0x01220Cu
+#define SYM_PlayerWalls 0x0122A0u
+#define SYM_PlayerWallsHead 0x012324u
+#define SYM_PlayerFloor3 0x0123BCu
+#define SYM_PlayerFloor2 0x01241Au
+#define SYM_PlayerFloor1 0x012464u
 #define SYM_sub_12574 0x012574u
 #define SYM_sub_125E2 0x0125E2u
 #define SYM_sub_125E4 0x0125E4u
@@ -3242,6 +3242,7 @@
 
 /* work RAM: offsets ($FFxxxx & $FFFF) */
 enum {
+    v_gameFrames = 0xA000,
     v_cameraY = 0xA012,
     v_stage4 = 0xA204,
     v_stagesCleared = 0xA208,
@@ -3251,6 +3252,8 @@ enum {
     v_modeState = 0xA286,
     v_player1 = 0xA400,
     v_player2 = 0xA600,
+    v_mapX = 0xA954,
+    v_mapY = 0xA956,
     v_tilePixels = 0xB400,
     v_jobBuffer = 0xB600,
     v_boss = 0xC980,
@@ -3801,25 +3804,25 @@ static const struct sym rom_syms[] = {
     { 0x00B78Cu, "sub_0B78C" },
     { 0x00B798u, "sub_0B798" },
     { 0x00B79Cu, "sub_0B79C" },
-    { 0x00B94Au, "sub_0B94A" },
-    { 0x00B95Au, "sub_0B95A" },
-    { 0x00BA4Cu, "sub_0BA4C" },
-    { 0x00BA74u, "sub_0BA74" },
-    { 0x00BAA4u, "sub_0BAA4" },
-    { 0x00BAFCu, "sub_0BAFC" },
-    { 0x00BB34u, "sub_0BB34" },
+    { 0x00B94Au, "MapAttr" },
+    { 0x00B95Au, "MapAttribute" },
+    { 0x00BA4Cu, "MapAttrHigh" },
+    { 0x00BA74u, "MapFloor" },
+    { 0x00BAA4u, "MapThinFloor" },
+    { 0x00BAFCu, "MapWallRight" },
+    { 0x00BB34u, "MapWallLeft" },
     { 0x00BB74u, "sub_0BB74" },
-    { 0x00BC2Eu, "sub_0BC2E" },
-    { 0x00BD2Eu, "sub_0BD2E" },
-    { 0x00BD3Cu, "sub_0BD3C" },
-    { 0x00BD4Cu, "sub_0BD4C" },
-    { 0x00BD6Au, "sub_0BD6A" },
-    { 0x00BD8Cu, "sub_0BD8C" },
-    { 0x00BDACu, "sub_0BDAC" },
-    { 0x00BDBCu, "sub_0BDBC" },
-    { 0x00BDCCu, "sub_0BDCC" },
-    { 0x00BDE6u, "sub_0BDE6" },
-    { 0x00BE04u, "sub_0BE04" },
+    { 0x00BC2Eu, "MapSnap" },
+    { 0x00BD2Eu, "MapFloorTop" },
+    { 0x00BD3Cu, "MapFloorBottom" },
+    { 0x00BD4Cu, "MapSlopeUp" },
+    { 0x00BD6Au, "MapSlopeUpLow" },
+    { 0x00BD8Cu, "MapSlopeUpHigh" },
+    { 0x00BDACu, "MapFloorMiddle" },
+    { 0x00BDBCu, "MapFloorMiddleHigh" },
+    { 0x00BDCCu, "MapSlopeDown" },
+    { 0x00BDE6u, "MapSlopeDownLow" },
+    { 0x00BE04u, "MapSlopeDownHigh" },
     { 0x00C1F6u, "sub_0C1F6" },
     { 0x00C31Cu, "sub_0C31C" },
     { 0x00C45Au, "sub_0C45A" },
@@ -3872,7 +3875,7 @@ static const struct sym rom_syms[] = {
     { 0x00F4D2u, "PlayerInput20" },
     { 0x00F4ECu, "PlayerSceneType" },
     { 0x00F500u, "PlayerWeaponButton" },
-    { 0x00F5D0u, "PlayerHitKind" },
+    { 0x00F5D0u, "PlayerFloorKind" },
     { 0x00F64Eu, "sub_0F64E" },
     { 0x00F782u, "sub_0F782" },
     { 0x00F7D4u, "sub_0F7D4" },
@@ -3991,18 +3994,18 @@ static const struct sym rom_syms[] = {
     { 0x0120BAu, "sub_120BA" },
     { 0x01211Eu, "sub_1211E" },
     { 0x012120u, "sub_12120" },
-    { 0x01212Au, "sub_1212A" },
-    { 0x01218Eu, "sub_1218E" },
-    { 0x012190u, "sub_12190" },
-    { 0x01219Cu, "sub_1219C" },
-    { 0x0121C6u, "sub_121C6" },
-    { 0x0121D6u, "sub_121D6" },
-    { 0x01220Cu, "sub_1220C" },
-    { 0x0122A0u, "sub_122A0" },
-    { 0x012324u, "sub_12324" },
-    { 0x0123BCu, "sub_123BC" },
-    { 0x01241Au, "sub_1241A" },
-    { 0x012464u, "sub_12464" },
+    { 0x01212Au, "PlayerCollide" },
+    { 0x01218Eu, "CollideNone" },
+    { 0x012190u, "CollideGround" },
+    { 0x01219Cu, "CollideAir" },
+    { 0x0121C6u, "CollideAirNoGrab" },
+    { 0x0121D6u, "CollideHanging" },
+    { 0x01220Cu, "PlayerWallsFeet" },
+    { 0x0122A0u, "PlayerWalls" },
+    { 0x012324u, "PlayerWallsHead" },
+    { 0x0123BCu, "PlayerFloor3" },
+    { 0x01241Au, "PlayerFloor2" },
+    { 0x012464u, "PlayerFloor1" },
     { 0x012574u, "sub_12574" },
     { 0x0125E2u, "sub_125E2" },
     { 0x0125E4u, "sub_125E4" },
@@ -6537,6 +6540,7 @@ static const struct sym rom_syms[] = {
     { 0x068826u, "SoundFmVolume" },
 };
 static const struct sym ram_syms[] = {
+    { 0xA000u, "v_gameFrames" },
     { 0xA012u, "v_cameraY" },
     { 0xA204u, "v_stage4" },
     { 0xA208u, "v_stagesCleared" },
@@ -6546,6 +6550,8 @@ static const struct sym ram_syms[] = {
     { 0xA286u, "v_modeState" },
     { 0xA400u, "v_player1" },
     { 0xA600u, "v_player2" },
+    { 0xA954u, "v_mapX" },
+    { 0xA956u, "v_mapY" },
     { 0xB400u, "v_tilePixels" },
     { 0xB600u, "v_jobBuffer" },
     { 0xC980u, "v_boss" },

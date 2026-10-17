@@ -32,6 +32,5 @@ void call_object_missing(uint32_t addr, uint16_t obj)
 #define OBJ_STUB(name) STUB void name(uint16_t obj) { TAKE(name); ARG16(R_A5, obj, name); replay_apply(c); }
 OBJ_STUB(sub_0F64E)
 OBJ_STUB(sub_11560)
-OBJ_STUB(sub_1212A)
 OBJ_STUB(sub_12BA0)
 OBJ_STUB(sub_16BF6)
