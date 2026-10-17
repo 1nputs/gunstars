@@ -357,6 +357,76 @@ void PlayerFloor2(uint16_t obj);                                     /* $01241A 
 void PlayerFloor1(uint16_t obj);                                     /* $012464 a5 */
 void ObjectClear(uint16_t obj);                                      /* $01ADB0 a5 */
 
+/* ---- the players' states (player_states.c) ---- */
+void PlayerStates(uint16_t obj);                                     /* $00F64E a5 */
+void PlayerKnockTimer(uint16_t obj);                                 /* $00F782 a5 */
+void PlayerKnockSide(uint16_t obj, uint16_t by);                     /* $00F7D4 a5, a0 */
+void PlayerPickUp(uint16_t obj);                                     /* $00F86A a5 */
+void PlayerHidden(uint16_t obj);                                     /* $00F94E a5 */
+void PlayerStart(uint16_t obj);                                      /* $00F97C a5 */
+void PlayerStand(uint16_t obj);                                      /* $00F9AC a5 */
+void PlayerShootStand(uint16_t obj);                                 /* $00FABC a5 */
+void PlayerTurning(uint16_t obj);                                    /* $00FC0E a5 */
+void PlayerCrouch(uint16_t obj);                                     /* $00FD0A a5 */
+void PlayerShootCrouch(uint16_t obj);                                /* $00FDCC a5 */
+void PlayerTurningCrouched(uint16_t obj);                            /* $00FF0A a5 */
+void PlayerWalk(uint16_t obj);                                       /* $00FFD2 a5 */
+void PlayerWalkSpeed(uint16_t obj);                                  /* $0100C2 a5 */
+void PlayerShootWalk(uint16_t obj);                                  /* $0100FA a5 */
+void PlayerDash(uint16_t obj);                                       /* $0101EA a5 */
+void PlayerDashSpeed(uint16_t obj);                                  /* $010256 a5 */
+void PlayerGuard(uint16_t obj);                                      /* $0102A8 a5 */
+void PlayerPunch(uint16_t obj);                                      /* $010380 a5 */
+void PlayerPunchAir(uint16_t obj);                                   /* $01042E a5 */
+void PlayerJump(uint16_t obj);                                       /* $0104D6 a5 */
+void PlayerJumpHurt(uint16_t obj);                                   /* $010540 a5 */
+void PlayerJumpDir(uint16_t obj);                                    /* $010552 a5 */
+void PlayerFall(uint16_t obj);                                       /* $0105E0 a5 */
+void PlayerFallDir(uint16_t obj);                                    /* $010658 a5 */
+void PlayerShootJump(uint16_t obj);                                  /* $0106F2 a5 */
+void PlayerShootFall(uint16_t obj);                                  /* $01078C a5 */
+void PlayerAirAttack(uint16_t obj);                                  /* $010874 a5 */
+void PlayerHitSpark(uint16_t obj);                                   /* $010938 a5 */
+void PlayerAirAttackBox(uint16_t obj);                               /* $010960 a5 */
+void PlayerAirAttackSpeed(uint16_t obj);                             /* $0109B4 a5 */
+void PlayerWallJumpSpeed(uint16_t obj);                              /* $0109DC a5 */
+void PlayerOnWall(uint16_t obj);                                     /* $010A50 a5 */
+void PlayerFaceFromWall(uint16_t obj);                               /* $010A88 a5 */
+void PlayerSlideSpeed(uint16_t obj);                                 /* $010AEA a5 */
+void PlayerSlide(uint16_t obj);                                      /* $010B08 a5 */
+void PlayerAttackPause(uint16_t obj);                                /* $010B7C a5 */
+void PlayerHang(uint16_t obj);                                       /* $010BE2 a5 */
+void PlayerHangShoot(uint16_t obj);                                  /* $010C92 a5 */
+void PlayerClimb(uint16_t obj);                                      /* $010D4A a5 */
+void PlayerDrop(uint16_t obj);                                       /* $010DFE a5 */
+void PlayerHurt(uint16_t obj);                                       /* $010E6A a5 */
+void PlayerHurtSlope(uint16_t obj);                                  /* $010EBE a5 */
+void PlayerHurtHanging(uint16_t obj);                                /* $010F00 a5 */
+void PlayerDown(uint16_t obj);                                       /* $010F56 a5 */
+void PlayerKnockSpeed(uint16_t obj);                                 /* $010F70 a5 */
+void PlayerHurtAir(uint16_t obj);                                    /* $010FDA a5 */
+void PlayerKnocked(uint16_t obj);                                    /* $01106C a5 */
+void PlayerLying(uint16_t obj);                                      /* $0110B2 a5 */
+void PlayerGettingUp(uint16_t obj);                                  /* $01110C a5 */
+void PlayerDead(uint16_t obj);                                       /* $01115A a5 */
+void PlayerFallenOut(uint16_t obj);                                  /* $0111E8 a5 */
+void PlayerComingBack(uint16_t obj);                                 /* $011240 a5 */
+void PlayerThrow(uint16_t obj);                                      /* $0112AC a5 */
+void PlayerThrowAir(uint16_t obj);                                   /* $011350 a5 */
+void PlayerHeldByEnemy(uint16_t obj);                                /* $0113C2 a5 */
+void PlayerHeldByPlayer(uint16_t obj);                               /* $011440 a5 */
+void PlayerThrownByPlayer(uint16_t obj);                             /* $0114CC a5 */
+void PlayerThrownByEnemy(uint16_t obj);                              /* $011534 a5 */
+void PlayerStandAnim(uint16_t obj);                                  /* $0115F0 a5 */
+void PlayerWalkAnim(uint16_t obj);                                   /* $011AD4 a5 */
+int PlayerAttackDir(uint16_t obj);                                   /* $012922 a5 -> !Z */
+void PlayerAim(uint16_t obj);                                        /* $012A96 a5 */
+void PlayerAimPad(uint16_t obj);                                     /* $012A9A a5 */
+void PlayerAimStraight(uint16_t obj);                                /* $012AD6 a5 */
+void PlayerFace(uint16_t obj);                                       /* $012AF2 a5 */
+void PlayerAttackPower(uint16_t obj);                                /* $012C66 a5 */
+int ObjectFindEffect(uint16_t obj, uint16_t *left, uint16_t *slot);  /* $01A21C a5 -> Z, d2.w, a4 */
+
 /* ---- the level's collision (map.c) ---- */
 uint16_t MapAttribute(uint16_t x, uint16_t y);                       /* $00B95A d0.w, d1.w -> d2.w */
 uint16_t MapAttr(uint16_t x, uint16_t y);                            /* $00B94A d0.w, d1.w -> d2.w */
@@ -378,7 +448,9 @@ uint16_t MapSlopeDownLow(uint16_t x, uint16_t y, uint16_t *d2);      /* $00BDE6 
 uint16_t MapSlopeDownHigh(uint16_t x, uint16_t y, uint16_t *d2);     /* $00BE04 d0.w, d1.w -> d1.w, d2.w */
 
 /* ---- not ported yet ---- */
-void sub_0F64E(uint16_t obj);
+void sub_11CD0(uint16_t obj);
+void sub_12B78(uint16_t obj);
+void sub_1776A(uint16_t obj);
 void sub_11560(uint16_t obj);
 void sub_12BA0(uint16_t obj);
 void sub_16BF6(uint16_t obj);

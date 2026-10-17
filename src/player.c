@@ -80,7 +80,7 @@ void PlayerFrame(uint16_t obj)
     sub_16BF6(obj);
     sub_12BA0(obj);
     PlayerFloorKind(obj);
-    sub_0F64E(obj);
+    PlayerStates(obj);
     sub_16BF6(obj);
     sub_11560(obj);
     sub_16BF6(obj);

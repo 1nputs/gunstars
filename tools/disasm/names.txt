@@ -357,6 +357,75 @@ FFA286 v_modeState           # the mode's own step
 012464 PlayerFloor1
 01ADB0 ObjectClear
 FFFF27 v_demoRecord          # never set by the game: a developers' switch, the demo's pads recorded
+# ---- the players' states (src/player_states.c) [the players]
+00F64E PlayerStates
+00F782 PlayerKnockTimer
+00F7D4 PlayerKnockSide
+00F86A PlayerPickUp
+00F94E PlayerHidden
+00F97C PlayerStart
+00F9AC PlayerStand
+00FABC PlayerShootStand
+00FC0E PlayerTurning
+00FD0A PlayerCrouch
+00FDCC PlayerShootCrouch
+00FF0A PlayerTurningCrouched
+00FFD2 PlayerWalk
+0100C2 PlayerWalkSpeed
+0100FA PlayerShootWalk
+0101EA PlayerDash
+010256 PlayerDashSpeed
+0102A8 PlayerGuard
+010380 PlayerPunch
+01042E PlayerPunchAir
+0104D6 PlayerJump
+010540 PlayerJumpHurt
+010552 PlayerJumpDir
+0105E0 PlayerFall
+010658 PlayerFallDir
+0106F2 PlayerShootJump
+01078C PlayerShootFall
+010874 PlayerAirAttack
+010938 PlayerHitSpark
+010960 PlayerAirAttackBox
+0109B4 PlayerAirAttackSpeed
+0109DC PlayerWallJumpSpeed
+010A50 PlayerOnWall
+010A88 PlayerFaceFromWall
+010AEA PlayerSlideSpeed
+010B08 PlayerSlide
+010B7C PlayerAttackPause
+010BE2 PlayerHang
+010C92 PlayerHangShoot
+010D4A PlayerClimb
+010DFE PlayerDrop
+010E6A PlayerHurt
+010EBE PlayerHurtSlope
+010F00 PlayerHurtHanging
+010F56 PlayerDown
+010F70 PlayerKnockSpeed
+010FDA PlayerHurtAir
+01106C PlayerKnocked
+0110B2 PlayerLying
+01110C PlayerGettingUp
+01115A PlayerDead
+0111E8 PlayerFallenOut
+011240 PlayerComingBack
+0112AC PlayerThrow
+011350 PlayerThrowAir
+0113C2 PlayerHeldByEnemy
+011440 PlayerHeldByPlayer
+0114CC PlayerThrownByPlayer
+011534 PlayerThrownByEnemy
+0115F0 PlayerStandAnim
+011AD4 PlayerWalkAnim
+012922 PlayerAttackDir
+012A96 PlayerAim
+012A9A PlayerAimPad
+012AD6 PlayerAimStraight
+012AF2 PlayerFace
+012C66 PlayerAttackPower
+01A21C ObjectFindEffect
 # ---- the level's collision (src/map.c) [the players]
 00B95A MapAttribute
 00B94A MapAttr
@@ -376,6 +445,9 @@ FFFF27 v_demoRecord          # never set by the game: a developers' switch, the 
 00BDCC MapSlopeDown
 00BDE6 MapSlopeDownLow
 00BE04 MapSlopeDownHigh
+FFA01C v_deathLine          # below it (when not 0) a player falls out of the level
+FFA200 v_players            # bit 0 player 1 is in the game, bit 1 player 2
+FFA20A v_difficulty         # times 2
 FFA954 v_mapX                # the map's scroll: a position on the screen plus these is one in the map
 FFA956 v_mapY
 FFA000 v_gameFrames          # the engine's frames (each mode's frame adds one)

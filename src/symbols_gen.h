@@ -577,70 +577,70 @@
 #define SYM_PlayerSceneType 0x00F4ECu
 #define SYM_PlayerWeaponButton 0x00F500u
 #define SYM_PlayerFloorKind 0x00F5D0u
-#define SYM_sub_0F64E 0x00F64Eu
-#define SYM_sub_0F782 0x00F782u
-#define SYM_sub_0F7D4 0x00F7D4u
-#define SYM_sub_0F86A 0x00F86Au
-#define SYM_sub_0F94E 0x00F94Eu
-#define SYM_sub_0F97C 0x00F97Cu
-#define SYM_sub_0F9AC 0x00F9ACu
-#define SYM_sub_0FABC 0x00FABCu
-#define SYM_sub_0FC0E 0x00FC0Eu
-#define SYM_sub_0FD0A 0x00FD0Au
-#define SYM_sub_0FDCC 0x00FDCCu
-#define SYM_sub_0FF0A 0x00FF0Au
-#define SYM_sub_0FFD2 0x00FFD2u
-#define SYM_sub_100C2 0x0100C2u
-#define SYM_sub_100FA 0x0100FAu
-#define SYM_sub_101EA 0x0101EAu
-#define SYM_sub_10256 0x010256u
-#define SYM_sub_102A8 0x0102A8u
-#define SYM_sub_10380 0x010380u
-#define SYM_sub_1042E 0x01042Eu
-#define SYM_sub_104D6 0x0104D6u
-#define SYM_sub_10540 0x010540u
-#define SYM_sub_10552 0x010552u
-#define SYM_sub_105E0 0x0105E0u
-#define SYM_sub_10658 0x010658u
-#define SYM_sub_106F2 0x0106F2u
-#define SYM_sub_1078C 0x01078Cu
-#define SYM_sub_10874 0x010874u
-#define SYM_sub_10938 0x010938u
-#define SYM_sub_10960 0x010960u
-#define SYM_sub_109B4 0x0109B4u
-#define SYM_sub_109DC 0x0109DCu
-#define SYM_sub_10A50 0x010A50u
-#define SYM_sub_10A88 0x010A88u
-#define SYM_sub_10AEA 0x010AEAu
-#define SYM_sub_10B08 0x010B08u
-#define SYM_sub_10B7C 0x010B7Cu
-#define SYM_sub_10BE2 0x010BE2u
-#define SYM_sub_10C92 0x010C92u
-#define SYM_sub_10D4A 0x010D4Au
-#define SYM_sub_10DFE 0x010DFEu
-#define SYM_sub_10E6A 0x010E6Au
-#define SYM_sub_10EBE 0x010EBEu
-#define SYM_sub_10F00 0x010F00u
-#define SYM_sub_10F56 0x010F56u
-#define SYM_sub_10F70 0x010F70u
-#define SYM_sub_10FDA 0x010FDAu
-#define SYM_sub_1106C 0x01106Cu
-#define SYM_sub_110B2 0x0110B2u
-#define SYM_sub_1110C 0x01110Cu
-#define SYM_sub_1115A 0x01115Au
-#define SYM_sub_111E8 0x0111E8u
-#define SYM_sub_11240 0x011240u
-#define SYM_sub_112AC 0x0112ACu
-#define SYM_sub_11350 0x011350u
-#define SYM_sub_113C2 0x0113C2u
-#define SYM_sub_11440 0x011440u
-#define SYM_sub_114CC 0x0114CCu
-#define SYM_sub_11534 0x011534u
+#define SYM_PlayerStates 0x00F64Eu
+#define SYM_PlayerKnockTimer 0x00F782u
+#define SYM_PlayerKnockSide 0x00F7D4u
+#define SYM_PlayerPickUp 0x00F86Au
+#define SYM_PlayerHidden 0x00F94Eu
+#define SYM_PlayerStart 0x00F97Cu
+#define SYM_PlayerStand 0x00F9ACu
+#define SYM_PlayerShootStand 0x00FABCu
+#define SYM_PlayerTurning 0x00FC0Eu
+#define SYM_PlayerCrouch 0x00FD0Au
+#define SYM_PlayerShootCrouch 0x00FDCCu
+#define SYM_PlayerTurningCrouched 0x00FF0Au
+#define SYM_PlayerWalk 0x00FFD2u
+#define SYM_PlayerWalkSpeed 0x0100C2u
+#define SYM_PlayerShootWalk 0x0100FAu
+#define SYM_PlayerDash 0x0101EAu
+#define SYM_PlayerDashSpeed 0x010256u
+#define SYM_PlayerGuard 0x0102A8u
+#define SYM_PlayerPunch 0x010380u
+#define SYM_PlayerPunchAir 0x01042Eu
+#define SYM_PlayerJump 0x0104D6u
+#define SYM_PlayerJumpHurt 0x010540u
+#define SYM_PlayerJumpDir 0x010552u
+#define SYM_PlayerFall 0x0105E0u
+#define SYM_PlayerFallDir 0x010658u
+#define SYM_PlayerShootJump 0x0106F2u
+#define SYM_PlayerShootFall 0x01078Cu
+#define SYM_PlayerAirAttack 0x010874u
+#define SYM_PlayerHitSpark 0x010938u
+#define SYM_PlayerAirAttackBox 0x010960u
+#define SYM_PlayerAirAttackSpeed 0x0109B4u
+#define SYM_PlayerWallJumpSpeed 0x0109DCu
+#define SYM_PlayerOnWall 0x010A50u
+#define SYM_PlayerFaceFromWall 0x010A88u
+#define SYM_PlayerSlideSpeed 0x010AEAu
+#define SYM_PlayerSlide 0x010B08u
+#define SYM_PlayerAttackPause 0x010B7Cu
+#define SYM_PlayerHang 0x010BE2u
+#define SYM_PlayerHangShoot 0x010C92u
+#define SYM_PlayerClimb 0x010D4Au
+#define SYM_PlayerDrop 0x010DFEu
+#define SYM_PlayerHurt 0x010E6Au
+#define SYM_PlayerHurtSlope 0x010EBEu
+#define SYM_PlayerHurtHanging 0x010F00u
+#define SYM_PlayerDown 0x010F56u
+#define SYM_PlayerKnockSpeed 0x010F70u
+#define SYM_PlayerHurtAir 0x010FDAu
+#define SYM_PlayerKnocked 0x01106Cu
+#define SYM_PlayerLying 0x0110B2u
+#define SYM_PlayerGettingUp 0x01110Cu
+#define SYM_PlayerDead 0x01115Au
+#define SYM_PlayerFallenOut 0x0111E8u
+#define SYM_PlayerComingBack 0x011240u
+#define SYM_PlayerThrow 0x0112ACu
+#define SYM_PlayerThrowAir 0x011350u
+#define SYM_PlayerHeldByEnemy 0x0113C2u
+#define SYM_PlayerHeldByPlayer 0x011440u
+#define SYM_PlayerThrownByPlayer 0x0114CCu
+#define SYM_PlayerThrownByEnemy 0x011534u
 #define SYM_sub_11560 0x011560u
 #define SYM_sub_115CC 0x0115CCu
 #define SYM_sub_115E6 0x0115E6u
 #define SYM_sub_115E8 0x0115E8u
-#define SYM_sub_115F0 0x0115F0u
+#define SYM_PlayerStandAnim 0x0115F0u
 #define SYM_sub_11616 0x011616u
 #define SYM_sub_11644 0x011644u
 #define SYM_sub_1164A 0x01164Au
@@ -663,7 +663,7 @@
 #define SYM_sub_11AB2 0x011AB2u
 #define SYM_sub_11AC0 0x011AC0u
 #define SYM_sub_11AC8 0x011AC8u
-#define SYM_sub_11AD4 0x011AD4u
+#define SYM_PlayerWalkAnim 0x011AD4u
 #define SYM_sub_11B30 0x011B30u
 #define SYM_sub_11B3C 0x011B3Cu
 #define SYM_sub_11B84 0x011B84u
@@ -715,21 +715,21 @@
 #define SYM_sub_1262A 0x01262Au
 #define SYM_sub_1263C 0x01263Cu
 #define SYM_sub_12710 0x012710u
-#define SYM_sub_12922 0x012922u
+#define SYM_PlayerAttackDir 0x012922u
 #define SYM_sub_12970 0x012970u
 #define SYM_sub_1299A 0x01299Au
 #define SYM_sub_129EC 0x0129ECu
 #define SYM_sub_12A24 0x012A24u
-#define SYM_sub_12A96 0x012A96u
-#define SYM_sub_12A9A 0x012A9Au
-#define SYM_sub_12AD6 0x012AD6u
-#define SYM_sub_12AF2 0x012AF2u
+#define SYM_PlayerAim 0x012A96u
+#define SYM_PlayerAimPad 0x012A9Au
+#define SYM_PlayerAimStraight 0x012AD6u
+#define SYM_PlayerFace 0x012AF2u
 #define SYM_sub_12B78 0x012B78u
 #define SYM_sub_12B8E 0x012B8Eu
 #define SYM_sub_12BA0 0x012BA0u
 #define SYM_sub_12BB4 0x012BB4u
 #define SYM_sub_12C02 0x012C02u
-#define SYM_sub_12C66 0x012C66u
+#define SYM_PlayerAttackPower 0x012C66u
 #define SYM_sub_12C7A 0x012C7Au
 #define SYM_sub_12CB6 0x012CB6u
 #define SYM_sub_12D48 0x012D48u
@@ -1070,7 +1070,7 @@
 #define SYM_sub_1A0E2 0x01A0E2u
 #define SYM_sub_1A15E 0x01A15Eu
 #define SYM_sub_1A1EA 0x01A1EAu
-#define SYM_sub_1A21C 0x01A21Cu
+#define SYM_ObjectFindEffect 0x01A21Cu
 #define SYM_sub_1A246 0x01A246u
 #define SYM_sub_1A2A2 0x01A2A2u
 #define SYM_sub_1A2D0 0x01A2D0u
@@ -3244,8 +3244,11 @@
 enum {
     v_gameFrames = 0xA000,
     v_cameraY = 0xA012,
+    v_deathLine = 0xA01C,
+    v_players = 0xA200,
     v_stage4 = 0xA204,
     v_stagesCleared = 0xA208,
+    v_difficulty = 0xA20A,
     v_frameCount = 0xA280,
     v_modeTimer = 0xA282,
     v_mode = 0xA284,
@@ -3876,70 +3879,70 @@ static const struct sym rom_syms[] = {
     { 0x00F4ECu, "PlayerSceneType" },
     { 0x00F500u, "PlayerWeaponButton" },
     { 0x00F5D0u, "PlayerFloorKind" },
-    { 0x00F64Eu, "sub_0F64E" },
-    { 0x00F782u, "sub_0F782" },
-    { 0x00F7D4u, "sub_0F7D4" },
-    { 0x00F86Au, "sub_0F86A" },
-    { 0x00F94Eu, "sub_0F94E" },
-    { 0x00F97Cu, "sub_0F97C" },
-    { 0x00F9ACu, "sub_0F9AC" },
-    { 0x00FABCu, "sub_0FABC" },
-    { 0x00FC0Eu, "sub_0FC0E" },
-    { 0x00FD0Au, "sub_0FD0A" },
-    { 0x00FDCCu, "sub_0FDCC" },
-    { 0x00FF0Au, "sub_0FF0A" },
-    { 0x00FFD2u, "sub_0FFD2" },
-    { 0x0100C2u, "sub_100C2" },
-    { 0x0100FAu, "sub_100FA" },
-    { 0x0101EAu, "sub_101EA" },
-    { 0x010256u, "sub_10256" },
-    { 0x0102A8u, "sub_102A8" },
-    { 0x010380u, "sub_10380" },
-    { 0x01042Eu, "sub_1042E" },
-    { 0x0104D6u, "sub_104D6" },
-    { 0x010540u, "sub_10540" },
-    { 0x010552u, "sub_10552" },
-    { 0x0105E0u, "sub_105E0" },
-    { 0x010658u, "sub_10658" },
-    { 0x0106F2u, "sub_106F2" },
-    { 0x01078Cu, "sub_1078C" },
-    { 0x010874u, "sub_10874" },
-    { 0x010938u, "sub_10938" },
-    { 0x010960u, "sub_10960" },
-    { 0x0109B4u, "sub_109B4" },
-    { 0x0109DCu, "sub_109DC" },
-    { 0x010A50u, "sub_10A50" },
-    { 0x010A88u, "sub_10A88" },
-    { 0x010AEAu, "sub_10AEA" },
-    { 0x010B08u, "sub_10B08" },
-    { 0x010B7Cu, "sub_10B7C" },
-    { 0x010BE2u, "sub_10BE2" },
-    { 0x010C92u, "sub_10C92" },
-    { 0x010D4Au, "sub_10D4A" },
-    { 0x010DFEu, "sub_10DFE" },
-    { 0x010E6Au, "sub_10E6A" },
-    { 0x010EBEu, "sub_10EBE" },
-    { 0x010F00u, "sub_10F00" },
-    { 0x010F56u, "sub_10F56" },
-    { 0x010F70u, "sub_10F70" },
-    { 0x010FDAu, "sub_10FDA" },
-    { 0x01106Cu, "sub_1106C" },
-    { 0x0110B2u, "sub_110B2" },
-    { 0x01110Cu, "sub_1110C" },
-    { 0x01115Au, "sub_1115A" },
-    { 0x0111E8u, "sub_111E8" },
-    { 0x011240u, "sub_11240" },
-    { 0x0112ACu, "sub_112AC" },
-    { 0x011350u, "sub_11350" },
-    { 0x0113C2u, "sub_113C2" },
-    { 0x011440u, "sub_11440" },
-    { 0x0114CCu, "sub_114CC" },
-    { 0x011534u, "sub_11534" },
+    { 0x00F64Eu, "PlayerStates" },
+    { 0x00F782u, "PlayerKnockTimer" },
+    { 0x00F7D4u, "PlayerKnockSide" },
+    { 0x00F86Au, "PlayerPickUp" },
+    { 0x00F94Eu, "PlayerHidden" },
+    { 0x00F97Cu, "PlayerStart" },
+    { 0x00F9ACu, "PlayerStand" },
+    { 0x00FABCu, "PlayerShootStand" },
+    { 0x00FC0Eu, "PlayerTurning" },
+    { 0x00FD0Au, "PlayerCrouch" },
+    { 0x00FDCCu, "PlayerShootCrouch" },
+    { 0x00FF0Au, "PlayerTurningCrouched" },
+    { 0x00FFD2u, "PlayerWalk" },
+    { 0x0100C2u, "PlayerWalkSpeed" },
+    { 0x0100FAu, "PlayerShootWalk" },
+    { 0x0101EAu, "PlayerDash" },
+    { 0x010256u, "PlayerDashSpeed" },
+    { 0x0102A8u, "PlayerGuard" },
+    { 0x010380u, "PlayerPunch" },
+    { 0x01042Eu, "PlayerPunchAir" },
+    { 0x0104D6u, "PlayerJump" },
+    { 0x010540u, "PlayerJumpHurt" },
+    { 0x010552u, "PlayerJumpDir" },
+    { 0x0105E0u, "PlayerFall" },
+    { 0x010658u, "PlayerFallDir" },
+    { 0x0106F2u, "PlayerShootJump" },
+    { 0x01078Cu, "PlayerShootFall" },
+    { 0x010874u, "PlayerAirAttack" },
+    { 0x010938u, "PlayerHitSpark" },
+    { 0x010960u, "PlayerAirAttackBox" },
+    { 0x0109B4u, "PlayerAirAttackSpeed" },
+    { 0x0109DCu, "PlayerWallJumpSpeed" },
+    { 0x010A50u, "PlayerOnWall" },
+    { 0x010A88u, "PlayerFaceFromWall" },
+    { 0x010AEAu, "PlayerSlideSpeed" },
+    { 0x010B08u, "PlayerSlide" },
+    { 0x010B7Cu, "PlayerAttackPause" },
+    { 0x010BE2u, "PlayerHang" },
+    { 0x010C92u, "PlayerHangShoot" },
+    { 0x010D4Au, "PlayerClimb" },
+    { 0x010DFEu, "PlayerDrop" },
+    { 0x010E6Au, "PlayerHurt" },
+    { 0x010EBEu, "PlayerHurtSlope" },
+    { 0x010F00u, "PlayerHurtHanging" },
+    { 0x010F56u, "PlayerDown" },
+    { 0x010F70u, "PlayerKnockSpeed" },
+    { 0x010FDAu, "PlayerHurtAir" },
+    { 0x01106Cu, "PlayerKnocked" },
+    { 0x0110B2u, "PlayerLying" },
+    { 0x01110Cu, "PlayerGettingUp" },
+    { 0x01115Au, "PlayerDead" },
+    { 0x0111E8u, "PlayerFallenOut" },
+    { 0x011240u, "PlayerComingBack" },
+    { 0x0112ACu, "PlayerThrow" },
+    { 0x011350u, "PlayerThrowAir" },
+    { 0x0113C2u, "PlayerHeldByEnemy" },
+    { 0x011440u, "PlayerHeldByPlayer" },
+    { 0x0114CCu, "PlayerThrownByPlayer" },
+    { 0x011534u, "PlayerThrownByEnemy" },
     { 0x011560u, "sub_11560" },
     { 0x0115CCu, "sub_115CC" },
     { 0x0115E6u, "sub_115E6" },
     { 0x0115E8u, "sub_115E8" },
-    { 0x0115F0u, "sub_115F0" },
+    { 0x0115F0u, "PlayerStandAnim" },
     { 0x011616u, "sub_11616" },
     { 0x011644u, "sub_11644" },
     { 0x01164Au, "sub_1164A" },
@@ -3962,7 +3965,7 @@ static const struct sym rom_syms[] = {
     { 0x011AB2u, "sub_11AB2" },
     { 0x011AC0u, "sub_11AC0" },
     { 0x011AC8u, "sub_11AC8" },
-    { 0x011AD4u, "sub_11AD4" },
+    { 0x011AD4u, "PlayerWalkAnim" },
     { 0x011B30u, "sub_11B30" },
     { 0x011B3Cu, "sub_11B3C" },
     { 0x011B84u, "sub_11B84" },
@@ -4014,21 +4017,21 @@ static const struct sym rom_syms[] = {
     { 0x01262Au, "sub_1262A" },
     { 0x01263Cu, "sub_1263C" },
     { 0x012710u, "sub_12710" },
-    { 0x012922u, "sub_12922" },
+    { 0x012922u, "PlayerAttackDir" },
     { 0x012970u, "sub_12970" },
     { 0x01299Au, "sub_1299A" },
     { 0x0129ECu, "sub_129EC" },
     { 0x012A24u, "sub_12A24" },
-    { 0x012A96u, "sub_12A96" },
-    { 0x012A9Au, "sub_12A9A" },
-    { 0x012AD6u, "sub_12AD6" },
-    { 0x012AF2u, "sub_12AF2" },
+    { 0x012A96u, "PlayerAim" },
+    { 0x012A9Au, "PlayerAimPad" },
+    { 0x012AD6u, "PlayerAimStraight" },
+    { 0x012AF2u, "PlayerFace" },
     { 0x012B78u, "sub_12B78" },
     { 0x012B8Eu, "sub_12B8E" },
     { 0x012BA0u, "sub_12BA0" },
     { 0x012BB4u, "sub_12BB4" },
     { 0x012C02u, "sub_12C02" },
-    { 0x012C66u, "sub_12C66" },
+    { 0x012C66u, "PlayerAttackPower" },
     { 0x012C7Au, "sub_12C7A" },
     { 0x012CB6u, "sub_12CB6" },
     { 0x012D48u, "sub_12D48" },
@@ -4369,7 +4372,7 @@ static const struct sym rom_syms[] = {
     { 0x01A0E2u, "sub_1A0E2" },
     { 0x01A15Eu, "sub_1A15E" },
     { 0x01A1EAu, "sub_1A1EA" },
-    { 0x01A21Cu, "sub_1A21C" },
+    { 0x01A21Cu, "ObjectFindEffect" },
     { 0x01A246u, "sub_1A246" },
     { 0x01A2A2u, "sub_1A2A2" },
     { 0x01A2D0u, "sub_1A2D0" },
@@ -6542,8 +6545,11 @@ static const struct sym rom_syms[] = {
 static const struct sym ram_syms[] = {
     { 0xA000u, "v_gameFrames" },
     { 0xA012u, "v_cameraY" },
+    { 0xA01Cu, "v_deathLine" },
+    { 0xA200u, "v_players" },
     { 0xA204u, "v_stage4" },
     { 0xA208u, "v_stagesCleared" },
+    { 0xA20Au, "v_difficulty" },
     { 0xA280u, "v_frameCount" },
     { 0xA282u, "v_modeTimer" },
     { 0xA284u, "v_mode" },
