@@ -15,11 +15,14 @@ project keeps, with names, types and structure, and both are checked by the same
 
 usage: draft.py NAME...            write build/draft/NAME.c for each, and print them
        draft.py --tree NAME        NAME's callees, leaf first, with what is ported
+       draft.py --tree A,B --names the routines under A and B, comma separated
 """
 import argparse, json, os, re, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from program import Program, ROOT  # noqa: E402
 import regs  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import protos  # noqa: E402
 from regs import D, A, CC, XF, ALL, DREGS, PART  # noqa: E402
 from m68k import CALL, RET, JUMP, BRANCH, COND, SEQ  # noqa: E402
 
@@ -184,6 +187,50 @@ class Sigs:
                 args.append('uint8_t *p_ccr')
         return ret, args, pn, rn, cc
 
+    def regs_comment(self, e):
+        """game.h's register comment for the generic signature: the value parameters, then the
+        results (the return value, then the pointers)"""
+        ret, args, pn, rn, cc = self.decl(e, '')
+        params, results, _ = self.of(e)
+        by = dict(params)
+        ptr = len(rn) > 1 or (cc and rn)
+        ins = ['%s%s' % (r, {1: '.b', 3: '.w'}.get(p, '')) for r, p in params if not (ptr and r in rn)]
+        outs = []
+        if ptr:
+            outs = list(rn) + (['ccr'] if cc else [])
+        elif rn:
+            outs = [rn[0]]
+        elif cc:
+            outs = ['ccr']
+        return ', '.join(ins) + (' -> ' + ', '.join(outs) if outs else '')
+
+    def stub(self, e, name):
+        """a recorded stand-in for an unported callee of a draft under test"""
+        ret, args, pn, rn, cc = self.decl(e, name)
+        params, results, _ = self.of(e)
+        ptr = len(rn) > 1 or (cc and rn)
+        lines = ['STUB %s %s(%s)' % (ret, name, ', '.join(args) or 'void'), '{']
+        lines.append('    ' + ('TAKE(%s)' % name if ret == 'void' else 'TAKE_RET(%s, 0)' % name))
+        for r, p in params:
+            idx = 'R_%s' % r.upper()
+            v = ('*p_%s' % r) if ptr and r in rn else r
+            if r[0] == 'a':
+                lines.append('    ARGADDR(%s, %s, %s);' % (idx, v, name))
+            else:
+                lines.append('    %s(%s, %s, %s);' % ({1: 'ARG8', 3: 'ARG16'}.get(p, 'ARG32'), idx, v, name))
+        lines.append('    replay_apply(c);')
+        if ptr:
+            for r in rn:
+                lines.append('    *p_%s = c->regs_out[R_%s];' % (r, r.upper()))
+            if cc:
+                lines.append('    *p_ccr = (uint8_t)(c->regs_out[R_SR] & 0x1F);')
+        elif rn:
+            lines.append('    return c->regs_out[R_%s];' % rn[0].upper())
+        elif cc:
+            lines.append('    return (uint8_t)(c->regs_out[R_SR] & 0x1F);')
+        lines.append('}')
+        return '\n'.join(lines) + '\n'
+
     def proto(self, e, name):
         ret, args, pn, rn, cc = self.decl(e, name)
         return '%s %s(%s)' % (ret, name, ', '.join(args) or 'void')
@@ -194,8 +241,9 @@ def width(p):
 
 
 class Draft:
-    def __init__(self, prog, an, sigs, r):
+    def __init__(self, prog, an, sigs, r, ported=None):
         self.p, self.an, self.s, self.r = prog, an, sigs, r
+        self.ported = ported or {}
         self.f = an.facts[r.entry]
         self.items = []
         self.locals = set()
@@ -1042,6 +1090,12 @@ class Draft:
             val = '(%s)%s >> %s' % (ST[sz], v.t, cnt) if cnt.isdigit() else 'asr_n(%s, %s, %d)' % (v.t, cnt, bits)
         elif kind == 'ro':
             val = '%s_n(%s, %s, %d)' % ('rol' if left else 'ror', v.t, cnt, bits)
+        elif kind == 'rox':
+            self.used_ccr = True
+            self.items.append(['stmt', ' '.join(lines), a])
+            wpre, w, wpost = self.write(o, sz, 'rox_n(%s, %s, %d, %d, &ccr)' % (v.t, cnt, bits, left), a)
+            self.out_stmts(i, wpre, w, post + wpost)
+            return
         else:
             raise Unsupported(base)
         if fl:
@@ -1213,8 +1267,10 @@ class Draft:
 
     # ---- calls, jumps, returns ----------------------------------------------------------------
     def call_text(self, t, name):
-        ret, args, pn, rn, cc = self.s.decl(t, name)
         self.callees.add(t)
+        if t in self.ported:
+            return self.ported_call(self.ported[t])
+        ret, args, pn, rn, cc = self.s.decl(t, name)
         params, results, ccr = self.s.of(t)
         argv = []
         for r, p in params:
@@ -1248,6 +1304,61 @@ class Draft:
         else:
             lines.append('%s(%s);' % (name, ', '.join(argv)))
         return ' '.join(lines)
+
+    def ported_call(self, p):
+        """a call of a ported routine through its C signature (game.h's comment maps its
+        parameters and results to registers)"""
+        args, pre, post = [], [], []
+        vals = iter(p.regs_in)
+        extra = iter(p.results_after_return())
+        n = 0
+        for ctype, pname in p.params:
+            if ctype.endswith('*'):
+                base = ctype[:-1].strip()
+                reg = next(extra)
+                n += 1
+                tmp = 'r%d' % n
+                if reg[0] == 'reg':
+                    pre.append('%s %s = (%s)%s;' % (base, tmp, base, self.reg(reg[1][0], int(reg[1][1]))))
+                    post.append(self.set_result(reg, tmp, base))
+                else:
+                    pre.append('%s %s = 0;' % (base, tmp))
+                    post.append(self.set_flag(reg, tmp))
+                args.append('&' + tmp)
+            else:
+                reg = next(vals)
+                args.append('(%s)%s' % (ctype, self.reg(reg[1][0], int(reg[1][1]))))
+        for g in p.globs_in:
+            pre.append('%s = %s;' % (g[2], self.reg(g[1][0], int(g[1][1]))))
+        for g in p.globs_out:
+            post.append('%s = %s;' % (self.reg(g[1][0], int(g[1][1])), g[2]))
+        call = '%s(%s)' % (p.name, ', '.join(args))
+        if p.ret != 'void' and p.regs_out:
+            first = p.regs_out[0]
+            if first[0] == 'reg':
+                main = self.set_result(first, call, p.ret)
+            else:
+                main = self.set_flag(first, call)
+        else:
+            main = call + ';'
+        text = ' '.join(pre + [main] + post)
+        return '{ %s }' % text if pre else text
+
+    def set_result(self, reg, v, ctype):
+        r = self.reg(reg[1][0], int(reg[1][1]))
+        if reg[1][0] == 'a':
+            return '%s = %s;' % (r, '0xFFFF0000u | %s' % v if ctype == 'uint16_t' else '(uint32_t)%s' % v)
+        if reg[2] == 'l':
+            return '%s = (uint32_t)%s;' % (r, v)
+        return 'SET%s(%s, %s);' % (reg[2].upper(), r, v)
+
+    def set_flag(self, reg, v):
+        self.used_ccr = True
+        if reg[0] == 'ccr':
+            return 'ccr = %s;' % v
+        bit = {'Z': 'ZF', 'N': 'NF', 'C': 'CF'}[reg[1]]
+        on, off = ('0', bit) if reg[2] else (bit, '0')
+        return 'ccr = (uint8_t)((ccr & ~%s) | (%s ? %s : %s));' % (bit, v, on, off)
 
     def call(self, i):
         ts = self.r.calls.get(i.addr, [])
@@ -1538,11 +1649,20 @@ def main():
     ap.add_argument('names', nargs='*')
     ap.add_argument('--tree', default='')
     ap.add_argument('--quiet', action='store_true')
+    ap.add_argument('--names', dest='list_names', action='store_true', help='with --tree: the names only, comma separated (several roots: --tree A,B)')
     a = ap.parse_args()
     prog = Program()
     an = regs.Analysis(prog)
     an.solve()
     sigs = Sigs(prog, an)
+    if a.tree and a.list_names:
+        seen = []
+        for root in a.tree.split(','):
+            for e in tree(prog, an, root, None):
+                if e not in seen:
+                    seen.append(e)
+        print(','.join(prog.routines[e].name for e in seen))
+        return
     if a.tree:
         ported = ported_set()
         rows = tree(prog, an, a.tree, ported)
@@ -1553,15 +1673,25 @@ def main():
         print('%d routines, %d ported' % (len(rows), sum(1 for e in rows if e in ported)))
         return
     os.makedirs(os.path.join(ROOT, 'build', 'draft'), exist_ok=True)
+    ported = protos.load(os.path.join(ROOT, 'src', 'game.h'))
     for n in a.names:
         r = prog.by_name(n)
         if not r:
             print('no routine', n)
             continue
-        d = Draft(prog, an, sigs, r)
+        if r.entry in ported:
+            print('%s is ported (%s)' % (n, ported[r.entry].name))
+            continue
+        d = Draft(prog, an, sigs, r, ported)
         text = d.render()
-        protos = ['%s;' % sigs.proto(t, prog.routines[t].name) for t in sorted(d.callees) if t != r.entry]
-        src = '#include "draft.h"\n' + ''.join(p + '\n' for p in protos) + '\n' + text + '\n'
+        unported = [t for t in sorted(d.callees) if t != r.entry and t not in ported]
+        decls = ['%s;' % sigs.proto(t, prog.routines[t].name) for t in unported]
+        src = ('#include "draft.h"\n'
+               + '%s;   /* $%06X %s */\n' % (sigs.proto(r.entry, r.name), r.entry, sigs.regs_comment(r.entry))
+               + ''.join(p + '\n' for p in decls)
+               + '\n' + text + '\n')
+        if unported:
+            src += '\n#ifdef DRAFT_TEST\n#include "stubs.h"\n' + '\n'.join(sigs.stub(t, prog.routines[t].name) for t in unported) + '#endif\n'
         open(os.path.join(ROOT, 'build', 'draft', r.name + '.c'), 'w').write(src)
         if not a.quiet:
             print(text)

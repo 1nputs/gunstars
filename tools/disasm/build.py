@@ -109,14 +109,77 @@ class Disasm:
         for s, t, k, c in self.edges:
             if t < ROM_SIZE:
                 work.append(t)
-        while work:
-            a = work.pop()
-            if a >= ROM_SIZE or a & 1 or a in self.insn or self.owner[a]:
-                continue
-            i = self.take(a, False)
-            if i:
-                work.extend(self.successors(i))
+        self.tables = {}
+        while True:
+            while work:
+                a = work.pop()
+                if a >= ROM_SIZE or a & 1 or a in self.insn or self.owner[a]:
+                    continue
+                i = self.take(a, False)
+                if i:
+                    work.extend(self.successors(i))
+            # jump tables the recorded runs used only in part: the rest of their entries too
+            for a, i in list(self.insn.items()):
+                if i.flow in (JUMP, CALL) and i.target is None and a not in self.tables:
+                    t = self.table_targets(i)
+                    if t is not None:
+                        self.tables[a] = t
+                        work.extend(t)
+            if not work:
+                break
         self.executed = set(executed)
+
+    def table_targets(self, i):
+        """the entries of the jump table i jumps or calls through (movea.l T(pc,Dn),An / jmp (An): long
+        pointers; lea T(pc,Dn),An / adda.w (An),An / jmp (An): word offsets from each entry;
+        jmp T(pc,Dn): a table of bra.w), or None. The table runs while its entries are code
+        addresses (no data, nothing executed inside them)"""
+        rom = self.rom
+        def before(x):
+            for n in (2, 4, 6):
+                p = self.insn.get(x - n)
+                if p and p.addr + p.size == x:
+                    return p
+            return None
+        op = i.ops[0]
+        if op[0] == 'pcx':
+            base, kind = op[1], 'bra'
+        elif op[0] == 'ind':
+            p = before(i.addr)
+            if p and p.mnem == 'movea.l' and p.ops[0][0] == 'pcx' and p.ops[1] == ('a', op[1]):
+                base, kind = p.ops[0][1], 'long'
+            elif p and p.mnem == 'adda.w' and p.ops == [('ind', op[1]), ('a', op[1])]:
+                q = before(p.addr)
+                if q and q.mnem == 'lea' and q.ops[0][0] == 'pcx' and q.ops[1] == ('a', op[1]):
+                    base, kind = q.ops[0][1], 'word'
+                else:
+                    return None
+            else:
+                return None
+        else:
+            return None
+        step = 2 if kind == 'word' else 4
+        out = []
+        for k in range(128):
+            e = base + k * step
+            if e + step > ROM_SIZE or self.owner[e] == 1 or (k and e in out):
+                break
+            if kind == 'long':
+                t = int.from_bytes(rom[e:e + 4], 'big')
+            elif kind == 'word':
+                t = (e + m68k.s16(int.from_bytes(rom[e:e + 2], 'big'))) & 0xFFFFFF
+            else:
+                t = e
+            if t >= ROM_SIZE or t & 1 or self.is_data(t) or (base <= t < e + step and kind != 'bra'):
+                break
+            try:
+                d = m68k.decode(rom, t)
+            except Bad:
+                break
+            if kind == 'bra' and not d.mnem.startswith('bra'):
+                break
+            out.append(t)
+        return out or None
 
     def successors(self, i):
         out = []
@@ -141,6 +204,8 @@ class Disasm:
         for i in self.insn.values():
             if i.flow == CALL and i.target is not None and i.target < ROM_SIZE:
                 entries.add(i.target)
+        for a, ts in self.tables.items():
+            entries.update(ts)
         self.entries = {e for e in entries if e in self.insn}
         for e in self.entries:
             kind[e] = 'sub'

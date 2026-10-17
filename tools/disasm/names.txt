@@ -8,14 +8,53 @@
 000434 MainLoop              # move #$2300,sr; jsr RunJobs; bra
 000BB0 Nothing               # rts: the object table's empty entry
 000BB2 VBlank                # the vertical-blank interrupt: the whole frame's logic (PLAN.md)
+0022DE RunCommands           # a command list (a0): copies, decodes, RLE, to RAM or VRAM, until a negative word
+002310 CmdCopyToRam
+002326 CmdCopyToVram
+002374 CmdDecodeToRam
+0023A0 CmdDecodeToVram
+0023CC CmdRleToRam
+0023E6 CmdRleToVram
+002478 NextJob               # the next entry of the job list: its kind, source and destination
 002506 RunJobs               # the background job list at v_jobList (decompression to VRAM)
+00254C JobCopyToRam
+002562 JobCopyToVram
+00258A JobDecodeToRam
+0025A6 JobDecodeToVram
+0025FC JobRleToRam
+002616 JobRleToVram
+002660 RleChunk              # RLE runs until the source's end or $400 bytes out
+00267E RleRun                # one RLE command: literal bytes, a byte or a pair repeated, a byte between literals, a copy from back
+002702 ClearTilePixels
+002712 DecodeTile            # one 8x8 tile into v_tilePixels from the bit stream at a1
+002886 PackTile              # v_tilePixels as a 4bpp tile at a2
+0028B2 WriteTileVram         # v_tilePixels as a 4bpp tile to VRAM a3
+00290C QueueTileDma          # a DMA of d1 bytes from a2 to VRAM a3, queued; v_jobBufferFull set
 001416 HintEffect            # the H-interrupt effect v_hintEffect: copies a handler to $FFEE00
+001462 HintEffect1
+0014A6 HintEffect3
+0014EA HintEffect4
+001534 HintEffect2
+0015C8 HintEffect5
+00161A HintEffect6
+00165E HintEffect7
+00176E HintShiftLines        # effect 2's line table moved on 8 bytes
 001440 HintNone              # effect 0: H-interrupts off, an rte at $FFEE00
+000D36 VBlankDma             # the vertical blank's DMAs: sprites, the palette, the queue, the players' and the boss's tiles
+000F4C VdpWriteRegs          # VDP registers 1-18 from v_vdpRegs
+000F9C VdpWriteReg0          # register 0, its H-interrupt bit only while the display is on
+000FB4 FadePalette           # v_palette toward black or v_fadeColor and back, by v_fadeSpeed
+0012F4 QueueHScroll          # a DMA of the horizontal scroll table into the queue
+00134A QueueVScroll          # a DMA of the vertical scroll table into the queue
 000C36 CheckPause            # Start on an active pad pauses or resumes the game
 003050 ResetPads             # (falls into ReadPads)
 003066 ReadPads              # both pads, with the Z80's bus held
 003094 ReadPad1
 0030B6 ReadPad2
+00311E RemapButtons          # A, B and C as the options map them (in a game)
+003148 CopyBit               # one bit of the raw buttons into one of the mapped ones
+003630 Random                # the random number generator (v_randomSeed): returns d0
+003156 PadId                 # the device on a port (a 3-button pad answers $D)
 00054C ObjectRoutines        # dc.l: each object type's routine; 0 = Nothing
 
 # ---- work RAM
@@ -27,9 +66,10 @@ FFC980 v_boss                # the boss object; vitality at +$24
 FFEE00 v_hintCode            # the H-interrupt handler, copied here (the vector at $70 points at it)
 FFF704 v_frameReady          # set when the frame's logic has finished; clear while it runs
 FFF705 v_pauseFlags          # bit 7 paused, bit 6 pausing allowed, bits 0 / 1 pad 1 / pad 2 may pause
+FFF70A v_padReleased         # pad 1's buttons released this frame (+1: pad 2's)
 FFF706 v_padHeld             # pad 1's buttons held (v_padHeld + 1: pad 2's); bit 7 Start
 FFF708 v_padPressed          # pad 1's buttons pressed this frame (+ 1: pad 2's)
-FFF720 v_jobCount
+FFF720 v_jobKind             # the running job's kind | $8000; 0: no job list running
 FFF724 v_jobList
 FFF74A v_hintEffect          # HintEffect's index (times 4)
 FFF74E v_hintState
@@ -38,3 +78,24 @@ FFF754 v_jobBufferFull       # a job's 16 tiles wait in $FFB600 for the vertical
 FFF7D0 v_vdpRegs             # the VDP's registers as written: a $8rvv word per register
 FFF807 v_soundPause          # the sound driver's pause request: 1 pause, $80 resume
 FFFF0C v_gameMode
+FFFF06 v_padId               # the device ID each pad answered (PadId; +1: pad 2)
+FFFF20 v_buttonMap           # the button A, B, C each read: pad 1 at +0, +2, +4, pad 2 at +1, +3, +5
+FFE000 v_sprites             # the sprite table, DMAed to VRAM $F400 each vertical blank ($280 bytes)
+FFE300 v_palette             # the palette as shown (64 colours), DMAed to CRAM
+FFE380 v_paletteTarget       # the palette a fade starts from or arrives at
+FFF700 v_dmaCommand          # a DMA's command, written out from here as two words
+FFF70C v_dmaQueue            # the DMA queue's start: entries of 16 bytes below $F400, added downward
+FFF710 v_hscrollSrc          # the horizontal scroll table's address (DMAed to VRAM $F000)
+FFF714 v_vscrollSrc          # the vertical scroll table's address (DMAed to VSRAM)
+FFF755 v_displayOn           # the palette is shown and H-interrupts run; clear: CRAM filled with v_fadeColor
+FFF75C v_fadeSpeed           # added to v_fadeLevel each frame: below 0 fading in, above 0 fading out
+FFF75E v_fadeLevel           # how far the palette is faded: the high byte is subtracted from (or added to) each component
+FFFF08 v_randomSeed
+FFFF28 v_fadeColor           # 0: fades go to black; else to white, and the colour CRAM is filled with while the display is off
+FFB400 v_tilePixels          # one tile being decoded, a word per pixel, row by row ($80 bytes); also the RLE buffer ($400)
+FFB600 v_jobBuffer           # up to 16 decoded tiles waiting for the vertical blank's DMA
+FFF722 v_jobLength           # the current job's tiles, or bytes
+FFF728 v_jobSrc
+FFF72C v_jobDst              # a RAM address (sign-extended) or a VRAM address
+FFF730 v_bitsLeft            # the tile decoder's bits left in v_bitBuffer; as a long, an RLE job's source end
+FFF732 v_bitBuffer           # the tile decoder's bits, the next at the top

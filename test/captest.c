@@ -28,6 +28,24 @@ void expect_reg32(const Record *r, int reg, uint32_t got, const char *what)
     }
 }
 
+void expect_reg(const Record *r, int reg, uint32_t got, uint32_t mask, const char *what)
+{
+    if ((got & mask) != (r->regs_out[reg] & mask)) {
+        printf("    %s: got %0*x, the 68k returned %0*x\n", what, mask > 0xFFFF ? 8 : mask > 0xFF ? 4 : 2, got & mask,
+               mask > 0xFFFF ? 8 : mask > 0xFF ? 4 : 2, r->regs_out[reg] & mask);
+        reg_fail++;
+    }
+}
+
+void expect_flag(const Record *r, int got, int want, const char *what)
+{
+    (void)r;
+    if (!got != !want) {
+        printf("    %s: got %d, the 68k's flags say %d\n", what, !!got, !!want);
+        reg_fail++;
+    }
+}
+
 static int is_ported(uint32_t pc)
 {
     for (const Port *p = ports; p->name; p++) if (p->pc == pc) return 1;
@@ -38,6 +56,7 @@ static int is_ported(uint32_t pc)
 static int run_record(Record *r, const Port *p)
 {
     memcpy(ram, r->ram_in, RAM_SIZE);
+    hal_replay_sr((uint16_t)r->regs_in[R_SR]);
     replay_begin(r);
     replay_failures = 0; reg_fail = 0;
     p->run(r);

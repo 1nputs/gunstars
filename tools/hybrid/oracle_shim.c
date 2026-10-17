@@ -22,11 +22,19 @@
  *   pc = address | 0x40000000; regs_in[0] = value, regs_in[1] = width, no diff. Hardware is the
  *   VDP / PSG ($C00000-$C0001F), the I/O ports ($A10000-$A1001F), the Z80 bus and reset
  *   ($A11100, $A11200), Z80 RAM ($A00000-$A0FFFF) and save RAM ($200000-$20FFFF).
+ *   A write of the status register (move to sr, ori / andi / eori to sr) is logged as a write
+ *   of its new value to the pseudo address $FFFFFE (SR_PSEUDO): where the 68k masks and
+ *   unmasks interrupts, which the tests take as the points an interrupt can come between.
  *   An interrupt taken inside a captured call (not the bare-rte handler) is a block too, with
  *   pc = handler | 0x20000000, closed at its rte: its stack bytes hold the SR and the PC it
  *   interrupted, its diff everything the handler changed; the handler's own calls and port
  *   accesses nest under it. Frames with an interrupt get flags bit 0, and bit 2 when the
  *   interrupts were logged this way (so a test can replay them at the C code's vblank waits).
+ *
+ * Beside the capture, FILE.cov (gzip) has what each written record ran, for the tests' coverage
+ * report (tools/hybrid/capcov.py): per record, u32 record number, u32 pc, u32 n, then n u32
+ * entries (ROM address | flags << 24: 1 executed, 4 a branch taken, 8 a branch fell through).
+ * An instruction counts for the innermost record open when it ran.
  */
 #include <stdint.h>
 #include <stdio.h>
@@ -48,6 +56,7 @@
 #define IO_WRITE_FLAG 0x40000000u
 #define IRQ_FLAG 0x20000000u
 #define ABNORMAL_EXIT 0x80000000u
+#define SR_PSEUDO 0xFFFFFEu      /* the status register, as a logged write */
 
 typedef struct {
   uint32_t pc, sp_after, ret, flags;
@@ -57,6 +66,9 @@ typedef struct {
   uint32_t n_calls;              /* entry sequence counter */
   uint32_t n_closed;             /* blocks written */
   int n_open_at_entry;           /* nested calls already open when this frame opened */
+  uint32_t serial;               /* this record's number among the frames entered (coverage) */
+  int bp;                        /* its breakpoint's slot */
+  uint32_t *cov; uint32_t cov_len, cov_cap;   /* what ran in it: address | flags << 24 */
 } Frame;
 
 typedef struct {
@@ -81,6 +93,8 @@ static uint32_t rts_seen;
 uint32_t oracle_rts_seen(void) { return rts_seen; }
 uint32_t oracle_rom_word(uint32_t a) { return ((uint32_t)READ_BYTE(cart.rom, a) << 8) | READ_BYTE(cart.rom, a + 1); }   /* the previous instruction was an rts */
 static int cap_spread;   /* capture call numbers 1,2,3,4,6,8,12,16,... so frequent routines are sampled across the session */
+static int cap_novel;    /* capture every call, keep the ones that run something no kept record of the routine ran */
+static uint8_t *novel_seen[BPTAB];   /* per breakpoint: the coverage flags its kept records have */
 static int geometric(uint32_t n) { while (n > 3 && (n & 1) == 0) n >>= 1; return n <= 3; }
 static uint32_t irq_pcs[8];
 static int n_irq_pcs;
@@ -93,6 +107,19 @@ static uint32_t fn_ram[16];
 static int n_fn_ram;
 static int fn_ram_test(uint32_t pc) { for (int i = 0; i < n_fn_ram; i++) if (fn_ram[i] == pc) return 1; return 0; }
 static uint8_t diffbuf[RAM_SIZE * 4];
+/* coverage of the records (FILE.cov): per ROM address, the serial of the frame that last noted
+ * it as executed, taken and fell through */
+static uint16_t op_at(uint32_t pc);
+static gzFile cov_out;
+static uint32_t *cov_exec, *cov_taken, *cov_fell, cov_serial, cov_prev_pc;
+static uint16_t cov_prev_op;
+static void cov_add(Frame *f, uint32_t entry) {
+  if (f->cov_len == f->cov_cap) {
+    f->cov_cap = f->cov_cap ? f->cov_cap * 2 : 1024;
+    f->cov = realloc(f->cov, f->cov_cap * sizeof *f->cov);
+  }
+  f->cov[f->cov_len++] = entry;
+}
 
 static inline int map_test(const uint8_t *m, uint32_t pc) { return pc < ROM_SIZE && ((m[pc >> 3] >> (pc & 7)) & 1); }
 static inline void map_set(uint8_t *m, uint32_t pc, int on) {
@@ -228,7 +255,18 @@ static void finish_frame(void) {
   while (n_open && open_calls[n_open - 1].frame >= depth - 1) n_open--;
   depth--;
   if (cap && (f->flags & 8)) cap_dropped++;
-  if (cap && !(f->flags & 8)) {
+  int keep = 1;
+  if (cap_novel && cap && !(f->flags & 8)) {
+    uint8_t *seen = novel_seen[f->bp];
+    if (!seen) seen = novel_seen[f->bp] = calloc(ROM_SIZE, 1);
+    keep = 0;
+    for (uint32_t i = 0; i < f->cov_len && seen; i++) {
+      uint32_t a = f->cov[i] & 0xFFFFFF, fl = f->cov[i] >> 24;
+      if ((seen[a] & fl) != fl) { keep = 1; seen[a] |= (uint8_t)fl; }
+    }
+    if (!keep) bptab[f->bp].captured--;
+  }
+  if (cap && !(f->flags & 8) && keep) {
     uint32_t regs_out[NREGS];
     regs_get(regs_out);
     uint32_t total = REC_HDR_WORDS * 4 + 2 * NREGS * 4 + 2 * RAM_SIZE + (uint32_t)f->log_len;
@@ -242,8 +280,14 @@ static void finish_frame(void) {
     gzwrite(cap, ram_out, RAM_SIZE);
     free(ram_out);
     if (f->log_len) gzwrite(cap, f->log, (unsigned)f->log_len);
+    if (cov_out) {
+      uint32_t h[3] = { cap_records, f->pc, f->cov_len };
+      gzwrite(cov_out, h, sizeof h);
+      if (f->cov_len) gzwrite(cov_out, f->cov, f->cov_len * 4);
+    }
     cap_records++;
   }
+  f->cov_len = 0;
   if (f->log_cap > (16u << 20)) { free(f->log); f->log = NULL; f->log_cap = 0; }   /* give a big log back */
   f->log_len = 0; f->n_calls = 0; f->n_closed = 0;
 }
@@ -253,8 +297,8 @@ static void enter_frame(uint32_t pc) {
   if (k < 0) return;
   bptab[k].hits++;
   if (!cap || depth >= MAXDEPTH || bptab[k].captured >= cap_max_per_bp) return;
-  if (cap_stride > 1 && (bptab[k].hits % cap_stride) != 0) return;
-  if (cap_spread && !geometric(bptab[k].hits)) return;
+  if (!cap_novel && cap_stride > 1 && (bptab[k].hits % cap_stride) != 0) return;
+  if (!cap_novel && cap_spread && !geometric(bptab[k].hits)) return;
   Frame *f = &frames[depth++];
   f->pc = pc; f->flags = 0; f->log_len = 0; f->n_calls = 0; f->n_closed = 0; f->n_open_at_entry = n_open;
   regs_get(f->regs);
@@ -262,6 +306,11 @@ static void enter_frame(uint32_t pc) {
   f->ret = ram_read32(sp) & 0xFFFFFF;
   f->sp_after = sp + 4;
   ram_copy_be(f->ram);
+  f->serial = ++cov_serial;
+  f->cov_len = 0;
+  f->bp = k;
+  if (cov_exec && pc < ROM_SIZE) { cov_exec[pc] = f->serial; cov_add(f, pc | 1u << 24); }
+  cov_prev_pc = pc; cov_prev_op = op_at(pc);
   bptab[k].captured++;
 }
 
@@ -519,8 +568,33 @@ static void hook(hook_type_t type, int width, unsigned int address, unsigned int
         }
       if (!irq && (map_test(fn_map, pc) || fn_ram_test(pc))) open_call(pc);
     }
+    if (depth && cov_exec) {
+      Frame *f = &frames[depth - 1];
+      int irq_entry = 0;
+      for (int i = 0; i < n_irq_pcs; i++) if (pc == irq_pcs[i]) irq_entry = 1;
+      if (!irq_entry && cov_prev_pc < ROM_SIZE) {      /* which way the last instruction, a branch, went */
+        uint16_t pop = cov_prev_op;
+        int taken = -1;
+        if ((pop & 0xF000) == 0x6000 && (pop & 0x0E00)) taken = pc != cov_prev_pc + ((pop & 0xFF) ? 2u : 4u);
+        else if ((pop & 0xF0F8) == 0x50C8) taken = pc != cov_prev_pc + 4;
+        uint32_t *st = taken == 1 ? cov_taken : taken == 0 ? cov_fell : NULL;
+        if (st && st[cov_prev_pc] != f->serial) { st[cov_prev_pc] = f->serial; cov_add(f, cov_prev_pc | (taken ? 4u : 8u) << 24); }
+      }
+      if (pc < ROM_SIZE && cov_exec[pc] != f->serial) { cov_exec[pc] = f->serial; cov_add(f, pc | 1u << 24); }
+      cov_prev_pc = pc; cov_prev_op = op;
+    }
   }
   if (map_test(bp_map, pc)) enter_frame(pc);
+  if (depth) {                                           /* a write of the status register */
+    uint32_t sr = m68k_get_reg(M68K_REG_SR) & 0xFFFF, v = 0x10000;
+    if (op == 0x46FC) v = op_at(pc + 2);
+    else if (op == 0x46DF) v = (uint32_t)(READ_BYTE(work_ram, m68k_get_reg(M68K_REG_A7) & 0xFFFF) << 8 | READ_BYTE(work_ram, (m68k_get_reg(M68K_REG_A7) + 1) & 0xFFFF));
+    else if ((op & 0xFFC0) == 0x46C0) v = sr;            /* another source: not used by the game */
+    else if (op == 0x007C) v = sr | op_at(pc + 2);
+    else if (op == 0x027C) v = sr & op_at(pc + 2);
+    else if (op == 0x0A7C) v = sr ^ op_at(pc + 2);
+    if (v != 0x10000) log_io(IO_WRITE_FLAG, 2, SR_PSEUDO, v);
+  }
 }
 
 /* ---- exported API ---------------------------------------------------------------------- */
@@ -548,15 +622,31 @@ void oracle_set_irq_pcs(const uint32_t *pcs, int n) { n_irq_pcs = n > 8 ? 8 : n;
 void oracle_fn_ram_set(const uint32_t *pcs, int n) { n_fn_ram = n > 16 ? 16 : n; for (int i = 0; i < n_fn_ram; i++) fn_ram[i] = pcs[i] & 0xFFFFFF; }
 int oracle_capture_open(const char *path, uint32_t max_per_bp, uint32_t stride) {
   if (cap) gzclose(cap);
+  if (cov_out) gzclose(cov_out);
   cap = gzopen(path, "wb1");
+  char covp[4096];
+  snprintf(covp, sizeof covp, "%s.cov", path);
+  cov_out = gzopen(covp, "wb6");
+  if (!cov_exec) {
+    cov_exec = calloc(ROM_SIZE, 4); cov_taken = calloc(ROM_SIZE, 4); cov_fell = calloc(ROM_SIZE, 4);
+  }
   cap_max_per_bp = max_per_bp; cap_stride = stride ? stride : 1; cap_records = 0; depth = 0; n_open = 0;
   for (int i = 0; i < BPTAB; i++) bptab[i].captured = 0;
   return cap != NULL;
 }
 void oracle_capture_log_limit(uint32_t mb) { log_limit = (size_t)mb << 20; }
 uint32_t oracle_capture_dropped(void) { return cap_dropped; }
-uint32_t oracle_capture_close(void) { if (cap) { gzclose(cap); cap = NULL; } depth = 0; n_open = 0; return cap_records; }
+uint32_t oracle_capture_close(void) {
+  if (cap) { gzclose(cap); cap = NULL; }
+  if (cov_out) { gzclose(cov_out); cov_out = NULL; }
+  depth = 0; n_open = 0;
+  return cap_records;
+}
 void oracle_capture_spread(int on) { cap_spread = on; }
+void oracle_capture_novel(int on) {
+  cap_novel = on;
+  for (int i = 0; i < BPTAB; i++) { free(novel_seen[i]); novel_seen[i] = NULL; }
+}
 uint32_t oracle_capture_records(void) { return cap_records; }
 void oracle_coverage_enable(int on) { if (on && !coverage) coverage = calloc(ROM_SIZE, sizeof *coverage); coverage_on = on && coverage != NULL; }
 void oracle_coverage_get(uint32_t *dst) { if (coverage) memcpy(dst, coverage, ROM_SIZE * sizeof *coverage); }

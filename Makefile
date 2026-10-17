@@ -1,5 +1,6 @@
 # gunstar: Gunstar Heroes rebuilt in C.
 #   make test           the function-level capture tests (out/captures/*.cap); fails on any mismatch
+#                       (DRAFT=build/draft/NAME.c ...: with drafts under test, tools/disasm/draft.py)
 #   make oracle         the hooked oracle core (build/oracle.so)
 #   make evidence       the disassembly's evidence from every recorded session (out/evidence)
 #   make disasm         the disassembly (build/disasm): byte-exact source, routines, symbols
@@ -18,9 +19,16 @@ PY      := python3
 
 .PHONY: test oracle evidence disasm gen clean
 
-build/captest: $(SRC) $(HDR) $(TESTSRC) $(TESTHDR)
+DRAFT   ?=
+DRAFTFLAGS := $(if $(DRAFT),-Itools/disasm -DDRAFT_TEST -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-label -Wno-missing-prototypes)
+
+.PHONY: build/ports_gen.inc
+build/ports_gen.inc:
+	$(PY) tools/gen_ports.py $(DRAFT)
+
+build/captest: $(SRC) $(HDR) $(TESTSRC) $(TESTHDR) build/ports_gen.inc $(DRAFT)
 	@mkdir -p build
-	$(CC) $(CFLAGS) -Isrc -Itest -o $@ $(SRC) $(TESTSRC) -lz
+	$(CC) $(CFLAGS) $(DRAFTFLAGS) -Isrc -Itest -Ibuild -o $@ $(SRC) $(DRAFT) $(TESTSRC) -lz
 
 test: build/captest
 	@test -n "$(CAPS)" || { echo "no captures in out/captures (tools/hybrid/capture_all.sh records them)"; exit 1; }
@@ -28,7 +36,7 @@ test: build/captest
 
 oracle: build/oracle.so
 build/oracle.so: tools/hybrid/oracle_shim.c
-	$(MAKE) -f tools/hybrid/Makefile
+	$(MAKE) -s -f tools/hybrid/Makefile > /dev/null
 
 evidence: build/oracle.so
 	tools/hybrid/evidence_all.sh

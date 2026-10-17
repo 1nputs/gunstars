@@ -13,18 +13,22 @@
 #define SYM_CheckPause 0x000C36u
 #define SYM_sub_00C88 0x000C88u
 #define SYM_sub_00CCA 0x000CCAu
-#define SYM_sub_00D36 0x000D36u
-#define SYM_sub_00F4C 0x000F4Cu
-#define SYM_sub_00F9C 0x000F9Cu
-#define SYM_sub_00FB4 0x000FB4u
-#define SYM_sub_012F4 0x0012F4u
-#define SYM_sub_0134A 0x00134Au
+#define SYM_VBlankDma 0x000D36u
+#define SYM_VdpWriteRegs 0x000F4Cu
+#define SYM_VdpWriteReg0 0x000F9Cu
+#define SYM_FadePalette 0x000FB4u
+#define SYM_QueueHScroll 0x0012F4u
+#define SYM_QueueVScroll 0x00134Au
 #define SYM_HintEffect 0x001416u
 #define SYM_HintNone 0x001440u
-#define SYM_sub_01462 0x001462u
-#define SYM_sub_01534 0x001534u
-#define SYM_sub_015C8 0x0015C8u
-#define SYM_sub_0176E 0x00176Eu
+#define SYM_HintEffect1 0x001462u
+#define SYM_HintEffect3 0x0014A6u
+#define SYM_HintEffect4 0x0014EAu
+#define SYM_HintEffect2 0x001534u
+#define SYM_HintEffect5 0x0015C8u
+#define SYM_HintEffect6 0x00161Au
+#define SYM_HintEffect7 0x00165Eu
+#define SYM_HintShiftLines 0x00176Eu
 #define SYM_sub_01AB0 0x001AB0u
 #define SYM_sub_01AB8 0x001AB8u
 #define SYM_sub_01B86 0x001B86u
@@ -46,26 +50,31 @@
 #define SYM_sub_020D6 0x0020D6u
 #define SYM_sub_0216E 0x00216Eu
 #define SYM_sub_0217C 0x00217Cu
+#define SYM_sub_0219C 0x00219Cu
 #define SYM_sub_021E8 0x0021E8u
 #define SYM_sub_0222C 0x00222Cu
-#define SYM_sub_022DE 0x0022DEu
-#define SYM_sub_02310 0x002310u
-#define SYM_sub_02326 0x002326u
-#define SYM_sub_023A0 0x0023A0u
-#define SYM_sub_023CC 0x0023CCu
-#define SYM_sub_023E6 0x0023E6u
-#define SYM_sub_02478 0x002478u
+#define SYM_RunCommands 0x0022DEu
+#define SYM_CmdCopyToRam 0x002310u
+#define SYM_CmdCopyToVram 0x002326u
+#define SYM_CmdDecodeToRam 0x002374u
+#define SYM_CmdDecodeToVram 0x0023A0u
+#define SYM_CmdRleToRam 0x0023CCu
+#define SYM_CmdRleToVram 0x0023E6u
+#define SYM_NextJob 0x002478u
 #define SYM_RunJobs 0x002506u
-#define SYM_sub_0258A 0x00258Au
-#define SYM_sub_025A6 0x0025A6u
-#define SYM_sub_025FC 0x0025FCu
-#define SYM_sub_02660 0x002660u
-#define SYM_sub_0267E 0x00267Eu
-#define SYM_sub_02702 0x002702u
-#define SYM_sub_02712 0x002712u
-#define SYM_sub_02886 0x002886u
-#define SYM_sub_028B2 0x0028B2u
-#define SYM_sub_0290C 0x00290Cu
+#define SYM_JobCopyToRam 0x00254Cu
+#define SYM_JobCopyToVram 0x002562u
+#define SYM_JobDecodeToRam 0x00258Au
+#define SYM_JobDecodeToVram 0x0025A6u
+#define SYM_JobRleToRam 0x0025FCu
+#define SYM_JobRleToVram 0x002616u
+#define SYM_RleChunk 0x002660u
+#define SYM_RleRun 0x00267Eu
+#define SYM_ClearTilePixels 0x002702u
+#define SYM_DecodeTile 0x002712u
+#define SYM_PackTile 0x002886u
+#define SYM_WriteTileVram 0x0028B2u
+#define SYM_QueueTileDma 0x00290Cu
 #define SYM_sub_029EA 0x0029EAu
 #define SYM_sub_02A12 0x002A12u
 #define SYM_sub_02A32 0x002A32u
@@ -107,15 +116,15 @@
 #define SYM_ReadPads 0x003066u
 #define SYM_ReadPad1 0x003094u
 #define SYM_ReadPad2 0x0030B6u
-#define SYM_sub_0311E 0x00311Eu
-#define SYM_sub_03148 0x003148u
-#define SYM_sub_03156 0x003156u
+#define SYM_RemapButtons 0x00311Eu
+#define SYM_CopyBit 0x003148u
+#define SYM_PadId 0x003156u
 #define SYM_sub_03196 0x003196u
 #define SYM_sub_03202 0x003202u
 #define SYM_sub_03526 0x003526u
 #define SYM_sub_035D6 0x0035D6u
 #define SYM_sub_03602 0x003602u
-#define SYM_sub_03630 0x003630u
+#define SYM_Random 0x003630u
 #define SYM_sub_0369E 0x00369Eu
 #define SYM_sub_036A4 0x0036A4u
 #define SYM_sub_03774 0x003774u
@@ -133,6 +142,21 @@
 #define SYM_sub_03C3E 0x003C3Eu
 #define SYM_sub_03C58 0x003C58u
 #define SYM_sub_03C7A 0x003C7Au
+#define SYM_sub_03C8E 0x003C8Eu
+#define SYM_sub_03CB2 0x003CB2u
+#define SYM_sub_03D08 0x003D08u
+#define SYM_sub_03D40 0x003D40u
+#define SYM_sub_03D82 0x003D82u
+#define SYM_sub_03DDC 0x003DDCu
+#define SYM_sub_03E08 0x003E08u
+#define SYM_sub_03E6A 0x003E6Au
+#define SYM_sub_03E9C 0x003E9Cu
+#define SYM_sub_03EC6 0x003EC6u
+#define SYM_sub_03EEE 0x003EEEu
+#define SYM_sub_03F22 0x003F22u
+#define SYM_sub_03F3E 0x003F3Eu
+#define SYM_sub_03F98 0x003F98u
+#define SYM_sub_03FE6 0x003FE6u
 #define SYM_sub_04038 0x004038u
 #define SYM_sub_04068 0x004068u
 #define SYM_sub_04094 0x004094u
@@ -149,6 +173,13 @@
 #define SYM_sub_0428C 0x00428Cu
 #define SYM_sub_042BA 0x0042BAu
 #define SYM_sub_0430A 0x00430Au
+#define SYM_sub_04338 0x004338u
+#define SYM_sub_04350 0x004350u
+#define SYM_sub_04388 0x004388u
+#define SYM_sub_043BA 0x0043BAu
+#define SYM_sub_043E2 0x0043E2u
+#define SYM_sub_0441C 0x00441Cu
+#define SYM_sub_0442C 0x00442Cu
 #define SYM_sub_0442E 0x00442Eu
 #define SYM_sub_04440 0x004440u
 #define SYM_sub_0445A 0x00445Au
@@ -174,10 +205,46 @@
 #define SYM_sub_04C54 0x004C54u
 #define SYM_sub_04C86 0x004C86u
 #define SYM_sub_04CC0 0x004CC0u
+#define SYM_sub_04D12 0x004D12u
+#define SYM_sub_04D24 0x004D24u
+#define SYM_sub_04D66 0x004D66u
+#define SYM_sub_04D72 0x004D72u
+#define SYM_sub_04D8E 0x004D8Eu
+#define SYM_sub_04DD0 0x004DD0u
+#define SYM_sub_04DDC 0x004DDCu
+#define SYM_sub_04DF8 0x004DF8u
+#define SYM_sub_04E3A 0x004E3Au
+#define SYM_sub_04E46 0x004E46u
+#define SYM_sub_04E4E 0x004E4Eu
+#define SYM_sub_04E62 0x004E62u
+#define SYM_sub_04EA4 0x004EA4u
+#define SYM_sub_04EB0 0x004EB0u
+#define SYM_sub_04ECC 0x004ECCu
+#define SYM_sub_04F3A 0x004F3Au
+#define SYM_sub_04F72 0x004F72u
+#define SYM_sub_04FA0 0x004FA0u
+#define SYM_sub_0500E 0x00500Eu
+#define SYM_sub_05046 0x005046u
+#define SYM_sub_05074 0x005074u
+#define SYM_sub_050E2 0x0050E2u
+#define SYM_sub_0511A 0x00511Au
+#define SYM_sub_05148 0x005148u
+#define SYM_sub_051B6 0x0051B6u
+#define SYM_sub_051EE 0x0051EEu
+#define SYM_sub_0521C 0x00521Cu
+#define SYM_sub_0528A 0x00528Au
+#define SYM_sub_052C6 0x0052C6u
+#define SYM_sub_05334 0x005334u
+#define SYM_sub_05370 0x005370u
+#define SYM_sub_053DE 0x0053DEu
+#define SYM_sub_0541A 0x00541Au
+#define SYM_sub_05488 0x005488u
+#define SYM_sub_054C4 0x0054C4u
 #define SYM_sub_055B8 0x0055B8u
 #define SYM_sub_055CE 0x0055CEu
 #define SYM_sub_055E0 0x0055E0u
 #define SYM_sub_05600 0x005600u
+#define SYM_sub_0561E 0x00561Eu
 #define SYM_sub_056AA 0x0056AAu
 #define SYM_sub_058F4 0x0058F4u
 #define SYM_sub_058FC 0x0058FCu
@@ -234,6 +301,7 @@
 #define SYM_sub_0650E 0x00650Eu
 #define SYM_sub_06524 0x006524u
 #define SYM_sub_0652E 0x00652Eu
+#define SYM_sub_065F8 0x0065F8u
 #define SYM_sub_06608 0x006608u
 #define SYM_sub_0660A 0x00660Au
 #define SYM_sub_06758 0x006758u
@@ -249,6 +317,7 @@
 #define SYM_sub_06986 0x006986u
 #define SYM_sub_069C6 0x0069C6u
 #define SYM_sub_069E6 0x0069E6u
+#define SYM_sub_069E8 0x0069E8u
 #define SYM_sub_06A06 0x006A06u
 #define SYM_sub_06A20 0x006A20u
 #define SYM_sub_06AA0 0x006AA0u
@@ -262,8 +331,10 @@
 #define SYM_sub_06DE0 0x006DE0u
 #define SYM_sub_06E7E 0x006E7Eu
 #define SYM_sub_06E9C 0x006E9Cu
+#define SYM_sub_06EAA 0x006EAAu
 #define SYM_sub_06EC0 0x006EC0u
 #define SYM_sub_06ED6 0x006ED6u
+#define SYM_sub_06ED8 0x006ED8u
 #define SYM_sub_06F66 0x006F66u
 #define SYM_sub_0715C 0x00715Cu
 #define SYM_sub_071BA 0x0071BAu
@@ -278,9 +349,22 @@
 #define SYM_sub_0730C 0x00730Cu
 #define SYM_sub_0731A 0x00731Au
 #define SYM_sub_07332 0x007332u
+#define SYM_sub_07370 0x007370u
+#define SYM_sub_0737C 0x00737Cu
+#define SYM_sub_073B2 0x0073B2u
+#define SYM_sub_073C0 0x0073C0u
+#define SYM_sub_0741E 0x00741Eu
+#define SYM_sub_07462 0x007462u
+#define SYM_sub_07486 0x007486u
+#define SYM_sub_074B6 0x0074B6u
 #define SYM_sub_0751E 0x00751Eu
 #define SYM_sub_07558 0x007558u
 #define SYM_sub_0769A 0x00769Au
+#define SYM_sub_076CC 0x0076CCu
+#define SYM_sub_076E8 0x0076E8u
+#define SYM_sub_07700 0x007700u
+#define SYM_sub_0771C 0x00771Cu
+#define SYM_sub_0771E 0x00771Eu
 #define SYM_sub_077DA 0x0077DAu
 #define SYM_sub_0785C 0x00785Cu
 #define SYM_sub_07A3A 0x007A3Au
@@ -296,12 +380,23 @@
 #define SYM_sub_07C66 0x007C66u
 #define SYM_sub_07CBE 0x007CBEu
 #define SYM_sub_07CF4 0x007CF4u
+#define SYM_sub_07D14 0x007D14u
+#define SYM_sub_07D3E 0x007D3Eu
+#define SYM_sub_07E52 0x007E52u
+#define SYM_sub_07E76 0x007E76u
+#define SYM_sub_07F50 0x007F50u
+#define SYM_sub_07F52 0x007F52u
 #define SYM_sub_07F54 0x007F54u
+#define SYM_sub_07FF4 0x007FF4u
+#define SYM_sub_08044 0x008044u
 #define SYM_sub_080D0 0x0080D0u
 #define SYM_sub_08106 0x008106u
 #define SYM_sub_0811C 0x00811Cu
 #define SYM_sub_08140 0x008140u
 #define SYM_sub_08160 0x008160u
+#define SYM_sub_08174 0x008174u
+#define SYM_sub_081AA 0x0081AAu
+#define SYM_sub_081AC 0x0081ACu
 #define SYM_sub_081D0 0x0081D0u
 #define SYM_sub_08534 0x008534u
 #define SYM_sub_0855C 0x00855Cu
@@ -315,6 +410,17 @@
 #define SYM_sub_08836 0x008836u
 #define SYM_sub_08842 0x008842u
 #define SYM_sub_0887A 0x00887Au
+#define SYM_sub_08886 0x008886u
+#define SYM_sub_088CE 0x0088CEu
+#define SYM_sub_088EC 0x0088ECu
+#define SYM_sub_08916 0x008916u
+#define SYM_sub_0894E 0x00894Eu
+#define SYM_sub_089AA 0x0089AAu
+#define SYM_sub_089DE 0x0089DEu
+#define SYM_sub_08A02 0x008A02u
+#define SYM_sub_08A28 0x008A28u
+#define SYM_sub_08AF6 0x008AF6u
+#define SYM_sub_08AFA 0x008AFAu
 #define SYM_sub_08AFC 0x008AFCu
 #define SYM_sub_08B2E 0x008B2Eu
 #define SYM_sub_08B58 0x008B58u
@@ -354,6 +460,8 @@
 #define SYM_sub_0A630 0x00A630u
 #define SYM_sub_0A692 0x00A692u
 #define SYM_sub_0A6A2 0x00A6A2u
+#define SYM_sub_0A6B2 0x00A6B2u
+#define SYM_sub_0A6C8 0x00A6C8u
 #define SYM_sub_0A6DE 0x00A6DEu
 #define SYM_sub_0A7B8 0x00A7B8u
 #define SYM_sub_0A7CC 0x00A7CCu
@@ -361,9 +469,15 @@
 #define SYM_sub_0A86C 0x00A86Cu
 #define SYM_sub_0A8B6 0x00A8B6u
 #define SYM_sub_0A964 0x00A964u
+#define SYM_sub_0A9E8 0x00A9E8u
+#define SYM_sub_0AA32 0x00AA32u
+#define SYM_sub_0AA5C 0x00AA5Cu
+#define SYM_sub_0AAA6 0x00AAA6u
 #define SYM_sub_0AB08 0x00AB08u
 #define SYM_sub_0AB48 0x00AB48u
 #define SYM_sub_0AB60 0x00AB60u
+#define SYM_sub_0AB94 0x00AB94u
+#define SYM_sub_0AC5A 0x00AC5Au
 #define SYM_sub_0AD22 0x00AD22u
 #define SYM_sub_0AD8A 0x00AD8Au
 #define SYM_sub_0ADD4 0x00ADD4u
@@ -403,6 +517,8 @@
 #define SYM_sub_0BD4C 0x00BD4Cu
 #define SYM_sub_0BD6A 0x00BD6Au
 #define SYM_sub_0BD8C 0x00BD8Cu
+#define SYM_sub_0BDAC 0x00BDACu
+#define SYM_sub_0BDBC 0x00BDBCu
 #define SYM_sub_0BDCC 0x00BDCCu
 #define SYM_sub_0BDE6 0x00BDE6u
 #define SYM_sub_0BE04 0x00BE04u
@@ -449,7 +565,13 @@
 #define SYM_sub_0F272 0x00F272u
 #define SYM_sub_0F286 0x00F286u
 #define SYM_sub_0F29A 0x00F29Au
+#define SYM_sub_0F32C 0x00F32Cu
 #define SYM_sub_0F39E 0x00F39Eu
+#define SYM_sub_0F404 0x00F404u
+#define SYM_sub_0F434 0x00F434u
+#define SYM_sub_0F478 0x00F478u
+#define SYM_sub_0F498 0x00F498u
+#define SYM_sub_0F4D2 0x00F4D2u
 #define SYM_sub_0F4EC 0x00F4ECu
 #define SYM_sub_0F500 0x00F500u
 #define SYM_sub_0F5D0 0x00F5D0u
@@ -471,6 +593,8 @@
 #define SYM_sub_101EA 0x0101EAu
 #define SYM_sub_10256 0x010256u
 #define SYM_sub_102A8 0x0102A8u
+#define SYM_sub_10380 0x010380u
+#define SYM_sub_1042E 0x01042Eu
 #define SYM_sub_104D6 0x0104D6u
 #define SYM_sub_10540 0x010540u
 #define SYM_sub_10552 0x010552u
@@ -540,9 +664,11 @@
 #define SYM_sub_11AD4 0x011AD4u
 #define SYM_sub_11B30 0x011B30u
 #define SYM_sub_11B3C 0x011B3Cu
+#define SYM_sub_11B84 0x011B84u
 #define SYM_sub_11B86 0x011B86u
 #define SYM_sub_11BDC 0x011BDCu
 #define SYM_sub_11C84 0x011C84u
+#define SYM_sub_11CBA 0x011CBAu
 #define SYM_sub_11CBE 0x011CBEu
 #define SYM_sub_11CCC 0x011CCCu
 #define SYM_sub_11CD0 0x011CD0u
@@ -625,14 +751,20 @@
 #define SYM_sub_13920 0x013920u
 #define SYM_sub_139B6 0x0139B6u
 #define SYM_sub_13A5A 0x013A5Au
+#define SYM_sub_13AFC 0x013AFCu
+#define SYM_sub_13BA8 0x013BA8u
 #define SYM_sub_13C5C 0x013C5Cu
 #define SYM_sub_13CA0 0x013CA0u
 #define SYM_sub_13D0A 0x013D0Au
+#define SYM_sub_13D8A 0x013D8Au
 #define SYM_sub_13DBC 0x013DBCu
 #define SYM_sub_13E60 0x013E60u
+#define SYM_sub_13F02 0x013F02u
+#define SYM_sub_13FAA 0x013FAAu
 #define SYM_sub_1405E 0x01405Eu
 #define SYM_sub_140A2 0x0140A2u
 #define SYM_sub_1410C 0x01410Cu
+#define SYM_sub_14160 0x014160u
 #define SYM_sub_141B6 0x0141B6u
 #define SYM_sub_14274 0x014274u
 #define SYM_sub_142CA 0x0142CAu
@@ -646,6 +778,7 @@
 #define SYM_sub_1469E 0x01469Eu
 #define SYM_sub_1474E 0x01474Eu
 #define SYM_sub_1478E 0x01478Eu
+#define SYM_sub_147E8 0x0147E8u
 #define SYM_sub_147EA 0x0147EAu
 #define SYM_sub_147F8 0x0147F8u
 #define SYM_sub_14800 0x014800u
@@ -678,21 +811,31 @@
 #define SYM_sub_14D74 0x014D74u
 #define SYM_sub_14D8E 0x014D8Eu
 #define SYM_sub_14DA6 0x014DA6u
+#define SYM_sub_14E80 0x014E80u
+#define SYM_sub_14E96 0x014E96u
+#define SYM_sub_14EB0 0x014EB0u
+#define SYM_sub_14EBC 0x014EBCu
 #define SYM_sub_14F1A 0x014F1Au
 #define SYM_sub_14F2C 0x014F2Cu
 #define SYM_sub_14F36 0x014F36u
 #define SYM_sub_14F50 0x014F50u
 #define SYM_sub_14F5E 0x014F5Eu
+#define SYM_sub_15038 0x015038u
 #define SYM_sub_1503A 0x01503Au
 #define SYM_sub_15048 0x015048u
 #define SYM_sub_15050 0x015050u
 #define SYM_sub_1506A 0x01506Au
 #define SYM_sub_15082 0x015082u
+#define SYM_sub_1515C 0x01515Cu
+#define SYM_sub_15172 0x015172u
+#define SYM_sub_1518C 0x01518Cu
+#define SYM_sub_15198 0x015198u
 #define SYM_sub_151F6 0x0151F6u
 #define SYM_sub_15208 0x015208u
 #define SYM_sub_15212 0x015212u
 #define SYM_sub_1522C 0x01522Cu
 #define SYM_sub_1523A 0x01523Au
+#define SYM_sub_15314 0x015314u
 #define SYM_sub_15316 0x015316u
 #define SYM_sub_15320 0x015320u
 #define SYM_sub_15356 0x015356u
@@ -718,16 +861,22 @@
 #define SYM_sub_1589E 0x01589Eu
 #define SYM_sub_158EC 0x0158ECu
 #define SYM_sub_1599A 0x01599Au
+#define SYM_sub_159FA 0x0159FAu
 #define SYM_sub_15A66 0x015A66u
 #define SYM_sub_15AAE 0x015AAEu
 #define SYM_sub_15ABC 0x015ABCu
 #define SYM_sub_15AF8 0x015AF8u
+#define SYM_sub_15B5E 0x015B5Eu
 #define SYM_sub_15BE6 0x015BE6u
 #define SYM_sub_15C4A 0x015C4Au
+#define SYM_sub_15C56 0x015C56u
 #define SYM_sub_15C70 0x015C70u
 #define SYM_sub_15C82 0x015C82u
 #define SYM_sub_15CC4 0x015CC4u
 #define SYM_sub_15CE6 0x015CE6u
+#define SYM_sub_15D42 0x015D42u
+#define SYM_sub_15DC6 0x015DC6u
+#define SYM_sub_15E22 0x015E22u
 #define SYM_sub_15E8A 0x015E8Au
 #define SYM_sub_15EB6 0x015EB6u
 #define SYM_sub_15EFA 0x015EFAu
@@ -750,6 +899,10 @@
 #define SYM_sub_164F2 0x0164F2u
 #define SYM_sub_165B2 0x0165B2u
 #define SYM_sub_16662 0x016662u
+#define SYM_sub_166D6 0x0166D6u
+#define SYM_sub_16722 0x016722u
+#define SYM_sub_167A0 0x0167A0u
+#define SYM_sub_1680C 0x01680Cu
 #define SYM_sub_16852 0x016852u
 #define SYM_sub_16866 0x016866u
 #define SYM_sub_1687E 0x01687Eu
@@ -767,6 +920,8 @@
 #define SYM_sub_16BF6 0x016BF6u
 #define SYM_sub_1776A 0x01776Au
 #define SYM_sub_177EC 0x0177ECu
+#define SYM_sub_1781A 0x01781Au
+#define SYM_sub_17842 0x017842u
 #define SYM_sub_1784C 0x01784Cu
 #define SYM_sub_17874 0x017874u
 #define SYM_sub_1789C 0x01789Cu
@@ -784,12 +939,23 @@
 #define SYM_sub_17B4E 0x017B4Eu
 #define SYM_sub_17B78 0x017B78u
 #define SYM_sub_17BD6 0x017BD6u
+#define SYM_sub_17BFC 0x017BFCu
+#define SYM_sub_17C16 0x017C16u
+#define SYM_sub_17C28 0x017C28u
+#define SYM_sub_17C52 0x017C52u
+#define SYM_sub_17CB0 0x017CB0u
 #define SYM_sub_17CD6 0x017CD6u
 #define SYM_sub_17CF0 0x017CF0u
 #define SYM_sub_17D02 0x017D02u
 #define SYM_sub_17D2C 0x017D2Cu
 #define SYM_sub_17D8A 0x017D8Au
+#define SYM_sub_17DB0 0x017DB0u
+#define SYM_sub_17DCA 0x017DCAu
+#define SYM_sub_17DDC 0x017DDCu
+#define SYM_sub_17E0A 0x017E0Au
+#define SYM_sub_17E78 0x017E78u
 #define SYM_sub_17E9E 0x017E9Eu
+#define SYM_sub_17ED0 0x017ED0u
 #define SYM_sub_17EEE 0x017EEEu
 #define SYM_sub_17F00 0x017F00u
 #define SYM_sub_17F2E 0x017F2Eu
@@ -797,29 +963,56 @@
 #define SYM_sub_17F9C 0x017F9Cu
 #define SYM_sub_17FC2 0x017FC2u
 #define SYM_sub_17FE0 0x017FE0u
+#define SYM_sub_17FF2 0x017FF2u
 #define SYM_sub_18024 0x018024u
 #define SYM_sub_18048 0x018048u
+#define SYM_sub_180B4 0x0180B4u
 #define SYM_sub_180DA 0x0180DAu
 #define SYM_sub_180F8 0x0180F8u
 #define SYM_sub_18116 0x018116u
+#define SYM_sub_18128 0x018128u
+#define SYM_sub_18150 0x018150u
 #define SYM_sub_18176 0x018176u
+#define SYM_sub_181DE 0x0181DEu
+#define SYM_sub_18204 0x018204u
+#define SYM_sub_1821E 0x01821Eu
+#define SYM_sub_18230 0x018230u
+#define SYM_sub_18260 0x018260u
+#define SYM_sub_182C4 0x0182C4u
 #define SYM_sub_182EA 0x0182EAu
 #define SYM_sub_18304 0x018304u
 #define SYM_sub_18316 0x018316u
 #define SYM_sub_18346 0x018346u
 #define SYM_sub_1839E 0x01839Eu
+#define SYM_sub_183C4 0x0183C4u
 #define SYM_sub_183E2 0x0183E2u
 #define SYM_sub_183F4 0x0183F4u
+#define SYM_sub_1841C 0x01841Cu
 #define SYM_sub_1844A 0x01844Au
 #define SYM_sub_184D0 0x0184D0u
 #define SYM_sub_184F6 0x0184F6u
 #define SYM_sub_18514 0x018514u
 #define SYM_sub_1852C 0x01852Cu
+#define SYM_sub_18576 0x018576u
+#define SYM_sub_18594 0x018594u
+#define SYM_sub_185A6 0x0185A6u
+#define SYM_sub_185CE 0x0185CEu
+#define SYM_sub_185FC 0x0185FCu
+#define SYM_sub_18682 0x018682u
+#define SYM_sub_186A8 0x0186A8u
 #define SYM_sub_186C6 0x0186C6u
 #define SYM_sub_186E0 0x0186E0u
 #define SYM_sub_186F2 0x0186F2u
 #define SYM_sub_18728 0x018728u
 #define SYM_sub_18832 0x018832u
+#define SYM_sub_18858 0x018858u
+#define SYM_sub_1887A 0x01887Au
+#define SYM_sub_1888C 0x01888Cu
+#define SYM_sub_188B4 0x0188B4u
+#define SYM_sub_188E2 0x0188E2u
+#define SYM_sub_18958 0x018958u
+#define SYM_sub_18982 0x018982u
+#define SYM_sub_189A8 0x0189A8u
 #define SYM_sub_189C6 0x0189C6u
 #define SYM_sub_189F6 0x0189F6u
 #define SYM_sub_18A70 0x018A70u
@@ -845,6 +1038,10 @@
 #define SYM_sub_1938E 0x01938Eu
 #define SYM_sub_193A8 0x0193A8u
 #define SYM_sub_193C2 0x0193C2u
+#define SYM_sub_193DC 0x0193DCu
+#define SYM_sub_1940E 0x01940Eu
+#define SYM_sub_19440 0x019440u
+#define SYM_sub_19472 0x019472u
 #define SYM_sub_194A4 0x0194A4u
 #define SYM_sub_195B0 0x0195B0u
 #define SYM_sub_19616 0x019616u
@@ -898,6 +1095,7 @@
 #define SYM_sub_1A9CE 0x01A9CEu
 #define SYM_sub_1AA6A 0x01AA6Au
 #define SYM_sub_1AAF0 0x01AAF0u
+#define SYM_sub_1AB4E 0x01AB4Eu
 #define SYM_sub_1AB5E 0x01AB5Eu
 #define SYM_sub_1ABAC 0x01ABACu
 #define SYM_sub_1ABC8 0x01ABC8u
@@ -933,6 +1131,42 @@
 #define SYM_sub_1BD08 0x01BD08u
 #define SYM_sub_1BD1E 0x01BD1Eu
 #define SYM_sub_1BD40 0x01BD40u
+#define SYM_sub_1BE5E 0x01BE5Eu
+#define SYM_sub_1BF6C 0x01BF6Cu
+#define SYM_sub_1BFB2 0x01BFB2u
+#define SYM_sub_1C18A 0x01C18Au
+#define SYM_sub_1C1A8 0x01C1A8u
+#define SYM_sub_1C23C 0x01C23Cu
+#define SYM_sub_1C2D0 0x01C2D0u
+#define SYM_sub_1C33E 0x01C33Eu
+#define SYM_sub_1C370 0x01C370u
+#define SYM_sub_1C3E0 0x01C3E0u
+#define SYM_sub_1C40A 0x01C40Au
+#define SYM_sub_1C40C 0x01C40Cu
+#define SYM_sub_1C41E 0x01C41Eu
+#define SYM_sub_1C458 0x01C458u
+#define SYM_sub_1C46E 0x01C46Eu
+#define SYM_sub_1C4A8 0x01C4A8u
+#define SYM_sub_1C4DA 0x01C4DAu
+#define SYM_sub_1C528 0x01C528u
+#define SYM_sub_1C57C 0x01C57Cu
+#define SYM_sub_1C5CA 0x01C5CAu
+#define SYM_sub_1C5FC 0x01C5FCu
+#define SYM_sub_1C63A 0x01C63Au
+#define SYM_sub_1C776 0x01C776u
+#define SYM_sub_1C798 0x01C798u
+#define SYM_sub_1C7BA 0x01C7BAu
+#define SYM_sub_1C7CE 0x01C7CEu
+#define SYM_sub_1C80C 0x01C80Cu
+#define SYM_sub_1C82A 0x01C82Au
+#define SYM_sub_1C85C 0x01C85Cu
+#define SYM_sub_1C99C 0x01C99Cu
+#define SYM_sub_1C9A8 0x01C9A8u
+#define SYM_sub_1C9DE 0x01C9DEu
+#define SYM_sub_1CA4A 0x01CA4Au
+#define SYM_sub_1CA6C 0x01CA6Cu
+#define SYM_sub_1CA78 0x01CA78u
+#define SYM_sub_1CAAC 0x01CAACu
 #define SYM_sub_1CBF4 0x01CBF4u
 #define SYM_sub_1CC9C 0x01CC9Cu
 #define SYM_sub_1CCF4 0x01CCF4u
@@ -976,6 +1210,7 @@
 #define SYM_sub_1DD94 0x01DD94u
 #define SYM_sub_1DDCA 0x01DDCAu
 #define SYM_sub_1DE00 0x01DE00u
+#define SYM_sub_1DE32 0x01DE32u
 #define SYM_sub_1DFAC 0x01DFACu
 #define SYM_sub_1DFD8 0x01DFD8u
 #define SYM_sub_1E18C 0x01E18Cu
@@ -992,10 +1227,12 @@
 #define SYM_sub_1E4CC 0x01E4CCu
 #define SYM_sub_1E4E2 0x01E4E2u
 #define SYM_sub_1E552 0x01E552u
+#define SYM_sub_1E5D8 0x01E5D8u
 #define SYM_sub_1E5DA 0x01E5DAu
 #define SYM_sub_1E614 0x01E614u
 #define SYM_sub_1E63E 0x01E63Eu
 #define SYM_sub_1E660 0x01E660u
+#define SYM_sub_1E676 0x01E676u
 #define SYM_sub_1E68A 0x01E68Au
 #define SYM_sub_1E6B0 0x01E6B0u
 #define SYM_sub_1E6D4 0x01E6D4u
@@ -1020,11 +1257,38 @@
 #define SYM_sub_1ED0C 0x01ED0Cu
 #define SYM_sub_1ED32 0x01ED32u
 #define SYM_sub_1ED44 0x01ED44u
+#define SYM_sub_1EDD2 0x01EDD2u
 #define SYM_sub_1EDDC 0x01EDDCu
 #define SYM_sub_1EE1E 0x01EE1Eu
 #define SYM_sub_1EE46 0x01EE46u
 #define SYM_sub_1EEC8 0x01EEC8u
 #define SYM_sub_1F000 0x01F000u
+#define SYM_sub_1F02C 0x01F02Cu
+#define SYM_sub_1F03E 0x01F03Eu
+#define SYM_sub_1F09A 0x01F09Au
+#define SYM_sub_1F0A2 0x01F0A2u
+#define SYM_sub_1F0B8 0x01F0B8u
+#define SYM_sub_1F0D8 0x01F0D8u
+#define SYM_sub_1F100 0x01F100u
+#define SYM_sub_1F148 0x01F148u
+#define SYM_sub_1F16C 0x01F16Cu
+#define SYM_sub_1F18A 0x01F18Au
+#define SYM_sub_1F1AE 0x01F1AEu
+#define SYM_sub_1F1C6 0x01F1C6u
+#define SYM_sub_1F1F0 0x01F1F0u
+#define SYM_sub_1F1FA 0x01F1FAu
+#define SYM_sub_1F256 0x01F256u
+#define SYM_sub_1F26C 0x01F26Cu
+#define SYM_sub_1F280 0x01F280u
+#define SYM_sub_1F2A0 0x01F2A0u
+#define SYM_sub_1F2EC 0x01F2ECu
+#define SYM_sub_1F304 0x01F304u
+#define SYM_sub_1F32E 0x01F32Eu
+#define SYM_sub_1F34A 0x01F34Au
+#define SYM_sub_1F36A 0x01F36Au
+#define SYM_sub_1F390 0x01F390u
+#define SYM_sub_1F3D0 0x01F3D0u
+#define SYM_sub_1F3DE 0x01F3DEu
 #define SYM_sub_1F456 0x01F456u
 #define SYM_sub_1F482 0x01F482u
 #define SYM_sub_1F4B0 0x01F4B0u
@@ -1060,6 +1324,7 @@
 #define SYM_sub_202F6 0x0202F6u
 #define SYM_sub_20314 0x020314u
 #define SYM_sub_20340 0x020340u
+#define SYM_sub_2035C 0x02035Cu
 #define SYM_sub_20360 0x020360u
 #define SYM_sub_20374 0x020374u
 #define SYM_sub_2043C 0x02043Cu
@@ -1077,6 +1342,7 @@
 #define SYM_sub_208C6 0x0208C6u
 #define SYM_sub_208D6 0x0208D6u
 #define SYM_sub_208E8 0x0208E8u
+#define SYM_sub_20940 0x020940u
 #define SYM_sub_2095C 0x02095Cu
 #define SYM_sub_2096E 0x02096Eu
 #define SYM_sub_20980 0x020980u
@@ -1086,7 +1352,11 @@
 #define SYM_sub_209B8 0x0209B8u
 #define SYM_sub_209CA 0x0209CAu
 #define SYM_sub_209DC 0x0209DCu
+#define SYM_sub_209DE 0x0209DEu
+#define SYM_sub_209F0 0x0209F0u
+#define SYM_sub_20A02 0x020A02u
 #define SYM_sub_20A04 0x020A04u
+#define SYM_sub_20A5C 0x020A5Cu
 #define SYM_sub_20A74 0x020A74u
 #define SYM_sub_20A8A 0x020A8Au
 #define SYM_sub_20AA2 0x020AA2u
@@ -1100,14 +1370,22 @@
 #define SYM_sub_20B4E 0x020B4Eu
 #define SYM_sub_20B68 0x020B68u
 #define SYM_sub_20B6A 0x020B6Au
+#define SYM_sub_20BBE 0x020BBEu
 #define SYM_sub_20BDE 0x020BDEu
 #define SYM_sub_20BEA 0x020BEAu
+#define SYM_sub_20C0C 0x020C0Cu
+#define SYM_sub_20C3A 0x020C3Au
+#define SYM_sub_20C68 0x020C68u
 #define SYM_sub_20D16 0x020D16u
 #define SYM_sub_20D30 0x020D30u
 #define SYM_sub_20D60 0x020D60u
+#define SYM_sub_20D62 0x020D62u
+#define SYM_sub_20D76 0x020D76u
 #define SYM_sub_20D78 0x020D78u
 #define SYM_sub_20D92 0x020D92u
 #define SYM_sub_20DC2 0x020DC2u
+#define SYM_sub_20DC4 0x020DC4u
+#define SYM_sub_20DD8 0x020DD8u
 #define SYM_sub_20DDA 0x020DDAu
 #define SYM_sub_20E14 0x020E14u
 #define SYM_sub_20E4E 0x020E4Eu
@@ -1128,6 +1406,16 @@
 #define SYM_sub_210B4 0x0210B4u
 #define SYM_sub_210D2 0x0210D2u
 #define SYM_sub_210D8 0x0210D8u
+#define SYM_sub_21146 0x021146u
+#define SYM_sub_2116A 0x02116Au
+#define SYM_sub_211A8 0x0211A8u
+#define SYM_sub_211C4 0x0211C4u
+#define SYM_sub_211E6 0x0211E6u
+#define SYM_sub_211F6 0x0211F6u
+#define SYM_sub_2121A 0x02121Au
+#define SYM_sub_21258 0x021258u
+#define SYM_sub_21274 0x021274u
+#define SYM_sub_21296 0x021296u
 #define SYM_sub_212A6 0x0212A6u
 #define SYM_sub_21332 0x021332u
 #define SYM_sub_213BE 0x0213BEu
@@ -1140,9 +1428,16 @@
 #define SYM_sub_214C4 0x0214C4u
 #define SYM_sub_214D6 0x0214D6u
 #define SYM_sub_214E8 0x0214E8u
+#define SYM_sub_214EA 0x0214EAu
+#define SYM_sub_2150E 0x02150Eu
+#define SYM_sub_21524 0x021524u
+#define SYM_sub_21538 0x021538u
+#define SYM_sub_2154A 0x02154Au
 #define SYM_sub_2154C 0x02154Cu
+#define SYM_sub_21570 0x021570u
 #define SYM_sub_21594 0x021594u
 #define SYM_sub_215B8 0x0215B8u
+#define SYM_sub_215DC 0x0215DCu
 #define SYM_sub_21600 0x021600u
 #define SYM_sub_2161C 0x02161Cu
 #define SYM_sub_2162A 0x02162Au
@@ -1151,6 +1446,13 @@
 #define SYM_sub_216F2 0x0216F2u
 #define SYM_sub_21718 0x021718u
 #define SYM_sub_217A2 0x0217A2u
+#define SYM_sub_217E4 0x0217E4u
+#define SYM_sub_217FE 0x0217FEu
+#define SYM_sub_21836 0x021836u
+#define SYM_sub_2184E 0x02184Eu
+#define SYM_sub_21878 0x021878u
+#define SYM_sub_2189C 0x02189Cu
+#define SYM_sub_218D0 0x0218D0u
 #define SYM_sub_21900 0x021900u
 #define SYM_sub_2191E 0x02191Eu
 #define SYM_sub_219B2 0x0219B2u
@@ -1178,6 +1480,7 @@
 #define SYM_sub_2210E 0x02210Eu
 #define SYM_sub_22150 0x022150u
 #define SYM_sub_22192 0x022192u
+#define SYM_sub_221D4 0x0221D4u
 #define SYM_sub_22216 0x022216u
 #define SYM_sub_22258 0x022258u
 #define SYM_sub_2229A 0x02229Au
@@ -1192,10 +1495,48 @@
 #define SYM_sub_2249A 0x02249Au
 #define SYM_sub_22A6E 0x022A6Eu
 #define SYM_sub_22A90 0x022A90u
+#define SYM_sub_22AD2 0x022AD2u
+#define SYM_sub_22AEC 0x022AECu
+#define SYM_sub_22B24 0x022B24u
+#define SYM_sub_22B3C 0x022B3Cu
+#define SYM_sub_22B50 0x022B50u
+#define SYM_sub_22B68 0x022B68u
+#define SYM_sub_22B78 0x022B78u
 #define SYM_sub_22FCE 0x022FCEu
 #define SYM_sub_22FFC 0x022FFCu
+#define SYM_sub_2300A 0x02300Au
+#define SYM_sub_23058 0x023058u
 #define SYM_sub_230A6 0x0230A6u
+#define SYM_sub_230F4 0x0230F4u
 #define SYM_sub_2318C 0x02318Cu
+#define SYM_sub_231B4 0x0231B4u
+#define SYM_sub_23252 0x023252u
+#define SYM_sub_2327A 0x02327Au
+#define SYM_sub_23378 0x023378u
+#define SYM_sub_233D2 0x0233D2u
+#define SYM_sub_233DC 0x0233DCu
+#define SYM_sub_233F0 0x0233F0u
+#define SYM_sub_2341E 0x02341Eu
+#define SYM_sub_23442 0x023442u
+#define SYM_sub_23474 0x023474u
+#define SYM_sub_234D8 0x0234D8u
+#define SYM_sub_234EC 0x0234ECu
+#define SYM_sub_23520 0x023520u
+#define SYM_sub_2357A 0x02357Au
+#define SYM_sub_235B4 0x0235B4u
+#define SYM_sub_23602 0x023602u
+#define SYM_sub_23614 0x023614u
+#define SYM_sub_23636 0x023636u
+#define SYM_sub_23666 0x023666u
+#define SYM_sub_236F4 0x0236F4u
+#define SYM_sub_2375E 0x02375Eu
+#define SYM_sub_23770 0x023770u
+#define SYM_sub_2378E 0x02378Eu
+#define SYM_sub_237B0 0x0237B0u
+#define SYM_sub_237BC 0x0237BCu
+#define SYM_sub_237E4 0x0237E4u
+#define SYM_sub_237FA 0x0237FAu
+#define SYM_sub_23A86 0x023A86u
 #define SYM_sub_27144 0x027144u
 #define SYM_sub_272E0 0x0272E0u
 #define SYM_sub_277BE 0x0277BEu
@@ -1213,6 +1554,8 @@
 #define SYM_sub_29B82 0x029B82u
 #define SYM_sub_29C48 0x029C48u
 #define SYM_sub_29CD8 0x029CD8u
+#define SYM_sub_29CF2 0x029CF2u
+#define SYM_sub_29D10 0x029D10u
 #define SYM_sub_29D2C 0x029D2Cu
 #define SYM_sub_29D4E 0x029D4Eu
 #define SYM_sub_29D6E 0x029D6Eu
@@ -1234,6 +1577,7 @@
 #define SYM_sub_2A22E 0x02A22Eu
 #define SYM_sub_2A252 0x02A252u
 #define SYM_sub_2A262 0x02A262u
+#define SYM_sub_2A2AA 0x02A2AAu
 #define SYM_sub_2A3C4 0x02A3C4u
 #define SYM_sub_2A436 0x02A436u
 #define SYM_sub_2A48C 0x02A48Cu
@@ -1241,6 +1585,7 @@
 #define SYM_sub_2A4FC 0x02A4FCu
 #define SYM_sub_2A538 0x02A538u
 #define SYM_sub_2A552 0x02A552u
+#define SYM_sub_2A5BA 0x02A5BAu
 #define SYM_sub_2A5EC 0x02A5ECu
 #define SYM_sub_2A642 0x02A642u
 #define SYM_sub_2A652 0x02A652u
@@ -1290,6 +1635,7 @@
 #define SYM_sub_2BA68 0x02BA68u
 #define SYM_sub_2BAB2 0x02BAB2u
 #define SYM_sub_2BACE 0x02BACEu
+#define SYM_sub_2BB1E 0x02BB1Eu
 #define SYM_sub_2BB60 0x02BB60u
 #define SYM_sub_2BB7C 0x02BB7Cu
 #define SYM_sub_2BC14 0x02BC14u
@@ -1308,9 +1654,22 @@
 #define SYM_sub_2BEC6 0x02BEC6u
 #define SYM_sub_2BF84 0x02BF84u
 #define SYM_sub_2C000 0x02C000u
+#define SYM_sub_2C080 0x02C080u
+#define SYM_sub_2C100 0x02C100u
+#define SYM_sub_2C11C 0x02C11Cu
+#define SYM_sub_2C178 0x02C178u
+#define SYM_sub_2C1D8 0x02C1D8u
+#define SYM_sub_2C232 0x02C232u
+#define SYM_sub_2C23C 0x02C23Cu
+#define SYM_sub_2C270 0x02C270u
+#define SYM_sub_2C282 0x02C282u
+#define SYM_sub_2C2AA 0x02C2AAu
 #define SYM_sub_2C2AC 0x02C2ACu
 #define SYM_sub_2C32E 0x02C32Eu
 #define SYM_sub_2C406 0x02C406u
+#define SYM_sub_2C410 0x02C410u
+#define SYM_sub_2C434 0x02C434u
+#define SYM_sub_2C4BC 0x02C4BCu
 #define SYM_sub_2C4D2 0x02C4D2u
 #define SYM_sub_2C5EE 0x02C5EEu
 #define SYM_sub_2C652 0x02C652u
@@ -1342,37 +1701,67 @@
 #define SYM_sub_2D470 0x02D470u
 #define SYM_sub_2D736 0x02D736u
 #define SYM_sub_2D808 0x02D808u
+#define SYM_sub_2D82E 0x02D82Eu
 #define SYM_sub_2D854 0x02D854u
+#define SYM_sub_2D85C 0x02D85Cu
 #define SYM_sub_2D87C 0x02D87Cu
 #define SYM_sub_2D90E 0x02D90Eu
+#define SYM_sub_2D916 0x02D916u
 #define SYM_sub_2D936 0x02D936u
 #define SYM_sub_2D9C8 0x02D9C8u
 #define SYM_sub_2D9F6 0x02D9F6u
 #define SYM_sub_2DA76 0x02DA76u
+#define SYM_sub_2DB3A 0x02DB3Au
+#define SYM_sub_2DB66 0x02DB66u
 #define SYM_sub_2DB94 0x02DB94u
 #define SYM_sub_2DBF6 0x02DBF6u
 #define SYM_sub_2DC0A 0x02DC0Au
 #define SYM_sub_2DC5A 0x02DC5Au
+#define SYM_sub_2DC82 0x02DC82u
 #define SYM_sub_2DCB4 0x02DCB4u
 #define SYM_sub_2DD3E 0x02DD3Eu
 #define SYM_sub_2DD64 0x02DD64u
+#define SYM_sub_2DE06 0x02DE06u
+#define SYM_sub_2DE66 0x02DE66u
+#define SYM_sub_2DEE0 0x02DEE0u
+#define SYM_sub_2DEFC 0x02DEFCu
+#define SYM_sub_2DF68 0x02DF68u
+#define SYM_sub_2DFCC 0x02DFCCu
+#define SYM_sub_2E01A 0x02E01Au
 #define SYM_sub_2E036 0x02E036u
+#define SYM_sub_2E086 0x02E086u
 #define SYM_sub_2E0C8 0x02E0C8u
 #define SYM_sub_2E0E4 0x02E0E4u
 #define SYM_sub_2E17C 0x02E17Cu
 #define SYM_sub_2E190 0x02E190u
 #define SYM_sub_2E1C8 0x02E1C8u
+#define SYM_sub_2E210 0x02E210u
+#define SYM_sub_2E224 0x02E224u
+#define SYM_sub_2E258 0x02E258u
+#define SYM_sub_2E262 0x02E262u
+#define SYM_sub_2E296 0x02E296u
 #define SYM_sub_2E2A0 0x02E2A0u
+#define SYM_sub_2E2BC 0x02E2BCu
+#define SYM_sub_2E356 0x02E356u
+#define SYM_sub_2E3B2 0x02E3B2u
+#define SYM_sub_2E40E 0x02E40Eu
 #define SYM_sub_2E432 0x02E432u
 #define SYM_sub_2E4F0 0x02E4F0u
+#define SYM_sub_2E5A2 0x02E5A2u
+#define SYM_sub_2E60A 0x02E60Au
+#define SYM_sub_2E66A 0x02E66Au
 #define SYM_sub_2E674 0x02E674u
 #define SYM_sub_2E694 0x02E694u
 #define SYM_sub_2E6D6 0x02E6D6u
 #define SYM_sub_2E78E 0x02E78Eu
 #define SYM_sub_2E7D2 0x02E7D2u
+#define SYM_sub_2E844 0x02E844u
+#define SYM_sub_2E91C 0x02E91Cu
 #define SYM_sub_2E926 0x02E926u
 #define SYM_sub_2E94A 0x02E94Au
 #define SYM_sub_2E9E4 0x02E9E4u
+#define SYM_sub_2EA0A 0x02EA0Au
+#define SYM_sub_2EB1E 0x02EB1Eu
 #define SYM_sub_2EB84 0x02EB84u
 #define SYM_sub_2EC96 0x02EC96u
 #define SYM_sub_2ED44 0x02ED44u
@@ -1389,18 +1778,50 @@
 #define SYM_sub_2F596 0x02F596u
 #define SYM_sub_2F5B8 0x02F5B8u
 #define SYM_sub_2F80C 0x02F80Cu
+#define SYM_sub_2FB18 0x02FB18u
 #define SYM_sub_2FB5A 0x02FB5Au
 #define SYM_sub_2FBC0 0x02FBC0u
 #define SYM_sub_2FC64 0x02FC64u
+#define SYM_sub_2FCAC 0x02FCACu
 #define SYM_sub_2FCE8 0x02FCE8u
 #define SYM_sub_2FD5E 0x02FD5Eu
+#define SYM_sub_2FD98 0x02FD98u
 #define SYM_sub_2FDF2 0x02FDF2u
 #define SYM_sub_2FE08 0x02FE08u
 #define SYM_sub_2FE44 0x02FE44u
+#define SYM_sub_2FE72 0x02FE72u
+#define SYM_sub_2FE84 0x02FE84u
 #define SYM_sub_2FEDA 0x02FEDAu
 #define SYM_sub_2FF16 0x02FF16u
+#define SYM_sub_2FF3C 0x02FF3Cu
+#define SYM_sub_2FF90 0x02FF90u
+#define SYM_sub_2FFBC 0x02FFBCu
+#define SYM_sub_2FFD6 0x02FFD6u
 #define SYM_sub_30026 0x030026u
 #define SYM_sub_3004A 0x03004Au
+#define SYM_sub_3008C 0x03008Cu
+#define SYM_sub_30116 0x030116u
+#define SYM_sub_30174 0x030174u
+#define SYM_sub_301B2 0x0301B2u
+#define SYM_sub_301E2 0x0301E2u
+#define SYM_sub_30212 0x030212u
+#define SYM_sub_30266 0x030266u
+#define SYM_sub_30280 0x030280u
+#define SYM_sub_302AC 0x0302ACu
+#define SYM_sub_30330 0x030330u
+#define SYM_sub_30360 0x030360u
+#define SYM_sub_303C0 0x0303C0u
+#define SYM_sub_303D4 0x0303D4u
+#define SYM_sub_303E8 0x0303E8u
+#define SYM_sub_3042A 0x03042Au
+#define SYM_sub_3044C 0x03044Cu
+#define SYM_sub_30468 0x030468u
+#define SYM_sub_304AC 0x0304ACu
+#define SYM_sub_304D8 0x0304D8u
+#define SYM_sub_304F6 0x0304F6u
+#define SYM_sub_3052A 0x03052Au
+#define SYM_sub_3054C 0x03054Cu
+#define SYM_sub_30572 0x030572u
 #define SYM_sub_30592 0x030592u
 #define SYM_sub_305DA 0x0305DAu
 #define SYM_sub_30608 0x030608u
@@ -1409,15 +1830,27 @@
 #define SYM_sub_306B2 0x0306B2u
 #define SYM_sub_30700 0x030700u
 #define SYM_sub_3072E 0x03072Eu
+#define SYM_sub_30748 0x030748u
 #define SYM_sub_3074A 0x03074Au
+#define SYM_sub_30754 0x030754u
+#define SYM_sub_30794 0x030794u
+#define SYM_sub_307DA 0x0307DAu
+#define SYM_sub_30834 0x030834u
+#define SYM_sub_30890 0x030890u
+#define SYM_sub_308BA 0x0308BAu
+#define SYM_sub_30926 0x030926u
 #define SYM_sub_30962 0x030962u
 #define SYM_sub_30A4E 0x030A4Eu
 #define SYM_sub_30A6C 0x030A6Cu
 #define SYM_sub_30ABC 0x030ABCu
 #define SYM_sub_30AF0 0x030AF0u
+#define SYM_sub_30B76 0x030B76u
 #define SYM_sub_30C7C 0x030C7Cu
+#define SYM_sub_30CC2 0x030CC2u
 #define SYM_sub_30D2A 0x030D2Au
 #define SYM_sub_30D4A 0x030D4Au
+#define SYM_sub_30DB8 0x030DB8u
+#define SYM_sub_30E46 0x030E46u
 #define SYM_sub_3107A 0x03107Au
 #define SYM_sub_31108 0x031108u
 #define SYM_sub_3118C 0x03118Cu
@@ -1428,6 +1861,9 @@
 #define SYM_sub_3146E 0x03146Eu
 #define SYM_sub_31488 0x031488u
 #define SYM_sub_31588 0x031588u
+#define SYM_sub_315E4 0x0315E4u
+#define SYM_sub_315EE 0x0315EEu
+#define SYM_sub_31616 0x031616u
 #define SYM_sub_31676 0x031676u
 #define SYM_sub_3168C 0x03168Cu
 #define SYM_sub_316B2 0x0316B2u
@@ -1474,6 +1910,9 @@
 #define SYM_sub_324C8 0x0324C8u
 #define SYM_sub_324E8 0x0324E8u
 #define SYM_sub_3254E 0x03254Eu
+#define SYM_sub_3255E 0x03255Eu
+#define SYM_sub_32594 0x032594u
+#define SYM_sub_325BE 0x0325BEu
 #define SYM_sub_325D8 0x0325D8u
 #define SYM_sub_325FA 0x0325FAu
 #define SYM_sub_3260E 0x03260Eu
@@ -1489,9 +1928,11 @@
 #define SYM_sub_32950 0x032950u
 #define SYM_sub_32982 0x032982u
 #define SYM_sub_329B0 0x0329B0u
+#define SYM_sub_329E8 0x0329E8u
 #define SYM_sub_32A16 0x032A16u
 #define SYM_sub_32A76 0x032A76u
 #define SYM_sub_32A8A 0x032A8Au
+#define SYM_sub_32A96 0x032A96u
 #define SYM_sub_32AF0 0x032AF0u
 #define SYM_sub_32C1A 0x032C1Au
 #define SYM_sub_32C90 0x032C90u
@@ -1531,6 +1972,8 @@
 #define SYM_sub_334AA 0x0334AAu
 #define SYM_sub_3350E 0x03350Eu
 #define SYM_sub_3351C 0x03351Cu
+#define SYM_sub_33532 0x033532u
+#define SYM_sub_33556 0x033556u
 #define SYM_sub_336B4 0x0336B4u
 #define SYM_sub_336CA 0x0336CAu
 #define SYM_sub_336DE 0x0336DEu
@@ -1544,9 +1987,13 @@
 #define SYM_sub_337E4 0x0337E4u
 #define SYM_sub_337F4 0x0337F4u
 #define SYM_sub_33802 0x033802u
+#define SYM_sub_33812 0x033812u
+#define SYM_sub_33820 0x033820u
+#define SYM_sub_33830 0x033830u
 #define SYM_sub_3385E 0x03385Eu
 #define SYM_sub_338AE 0x0338AEu
 #define SYM_sub_338FE 0x0338FEu
+#define SYM_sub_33908 0x033908u
 #define SYM_sub_33A8E 0x033A8Eu
 #define SYM_sub_33A96 0x033A96u
 #define SYM_sub_33ABA 0x033ABAu
@@ -1561,6 +2008,7 @@
 #define SYM_sub_33CE0 0x033CE0u
 #define SYM_sub_33D04 0x033D04u
 #define SYM_sub_33D08 0x033D08u
+#define SYM_sub_33D2C 0x033D2Cu
 #define SYM_sub_33D54 0x033D54u
 #define SYM_sub_33D84 0x033D84u
 #define SYM_sub_33DB4 0x033DB4u
@@ -1583,6 +2031,9 @@
 #define SYM_sub_3438A 0x03438Au
 #define SYM_sub_343FE 0x0343FEu
 #define SYM_sub_34450 0x034450u
+#define SYM_sub_3447A 0x03447Au
+#define SYM_sub_344BA 0x0344BAu
+#define SYM_sub_344FA 0x0344FAu
 #define SYM_sub_34512 0x034512u
 #define SYM_sub_34552 0x034552u
 #define SYM_sub_34566 0x034566u
@@ -1601,12 +2052,29 @@
 #define SYM_sub_349C6 0x0349C6u
 #define SYM_sub_34A1E 0x034A1Eu
 #define SYM_sub_34A28 0x034A28u
+#define SYM_sub_34A88 0x034A88u
+#define SYM_sub_34AF6 0x034AF6u
+#define SYM_sub_34B06 0x034B06u
+#define SYM_sub_34B42 0x034B42u
+#define SYM_sub_34B58 0x034B58u
+#define SYM_sub_34B9A 0x034B9Au
+#define SYM_sub_34BF6 0x034BF6u
+#define SYM_sub_34C5A 0x034C5Au
+#define SYM_sub_34CC2 0x034CC2u
+#define SYM_sub_34CEC 0x034CECu
+#define SYM_sub_34D1E 0x034D1Eu
+#define SYM_sub_34D72 0x034D72u
+#define SYM_sub_34DAC 0x034DACu
+#define SYM_sub_34DCC 0x034DCCu
 #define SYM_sub_34DF8 0x034DF8u
 #define SYM_sub_34E32 0x034E32u
 #define SYM_sub_34E92 0x034E92u
 #define SYM_sub_34ED6 0x034ED6u
 #define SYM_sub_34EE4 0x034EE4u
+#define SYM_sub_34EF2 0x034EF2u
+#define SYM_sub_34F76 0x034F76u
 #define SYM_sub_35002 0x035002u
+#define SYM_sub_3503A 0x03503Au
 #define SYM_sub_3518A 0x03518Au
 #define SYM_sub_351A8 0x0351A8u
 #define SYM_sub_35286 0x035286u
@@ -1671,8 +2139,13 @@
 #define SYM_sub_37FA4 0x037FA4u
 #define SYM_sub_381B2 0x0381B2u
 #define SYM_sub_381E8 0x0381E8u
+#define SYM_sub_38268 0x038268u
+#define SYM_sub_382A2 0x0382A2u
+#define SYM_sub_382B4 0x0382B4u
 #define SYM_sub_382CC 0x0382CCu
 #define SYM_sub_382CE 0x0382CEu
+#define SYM_sub_3833A 0x03833Au
+#define SYM_sub_3839A 0x03839Au
 #define SYM_sub_383AA 0x0383AAu
 #define SYM_sub_383C6 0x0383C6u
 #define SYM_sub_38882 0x038882u
@@ -1684,16 +2157,23 @@
 #define SYM_sub_38AB0 0x038AB0u
 #define SYM_sub_38AD0 0x038AD0u
 #define SYM_sub_38B22 0x038B22u
+#define SYM_sub_38BA0 0x038BA0u
+#define SYM_sub_38BE8 0x038BE8u
+#define SYM_sub_38C44 0x038C44u
 #define SYM_sub_38C4E 0x038C4Eu
 #define SYM_sub_38CAC 0x038CACu
 #define SYM_sub_38E24 0x038E24u
 #define SYM_sub_38E42 0x038E42u
 #define SYM_sub_38E6E 0x038E6Eu
 #define SYM_sub_38EF2 0x038EF2u
+#define SYM_sub_38EF8 0x038EF8u
 #define SYM_sub_38F38 0x038F38u
 #define SYM_sub_38F6A 0x038F6Au
 #define SYM_sub_39016 0x039016u
 #define SYM_sub_3902A 0x03902Au
+#define SYM_sub_39052 0x039052u
+#define SYM_sub_3905E 0x03905Eu
+#define SYM_sub_39070 0x039070u
 #define SYM_sub_3910C 0x03910Cu
 #define SYM_sub_39278 0x039278u
 #define SYM_sub_39296 0x039296u
@@ -1711,7 +2191,9 @@
 #define SYM_sub_3A53C 0x03A53Cu
 #define SYM_sub_3A5C4 0x03A5C4u
 #define SYM_sub_3A616 0x03A616u
+#define SYM_sub_3A644 0x03A644u
 #define SYM_sub_3A64E 0x03A64Eu
+#define SYM_sub_3A67E 0x03A67Eu
 #define SYM_sub_3A688 0x03A688u
 #define SYM_sub_3A6EE 0x03A6EEu
 #define SYM_sub_3A74A 0x03A74Au
@@ -1763,6 +2245,8 @@
 #define SYM_sub_3DF76 0x03DF76u
 #define SYM_sub_3DFF0 0x03DFF0u
 #define SYM_sub_3E01E 0x03E01Eu
+#define SYM_sub_3E066 0x03E066u
+#define SYM_sub_3E0DC 0x03E0DCu
 #define SYM_sub_3E134 0x03E134u
 #define SYM_sub_3E182 0x03E182u
 #define SYM_sub_3E1F4 0x03E1F4u
@@ -1771,6 +2255,7 @@
 #define SYM_sub_3E354 0x03E354u
 #define SYM_sub_3E39E 0x03E39Eu
 #define SYM_sub_3E40A 0x03E40Au
+#define SYM_sub_3E468 0x03E468u
 #define SYM_sub_3E496 0x03E496u
 #define SYM_sub_3E4BE 0x03E4BEu
 #define SYM_sub_3E4FC 0x03E4FCu
@@ -1829,6 +2314,8 @@
 #define SYM_sub_3F30A 0x03F30Au
 #define SYM_sub_3F3EE 0x03F3EEu
 #define SYM_sub_3F41A 0x03F41Au
+#define SYM_sub_3F432 0x03F432u
+#define SYM_sub_3F466 0x03F466u
 #define SYM_sub_3F47E 0x03F47Eu
 #define SYM_sub_3F514 0x03F514u
 #define SYM_sub_3F530 0x03F530u
@@ -1849,7 +2336,13 @@
 #define SYM_sub_3F832 0x03F832u
 #define SYM_sub_3F848 0x03F848u
 #define SYM_sub_3F88C 0x03F88Cu
+#define SYM_sub_3F8A8 0x03F8A8u
+#define SYM_sub_3F8FE 0x03F8FEu
 #define SYM_sub_3F978 0x03F978u
+#define SYM_sub_3F9C6 0x03F9C6u
+#define SYM_sub_3FA20 0x03FA20u
+#define SYM_sub_3FA60 0x03FA60u
+#define SYM_sub_3FADC 0x03FADCu
 #define SYM_sub_3FB12 0x03FB12u
 #define SYM_sub_3FB44 0x03FB44u
 #define SYM_sub_3FBA0 0x03FBA0u
@@ -1859,12 +2352,17 @@
 #define SYM_sub_3FC98 0x03FC98u
 #define SYM_sub_3FCD4 0x03FCD4u
 #define SYM_sub_3FD3A 0x03FD3Au
+#define SYM_sub_3FD5C 0x03FD5Cu
+#define SYM_sub_3FD98 0x03FD98u
+#define SYM_sub_3FDB0 0x03FDB0u
+#define SYM_sub_3FDEC 0x03FDECu
 #define SYM_sub_3FE1E 0x03FE1Eu
 #define SYM_sub_3FF20 0x03FF20u
 #define SYM_sub_3FF6E 0x03FF6Eu
 #define SYM_sub_40088 0x040088u
 #define SYM_sub_400CE 0x0400CEu
 #define SYM_sub_4018A 0x04018Au
+#define SYM_sub_40264 0x040264u
 #define SYM_sub_4027E 0x04027Eu
 #define SYM_sub_4031A 0x04031Au
 #define SYM_sub_40394 0x040394u
@@ -1903,18 +2401,55 @@
 #define SYM_sub_40B5C 0x040B5Cu
 #define SYM_sub_40B66 0x040B66u
 #define SYM_sub_40B80 0x040B80u
+#define SYM_sub_40B9A 0x040B9Au
+#define SYM_sub_40BCC 0x040BCCu
+#define SYM_sub_40BEA 0x040BEAu
+#define SYM_sub_40D32 0x040D32u
+#define SYM_sub_40D52 0x040D52u
+#define SYM_sub_40D7E 0x040D7Eu
+#define SYM_sub_40DC4 0x040DC4u
+#define SYM_sub_40E2E 0x040E2Eu
+#define SYM_sub_40E4E 0x040E4Eu
+#define SYM_sub_40E8E 0x040E8Eu
+#define SYM_sub_40EDC 0x040EDCu
+#define SYM_sub_40F26 0x040F26u
+#define SYM_sub_40F48 0x040F48u
+#define SYM_sub_40FBC 0x040FBCu
 #define SYM_sub_41044 0x041044u
 #define SYM_sub_41052 0x041052u
+#define SYM_sub_4111A 0x04111Au
+#define SYM_sub_4112A 0x04112Au
+#define SYM_sub_4120E 0x04120Eu
 #define SYM_sub_41250 0x041250u
+#define SYM_sub_412CA 0x0412CAu
+#define SYM_sub_412FC 0x0412FCu
+#define SYM_sub_4137A 0x04137Au
+#define SYM_sub_413BA 0x0413BAu
+#define SYM_sub_413F4 0x0413F4u
+#define SYM_sub_41426 0x041426u
 #define SYM_sub_41612 0x041612u
 #define SYM_sub_41672 0x041672u
+#define SYM_sub_4194A 0x04194Au
+#define SYM_sub_41A04 0x041A04u
+#define SYM_sub_41A34 0x041A34u
+#define SYM_sub_41A68 0x041A68u
 #define SYM_sub_41AAA 0x041AAAu
 #define SYM_sub_41B1C 0x041B1Cu
+#define SYM_sub_41B26 0x041B26u
 #define SYM_sub_41B4E 0x041B4Eu
 #define SYM_sub_41B6E 0x041B6Eu
 #define SYM_sub_41B96 0x041B96u
+#define SYM_sub_41C1E 0x041C1Eu
+#define SYM_sub_41C50 0x041C50u
+#define SYM_sub_41C8A 0x041C8Au
 #define SYM_sub_41C92 0x041C92u
+#define SYM_sub_41CBE 0x041CBEu
 #define SYM_sub_41D02 0x041D02u
+#define SYM_sub_41D32 0x041D32u
+#define SYM_sub_41DBC 0x041DBCu
+#define SYM_sub_41E4A 0x041E4Au
+#define SYM_sub_41E90 0x041E90u
+#define SYM_sub_41F04 0x041F04u
 #define SYM_sub_41F1E 0x041F1Eu
 #define SYM_sub_41FB8 0x041FB8u
 #define SYM_sub_41FF0 0x041FF0u
@@ -1922,6 +2457,7 @@
 #define SYM_sub_4209E 0x04209Eu
 #define SYM_sub_420DC 0x0420DCu
 #define SYM_sub_4216A 0x04216Au
+#define SYM_sub_4218A 0x04218Au
 #define SYM_sub_4223E 0x04223Eu
 #define SYM_sub_4228E 0x04228Eu
 #define SYM_sub_422AE 0x0422AEu
@@ -1944,6 +2480,10 @@
 #define SYM_sub_48EF4 0x048EF4u
 #define SYM_sub_48F0E 0x048F0Eu
 #define SYM_sub_48F30 0x048F30u
+#define SYM_sub_48F32 0x048F32u
+#define SYM_sub_48F44 0x048F44u
+#define SYM_sub_48F66 0x048F66u
+#define SYM_sub_48F6A 0x048F6Au
 #define SYM_sub_48F78 0x048F78u
 #define SYM_sub_48FAE 0x048FAEu
 #define SYM_sub_48FEA 0x048FEAu
@@ -1952,9 +2492,12 @@
 #define SYM_sub_4905C 0x04905Cu
 #define SYM_sub_492EC 0x0492ECu
 #define SYM_sub_492FE 0x0492FEu
+#define SYM_sub_4930A 0x04930Au
 #define SYM_sub_49322 0x049322u
+#define SYM_sub_4933A 0x04933Au
 #define SYM_sub_4934A 0x04934Au
 #define SYM_sub_49356 0x049356u
+#define SYM_sub_4936E 0x04936Eu
 #define SYM_sub_4937A 0x04937Au
 #define SYM_sub_49392 0x049392u
 #define SYM_sub_493C2 0x0493C2u
@@ -1963,12 +2506,17 @@
 #define SYM_sub_49404 0x049404u
 #define SYM_sub_4941A 0x04941Au
 #define SYM_sub_49430 0x049430u
+#define SYM_sub_49446 0x049446u
+#define SYM_sub_4945A 0x04945Au
 #define SYM_sub_49470 0x049470u
 #define SYM_sub_49476 0x049476u
 #define SYM_sub_4947C 0x04947Cu
 #define SYM_sub_49482 0x049482u
 #define SYM_sub_49488 0x049488u
+#define SYM_sub_4948E 0x04948Eu
+#define SYM_sub_49494 0x049494u
 #define SYM_sub_4949A 0x04949Au
+#define SYM_sub_494A0 0x0494A0u
 #define SYM_sub_494B6 0x0494B6u
 #define SYM_sub_494C0 0x0494C0u
 #define SYM_sub_494E2 0x0494E2u
@@ -1980,8 +2528,16 @@
 #define SYM_sub_4955E 0x04955Eu
 #define SYM_sub_49578 0x049578u
 #define SYM_sub_4958A 0x04958Au
+#define SYM_sub_4959C 0x04959Cu
 #define SYM_sub_495AE 0x0495AEu
+#define SYM_sub_495F8 0x0495F8u
+#define SYM_sub_49622 0x049622u
+#define SYM_sub_49648 0x049648u
+#define SYM_sub_4965A 0x04965Au
+#define SYM_sub_49664 0x049664u
+#define SYM_sub_4968A 0x04968Au
 #define SYM_sub_4969C 0x04969Cu
+#define SYM_sub_496C4 0x0496C4u
 #define SYM_sub_49726 0x049726u
 #define SYM_sub_49744 0x049744u
 #define SYM_sub_49764 0x049764u
@@ -2006,7 +2562,10 @@
 #define SYM_sub_49F88 0x049F88u
 #define SYM_sub_49FB2 0x049FB2u
 #define SYM_sub_49FDC 0x049FDCu
+#define SYM_sub_4A006 0x04A006u
+#define SYM_sub_4A034 0x04A034u
 #define SYM_sub_4A058 0x04A058u
+#define SYM_sub_4A06C 0x04A06Cu
 #define SYM_sub_4A080 0x04A080u
 #define SYM_sub_4A148 0x04A148u
 #define SYM_sub_4A162 0x04A162u
@@ -2028,8 +2587,16 @@
 #define SYM_sub_4A31A 0x04A31Au
 #define SYM_sub_4A332 0x04A332u
 #define SYM_sub_4A33A 0x04A33Au
+#define SYM_sub_4A358 0x04A358u
+#define SYM_sub_4A362 0x04A362u
+#define SYM_sub_4A380 0x04A380u
+#define SYM_sub_4A3A0 0x04A3A0u
 #define SYM_sub_4A3DA 0x04A3DAu
 #define SYM_sub_4A3FA 0x04A3FAu
+#define SYM_sub_4A418 0x04A418u
+#define SYM_sub_4A44C 0x04A44Cu
+#define SYM_sub_4A4BE 0x04A4BEu
+#define SYM_sub_4A4CE 0x04A4CEu
 #define SYM_sub_4A510 0x04A510u
 #define SYM_sub_4A542 0x04A542u
 #define SYM_sub_4A55A 0x04A55Au
@@ -2037,6 +2604,8 @@
 #define SYM_sub_4A56A 0x04A56Au
 #define SYM_sub_4A572 0x04A572u
 #define SYM_sub_4A5A8 0x04A5A8u
+#define SYM_sub_4A63C 0x04A63Cu
+#define SYM_sub_4A66A 0x04A66Au
 #define SYM_sub_4A680 0x04A680u
 #define SYM_sub_4A73E 0x04A73Eu
 #define SYM_sub_4A748 0x04A748u
@@ -2113,14 +2682,35 @@
 #define SYM_sub_4B85E 0x04B85Eu
 #define SYM_sub_4B8CC 0x04B8CCu
 #define SYM_sub_4B904 0x04B904u
+#define SYM_sub_4B914 0x04B914u
+#define SYM_sub_4B96C 0x04B96Cu
+#define SYM_sub_4B99C 0x04B99Cu
 #define SYM_sub_4B9B2 0x04B9B2u
 #define SYM_sub_4BA3A 0x04BA3Au
 #define SYM_sub_4BA3E 0x04BA3Eu
 #define SYM_sub_4BA6E 0x04BA6Eu
+#define SYM_sub_4BA9E 0x04BA9Eu
+#define SYM_sub_4BB06 0x04BB06u
 #define SYM_sub_4BB1C 0x04BB1Cu
 #define SYM_sub_4BB36 0x04BB36u
 #define SYM_sub_4BC48 0x04BC48u
 #define SYM_sub_4BC64 0x04BC64u
+#define SYM_sub_4BCFC 0x04BCFCu
+#define SYM_sub_4BD18 0x04BD18u
+#define SYM_sub_4BD34 0x04BD34u
+#define SYM_sub_4BD50 0x04BD50u
+#define SYM_sub_4BD7E 0x04BD7Eu
+#define SYM_sub_4BDAC 0x04BDACu
+#define SYM_sub_4BDE6 0x04BDE6u
+#define SYM_sub_4BE02 0x04BE02u
+#define SYM_sub_4BE12 0x04BE12u
+#define SYM_sub_4BE4C 0x04BE4Cu
+#define SYM_sub_4BE84 0x04BE84u
+#define SYM_sub_4BEB2 0x04BEB2u
+#define SYM_sub_4BEEA 0x04BEEAu
+#define SYM_sub_4BEFA 0x04BEFAu
+#define SYM_sub_4BF0A 0x04BF0Au
+#define SYM_sub_4BF3A 0x04BF3Au
 #define SYM_sub_4BF3E 0x04BF3Eu
 #define SYM_sub_4BF98 0x04BF98u
 #define SYM_sub_4BFA4 0x04BFA4u
@@ -2168,7 +2758,10 @@
 #define SYM_sub_4EA5A 0x04EA5Au
 #define SYM_sub_4EA98 0x04EA98u
 #define SYM_sub_4EAC6 0x04EAC6u
+#define SYM_sub_4ECBA 0x04ECBAu
 #define SYM_sub_4ECE8 0x04ECE8u
+#define SYM_sub_4ECFA 0x04ECFAu
+#define SYM_sub_4ED0A 0x04ED0Au
 #define SYM_sub_4ED7C 0x04ED7Cu
 #define SYM_sub_4EDC8 0x04EDC8u
 #define SYM_sub_4EDF0 0x04EDF0u
@@ -2177,14 +2770,21 @@
 #define SYM_sub_4EE6E 0x04EE6Eu
 #define SYM_sub_4EEA4 0x04EEA4u
 #define SYM_sub_4EF12 0x04EF12u
+#define SYM_sub_4F044 0x04F044u
 #define SYM_sub_4F096 0x04F096u
 #define SYM_sub_4F11A 0x04F11Au
+#define SYM_sub_4F19E 0x04F19Eu
+#define SYM_sub_4F220 0x04F220u
+#define SYM_sub_4F300 0x04F300u
 #define SYM_sub_4F366 0x04F366u
+#define SYM_sub_4F3BE 0x04F3BEu
+#define SYM_sub_4F426 0x04F426u
 #define SYM_sub_4F4CA 0x04F4CAu
 #define SYM_sub_4F4FC 0x04F4FCu
 #define SYM_sub_4F502 0x04F502u
 #define SYM_sub_4F528 0x04F528u
 #define SYM_sub_4F53A 0x04F53Au
+#define SYM_sub_4F678 0x04F678u
 #define SYM_sub_4F688 0x04F688u
 #define SYM_sub_4F6F4 0x04F6F4u
 #define SYM_sub_4F714 0x04F714u
@@ -2297,6 +2897,7 @@
 #define SYM_sub_519C6 0x0519C6u
 #define SYM_sub_51A46 0x051A46u
 #define SYM_sub_51AB0 0x051AB0u
+#define SYM_sub_51AF0 0x051AF0u
 #define SYM_sub_51B0E 0x051B0Eu
 #define SYM_sub_51B50 0x051B50u
 #define SYM_sub_51B7E 0x051B7Eu
@@ -2315,7 +2916,13 @@
 #define SYM_sub_51FA6 0x051FA6u
 #define SYM_sub_51FCE 0x051FCEu
 #define SYM_sub_52006 0x052006u
+#define SYM_sub_52030 0x052030u
+#define SYM_sub_52066 0x052066u
 #define SYM_sub_520B0 0x0520B0u
+#define SYM_sub_52132 0x052132u
+#define SYM_sub_52158 0x052158u
+#define SYM_sub_5216E 0x05216Eu
+#define SYM_sub_521C8 0x0521C8u
 #define SYM_sub_52200 0x052200u
 #define SYM_sub_5224C 0x05224Cu
 #define SYM_sub_5227A 0x05227Au
@@ -2342,6 +2949,7 @@
 #define SYM_sub_527E2 0x0527E2u
 #define SYM_sub_52886 0x052886u
 #define SYM_sub_528AC 0x0528ACu
+#define SYM_sub_528DE 0x0528DEu
 #define SYM_sub_52970 0x052970u
 #define SYM_sub_529AA 0x0529AAu
 #define SYM_sub_52A5A 0x052A5Au
@@ -2352,6 +2960,7 @@
 #define SYM_sub_52D80 0x052D80u
 #define SYM_sub_52DD4 0x052DD4u
 #define SYM_sub_52E32 0x052E32u
+#define SYM_sub_52E68 0x052E68u
 #define SYM_sub_52EA0 0x052EA0u
 #define SYM_sub_52EC4 0x052EC4u
 #define SYM_sub_52F0C 0x052F0Cu
@@ -2370,6 +2979,8 @@
 #define SYM_sub_53238 0x053238u
 #define SYM_sub_5325C 0x05325Cu
 #define SYM_sub_5327E 0x05327Eu
+#define SYM_sub_53290 0x053290u
+#define SYM_sub_532F0 0x0532F0u
 #define SYM_sub_53374 0x053374u
 #define SYM_sub_5338E 0x05338Eu
 #define SYM_sub_533AA 0x0533AAu
@@ -2441,6 +3052,7 @@
 #define SYM_sub_583B8 0x0583B8u
 #define SYM_sub_583D2 0x0583D2u
 #define SYM_sub_58436 0x058436u
+#define SYM_sub_58446 0x058446u
 #define SYM_sub_58448 0x058448u
 #define SYM_sub_584AE 0x0584AEu
 #define SYM_sub_584F0 0x0584F0u
@@ -2487,11 +3099,20 @@
 #define SYM_sub_5E9E8 0x05E9E8u
 #define SYM_sub_5EA28 0x05EA28u
 #define SYM_sub_5EA52 0x05EA52u
+#define SYM_sub_5EB28 0x05EB28u
+#define SYM_sub_5EB42 0x05EB42u
 #define SYM_sub_5EB7A 0x05EB7Au
 #define SYM_sub_5EBA8 0x05EBA8u
 #define SYM_sub_5EBEE 0x05EBEEu
 #define SYM_sub_5EC08 0x05EC08u
 #define SYM_sub_5EC4E 0x05EC4Eu
+#define SYM_sub_5EC68 0x05EC68u
+#define SYM_sub_5EC92 0x05EC92u
+#define SYM_sub_5ECDC 0x05ECDCu
+#define SYM_sub_5ED0E 0x05ED0Eu
+#define SYM_sub_5ED66 0x05ED66u
+#define SYM_sub_5ED92 0x05ED92u
+#define SYM_sub_5EDA0 0x05EDA0u
 #define SYM_sub_5EF0A 0x05EF0Au
 #define SYM_sub_5EF10 0x05EF10u
 #define SYM_sub_5EF16 0x05EF16u
@@ -2610,21 +3231,43 @@ enum {
     v_stagesCleared = 0xA208,
     v_player1 = 0xA400,
     v_player2 = 0xA600,
+    v_tilePixels = 0xB400,
+    v_jobBuffer = 0xB600,
     v_boss = 0xC980,
+    v_sprites = 0xE000,
+    v_palette = 0xE300,
+    v_paletteTarget = 0xE380,
     v_hintCode = 0xEE00,
+    v_dmaCommand = 0xF700,
     v_frameReady = 0xF704,
     v_pauseFlags = 0xF705,
     v_padHeld = 0xF706,
     v_padPressed = 0xF708,
-    v_jobCount = 0xF720,
+    v_padReleased = 0xF70A,
+    v_dmaQueue = 0xF70C,
+    v_hscrollSrc = 0xF710,
+    v_vscrollSrc = 0xF714,
+    v_jobKind = 0xF720,
+    v_jobLength = 0xF722,
     v_jobList = 0xF724,
+    v_jobSrc = 0xF728,
+    v_jobDst = 0xF72C,
+    v_bitsLeft = 0xF730,
+    v_bitBuffer = 0xF732,
     v_hintEffect = 0xF74A,
     v_hintState = 0xF74E,
     v_hintLine = 0xF750,
     v_jobBufferFull = 0xF754,
+    v_displayOn = 0xF755,
+    v_fadeSpeed = 0xF75C,
+    v_fadeLevel = 0xF75E,
     v_vdpRegs = 0xF7D0,
     v_soundPause = 0xF807,
+    v_padId = 0xFF06,
+    v_randomSeed = 0xFF08,
     v_gameMode = 0xFF0C,
+    v_buttonMap = 0xFF20,
+    v_fadeColor = 0xFF28,
 };
 
 struct sym { uint32_t addr; const char *name; };
@@ -2639,18 +3282,22 @@ static const struct sym rom_syms[] = {
     { 0x000C36u, "CheckPause" },
     { 0x000C88u, "sub_00C88" },
     { 0x000CCAu, "sub_00CCA" },
-    { 0x000D36u, "sub_00D36" },
-    { 0x000F4Cu, "sub_00F4C" },
-    { 0x000F9Cu, "sub_00F9C" },
-    { 0x000FB4u, "sub_00FB4" },
-    { 0x0012F4u, "sub_012F4" },
-    { 0x00134Au, "sub_0134A" },
+    { 0x000D36u, "VBlankDma" },
+    { 0x000F4Cu, "VdpWriteRegs" },
+    { 0x000F9Cu, "VdpWriteReg0" },
+    { 0x000FB4u, "FadePalette" },
+    { 0x0012F4u, "QueueHScroll" },
+    { 0x00134Au, "QueueVScroll" },
     { 0x001416u, "HintEffect" },
     { 0x001440u, "HintNone" },
-    { 0x001462u, "sub_01462" },
-    { 0x001534u, "sub_01534" },
-    { 0x0015C8u, "sub_015C8" },
-    { 0x00176Eu, "sub_0176E" },
+    { 0x001462u, "HintEffect1" },
+    { 0x0014A6u, "HintEffect3" },
+    { 0x0014EAu, "HintEffect4" },
+    { 0x001534u, "HintEffect2" },
+    { 0x0015C8u, "HintEffect5" },
+    { 0x00161Au, "HintEffect6" },
+    { 0x00165Eu, "HintEffect7" },
+    { 0x00176Eu, "HintShiftLines" },
     { 0x001AB0u, "sub_01AB0" },
     { 0x001AB8u, "sub_01AB8" },
     { 0x001B86u, "sub_01B86" },
@@ -2672,26 +3319,31 @@ static const struct sym rom_syms[] = {
     { 0x0020D6u, "sub_020D6" },
     { 0x00216Eu, "sub_0216E" },
     { 0x00217Cu, "sub_0217C" },
+    { 0x00219Cu, "sub_0219C" },
     { 0x0021E8u, "sub_021E8" },
     { 0x00222Cu, "sub_0222C" },
-    { 0x0022DEu, "sub_022DE" },
-    { 0x002310u, "sub_02310" },
-    { 0x002326u, "sub_02326" },
-    { 0x0023A0u, "sub_023A0" },
-    { 0x0023CCu, "sub_023CC" },
-    { 0x0023E6u, "sub_023E6" },
-    { 0x002478u, "sub_02478" },
+    { 0x0022DEu, "RunCommands" },
+    { 0x002310u, "CmdCopyToRam" },
+    { 0x002326u, "CmdCopyToVram" },
+    { 0x002374u, "CmdDecodeToRam" },
+    { 0x0023A0u, "CmdDecodeToVram" },
+    { 0x0023CCu, "CmdRleToRam" },
+    { 0x0023E6u, "CmdRleToVram" },
+    { 0x002478u, "NextJob" },
     { 0x002506u, "RunJobs" },
-    { 0x00258Au, "sub_0258A" },
-    { 0x0025A6u, "sub_025A6" },
-    { 0x0025FCu, "sub_025FC" },
-    { 0x002660u, "sub_02660" },
-    { 0x00267Eu, "sub_0267E" },
-    { 0x002702u, "sub_02702" },
-    { 0x002712u, "sub_02712" },
-    { 0x002886u, "sub_02886" },
-    { 0x0028B2u, "sub_028B2" },
-    { 0x00290Cu, "sub_0290C" },
+    { 0x00254Cu, "JobCopyToRam" },
+    { 0x002562u, "JobCopyToVram" },
+    { 0x00258Au, "JobDecodeToRam" },
+    { 0x0025A6u, "JobDecodeToVram" },
+    { 0x0025FCu, "JobRleToRam" },
+    { 0x002616u, "JobRleToVram" },
+    { 0x002660u, "RleChunk" },
+    { 0x00267Eu, "RleRun" },
+    { 0x002702u, "ClearTilePixels" },
+    { 0x002712u, "DecodeTile" },
+    { 0x002886u, "PackTile" },
+    { 0x0028B2u, "WriteTileVram" },
+    { 0x00290Cu, "QueueTileDma" },
     { 0x0029EAu, "sub_029EA" },
     { 0x002A12u, "sub_02A12" },
     { 0x002A32u, "sub_02A32" },
@@ -2733,15 +3385,15 @@ static const struct sym rom_syms[] = {
     { 0x003066u, "ReadPads" },
     { 0x003094u, "ReadPad1" },
     { 0x0030B6u, "ReadPad2" },
-    { 0x00311Eu, "sub_0311E" },
-    { 0x003148u, "sub_03148" },
-    { 0x003156u, "sub_03156" },
+    { 0x00311Eu, "RemapButtons" },
+    { 0x003148u, "CopyBit" },
+    { 0x003156u, "PadId" },
     { 0x003196u, "sub_03196" },
     { 0x003202u, "sub_03202" },
     { 0x003526u, "sub_03526" },
     { 0x0035D6u, "sub_035D6" },
     { 0x003602u, "sub_03602" },
-    { 0x003630u, "sub_03630" },
+    { 0x003630u, "Random" },
     { 0x00369Eu, "sub_0369E" },
     { 0x0036A4u, "sub_036A4" },
     { 0x003774u, "sub_03774" },
@@ -2759,6 +3411,21 @@ static const struct sym rom_syms[] = {
     { 0x003C3Eu, "sub_03C3E" },
     { 0x003C58u, "sub_03C58" },
     { 0x003C7Au, "sub_03C7A" },
+    { 0x003C8Eu, "sub_03C8E" },
+    { 0x003CB2u, "sub_03CB2" },
+    { 0x003D08u, "sub_03D08" },
+    { 0x003D40u, "sub_03D40" },
+    { 0x003D82u, "sub_03D82" },
+    { 0x003DDCu, "sub_03DDC" },
+    { 0x003E08u, "sub_03E08" },
+    { 0x003E6Au, "sub_03E6A" },
+    { 0x003E9Cu, "sub_03E9C" },
+    { 0x003EC6u, "sub_03EC6" },
+    { 0x003EEEu, "sub_03EEE" },
+    { 0x003F22u, "sub_03F22" },
+    { 0x003F3Eu, "sub_03F3E" },
+    { 0x003F98u, "sub_03F98" },
+    { 0x003FE6u, "sub_03FE6" },
     { 0x004038u, "sub_04038" },
     { 0x004068u, "sub_04068" },
     { 0x004094u, "sub_04094" },
@@ -2775,6 +3442,13 @@ static const struct sym rom_syms[] = {
     { 0x00428Cu, "sub_0428C" },
     { 0x0042BAu, "sub_042BA" },
     { 0x00430Au, "sub_0430A" },
+    { 0x004338u, "sub_04338" },
+    { 0x004350u, "sub_04350" },
+    { 0x004388u, "sub_04388" },
+    { 0x0043BAu, "sub_043BA" },
+    { 0x0043E2u, "sub_043E2" },
+    { 0x00441Cu, "sub_0441C" },
+    { 0x00442Cu, "sub_0442C" },
     { 0x00442Eu, "sub_0442E" },
     { 0x004440u, "sub_04440" },
     { 0x00445Au, "sub_0445A" },
@@ -2800,10 +3474,46 @@ static const struct sym rom_syms[] = {
     { 0x004C54u, "sub_04C54" },
     { 0x004C86u, "sub_04C86" },
     { 0x004CC0u, "sub_04CC0" },
+    { 0x004D12u, "sub_04D12" },
+    { 0x004D24u, "sub_04D24" },
+    { 0x004D66u, "sub_04D66" },
+    { 0x004D72u, "sub_04D72" },
+    { 0x004D8Eu, "sub_04D8E" },
+    { 0x004DD0u, "sub_04DD0" },
+    { 0x004DDCu, "sub_04DDC" },
+    { 0x004DF8u, "sub_04DF8" },
+    { 0x004E3Au, "sub_04E3A" },
+    { 0x004E46u, "sub_04E46" },
+    { 0x004E4Eu, "sub_04E4E" },
+    { 0x004E62u, "sub_04E62" },
+    { 0x004EA4u, "sub_04EA4" },
+    { 0x004EB0u, "sub_04EB0" },
+    { 0x004ECCu, "sub_04ECC" },
+    { 0x004F3Au, "sub_04F3A" },
+    { 0x004F72u, "sub_04F72" },
+    { 0x004FA0u, "sub_04FA0" },
+    { 0x00500Eu, "sub_0500E" },
+    { 0x005046u, "sub_05046" },
+    { 0x005074u, "sub_05074" },
+    { 0x0050E2u, "sub_050E2" },
+    { 0x00511Au, "sub_0511A" },
+    { 0x005148u, "sub_05148" },
+    { 0x0051B6u, "sub_051B6" },
+    { 0x0051EEu, "sub_051EE" },
+    { 0x00521Cu, "sub_0521C" },
+    { 0x00528Au, "sub_0528A" },
+    { 0x0052C6u, "sub_052C6" },
+    { 0x005334u, "sub_05334" },
+    { 0x005370u, "sub_05370" },
+    { 0x0053DEu, "sub_053DE" },
+    { 0x00541Au, "sub_0541A" },
+    { 0x005488u, "sub_05488" },
+    { 0x0054C4u, "sub_054C4" },
     { 0x0055B8u, "sub_055B8" },
     { 0x0055CEu, "sub_055CE" },
     { 0x0055E0u, "sub_055E0" },
     { 0x005600u, "sub_05600" },
+    { 0x00561Eu, "sub_0561E" },
     { 0x0056AAu, "sub_056AA" },
     { 0x0058F4u, "sub_058F4" },
     { 0x0058FCu, "sub_058FC" },
@@ -2860,6 +3570,7 @@ static const struct sym rom_syms[] = {
     { 0x00650Eu, "sub_0650E" },
     { 0x006524u, "sub_06524" },
     { 0x00652Eu, "sub_0652E" },
+    { 0x0065F8u, "sub_065F8" },
     { 0x006608u, "sub_06608" },
     { 0x00660Au, "sub_0660A" },
     { 0x006758u, "sub_06758" },
@@ -2875,6 +3586,7 @@ static const struct sym rom_syms[] = {
     { 0x006986u, "sub_06986" },
     { 0x0069C6u, "sub_069C6" },
     { 0x0069E6u, "sub_069E6" },
+    { 0x0069E8u, "sub_069E8" },
     { 0x006A06u, "sub_06A06" },
     { 0x006A20u, "sub_06A20" },
     { 0x006AA0u, "sub_06AA0" },
@@ -2888,8 +3600,10 @@ static const struct sym rom_syms[] = {
     { 0x006DE0u, "sub_06DE0" },
     { 0x006E7Eu, "sub_06E7E" },
     { 0x006E9Cu, "sub_06E9C" },
+    { 0x006EAAu, "sub_06EAA" },
     { 0x006EC0u, "sub_06EC0" },
     { 0x006ED6u, "sub_06ED6" },
+    { 0x006ED8u, "sub_06ED8" },
     { 0x006F66u, "sub_06F66" },
     { 0x00715Cu, "sub_0715C" },
     { 0x0071BAu, "sub_071BA" },
@@ -2904,9 +3618,22 @@ static const struct sym rom_syms[] = {
     { 0x00730Cu, "sub_0730C" },
     { 0x00731Au, "sub_0731A" },
     { 0x007332u, "sub_07332" },
+    { 0x007370u, "sub_07370" },
+    { 0x00737Cu, "sub_0737C" },
+    { 0x0073B2u, "sub_073B2" },
+    { 0x0073C0u, "sub_073C0" },
+    { 0x00741Eu, "sub_0741E" },
+    { 0x007462u, "sub_07462" },
+    { 0x007486u, "sub_07486" },
+    { 0x0074B6u, "sub_074B6" },
     { 0x00751Eu, "sub_0751E" },
     { 0x007558u, "sub_07558" },
     { 0x00769Au, "sub_0769A" },
+    { 0x0076CCu, "sub_076CC" },
+    { 0x0076E8u, "sub_076E8" },
+    { 0x007700u, "sub_07700" },
+    { 0x00771Cu, "sub_0771C" },
+    { 0x00771Eu, "sub_0771E" },
     { 0x0077DAu, "sub_077DA" },
     { 0x00785Cu, "sub_0785C" },
     { 0x007A3Au, "sub_07A3A" },
@@ -2922,12 +3649,23 @@ static const struct sym rom_syms[] = {
     { 0x007C66u, "sub_07C66" },
     { 0x007CBEu, "sub_07CBE" },
     { 0x007CF4u, "sub_07CF4" },
+    { 0x007D14u, "sub_07D14" },
+    { 0x007D3Eu, "sub_07D3E" },
+    { 0x007E52u, "sub_07E52" },
+    { 0x007E76u, "sub_07E76" },
+    { 0x007F50u, "sub_07F50" },
+    { 0x007F52u, "sub_07F52" },
     { 0x007F54u, "sub_07F54" },
+    { 0x007FF4u, "sub_07FF4" },
+    { 0x008044u, "sub_08044" },
     { 0x0080D0u, "sub_080D0" },
     { 0x008106u, "sub_08106" },
     { 0x00811Cu, "sub_0811C" },
     { 0x008140u, "sub_08140" },
     { 0x008160u, "sub_08160" },
+    { 0x008174u, "sub_08174" },
+    { 0x0081AAu, "sub_081AA" },
+    { 0x0081ACu, "sub_081AC" },
     { 0x0081D0u, "sub_081D0" },
     { 0x008534u, "sub_08534" },
     { 0x00855Cu, "sub_0855C" },
@@ -2941,6 +3679,17 @@ static const struct sym rom_syms[] = {
     { 0x008836u, "sub_08836" },
     { 0x008842u, "sub_08842" },
     { 0x00887Au, "sub_0887A" },
+    { 0x008886u, "sub_08886" },
+    { 0x0088CEu, "sub_088CE" },
+    { 0x0088ECu, "sub_088EC" },
+    { 0x008916u, "sub_08916" },
+    { 0x00894Eu, "sub_0894E" },
+    { 0x0089AAu, "sub_089AA" },
+    { 0x0089DEu, "sub_089DE" },
+    { 0x008A02u, "sub_08A02" },
+    { 0x008A28u, "sub_08A28" },
+    { 0x008AF6u, "sub_08AF6" },
+    { 0x008AFAu, "sub_08AFA" },
     { 0x008AFCu, "sub_08AFC" },
     { 0x008B2Eu, "sub_08B2E" },
     { 0x008B58u, "sub_08B58" },
@@ -2980,6 +3729,8 @@ static const struct sym rom_syms[] = {
     { 0x00A630u, "sub_0A630" },
     { 0x00A692u, "sub_0A692" },
     { 0x00A6A2u, "sub_0A6A2" },
+    { 0x00A6B2u, "sub_0A6B2" },
+    { 0x00A6C8u, "sub_0A6C8" },
     { 0x00A6DEu, "sub_0A6DE" },
     { 0x00A7B8u, "sub_0A7B8" },
     { 0x00A7CCu, "sub_0A7CC" },
@@ -2987,9 +3738,15 @@ static const struct sym rom_syms[] = {
     { 0x00A86Cu, "sub_0A86C" },
     { 0x00A8B6u, "sub_0A8B6" },
     { 0x00A964u, "sub_0A964" },
+    { 0x00A9E8u, "sub_0A9E8" },
+    { 0x00AA32u, "sub_0AA32" },
+    { 0x00AA5Cu, "sub_0AA5C" },
+    { 0x00AAA6u, "sub_0AAA6" },
     { 0x00AB08u, "sub_0AB08" },
     { 0x00AB48u, "sub_0AB48" },
     { 0x00AB60u, "sub_0AB60" },
+    { 0x00AB94u, "sub_0AB94" },
+    { 0x00AC5Au, "sub_0AC5A" },
     { 0x00AD22u, "sub_0AD22" },
     { 0x00AD8Au, "sub_0AD8A" },
     { 0x00ADD4u, "sub_0ADD4" },
@@ -3029,6 +3786,8 @@ static const struct sym rom_syms[] = {
     { 0x00BD4Cu, "sub_0BD4C" },
     { 0x00BD6Au, "sub_0BD6A" },
     { 0x00BD8Cu, "sub_0BD8C" },
+    { 0x00BDACu, "sub_0BDAC" },
+    { 0x00BDBCu, "sub_0BDBC" },
     { 0x00BDCCu, "sub_0BDCC" },
     { 0x00BDE6u, "sub_0BDE6" },
     { 0x00BE04u, "sub_0BE04" },
@@ -3075,7 +3834,13 @@ static const struct sym rom_syms[] = {
     { 0x00F272u, "sub_0F272" },
     { 0x00F286u, "sub_0F286" },
     { 0x00F29Au, "sub_0F29A" },
+    { 0x00F32Cu, "sub_0F32C" },
     { 0x00F39Eu, "sub_0F39E" },
+    { 0x00F404u, "sub_0F404" },
+    { 0x00F434u, "sub_0F434" },
+    { 0x00F478u, "sub_0F478" },
+    { 0x00F498u, "sub_0F498" },
+    { 0x00F4D2u, "sub_0F4D2" },
     { 0x00F4ECu, "sub_0F4EC" },
     { 0x00F500u, "sub_0F500" },
     { 0x00F5D0u, "sub_0F5D0" },
@@ -3097,6 +3862,8 @@ static const struct sym rom_syms[] = {
     { 0x0101EAu, "sub_101EA" },
     { 0x010256u, "sub_10256" },
     { 0x0102A8u, "sub_102A8" },
+    { 0x010380u, "sub_10380" },
+    { 0x01042Eu, "sub_1042E" },
     { 0x0104D6u, "sub_104D6" },
     { 0x010540u, "sub_10540" },
     { 0x010552u, "sub_10552" },
@@ -3166,9 +3933,11 @@ static const struct sym rom_syms[] = {
     { 0x011AD4u, "sub_11AD4" },
     { 0x011B30u, "sub_11B30" },
     { 0x011B3Cu, "sub_11B3C" },
+    { 0x011B84u, "sub_11B84" },
     { 0x011B86u, "sub_11B86" },
     { 0x011BDCu, "sub_11BDC" },
     { 0x011C84u, "sub_11C84" },
+    { 0x011CBAu, "sub_11CBA" },
     { 0x011CBEu, "sub_11CBE" },
     { 0x011CCCu, "sub_11CCC" },
     { 0x011CD0u, "sub_11CD0" },
@@ -3251,14 +4020,20 @@ static const struct sym rom_syms[] = {
     { 0x013920u, "sub_13920" },
     { 0x0139B6u, "sub_139B6" },
     { 0x013A5Au, "sub_13A5A" },
+    { 0x013AFCu, "sub_13AFC" },
+    { 0x013BA8u, "sub_13BA8" },
     { 0x013C5Cu, "sub_13C5C" },
     { 0x013CA0u, "sub_13CA0" },
     { 0x013D0Au, "sub_13D0A" },
+    { 0x013D8Au, "sub_13D8A" },
     { 0x013DBCu, "sub_13DBC" },
     { 0x013E60u, "sub_13E60" },
+    { 0x013F02u, "sub_13F02" },
+    { 0x013FAAu, "sub_13FAA" },
     { 0x01405Eu, "sub_1405E" },
     { 0x0140A2u, "sub_140A2" },
     { 0x01410Cu, "sub_1410C" },
+    { 0x014160u, "sub_14160" },
     { 0x0141B6u, "sub_141B6" },
     { 0x014274u, "sub_14274" },
     { 0x0142CAu, "sub_142CA" },
@@ -3272,6 +4047,7 @@ static const struct sym rom_syms[] = {
     { 0x01469Eu, "sub_1469E" },
     { 0x01474Eu, "sub_1474E" },
     { 0x01478Eu, "sub_1478E" },
+    { 0x0147E8u, "sub_147E8" },
     { 0x0147EAu, "sub_147EA" },
     { 0x0147F8u, "sub_147F8" },
     { 0x014800u, "sub_14800" },
@@ -3304,21 +4080,31 @@ static const struct sym rom_syms[] = {
     { 0x014D74u, "sub_14D74" },
     { 0x014D8Eu, "sub_14D8E" },
     { 0x014DA6u, "sub_14DA6" },
+    { 0x014E80u, "sub_14E80" },
+    { 0x014E96u, "sub_14E96" },
+    { 0x014EB0u, "sub_14EB0" },
+    { 0x014EBCu, "sub_14EBC" },
     { 0x014F1Au, "sub_14F1A" },
     { 0x014F2Cu, "sub_14F2C" },
     { 0x014F36u, "sub_14F36" },
     { 0x014F50u, "sub_14F50" },
     { 0x014F5Eu, "sub_14F5E" },
+    { 0x015038u, "sub_15038" },
     { 0x01503Au, "sub_1503A" },
     { 0x015048u, "sub_15048" },
     { 0x015050u, "sub_15050" },
     { 0x01506Au, "sub_1506A" },
     { 0x015082u, "sub_15082" },
+    { 0x01515Cu, "sub_1515C" },
+    { 0x015172u, "sub_15172" },
+    { 0x01518Cu, "sub_1518C" },
+    { 0x015198u, "sub_15198" },
     { 0x0151F6u, "sub_151F6" },
     { 0x015208u, "sub_15208" },
     { 0x015212u, "sub_15212" },
     { 0x01522Cu, "sub_1522C" },
     { 0x01523Au, "sub_1523A" },
+    { 0x015314u, "sub_15314" },
     { 0x015316u, "sub_15316" },
     { 0x015320u, "sub_15320" },
     { 0x015356u, "sub_15356" },
@@ -3344,16 +4130,22 @@ static const struct sym rom_syms[] = {
     { 0x01589Eu, "sub_1589E" },
     { 0x0158ECu, "sub_158EC" },
     { 0x01599Au, "sub_1599A" },
+    { 0x0159FAu, "sub_159FA" },
     { 0x015A66u, "sub_15A66" },
     { 0x015AAEu, "sub_15AAE" },
     { 0x015ABCu, "sub_15ABC" },
     { 0x015AF8u, "sub_15AF8" },
+    { 0x015B5Eu, "sub_15B5E" },
     { 0x015BE6u, "sub_15BE6" },
     { 0x015C4Au, "sub_15C4A" },
+    { 0x015C56u, "sub_15C56" },
     { 0x015C70u, "sub_15C70" },
     { 0x015C82u, "sub_15C82" },
     { 0x015CC4u, "sub_15CC4" },
     { 0x015CE6u, "sub_15CE6" },
+    { 0x015D42u, "sub_15D42" },
+    { 0x015DC6u, "sub_15DC6" },
+    { 0x015E22u, "sub_15E22" },
     { 0x015E8Au, "sub_15E8A" },
     { 0x015EB6u, "sub_15EB6" },
     { 0x015EFAu, "sub_15EFA" },
@@ -3376,6 +4168,10 @@ static const struct sym rom_syms[] = {
     { 0x0164F2u, "sub_164F2" },
     { 0x0165B2u, "sub_165B2" },
     { 0x016662u, "sub_16662" },
+    { 0x0166D6u, "sub_166D6" },
+    { 0x016722u, "sub_16722" },
+    { 0x0167A0u, "sub_167A0" },
+    { 0x01680Cu, "sub_1680C" },
     { 0x016852u, "sub_16852" },
     { 0x016866u, "sub_16866" },
     { 0x01687Eu, "sub_1687E" },
@@ -3393,6 +4189,8 @@ static const struct sym rom_syms[] = {
     { 0x016BF6u, "sub_16BF6" },
     { 0x01776Au, "sub_1776A" },
     { 0x0177ECu, "sub_177EC" },
+    { 0x01781Au, "sub_1781A" },
+    { 0x017842u, "sub_17842" },
     { 0x01784Cu, "sub_1784C" },
     { 0x017874u, "sub_17874" },
     { 0x01789Cu, "sub_1789C" },
@@ -3410,12 +4208,23 @@ static const struct sym rom_syms[] = {
     { 0x017B4Eu, "sub_17B4E" },
     { 0x017B78u, "sub_17B78" },
     { 0x017BD6u, "sub_17BD6" },
+    { 0x017BFCu, "sub_17BFC" },
+    { 0x017C16u, "sub_17C16" },
+    { 0x017C28u, "sub_17C28" },
+    { 0x017C52u, "sub_17C52" },
+    { 0x017CB0u, "sub_17CB0" },
     { 0x017CD6u, "sub_17CD6" },
     { 0x017CF0u, "sub_17CF0" },
     { 0x017D02u, "sub_17D02" },
     { 0x017D2Cu, "sub_17D2C" },
     { 0x017D8Au, "sub_17D8A" },
+    { 0x017DB0u, "sub_17DB0" },
+    { 0x017DCAu, "sub_17DCA" },
+    { 0x017DDCu, "sub_17DDC" },
+    { 0x017E0Au, "sub_17E0A" },
+    { 0x017E78u, "sub_17E78" },
     { 0x017E9Eu, "sub_17E9E" },
+    { 0x017ED0u, "sub_17ED0" },
     { 0x017EEEu, "sub_17EEE" },
     { 0x017F00u, "sub_17F00" },
     { 0x017F2Eu, "sub_17F2E" },
@@ -3423,29 +4232,56 @@ static const struct sym rom_syms[] = {
     { 0x017F9Cu, "sub_17F9C" },
     { 0x017FC2u, "sub_17FC2" },
     { 0x017FE0u, "sub_17FE0" },
+    { 0x017FF2u, "sub_17FF2" },
     { 0x018024u, "sub_18024" },
     { 0x018048u, "sub_18048" },
+    { 0x0180B4u, "sub_180B4" },
     { 0x0180DAu, "sub_180DA" },
     { 0x0180F8u, "sub_180F8" },
     { 0x018116u, "sub_18116" },
+    { 0x018128u, "sub_18128" },
+    { 0x018150u, "sub_18150" },
     { 0x018176u, "sub_18176" },
+    { 0x0181DEu, "sub_181DE" },
+    { 0x018204u, "sub_18204" },
+    { 0x01821Eu, "sub_1821E" },
+    { 0x018230u, "sub_18230" },
+    { 0x018260u, "sub_18260" },
+    { 0x0182C4u, "sub_182C4" },
     { 0x0182EAu, "sub_182EA" },
     { 0x018304u, "sub_18304" },
     { 0x018316u, "sub_18316" },
     { 0x018346u, "sub_18346" },
     { 0x01839Eu, "sub_1839E" },
+    { 0x0183C4u, "sub_183C4" },
     { 0x0183E2u, "sub_183E2" },
     { 0x0183F4u, "sub_183F4" },
+    { 0x01841Cu, "sub_1841C" },
     { 0x01844Au, "sub_1844A" },
     { 0x0184D0u, "sub_184D0" },
     { 0x0184F6u, "sub_184F6" },
     { 0x018514u, "sub_18514" },
     { 0x01852Cu, "sub_1852C" },
+    { 0x018576u, "sub_18576" },
+    { 0x018594u, "sub_18594" },
+    { 0x0185A6u, "sub_185A6" },
+    { 0x0185CEu, "sub_185CE" },
+    { 0x0185FCu, "sub_185FC" },
+    { 0x018682u, "sub_18682" },
+    { 0x0186A8u, "sub_186A8" },
     { 0x0186C6u, "sub_186C6" },
     { 0x0186E0u, "sub_186E0" },
     { 0x0186F2u, "sub_186F2" },
     { 0x018728u, "sub_18728" },
     { 0x018832u, "sub_18832" },
+    { 0x018858u, "sub_18858" },
+    { 0x01887Au, "sub_1887A" },
+    { 0x01888Cu, "sub_1888C" },
+    { 0x0188B4u, "sub_188B4" },
+    { 0x0188E2u, "sub_188E2" },
+    { 0x018958u, "sub_18958" },
+    { 0x018982u, "sub_18982" },
+    { 0x0189A8u, "sub_189A8" },
     { 0x0189C6u, "sub_189C6" },
     { 0x0189F6u, "sub_189F6" },
     { 0x018A70u, "sub_18A70" },
@@ -3471,6 +4307,10 @@ static const struct sym rom_syms[] = {
     { 0x01938Eu, "sub_1938E" },
     { 0x0193A8u, "sub_193A8" },
     { 0x0193C2u, "sub_193C2" },
+    { 0x0193DCu, "sub_193DC" },
+    { 0x01940Eu, "sub_1940E" },
+    { 0x019440u, "sub_19440" },
+    { 0x019472u, "sub_19472" },
     { 0x0194A4u, "sub_194A4" },
     { 0x0195B0u, "sub_195B0" },
     { 0x019616u, "sub_19616" },
@@ -3524,6 +4364,7 @@ static const struct sym rom_syms[] = {
     { 0x01A9CEu, "sub_1A9CE" },
     { 0x01AA6Au, "sub_1AA6A" },
     { 0x01AAF0u, "sub_1AAF0" },
+    { 0x01AB4Eu, "sub_1AB4E" },
     { 0x01AB5Eu, "sub_1AB5E" },
     { 0x01ABACu, "sub_1ABAC" },
     { 0x01ABC8u, "sub_1ABC8" },
@@ -3559,6 +4400,42 @@ static const struct sym rom_syms[] = {
     { 0x01BD08u, "sub_1BD08" },
     { 0x01BD1Eu, "sub_1BD1E" },
     { 0x01BD40u, "sub_1BD40" },
+    { 0x01BE5Eu, "sub_1BE5E" },
+    { 0x01BF6Cu, "sub_1BF6C" },
+    { 0x01BFB2u, "sub_1BFB2" },
+    { 0x01C18Au, "sub_1C18A" },
+    { 0x01C1A8u, "sub_1C1A8" },
+    { 0x01C23Cu, "sub_1C23C" },
+    { 0x01C2D0u, "sub_1C2D0" },
+    { 0x01C33Eu, "sub_1C33E" },
+    { 0x01C370u, "sub_1C370" },
+    { 0x01C3E0u, "sub_1C3E0" },
+    { 0x01C40Au, "sub_1C40A" },
+    { 0x01C40Cu, "sub_1C40C" },
+    { 0x01C41Eu, "sub_1C41E" },
+    { 0x01C458u, "sub_1C458" },
+    { 0x01C46Eu, "sub_1C46E" },
+    { 0x01C4A8u, "sub_1C4A8" },
+    { 0x01C4DAu, "sub_1C4DA" },
+    { 0x01C528u, "sub_1C528" },
+    { 0x01C57Cu, "sub_1C57C" },
+    { 0x01C5CAu, "sub_1C5CA" },
+    { 0x01C5FCu, "sub_1C5FC" },
+    { 0x01C63Au, "sub_1C63A" },
+    { 0x01C776u, "sub_1C776" },
+    { 0x01C798u, "sub_1C798" },
+    { 0x01C7BAu, "sub_1C7BA" },
+    { 0x01C7CEu, "sub_1C7CE" },
+    { 0x01C80Cu, "sub_1C80C" },
+    { 0x01C82Au, "sub_1C82A" },
+    { 0x01C85Cu, "sub_1C85C" },
+    { 0x01C99Cu, "sub_1C99C" },
+    { 0x01C9A8u, "sub_1C9A8" },
+    { 0x01C9DEu, "sub_1C9DE" },
+    { 0x01CA4Au, "sub_1CA4A" },
+    { 0x01CA6Cu, "sub_1CA6C" },
+    { 0x01CA78u, "sub_1CA78" },
+    { 0x01CAACu, "sub_1CAAC" },
     { 0x01CBF4u, "sub_1CBF4" },
     { 0x01CC9Cu, "sub_1CC9C" },
     { 0x01CCF4u, "sub_1CCF4" },
@@ -3602,6 +4479,7 @@ static const struct sym rom_syms[] = {
     { 0x01DD94u, "sub_1DD94" },
     { 0x01DDCAu, "sub_1DDCA" },
     { 0x01DE00u, "sub_1DE00" },
+    { 0x01DE32u, "sub_1DE32" },
     { 0x01DFACu, "sub_1DFAC" },
     { 0x01DFD8u, "sub_1DFD8" },
     { 0x01E18Cu, "sub_1E18C" },
@@ -3618,10 +4496,12 @@ static const struct sym rom_syms[] = {
     { 0x01E4CCu, "sub_1E4CC" },
     { 0x01E4E2u, "sub_1E4E2" },
     { 0x01E552u, "sub_1E552" },
+    { 0x01E5D8u, "sub_1E5D8" },
     { 0x01E5DAu, "sub_1E5DA" },
     { 0x01E614u, "sub_1E614" },
     { 0x01E63Eu, "sub_1E63E" },
     { 0x01E660u, "sub_1E660" },
+    { 0x01E676u, "sub_1E676" },
     { 0x01E68Au, "sub_1E68A" },
     { 0x01E6B0u, "sub_1E6B0" },
     { 0x01E6D4u, "sub_1E6D4" },
@@ -3646,11 +4526,38 @@ static const struct sym rom_syms[] = {
     { 0x01ED0Cu, "sub_1ED0C" },
     { 0x01ED32u, "sub_1ED32" },
     { 0x01ED44u, "sub_1ED44" },
+    { 0x01EDD2u, "sub_1EDD2" },
     { 0x01EDDCu, "sub_1EDDC" },
     { 0x01EE1Eu, "sub_1EE1E" },
     { 0x01EE46u, "sub_1EE46" },
     { 0x01EEC8u, "sub_1EEC8" },
     { 0x01F000u, "sub_1F000" },
+    { 0x01F02Cu, "sub_1F02C" },
+    { 0x01F03Eu, "sub_1F03E" },
+    { 0x01F09Au, "sub_1F09A" },
+    { 0x01F0A2u, "sub_1F0A2" },
+    { 0x01F0B8u, "sub_1F0B8" },
+    { 0x01F0D8u, "sub_1F0D8" },
+    { 0x01F100u, "sub_1F100" },
+    { 0x01F148u, "sub_1F148" },
+    { 0x01F16Cu, "sub_1F16C" },
+    { 0x01F18Au, "sub_1F18A" },
+    { 0x01F1AEu, "sub_1F1AE" },
+    { 0x01F1C6u, "sub_1F1C6" },
+    { 0x01F1F0u, "sub_1F1F0" },
+    { 0x01F1FAu, "sub_1F1FA" },
+    { 0x01F256u, "sub_1F256" },
+    { 0x01F26Cu, "sub_1F26C" },
+    { 0x01F280u, "sub_1F280" },
+    { 0x01F2A0u, "sub_1F2A0" },
+    { 0x01F2ECu, "sub_1F2EC" },
+    { 0x01F304u, "sub_1F304" },
+    { 0x01F32Eu, "sub_1F32E" },
+    { 0x01F34Au, "sub_1F34A" },
+    { 0x01F36Au, "sub_1F36A" },
+    { 0x01F390u, "sub_1F390" },
+    { 0x01F3D0u, "sub_1F3D0" },
+    { 0x01F3DEu, "sub_1F3DE" },
     { 0x01F456u, "sub_1F456" },
     { 0x01F482u, "sub_1F482" },
     { 0x01F4B0u, "sub_1F4B0" },
@@ -3686,6 +4593,7 @@ static const struct sym rom_syms[] = {
     { 0x0202F6u, "sub_202F6" },
     { 0x020314u, "sub_20314" },
     { 0x020340u, "sub_20340" },
+    { 0x02035Cu, "sub_2035C" },
     { 0x020360u, "sub_20360" },
     { 0x020374u, "sub_20374" },
     { 0x02043Cu, "sub_2043C" },
@@ -3703,6 +4611,7 @@ static const struct sym rom_syms[] = {
     { 0x0208C6u, "sub_208C6" },
     { 0x0208D6u, "sub_208D6" },
     { 0x0208E8u, "sub_208E8" },
+    { 0x020940u, "sub_20940" },
     { 0x02095Cu, "sub_2095C" },
     { 0x02096Eu, "sub_2096E" },
     { 0x020980u, "sub_20980" },
@@ -3712,7 +4621,11 @@ static const struct sym rom_syms[] = {
     { 0x0209B8u, "sub_209B8" },
     { 0x0209CAu, "sub_209CA" },
     { 0x0209DCu, "sub_209DC" },
+    { 0x0209DEu, "sub_209DE" },
+    { 0x0209F0u, "sub_209F0" },
+    { 0x020A02u, "sub_20A02" },
     { 0x020A04u, "sub_20A04" },
+    { 0x020A5Cu, "sub_20A5C" },
     { 0x020A74u, "sub_20A74" },
     { 0x020A8Au, "sub_20A8A" },
     { 0x020AA2u, "sub_20AA2" },
@@ -3726,14 +4639,22 @@ static const struct sym rom_syms[] = {
     { 0x020B4Eu, "sub_20B4E" },
     { 0x020B68u, "sub_20B68" },
     { 0x020B6Au, "sub_20B6A" },
+    { 0x020BBEu, "sub_20BBE" },
     { 0x020BDEu, "sub_20BDE" },
     { 0x020BEAu, "sub_20BEA" },
+    { 0x020C0Cu, "sub_20C0C" },
+    { 0x020C3Au, "sub_20C3A" },
+    { 0x020C68u, "sub_20C68" },
     { 0x020D16u, "sub_20D16" },
     { 0x020D30u, "sub_20D30" },
     { 0x020D60u, "sub_20D60" },
+    { 0x020D62u, "sub_20D62" },
+    { 0x020D76u, "sub_20D76" },
     { 0x020D78u, "sub_20D78" },
     { 0x020D92u, "sub_20D92" },
     { 0x020DC2u, "sub_20DC2" },
+    { 0x020DC4u, "sub_20DC4" },
+    { 0x020DD8u, "sub_20DD8" },
     { 0x020DDAu, "sub_20DDA" },
     { 0x020E14u, "sub_20E14" },
     { 0x020E4Eu, "sub_20E4E" },
@@ -3754,6 +4675,16 @@ static const struct sym rom_syms[] = {
     { 0x0210B4u, "sub_210B4" },
     { 0x0210D2u, "sub_210D2" },
     { 0x0210D8u, "sub_210D8" },
+    { 0x021146u, "sub_21146" },
+    { 0x02116Au, "sub_2116A" },
+    { 0x0211A8u, "sub_211A8" },
+    { 0x0211C4u, "sub_211C4" },
+    { 0x0211E6u, "sub_211E6" },
+    { 0x0211F6u, "sub_211F6" },
+    { 0x02121Au, "sub_2121A" },
+    { 0x021258u, "sub_21258" },
+    { 0x021274u, "sub_21274" },
+    { 0x021296u, "sub_21296" },
     { 0x0212A6u, "sub_212A6" },
     { 0x021332u, "sub_21332" },
     { 0x0213BEu, "sub_213BE" },
@@ -3766,9 +4697,16 @@ static const struct sym rom_syms[] = {
     { 0x0214C4u, "sub_214C4" },
     { 0x0214D6u, "sub_214D6" },
     { 0x0214E8u, "sub_214E8" },
+    { 0x0214EAu, "sub_214EA" },
+    { 0x02150Eu, "sub_2150E" },
+    { 0x021524u, "sub_21524" },
+    { 0x021538u, "sub_21538" },
+    { 0x02154Au, "sub_2154A" },
     { 0x02154Cu, "sub_2154C" },
+    { 0x021570u, "sub_21570" },
     { 0x021594u, "sub_21594" },
     { 0x0215B8u, "sub_215B8" },
+    { 0x0215DCu, "sub_215DC" },
     { 0x021600u, "sub_21600" },
     { 0x02161Cu, "sub_2161C" },
     { 0x02162Au, "sub_2162A" },
@@ -3777,6 +4715,13 @@ static const struct sym rom_syms[] = {
     { 0x0216F2u, "sub_216F2" },
     { 0x021718u, "sub_21718" },
     { 0x0217A2u, "sub_217A2" },
+    { 0x0217E4u, "sub_217E4" },
+    { 0x0217FEu, "sub_217FE" },
+    { 0x021836u, "sub_21836" },
+    { 0x02184Eu, "sub_2184E" },
+    { 0x021878u, "sub_21878" },
+    { 0x02189Cu, "sub_2189C" },
+    { 0x0218D0u, "sub_218D0" },
     { 0x021900u, "sub_21900" },
     { 0x02191Eu, "sub_2191E" },
     { 0x0219B2u, "sub_219B2" },
@@ -3804,6 +4749,7 @@ static const struct sym rom_syms[] = {
     { 0x02210Eu, "sub_2210E" },
     { 0x022150u, "sub_22150" },
     { 0x022192u, "sub_22192" },
+    { 0x0221D4u, "sub_221D4" },
     { 0x022216u, "sub_22216" },
     { 0x022258u, "sub_22258" },
     { 0x02229Au, "sub_2229A" },
@@ -3818,10 +4764,48 @@ static const struct sym rom_syms[] = {
     { 0x02249Au, "sub_2249A" },
     { 0x022A6Eu, "sub_22A6E" },
     { 0x022A90u, "sub_22A90" },
+    { 0x022AD2u, "sub_22AD2" },
+    { 0x022AECu, "sub_22AEC" },
+    { 0x022B24u, "sub_22B24" },
+    { 0x022B3Cu, "sub_22B3C" },
+    { 0x022B50u, "sub_22B50" },
+    { 0x022B68u, "sub_22B68" },
+    { 0x022B78u, "sub_22B78" },
     { 0x022FCEu, "sub_22FCE" },
     { 0x022FFCu, "sub_22FFC" },
+    { 0x02300Au, "sub_2300A" },
+    { 0x023058u, "sub_23058" },
     { 0x0230A6u, "sub_230A6" },
+    { 0x0230F4u, "sub_230F4" },
     { 0x02318Cu, "sub_2318C" },
+    { 0x0231B4u, "sub_231B4" },
+    { 0x023252u, "sub_23252" },
+    { 0x02327Au, "sub_2327A" },
+    { 0x023378u, "sub_23378" },
+    { 0x0233D2u, "sub_233D2" },
+    { 0x0233DCu, "sub_233DC" },
+    { 0x0233F0u, "sub_233F0" },
+    { 0x02341Eu, "sub_2341E" },
+    { 0x023442u, "sub_23442" },
+    { 0x023474u, "sub_23474" },
+    { 0x0234D8u, "sub_234D8" },
+    { 0x0234ECu, "sub_234EC" },
+    { 0x023520u, "sub_23520" },
+    { 0x02357Au, "sub_2357A" },
+    { 0x0235B4u, "sub_235B4" },
+    { 0x023602u, "sub_23602" },
+    { 0x023614u, "sub_23614" },
+    { 0x023636u, "sub_23636" },
+    { 0x023666u, "sub_23666" },
+    { 0x0236F4u, "sub_236F4" },
+    { 0x02375Eu, "sub_2375E" },
+    { 0x023770u, "sub_23770" },
+    { 0x02378Eu, "sub_2378E" },
+    { 0x0237B0u, "sub_237B0" },
+    { 0x0237BCu, "sub_237BC" },
+    { 0x0237E4u, "sub_237E4" },
+    { 0x0237FAu, "sub_237FA" },
+    { 0x023A86u, "sub_23A86" },
     { 0x027144u, "sub_27144" },
     { 0x0272E0u, "sub_272E0" },
     { 0x0277BEu, "sub_277BE" },
@@ -3839,6 +4823,8 @@ static const struct sym rom_syms[] = {
     { 0x029B82u, "sub_29B82" },
     { 0x029C48u, "sub_29C48" },
     { 0x029CD8u, "sub_29CD8" },
+    { 0x029CF2u, "sub_29CF2" },
+    { 0x029D10u, "sub_29D10" },
     { 0x029D2Cu, "sub_29D2C" },
     { 0x029D4Eu, "sub_29D4E" },
     { 0x029D6Eu, "sub_29D6E" },
@@ -3860,6 +4846,7 @@ static const struct sym rom_syms[] = {
     { 0x02A22Eu, "sub_2A22E" },
     { 0x02A252u, "sub_2A252" },
     { 0x02A262u, "sub_2A262" },
+    { 0x02A2AAu, "sub_2A2AA" },
     { 0x02A3C4u, "sub_2A3C4" },
     { 0x02A436u, "sub_2A436" },
     { 0x02A48Cu, "sub_2A48C" },
@@ -3867,6 +4854,7 @@ static const struct sym rom_syms[] = {
     { 0x02A4FCu, "sub_2A4FC" },
     { 0x02A538u, "sub_2A538" },
     { 0x02A552u, "sub_2A552" },
+    { 0x02A5BAu, "sub_2A5BA" },
     { 0x02A5ECu, "sub_2A5EC" },
     { 0x02A642u, "sub_2A642" },
     { 0x02A652u, "sub_2A652" },
@@ -3916,6 +4904,7 @@ static const struct sym rom_syms[] = {
     { 0x02BA68u, "sub_2BA68" },
     { 0x02BAB2u, "sub_2BAB2" },
     { 0x02BACEu, "sub_2BACE" },
+    { 0x02BB1Eu, "sub_2BB1E" },
     { 0x02BB60u, "sub_2BB60" },
     { 0x02BB7Cu, "sub_2BB7C" },
     { 0x02BC14u, "sub_2BC14" },
@@ -3934,9 +4923,22 @@ static const struct sym rom_syms[] = {
     { 0x02BEC6u, "sub_2BEC6" },
     { 0x02BF84u, "sub_2BF84" },
     { 0x02C000u, "sub_2C000" },
+    { 0x02C080u, "sub_2C080" },
+    { 0x02C100u, "sub_2C100" },
+    { 0x02C11Cu, "sub_2C11C" },
+    { 0x02C178u, "sub_2C178" },
+    { 0x02C1D8u, "sub_2C1D8" },
+    { 0x02C232u, "sub_2C232" },
+    { 0x02C23Cu, "sub_2C23C" },
+    { 0x02C270u, "sub_2C270" },
+    { 0x02C282u, "sub_2C282" },
+    { 0x02C2AAu, "sub_2C2AA" },
     { 0x02C2ACu, "sub_2C2AC" },
     { 0x02C32Eu, "sub_2C32E" },
     { 0x02C406u, "sub_2C406" },
+    { 0x02C410u, "sub_2C410" },
+    { 0x02C434u, "sub_2C434" },
+    { 0x02C4BCu, "sub_2C4BC" },
     { 0x02C4D2u, "sub_2C4D2" },
     { 0x02C5EEu, "sub_2C5EE" },
     { 0x02C652u, "sub_2C652" },
@@ -3968,37 +4970,67 @@ static const struct sym rom_syms[] = {
     { 0x02D470u, "sub_2D470" },
     { 0x02D736u, "sub_2D736" },
     { 0x02D808u, "sub_2D808" },
+    { 0x02D82Eu, "sub_2D82E" },
     { 0x02D854u, "sub_2D854" },
+    { 0x02D85Cu, "sub_2D85C" },
     { 0x02D87Cu, "sub_2D87C" },
     { 0x02D90Eu, "sub_2D90E" },
+    { 0x02D916u, "sub_2D916" },
     { 0x02D936u, "sub_2D936" },
     { 0x02D9C8u, "sub_2D9C8" },
     { 0x02D9F6u, "sub_2D9F6" },
     { 0x02DA76u, "sub_2DA76" },
+    { 0x02DB3Au, "sub_2DB3A" },
+    { 0x02DB66u, "sub_2DB66" },
     { 0x02DB94u, "sub_2DB94" },
     { 0x02DBF6u, "sub_2DBF6" },
     { 0x02DC0Au, "sub_2DC0A" },
     { 0x02DC5Au, "sub_2DC5A" },
+    { 0x02DC82u, "sub_2DC82" },
     { 0x02DCB4u, "sub_2DCB4" },
     { 0x02DD3Eu, "sub_2DD3E" },
     { 0x02DD64u, "sub_2DD64" },
+    { 0x02DE06u, "sub_2DE06" },
+    { 0x02DE66u, "sub_2DE66" },
+    { 0x02DEE0u, "sub_2DEE0" },
+    { 0x02DEFCu, "sub_2DEFC" },
+    { 0x02DF68u, "sub_2DF68" },
+    { 0x02DFCCu, "sub_2DFCC" },
+    { 0x02E01Au, "sub_2E01A" },
     { 0x02E036u, "sub_2E036" },
+    { 0x02E086u, "sub_2E086" },
     { 0x02E0C8u, "sub_2E0C8" },
     { 0x02E0E4u, "sub_2E0E4" },
     { 0x02E17Cu, "sub_2E17C" },
     { 0x02E190u, "sub_2E190" },
     { 0x02E1C8u, "sub_2E1C8" },
+    { 0x02E210u, "sub_2E210" },
+    { 0x02E224u, "sub_2E224" },
+    { 0x02E258u, "sub_2E258" },
+    { 0x02E262u, "sub_2E262" },
+    { 0x02E296u, "sub_2E296" },
     { 0x02E2A0u, "sub_2E2A0" },
+    { 0x02E2BCu, "sub_2E2BC" },
+    { 0x02E356u, "sub_2E356" },
+    { 0x02E3B2u, "sub_2E3B2" },
+    { 0x02E40Eu, "sub_2E40E" },
     { 0x02E432u, "sub_2E432" },
     { 0x02E4F0u, "sub_2E4F0" },
+    { 0x02E5A2u, "sub_2E5A2" },
+    { 0x02E60Au, "sub_2E60A" },
+    { 0x02E66Au, "sub_2E66A" },
     { 0x02E674u, "sub_2E674" },
     { 0x02E694u, "sub_2E694" },
     { 0x02E6D6u, "sub_2E6D6" },
     { 0x02E78Eu, "sub_2E78E" },
     { 0x02E7D2u, "sub_2E7D2" },
+    { 0x02E844u, "sub_2E844" },
+    { 0x02E91Cu, "sub_2E91C" },
     { 0x02E926u, "sub_2E926" },
     { 0x02E94Au, "sub_2E94A" },
     { 0x02E9E4u, "sub_2E9E4" },
+    { 0x02EA0Au, "sub_2EA0A" },
+    { 0x02EB1Eu, "sub_2EB1E" },
     { 0x02EB84u, "sub_2EB84" },
     { 0x02EC96u, "sub_2EC96" },
     { 0x02ED44u, "sub_2ED44" },
@@ -4015,18 +5047,50 @@ static const struct sym rom_syms[] = {
     { 0x02F596u, "sub_2F596" },
     { 0x02F5B8u, "sub_2F5B8" },
     { 0x02F80Cu, "sub_2F80C" },
+    { 0x02FB18u, "sub_2FB18" },
     { 0x02FB5Au, "sub_2FB5A" },
     { 0x02FBC0u, "sub_2FBC0" },
     { 0x02FC64u, "sub_2FC64" },
+    { 0x02FCACu, "sub_2FCAC" },
     { 0x02FCE8u, "sub_2FCE8" },
     { 0x02FD5Eu, "sub_2FD5E" },
+    { 0x02FD98u, "sub_2FD98" },
     { 0x02FDF2u, "sub_2FDF2" },
     { 0x02FE08u, "sub_2FE08" },
     { 0x02FE44u, "sub_2FE44" },
+    { 0x02FE72u, "sub_2FE72" },
+    { 0x02FE84u, "sub_2FE84" },
     { 0x02FEDAu, "sub_2FEDA" },
     { 0x02FF16u, "sub_2FF16" },
+    { 0x02FF3Cu, "sub_2FF3C" },
+    { 0x02FF90u, "sub_2FF90" },
+    { 0x02FFBCu, "sub_2FFBC" },
+    { 0x02FFD6u, "sub_2FFD6" },
     { 0x030026u, "sub_30026" },
     { 0x03004Au, "sub_3004A" },
+    { 0x03008Cu, "sub_3008C" },
+    { 0x030116u, "sub_30116" },
+    { 0x030174u, "sub_30174" },
+    { 0x0301B2u, "sub_301B2" },
+    { 0x0301E2u, "sub_301E2" },
+    { 0x030212u, "sub_30212" },
+    { 0x030266u, "sub_30266" },
+    { 0x030280u, "sub_30280" },
+    { 0x0302ACu, "sub_302AC" },
+    { 0x030330u, "sub_30330" },
+    { 0x030360u, "sub_30360" },
+    { 0x0303C0u, "sub_303C0" },
+    { 0x0303D4u, "sub_303D4" },
+    { 0x0303E8u, "sub_303E8" },
+    { 0x03042Au, "sub_3042A" },
+    { 0x03044Cu, "sub_3044C" },
+    { 0x030468u, "sub_30468" },
+    { 0x0304ACu, "sub_304AC" },
+    { 0x0304D8u, "sub_304D8" },
+    { 0x0304F6u, "sub_304F6" },
+    { 0x03052Au, "sub_3052A" },
+    { 0x03054Cu, "sub_3054C" },
+    { 0x030572u, "sub_30572" },
     { 0x030592u, "sub_30592" },
     { 0x0305DAu, "sub_305DA" },
     { 0x030608u, "sub_30608" },
@@ -4035,15 +5099,27 @@ static const struct sym rom_syms[] = {
     { 0x0306B2u, "sub_306B2" },
     { 0x030700u, "sub_30700" },
     { 0x03072Eu, "sub_3072E" },
+    { 0x030748u, "sub_30748" },
     { 0x03074Au, "sub_3074A" },
+    { 0x030754u, "sub_30754" },
+    { 0x030794u, "sub_30794" },
+    { 0x0307DAu, "sub_307DA" },
+    { 0x030834u, "sub_30834" },
+    { 0x030890u, "sub_30890" },
+    { 0x0308BAu, "sub_308BA" },
+    { 0x030926u, "sub_30926" },
     { 0x030962u, "sub_30962" },
     { 0x030A4Eu, "sub_30A4E" },
     { 0x030A6Cu, "sub_30A6C" },
     { 0x030ABCu, "sub_30ABC" },
     { 0x030AF0u, "sub_30AF0" },
+    { 0x030B76u, "sub_30B76" },
     { 0x030C7Cu, "sub_30C7C" },
+    { 0x030CC2u, "sub_30CC2" },
     { 0x030D2Au, "sub_30D2A" },
     { 0x030D4Au, "sub_30D4A" },
+    { 0x030DB8u, "sub_30DB8" },
+    { 0x030E46u, "sub_30E46" },
     { 0x03107Au, "sub_3107A" },
     { 0x031108u, "sub_31108" },
     { 0x03118Cu, "sub_3118C" },
@@ -4054,6 +5130,9 @@ static const struct sym rom_syms[] = {
     { 0x03146Eu, "sub_3146E" },
     { 0x031488u, "sub_31488" },
     { 0x031588u, "sub_31588" },
+    { 0x0315E4u, "sub_315E4" },
+    { 0x0315EEu, "sub_315EE" },
+    { 0x031616u, "sub_31616" },
     { 0x031676u, "sub_31676" },
     { 0x03168Cu, "sub_3168C" },
     { 0x0316B2u, "sub_316B2" },
@@ -4100,6 +5179,9 @@ static const struct sym rom_syms[] = {
     { 0x0324C8u, "sub_324C8" },
     { 0x0324E8u, "sub_324E8" },
     { 0x03254Eu, "sub_3254E" },
+    { 0x03255Eu, "sub_3255E" },
+    { 0x032594u, "sub_32594" },
+    { 0x0325BEu, "sub_325BE" },
     { 0x0325D8u, "sub_325D8" },
     { 0x0325FAu, "sub_325FA" },
     { 0x03260Eu, "sub_3260E" },
@@ -4115,9 +5197,11 @@ static const struct sym rom_syms[] = {
     { 0x032950u, "sub_32950" },
     { 0x032982u, "sub_32982" },
     { 0x0329B0u, "sub_329B0" },
+    { 0x0329E8u, "sub_329E8" },
     { 0x032A16u, "sub_32A16" },
     { 0x032A76u, "sub_32A76" },
     { 0x032A8Au, "sub_32A8A" },
+    { 0x032A96u, "sub_32A96" },
     { 0x032AF0u, "sub_32AF0" },
     { 0x032C1Au, "sub_32C1A" },
     { 0x032C90u, "sub_32C90" },
@@ -4157,6 +5241,8 @@ static const struct sym rom_syms[] = {
     { 0x0334AAu, "sub_334AA" },
     { 0x03350Eu, "sub_3350E" },
     { 0x03351Cu, "sub_3351C" },
+    { 0x033532u, "sub_33532" },
+    { 0x033556u, "sub_33556" },
     { 0x0336B4u, "sub_336B4" },
     { 0x0336CAu, "sub_336CA" },
     { 0x0336DEu, "sub_336DE" },
@@ -4170,9 +5256,13 @@ static const struct sym rom_syms[] = {
     { 0x0337E4u, "sub_337E4" },
     { 0x0337F4u, "sub_337F4" },
     { 0x033802u, "sub_33802" },
+    { 0x033812u, "sub_33812" },
+    { 0x033820u, "sub_33820" },
+    { 0x033830u, "sub_33830" },
     { 0x03385Eu, "sub_3385E" },
     { 0x0338AEu, "sub_338AE" },
     { 0x0338FEu, "sub_338FE" },
+    { 0x033908u, "sub_33908" },
     { 0x033A8Eu, "sub_33A8E" },
     { 0x033A96u, "sub_33A96" },
     { 0x033ABAu, "sub_33ABA" },
@@ -4187,6 +5277,7 @@ static const struct sym rom_syms[] = {
     { 0x033CE0u, "sub_33CE0" },
     { 0x033D04u, "sub_33D04" },
     { 0x033D08u, "sub_33D08" },
+    { 0x033D2Cu, "sub_33D2C" },
     { 0x033D54u, "sub_33D54" },
     { 0x033D84u, "sub_33D84" },
     { 0x033DB4u, "sub_33DB4" },
@@ -4209,6 +5300,9 @@ static const struct sym rom_syms[] = {
     { 0x03438Au, "sub_3438A" },
     { 0x0343FEu, "sub_343FE" },
     { 0x034450u, "sub_34450" },
+    { 0x03447Au, "sub_3447A" },
+    { 0x0344BAu, "sub_344BA" },
+    { 0x0344FAu, "sub_344FA" },
     { 0x034512u, "sub_34512" },
     { 0x034552u, "sub_34552" },
     { 0x034566u, "sub_34566" },
@@ -4227,12 +5321,29 @@ static const struct sym rom_syms[] = {
     { 0x0349C6u, "sub_349C6" },
     { 0x034A1Eu, "sub_34A1E" },
     { 0x034A28u, "sub_34A28" },
+    { 0x034A88u, "sub_34A88" },
+    { 0x034AF6u, "sub_34AF6" },
+    { 0x034B06u, "sub_34B06" },
+    { 0x034B42u, "sub_34B42" },
+    { 0x034B58u, "sub_34B58" },
+    { 0x034B9Au, "sub_34B9A" },
+    { 0x034BF6u, "sub_34BF6" },
+    { 0x034C5Au, "sub_34C5A" },
+    { 0x034CC2u, "sub_34CC2" },
+    { 0x034CECu, "sub_34CEC" },
+    { 0x034D1Eu, "sub_34D1E" },
+    { 0x034D72u, "sub_34D72" },
+    { 0x034DACu, "sub_34DAC" },
+    { 0x034DCCu, "sub_34DCC" },
     { 0x034DF8u, "sub_34DF8" },
     { 0x034E32u, "sub_34E32" },
     { 0x034E92u, "sub_34E92" },
     { 0x034ED6u, "sub_34ED6" },
     { 0x034EE4u, "sub_34EE4" },
+    { 0x034EF2u, "sub_34EF2" },
+    { 0x034F76u, "sub_34F76" },
     { 0x035002u, "sub_35002" },
+    { 0x03503Au, "sub_3503A" },
     { 0x03518Au, "sub_3518A" },
     { 0x0351A8u, "sub_351A8" },
     { 0x035286u, "sub_35286" },
@@ -4297,8 +5408,13 @@ static const struct sym rom_syms[] = {
     { 0x037FA4u, "sub_37FA4" },
     { 0x0381B2u, "sub_381B2" },
     { 0x0381E8u, "sub_381E8" },
+    { 0x038268u, "sub_38268" },
+    { 0x0382A2u, "sub_382A2" },
+    { 0x0382B4u, "sub_382B4" },
     { 0x0382CCu, "sub_382CC" },
     { 0x0382CEu, "sub_382CE" },
+    { 0x03833Au, "sub_3833A" },
+    { 0x03839Au, "sub_3839A" },
     { 0x0383AAu, "sub_383AA" },
     { 0x0383C6u, "sub_383C6" },
     { 0x038882u, "sub_38882" },
@@ -4310,16 +5426,23 @@ static const struct sym rom_syms[] = {
     { 0x038AB0u, "sub_38AB0" },
     { 0x038AD0u, "sub_38AD0" },
     { 0x038B22u, "sub_38B22" },
+    { 0x038BA0u, "sub_38BA0" },
+    { 0x038BE8u, "sub_38BE8" },
+    { 0x038C44u, "sub_38C44" },
     { 0x038C4Eu, "sub_38C4E" },
     { 0x038CACu, "sub_38CAC" },
     { 0x038E24u, "sub_38E24" },
     { 0x038E42u, "sub_38E42" },
     { 0x038E6Eu, "sub_38E6E" },
     { 0x038EF2u, "sub_38EF2" },
+    { 0x038EF8u, "sub_38EF8" },
     { 0x038F38u, "sub_38F38" },
     { 0x038F6Au, "sub_38F6A" },
     { 0x039016u, "sub_39016" },
     { 0x03902Au, "sub_3902A" },
+    { 0x039052u, "sub_39052" },
+    { 0x03905Eu, "sub_3905E" },
+    { 0x039070u, "sub_39070" },
     { 0x03910Cu, "sub_3910C" },
     { 0x039278u, "sub_39278" },
     { 0x039296u, "sub_39296" },
@@ -4337,7 +5460,9 @@ static const struct sym rom_syms[] = {
     { 0x03A53Cu, "sub_3A53C" },
     { 0x03A5C4u, "sub_3A5C4" },
     { 0x03A616u, "sub_3A616" },
+    { 0x03A644u, "sub_3A644" },
     { 0x03A64Eu, "sub_3A64E" },
+    { 0x03A67Eu, "sub_3A67E" },
     { 0x03A688u, "sub_3A688" },
     { 0x03A6EEu, "sub_3A6EE" },
     { 0x03A74Au, "sub_3A74A" },
@@ -4389,6 +5514,8 @@ static const struct sym rom_syms[] = {
     { 0x03DF76u, "sub_3DF76" },
     { 0x03DFF0u, "sub_3DFF0" },
     { 0x03E01Eu, "sub_3E01E" },
+    { 0x03E066u, "sub_3E066" },
+    { 0x03E0DCu, "sub_3E0DC" },
     { 0x03E134u, "sub_3E134" },
     { 0x03E182u, "sub_3E182" },
     { 0x03E1F4u, "sub_3E1F4" },
@@ -4397,6 +5524,7 @@ static const struct sym rom_syms[] = {
     { 0x03E354u, "sub_3E354" },
     { 0x03E39Eu, "sub_3E39E" },
     { 0x03E40Au, "sub_3E40A" },
+    { 0x03E468u, "sub_3E468" },
     { 0x03E496u, "sub_3E496" },
     { 0x03E4BEu, "sub_3E4BE" },
     { 0x03E4FCu, "sub_3E4FC" },
@@ -4455,6 +5583,8 @@ static const struct sym rom_syms[] = {
     { 0x03F30Au, "sub_3F30A" },
     { 0x03F3EEu, "sub_3F3EE" },
     { 0x03F41Au, "sub_3F41A" },
+    { 0x03F432u, "sub_3F432" },
+    { 0x03F466u, "sub_3F466" },
     { 0x03F47Eu, "sub_3F47E" },
     { 0x03F514u, "sub_3F514" },
     { 0x03F530u, "sub_3F530" },
@@ -4475,7 +5605,13 @@ static const struct sym rom_syms[] = {
     { 0x03F832u, "sub_3F832" },
     { 0x03F848u, "sub_3F848" },
     { 0x03F88Cu, "sub_3F88C" },
+    { 0x03F8A8u, "sub_3F8A8" },
+    { 0x03F8FEu, "sub_3F8FE" },
     { 0x03F978u, "sub_3F978" },
+    { 0x03F9C6u, "sub_3F9C6" },
+    { 0x03FA20u, "sub_3FA20" },
+    { 0x03FA60u, "sub_3FA60" },
+    { 0x03FADCu, "sub_3FADC" },
     { 0x03FB12u, "sub_3FB12" },
     { 0x03FB44u, "sub_3FB44" },
     { 0x03FBA0u, "sub_3FBA0" },
@@ -4485,12 +5621,17 @@ static const struct sym rom_syms[] = {
     { 0x03FC98u, "sub_3FC98" },
     { 0x03FCD4u, "sub_3FCD4" },
     { 0x03FD3Au, "sub_3FD3A" },
+    { 0x03FD5Cu, "sub_3FD5C" },
+    { 0x03FD98u, "sub_3FD98" },
+    { 0x03FDB0u, "sub_3FDB0" },
+    { 0x03FDECu, "sub_3FDEC" },
     { 0x03FE1Eu, "sub_3FE1E" },
     { 0x03FF20u, "sub_3FF20" },
     { 0x03FF6Eu, "sub_3FF6E" },
     { 0x040088u, "sub_40088" },
     { 0x0400CEu, "sub_400CE" },
     { 0x04018Au, "sub_4018A" },
+    { 0x040264u, "sub_40264" },
     { 0x04027Eu, "sub_4027E" },
     { 0x04031Au, "sub_4031A" },
     { 0x040394u, "sub_40394" },
@@ -4529,18 +5670,55 @@ static const struct sym rom_syms[] = {
     { 0x040B5Cu, "sub_40B5C" },
     { 0x040B66u, "sub_40B66" },
     { 0x040B80u, "sub_40B80" },
+    { 0x040B9Au, "sub_40B9A" },
+    { 0x040BCCu, "sub_40BCC" },
+    { 0x040BEAu, "sub_40BEA" },
+    { 0x040D32u, "sub_40D32" },
+    { 0x040D52u, "sub_40D52" },
+    { 0x040D7Eu, "sub_40D7E" },
+    { 0x040DC4u, "sub_40DC4" },
+    { 0x040E2Eu, "sub_40E2E" },
+    { 0x040E4Eu, "sub_40E4E" },
+    { 0x040E8Eu, "sub_40E8E" },
+    { 0x040EDCu, "sub_40EDC" },
+    { 0x040F26u, "sub_40F26" },
+    { 0x040F48u, "sub_40F48" },
+    { 0x040FBCu, "sub_40FBC" },
     { 0x041044u, "sub_41044" },
     { 0x041052u, "sub_41052" },
+    { 0x04111Au, "sub_4111A" },
+    { 0x04112Au, "sub_4112A" },
+    { 0x04120Eu, "sub_4120E" },
     { 0x041250u, "sub_41250" },
+    { 0x0412CAu, "sub_412CA" },
+    { 0x0412FCu, "sub_412FC" },
+    { 0x04137Au, "sub_4137A" },
+    { 0x0413BAu, "sub_413BA" },
+    { 0x0413F4u, "sub_413F4" },
+    { 0x041426u, "sub_41426" },
     { 0x041612u, "sub_41612" },
     { 0x041672u, "sub_41672" },
+    { 0x04194Au, "sub_4194A" },
+    { 0x041A04u, "sub_41A04" },
+    { 0x041A34u, "sub_41A34" },
+    { 0x041A68u, "sub_41A68" },
     { 0x041AAAu, "sub_41AAA" },
     { 0x041B1Cu, "sub_41B1C" },
+    { 0x041B26u, "sub_41B26" },
     { 0x041B4Eu, "sub_41B4E" },
     { 0x041B6Eu, "sub_41B6E" },
     { 0x041B96u, "sub_41B96" },
+    { 0x041C1Eu, "sub_41C1E" },
+    { 0x041C50u, "sub_41C50" },
+    { 0x041C8Au, "sub_41C8A" },
     { 0x041C92u, "sub_41C92" },
+    { 0x041CBEu, "sub_41CBE" },
     { 0x041D02u, "sub_41D02" },
+    { 0x041D32u, "sub_41D32" },
+    { 0x041DBCu, "sub_41DBC" },
+    { 0x041E4Au, "sub_41E4A" },
+    { 0x041E90u, "sub_41E90" },
+    { 0x041F04u, "sub_41F04" },
     { 0x041F1Eu, "sub_41F1E" },
     { 0x041FB8u, "sub_41FB8" },
     { 0x041FF0u, "sub_41FF0" },
@@ -4548,6 +5726,7 @@ static const struct sym rom_syms[] = {
     { 0x04209Eu, "sub_4209E" },
     { 0x0420DCu, "sub_420DC" },
     { 0x04216Au, "sub_4216A" },
+    { 0x04218Au, "sub_4218A" },
     { 0x04223Eu, "sub_4223E" },
     { 0x04228Eu, "sub_4228E" },
     { 0x0422AEu, "sub_422AE" },
@@ -4570,6 +5749,10 @@ static const struct sym rom_syms[] = {
     { 0x048EF4u, "sub_48EF4" },
     { 0x048F0Eu, "sub_48F0E" },
     { 0x048F30u, "sub_48F30" },
+    { 0x048F32u, "sub_48F32" },
+    { 0x048F44u, "sub_48F44" },
+    { 0x048F66u, "sub_48F66" },
+    { 0x048F6Au, "sub_48F6A" },
     { 0x048F78u, "sub_48F78" },
     { 0x048FAEu, "sub_48FAE" },
     { 0x048FEAu, "sub_48FEA" },
@@ -4578,9 +5761,12 @@ static const struct sym rom_syms[] = {
     { 0x04905Cu, "sub_4905C" },
     { 0x0492ECu, "sub_492EC" },
     { 0x0492FEu, "sub_492FE" },
+    { 0x04930Au, "sub_4930A" },
     { 0x049322u, "sub_49322" },
+    { 0x04933Au, "sub_4933A" },
     { 0x04934Au, "sub_4934A" },
     { 0x049356u, "sub_49356" },
+    { 0x04936Eu, "sub_4936E" },
     { 0x04937Au, "sub_4937A" },
     { 0x049392u, "sub_49392" },
     { 0x0493C2u, "sub_493C2" },
@@ -4589,12 +5775,17 @@ static const struct sym rom_syms[] = {
     { 0x049404u, "sub_49404" },
     { 0x04941Au, "sub_4941A" },
     { 0x049430u, "sub_49430" },
+    { 0x049446u, "sub_49446" },
+    { 0x04945Au, "sub_4945A" },
     { 0x049470u, "sub_49470" },
     { 0x049476u, "sub_49476" },
     { 0x04947Cu, "sub_4947C" },
     { 0x049482u, "sub_49482" },
     { 0x049488u, "sub_49488" },
+    { 0x04948Eu, "sub_4948E" },
+    { 0x049494u, "sub_49494" },
     { 0x04949Au, "sub_4949A" },
+    { 0x0494A0u, "sub_494A0" },
     { 0x0494B6u, "sub_494B6" },
     { 0x0494C0u, "sub_494C0" },
     { 0x0494E2u, "sub_494E2" },
@@ -4606,8 +5797,16 @@ static const struct sym rom_syms[] = {
     { 0x04955Eu, "sub_4955E" },
     { 0x049578u, "sub_49578" },
     { 0x04958Au, "sub_4958A" },
+    { 0x04959Cu, "sub_4959C" },
     { 0x0495AEu, "sub_495AE" },
+    { 0x0495F8u, "sub_495F8" },
+    { 0x049622u, "sub_49622" },
+    { 0x049648u, "sub_49648" },
+    { 0x04965Au, "sub_4965A" },
+    { 0x049664u, "sub_49664" },
+    { 0x04968Au, "sub_4968A" },
     { 0x04969Cu, "sub_4969C" },
+    { 0x0496C4u, "sub_496C4" },
     { 0x049726u, "sub_49726" },
     { 0x049744u, "sub_49744" },
     { 0x049764u, "sub_49764" },
@@ -4632,7 +5831,10 @@ static const struct sym rom_syms[] = {
     { 0x049F88u, "sub_49F88" },
     { 0x049FB2u, "sub_49FB2" },
     { 0x049FDCu, "sub_49FDC" },
+    { 0x04A006u, "sub_4A006" },
+    { 0x04A034u, "sub_4A034" },
     { 0x04A058u, "sub_4A058" },
+    { 0x04A06Cu, "sub_4A06C" },
     { 0x04A080u, "sub_4A080" },
     { 0x04A148u, "sub_4A148" },
     { 0x04A162u, "sub_4A162" },
@@ -4654,8 +5856,16 @@ static const struct sym rom_syms[] = {
     { 0x04A31Au, "sub_4A31A" },
     { 0x04A332u, "sub_4A332" },
     { 0x04A33Au, "sub_4A33A" },
+    { 0x04A358u, "sub_4A358" },
+    { 0x04A362u, "sub_4A362" },
+    { 0x04A380u, "sub_4A380" },
+    { 0x04A3A0u, "sub_4A3A0" },
     { 0x04A3DAu, "sub_4A3DA" },
     { 0x04A3FAu, "sub_4A3FA" },
+    { 0x04A418u, "sub_4A418" },
+    { 0x04A44Cu, "sub_4A44C" },
+    { 0x04A4BEu, "sub_4A4BE" },
+    { 0x04A4CEu, "sub_4A4CE" },
     { 0x04A510u, "sub_4A510" },
     { 0x04A542u, "sub_4A542" },
     { 0x04A55Au, "sub_4A55A" },
@@ -4663,6 +5873,8 @@ static const struct sym rom_syms[] = {
     { 0x04A56Au, "sub_4A56A" },
     { 0x04A572u, "sub_4A572" },
     { 0x04A5A8u, "sub_4A5A8" },
+    { 0x04A63Cu, "sub_4A63C" },
+    { 0x04A66Au, "sub_4A66A" },
     { 0x04A680u, "sub_4A680" },
     { 0x04A73Eu, "sub_4A73E" },
     { 0x04A748u, "sub_4A748" },
@@ -4739,14 +5951,35 @@ static const struct sym rom_syms[] = {
     { 0x04B85Eu, "sub_4B85E" },
     { 0x04B8CCu, "sub_4B8CC" },
     { 0x04B904u, "sub_4B904" },
+    { 0x04B914u, "sub_4B914" },
+    { 0x04B96Cu, "sub_4B96C" },
+    { 0x04B99Cu, "sub_4B99C" },
     { 0x04B9B2u, "sub_4B9B2" },
     { 0x04BA3Au, "sub_4BA3A" },
     { 0x04BA3Eu, "sub_4BA3E" },
     { 0x04BA6Eu, "sub_4BA6E" },
+    { 0x04BA9Eu, "sub_4BA9E" },
+    { 0x04BB06u, "sub_4BB06" },
     { 0x04BB1Cu, "sub_4BB1C" },
     { 0x04BB36u, "sub_4BB36" },
     { 0x04BC48u, "sub_4BC48" },
     { 0x04BC64u, "sub_4BC64" },
+    { 0x04BCFCu, "sub_4BCFC" },
+    { 0x04BD18u, "sub_4BD18" },
+    { 0x04BD34u, "sub_4BD34" },
+    { 0x04BD50u, "sub_4BD50" },
+    { 0x04BD7Eu, "sub_4BD7E" },
+    { 0x04BDACu, "sub_4BDAC" },
+    { 0x04BDE6u, "sub_4BDE6" },
+    { 0x04BE02u, "sub_4BE02" },
+    { 0x04BE12u, "sub_4BE12" },
+    { 0x04BE4Cu, "sub_4BE4C" },
+    { 0x04BE84u, "sub_4BE84" },
+    { 0x04BEB2u, "sub_4BEB2" },
+    { 0x04BEEAu, "sub_4BEEA" },
+    { 0x04BEFAu, "sub_4BEFA" },
+    { 0x04BF0Au, "sub_4BF0A" },
+    { 0x04BF3Au, "sub_4BF3A" },
     { 0x04BF3Eu, "sub_4BF3E" },
     { 0x04BF98u, "sub_4BF98" },
     { 0x04BFA4u, "sub_4BFA4" },
@@ -4794,7 +6027,10 @@ static const struct sym rom_syms[] = {
     { 0x04EA5Au, "sub_4EA5A" },
     { 0x04EA98u, "sub_4EA98" },
     { 0x04EAC6u, "sub_4EAC6" },
+    { 0x04ECBAu, "sub_4ECBA" },
     { 0x04ECE8u, "sub_4ECE8" },
+    { 0x04ECFAu, "sub_4ECFA" },
+    { 0x04ED0Au, "sub_4ED0A" },
     { 0x04ED7Cu, "sub_4ED7C" },
     { 0x04EDC8u, "sub_4EDC8" },
     { 0x04EDF0u, "sub_4EDF0" },
@@ -4803,14 +6039,21 @@ static const struct sym rom_syms[] = {
     { 0x04EE6Eu, "sub_4EE6E" },
     { 0x04EEA4u, "sub_4EEA4" },
     { 0x04EF12u, "sub_4EF12" },
+    { 0x04F044u, "sub_4F044" },
     { 0x04F096u, "sub_4F096" },
     { 0x04F11Au, "sub_4F11A" },
+    { 0x04F19Eu, "sub_4F19E" },
+    { 0x04F220u, "sub_4F220" },
+    { 0x04F300u, "sub_4F300" },
     { 0x04F366u, "sub_4F366" },
+    { 0x04F3BEu, "sub_4F3BE" },
+    { 0x04F426u, "sub_4F426" },
     { 0x04F4CAu, "sub_4F4CA" },
     { 0x04F4FCu, "sub_4F4FC" },
     { 0x04F502u, "sub_4F502" },
     { 0x04F528u, "sub_4F528" },
     { 0x04F53Au, "sub_4F53A" },
+    { 0x04F678u, "sub_4F678" },
     { 0x04F688u, "sub_4F688" },
     { 0x04F6F4u, "sub_4F6F4" },
     { 0x04F714u, "sub_4F714" },
@@ -4923,6 +6166,7 @@ static const struct sym rom_syms[] = {
     { 0x0519C6u, "sub_519C6" },
     { 0x051A46u, "sub_51A46" },
     { 0x051AB0u, "sub_51AB0" },
+    { 0x051AF0u, "sub_51AF0" },
     { 0x051B0Eu, "sub_51B0E" },
     { 0x051B50u, "sub_51B50" },
     { 0x051B7Eu, "sub_51B7E" },
@@ -4941,7 +6185,13 @@ static const struct sym rom_syms[] = {
     { 0x051FA6u, "sub_51FA6" },
     { 0x051FCEu, "sub_51FCE" },
     { 0x052006u, "sub_52006" },
+    { 0x052030u, "sub_52030" },
+    { 0x052066u, "sub_52066" },
     { 0x0520B0u, "sub_520B0" },
+    { 0x052132u, "sub_52132" },
+    { 0x052158u, "sub_52158" },
+    { 0x05216Eu, "sub_5216E" },
+    { 0x0521C8u, "sub_521C8" },
     { 0x052200u, "sub_52200" },
     { 0x05224Cu, "sub_5224C" },
     { 0x05227Au, "sub_5227A" },
@@ -4968,6 +6218,7 @@ static const struct sym rom_syms[] = {
     { 0x0527E2u, "sub_527E2" },
     { 0x052886u, "sub_52886" },
     { 0x0528ACu, "sub_528AC" },
+    { 0x0528DEu, "sub_528DE" },
     { 0x052970u, "sub_52970" },
     { 0x0529AAu, "sub_529AA" },
     { 0x052A5Au, "sub_52A5A" },
@@ -4978,6 +6229,7 @@ static const struct sym rom_syms[] = {
     { 0x052D80u, "sub_52D80" },
     { 0x052DD4u, "sub_52DD4" },
     { 0x052E32u, "sub_52E32" },
+    { 0x052E68u, "sub_52E68" },
     { 0x052EA0u, "sub_52EA0" },
     { 0x052EC4u, "sub_52EC4" },
     { 0x052F0Cu, "sub_52F0C" },
@@ -4996,6 +6248,8 @@ static const struct sym rom_syms[] = {
     { 0x053238u, "sub_53238" },
     { 0x05325Cu, "sub_5325C" },
     { 0x05327Eu, "sub_5327E" },
+    { 0x053290u, "sub_53290" },
+    { 0x0532F0u, "sub_532F0" },
     { 0x053374u, "sub_53374" },
     { 0x05338Eu, "sub_5338E" },
     { 0x0533AAu, "sub_533AA" },
@@ -5067,6 +6321,7 @@ static const struct sym rom_syms[] = {
     { 0x0583B8u, "sub_583B8" },
     { 0x0583D2u, "sub_583D2" },
     { 0x058436u, "sub_58436" },
+    { 0x058446u, "sub_58446" },
     { 0x058448u, "sub_58448" },
     { 0x0584AEu, "sub_584AE" },
     { 0x0584F0u, "sub_584F0" },
@@ -5113,11 +6368,20 @@ static const struct sym rom_syms[] = {
     { 0x05E9E8u, "sub_5E9E8" },
     { 0x05EA28u, "sub_5EA28" },
     { 0x05EA52u, "sub_5EA52" },
+    { 0x05EB28u, "sub_5EB28" },
+    { 0x05EB42u, "sub_5EB42" },
     { 0x05EB7Au, "sub_5EB7A" },
     { 0x05EBA8u, "sub_5EBA8" },
     { 0x05EBEEu, "sub_5EBEE" },
     { 0x05EC08u, "sub_5EC08" },
     { 0x05EC4Eu, "sub_5EC4E" },
+    { 0x05EC68u, "sub_5EC68" },
+    { 0x05EC92u, "sub_5EC92" },
+    { 0x05ECDCu, "sub_5ECDC" },
+    { 0x05ED0Eu, "sub_5ED0E" },
+    { 0x05ED66u, "sub_5ED66" },
+    { 0x05ED92u, "sub_5ED92" },
+    { 0x05EDA0u, "sub_5EDA0" },
     { 0x05EF0Au, "sub_5EF0A" },
     { 0x05EF10u, "sub_5EF10" },
     { 0x05EF16u, "sub_5EF16" },
@@ -5235,31 +6499,58 @@ static const struct sym ram_syms[] = {
     { 0xA208u, "v_stagesCleared" },
     { 0xA400u, "v_player1" },
     { 0xA600u, "v_player2" },
+    { 0xB400u, "v_tilePixels" },
+    { 0xB600u, "v_jobBuffer" },
     { 0xC980u, "v_boss" },
+    { 0xE000u, "v_sprites" },
+    { 0xE300u, "v_palette" },
+    { 0xE380u, "v_paletteTarget" },
     { 0xEE00u, "v_hintCode" },
+    { 0xF700u, "v_dmaCommand" },
     { 0xF704u, "v_frameReady" },
     { 0xF705u, "v_pauseFlags" },
     { 0xF706u, "v_padHeld" },
     { 0xF708u, "v_padPressed" },
-    { 0xF720u, "v_jobCount" },
+    { 0xF70Au, "v_padReleased" },
+    { 0xF70Cu, "v_dmaQueue" },
+    { 0xF710u, "v_hscrollSrc" },
+    { 0xF714u, "v_vscrollSrc" },
+    { 0xF720u, "v_jobKind" },
+    { 0xF722u, "v_jobLength" },
     { 0xF724u, "v_jobList" },
+    { 0xF728u, "v_jobSrc" },
+    { 0xF72Cu, "v_jobDst" },
+    { 0xF730u, "v_bitsLeft" },
+    { 0xF732u, "v_bitBuffer" },
     { 0xF74Au, "v_hintEffect" },
     { 0xF74Eu, "v_hintState" },
     { 0xF750u, "v_hintLine" },
     { 0xF754u, "v_jobBufferFull" },
+    { 0xF755u, "v_displayOn" },
+    { 0xF75Cu, "v_fadeSpeed" },
+    { 0xF75Eu, "v_fadeLevel" },
     { 0xF7D0u, "v_vdpRegs" },
     { 0xF807u, "v_soundPause" },
+    { 0xFF06u, "v_padId" },
+    { 0xFF08u, "v_randomSeed" },
     { 0xFF0Cu, "v_gameMode" },
+    { 0xFF20u, "v_buttonMap" },
+    { 0xFF28u, "v_fadeColor" },
 };
 /* routines of one instruction (a shared rts, a jump): their recorded calls need no port */
 static const uint32_t trivial_syms[] = {
-    0x000BB0u, 0x00369Eu, 0x005E3Au, 0x006608u, 0x0069E6u, 0x006ED6u, 0x00F070u, 0x0115E6u,
-    0x01164Au, 0x0119A6u, 0x011A7Au, 0x011CCCu, 0x011D14u, 0x012026u, 0x012028u, 0x01211Eu,
-    0x01218Eu, 0x0122A0u, 0x0125E2u, 0x012A96u, 0x014D58u, 0x015AAEu, 0x01D30Au, 0x01F8EAu,
-    0x020980u, 0x0209DCu, 0x020B68u, 0x020D60u, 0x020DC2u, 0x020F9Eu, 0x021038u, 0x0214E8u,
-    0x029A40u, 0x029AA0u, 0x029B7Eu, 0x02A12Eu, 0x02D02Au, 0x02F4BAu, 0x03222Cu, 0x032282u,
-    0x03306Au, 0x033CDCu, 0x033D04u, 0x0342A4u, 0x037D82u, 0x0382CCu, 0x038926u, 0x03DB92u,
-    0x03DC9Cu, 0x040A50u, 0x048F30u, 0x049402u, 0x04AB3Eu, 0x04B01Cu, 0x04C20Au, 0x04C4A6u,
-    0x04C4A8u, 0x04F4FCu, 0x050828u, 0x0508FCu, 0x050B1Cu, 0x050CB4u, 0x050DD0u, 0x053140u,
-    0x0590DEu, 0x05EF10u, 0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au,
+    0x000BB0u, 0x00369Eu, 0x00442Cu, 0x004D72u, 0x004DDCu, 0x004E46u, 0x004EB0u, 0x0054C4u,
+    0x00561Eu, 0x005E3Au, 0x0065F8u, 0x006608u, 0x0069E6u, 0x0069E8u, 0x006EAAu, 0x006ED6u,
+    0x006ED8u, 0x0074B6u, 0x00771Cu, 0x00771Eu, 0x007F50u, 0x007F52u, 0x0081AAu, 0x0081ACu,
+    0x008AFAu, 0x00F070u, 0x0115E6u, 0x01164Au, 0x0119A6u, 0x011A7Au, 0x011B84u, 0x011CBAu,
+    0x011CCCu, 0x011D14u, 0x012026u, 0x012028u, 0x01211Eu, 0x01218Eu, 0x0122A0u, 0x0125E2u,
+    0x012A96u, 0x013D8Au, 0x014160u, 0x0147E8u, 0x014D58u, 0x015038u, 0x015314u, 0x015AAEu,
+    0x01C40Au, 0x01D30Au, 0x01E5D8u, 0x01EDD2u, 0x01F8EAu, 0x02035Cu, 0x020940u, 0x020980u,
+    0x0209DCu, 0x020A02u, 0x020A5Cu, 0x020B68u, 0x020BBEu, 0x020D60u, 0x020D76u, 0x020DC2u,
+    0x020DD8u, 0x020F9Eu, 0x021038u, 0x0214E8u, 0x02154Au, 0x029A40u, 0x029AA0u, 0x029B7Eu,
+    0x02A12Eu, 0x02C2AAu, 0x02D02Au, 0x02F4BAu, 0x030748u, 0x03222Cu, 0x032282u, 0x03306Au,
+    0x033CDCu, 0x033D04u, 0x0342A4u, 0x037D82u, 0x0382CCu, 0x038926u, 0x038EF2u, 0x03DB92u,
+    0x03DC9Cu, 0x040A50u, 0x048F30u, 0x048F66u, 0x049402u, 0x04AB3Eu, 0x04B01Cu, 0x04C20Au,
+    0x04C4A6u, 0x04C4A8u, 0x04F4FCu, 0x050828u, 0x0508FCu, 0x050B1Cu, 0x050CB4u, 0x050DD0u,
+    0x053140u, 0x058446u, 0x0590DEu, 0x05EF10u, 0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au,
 };

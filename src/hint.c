@@ -1,16 +1,180 @@
-/* H-interrupt effects: HintEffect ($001416) runs the one v_hintEffect names each frame; each
- * copies its handler to v_hintCode the first time (v_hintState 0) and sets its registers. */
+/* H-interrupt effects. Each frame HintEffect runs the effect v_hintEffect names (an index times
+ * 4). The first time (v_hintState 0) an effect sets the H-interrupt counter (register 10), runs
+ * a command list that copies its handler into work RAM at v_hintCode (the H-interrupt vector),
+ * and turns H-interrupts on (register 0 bit 4); each frame it writes those registers again and
+ * points hint_data (a6) at the table its handler reads, line by line. */
 #include "game.h"
 
 #define RTE 0x4E73
-#define VDP_REG0 0                         /* v_vdpRegs + 2 n: register n's word */
+#define HINT_ENABLE 0x10                 /* register 0 */
+#define EFFECT_TABLE 0x001420u
+#define HANDLER_1 0x00149Cu              /* command lists: a handler copied to v_hintCode */
+#define HANDLER_2 0x0015BEu
+#define HANDLER_3 0x0014E0u
+#define HANDLER_5 0x001610u
+#define HANDLER_6 0x001654u
+
+uint32_t hint_data;
+
+/* $001416 */
+void HintEffect(void)
+{
+    uint32_t effect = rom32(EFFECT_TABLE + (uint32_t)(int16_t)rd16(v_hintEffect));
+    switch (effect) {
+    case SYM_HintNone: HintNone(); break;
+    case SYM_HintEffect1: HintEffect1(); break;
+    case SYM_HintEffect2: HintEffect2(); break;
+    case SYM_HintEffect3: HintEffect3(); break;
+    case SYM_HintEffect4: HintEffect4(); break;
+    case SYM_HintEffect5: HintEffect5(); break;
+    case SYM_HintEffect6: HintEffect6(); break;
+    case SYM_HintEffect7: HintEffect7(); break;
+    default: call68k_missing(effect); break;
+    }
+}
+
+/* the first frame of an effect: v_hintState moves on */
+static int first(void)
+{
+    if (rd16(v_hintState)) return 0;
+    wr16(v_hintState, (uint16_t)(rd16(v_hintState) + 4));
+    return 1;
+}
+
+static void hint_on(void)
+{
+    wr8(VDP_REG(0) + 1, rd8(VDP_REG(0) + 1) | HINT_ENABLE);
+}
 
 /* $001440. Effect 0: H-interrupts off (register 0's bit 4), and a bare rte for a handler. */
 void HintNone(void)
 {
-    if (rd16(v_hintState)) return;
-    wr16(v_hintState, (uint16_t)(rd16(v_hintState) + 4));
-    wr8(v_vdpRegs + VDP_REG0 + 1, rd8(v_vdpRegs + VDP_REG0 + 1) & 0xEF);
-    vdp_ctrl16(rd16(v_vdpRegs + VDP_REG0));
+    if (!first()) return;
+    wr8(VDP_REG(0) + 1, rd8(VDP_REG(0) + 1) & (uint8_t)~HINT_ENABLE);
+    vdp_ctrl16(rd16(VDP_REG(0)));
     wr16(v_hintCode, RTE);
+}
+
+/* $001462. Effect 1: an H-interrupt every line, the table at $FF9600. */
+void HintEffect1(void)
+{
+    if (first()) {
+        wr8(VDP_REG(10) + 1, 0);
+        RunCommands(HANDLER_1);
+        hint_on();
+    }
+    vdp_ctrl16(rd16(VDP_REG(10)));
+    vdp_ctrl16(rd16(VDP_REG(0)));
+    hint_data = 0xFFFF9600;
+}
+
+/* $001534. Effect 2: the first frame copies the handler, the second turns H-interrupts on; then
+ * each frame: every third line, the table at $FF984E (its first two longs moved on 8 bytes),
+ * and the first line's horizontal and vertical scroll written at once. */
+void HintEffect2(void)
+{
+    int16_t state = (int16_t)(rd16(v_hintState) - 4);
+    if (state < 0) {
+        wr16(v_hintState, (uint16_t)(rd16(v_hintState) + 4));
+        wr8(VDP_REG(10) + 1, 2);
+        vdp_ctrl16(rd16(VDP_REG(10)));
+        RunCommands(HANDLER_2);
+        return;
+    }
+    if (state == 0) {
+        wr16(v_hintState, (uint16_t)(rd16(v_hintState) + 4));
+        hint_on();
+        vdp_ctrl16(rd16(VDP_REG(0)));
+    }
+    wr8(VDP_REG(10) + 1, 2);
+    vdp_ctrl16(0x8A02);
+    hint_data = 0xFFFF984E;
+    wr16(v_hintLine, 0);
+    HintShiftLines(0x984E);
+    vdp_ctrl(0x70000083);                                        /* VRAM $F000: the scroll table */
+    vdp_data(rd16(0xE400));
+    vdp_ctrl(0x40000010);                                        /* VSRAM 0 */
+    wr16(0xEC00, rd16(0xEC50));
+    vdp_data(rd16(0xEC00));
+}
+
+/* $00176E. The longs from $FF9846 moved on 8 bytes, up to `end` (from the start). */
+void HintShiftLines(uint16_t end)
+{
+    uint16_t from = 0x9846, to = 0x984E;
+    do {
+        wr32(to, rd32(from));
+        from += 4; to += 4;
+    } while ((int16_t)(from - end) < 0);
+}
+
+/* $0014A6. Effect 3 (no recorded run used it): as effect 1, the registers written once. */
+void HintEffect3(void)
+{
+    if (first()) {
+        wr8(VDP_REG(10) + 1, 0);
+        vdp_ctrl16(rd16(VDP_REG(10)));
+        RunCommands(HANDLER_3);
+        hint_on();
+        vdp_ctrl16(rd16(VDP_REG(0)));
+    }
+    hint_data = 0xFFFF9600;
+}
+
+/* $0014EA. Effect 4 (no recorded run used it): every fourth line; each frame the table at
+ * $FF9600 is copied from $FF9400 (112 bytes). */
+void HintEffect4(void)
+{
+    if (first()) {
+        wr8(VDP_REG(10) + 1, 3);
+        vdp_ctrl16(rd16(VDP_REG(10)));
+        RunCommands(HANDLER_3);
+        hint_on();
+        vdp_ctrl16(rd16(VDP_REG(0)));
+    }
+    for (int i = 0; i < 28; i++) wr32((uint16_t)(0x9600 + 4 * i), rd32((uint16_t)(0x9400 + 4 * i)));
+    hint_data = 0xFFFF9600;
+}
+
+/* $0015C8. Effect 5: H-interrupts on with its handler, and each frame the display off, the
+ * backdrop colour 0 and the line count back to 0. */
+void HintEffect5(void)
+{
+    if (first()) {
+        RunCommands(HANDLER_5);
+        wr8(VDP_REG(10) + 1, 0);
+        set8(VDP_REG(0) + 1, 4);
+        wr16(0xF766, 0);
+    }
+    vdp_ctrl16(rd16(VDP_REG(0)));
+    vdp_ctrl16(rd16(VDP_REG(10)));
+    clr8(VDP_REG(1) + 1, 6);
+    wr8(VDP_REG(7) + 1, 0);
+    wr16(v_hintLine, 0);
+}
+
+/* $00161A. Effect 6 (no recorded run used it): every fourth line, the table at $FF9800. */
+void HintEffect6(void)
+{
+    if (first()) {
+        wr8(VDP_REG(10) + 1, 3);
+        RunCommands(HANDLER_6);
+        hint_on();
+    }
+    vdp_ctrl16(rd16(VDP_REG(10)));
+    vdp_ctrl16(rd16(VDP_REG(0)));
+    hint_data = 0xFFFF9800;
+}
+
+/* $00165E. Effect 7 (no recorded run used it): effect 1's handler every eighth line. */
+void HintEffect7(void)
+{
+    if (first()) {
+        wr8(VDP_REG(10) + 1, 7);
+        RunCommands(HANDLER_1);
+        hint_on();
+    }
+    vdp_ctrl16(rd16(VDP_REG(10)));
+    vdp_ctrl16(rd16(VDP_REG(0)));
+    hint_data = 0xFFFF9600;
 }

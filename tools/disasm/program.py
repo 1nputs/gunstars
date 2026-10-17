@@ -82,7 +82,7 @@ class Program:
         movea.l T(pc,Dn.w),An / jmp (An): long pointers; lea T(pc,Dn.w),An / adda.w (An),An /
         jmp (An): word offsets from each entry; jmp T(pc,Dn.w): a table of bra.w"""
         i = self.insn[site]
-        if i.mnem != 'jmp':
+        if i.mnem not in ('jmp', 'jsr'):
             return None
         prev = [self.insn.get(site - n) for n in (2, 4, 6)]
         if i.ops[0][0] == 'pcx':
@@ -150,6 +150,11 @@ class Program:
             succ = []
             if i.flow == CALL:
                 tg = {i.target} if i.target is not None else set(self.dyn.get(a, ()))
+                if i.target is None:
+                    cases = self.jump_table(a)
+                    if cases:
+                        r.table[a] = cases
+                        tg |= {t for _, t in cases}
                 r.calls[a] = sorted(t for t in tg if t in self.entries)
             nxt = self.successors(i)
             if i.flow == JUMP and i.target is None:

@@ -1,14 +1,14 @@
 /* One adapter per ported routine: the recorded call's registers into the C function's arguments,
- * the call, and its register results checked. */
+ * the call, and its register results checked. Most are generated from game.h's prototypes
+ * (tools/gen_ports.py, build/ports_gen.inc); the ones that need more are written here, their
+ * prototypes marked "manual". */
 #include "game.h"
 #include "ports.h"
-
-static void run_CheckPause(const Record *r) { (void)r; CheckPause(); }
-static void run_HintNone(const Record *r) { (void)r; HintNone(); }
+#include "stubs.h"
+#include "ports_gen.inc"
 
 const Port ports[] = {
-    { SYM_CheckPause, "CheckPause", run_CheckPause },
-    { SYM_HintNone, "HintNone", run_HintNone },
+    PORTS_GEN
     { 0, NULL, NULL },
 };
 

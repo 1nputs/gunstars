@@ -30,6 +30,8 @@ typedef struct {
 #define IO_WRITE_FLAG 0x40000000u
 #define IRQ_FLAG 0x20000000u
 #define HINT_HANDLER 0xFFFFEE00u  /* the H-interrupt vector: work RAM (PLAN.md) */
+#define SR_PSEUDO 0xFFFFFEu       /* a status register write, as the shim logs it */
+void hal_replay_sr(uint16_t v);   /* the status register at the record's call */
 
 int cap_load(const char *path, Record **recs, size_t *n);
 void cap_free(Record *recs, size_t n);

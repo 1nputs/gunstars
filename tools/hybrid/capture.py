@@ -2,7 +2,7 @@
 """Record function-level captures from the oracle during scripted play.
 
 usage: capture.py ROM --fn NAME[,NAME...] --out FILE [--state STATE] [--frames N] [--script S]
-                  [--max N] [--stride N] [--coverage FILE] [--from N] [--poke P] [--hold H]
+                  [--max N] [--stride N] [--spread | --novel] [--coverage FILE] [--from N] [--poke P] [--hold H]
 """
 import argparse, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
@@ -28,6 +28,7 @@ def main():
     ap.add_argument('--hold', default='', help='RAM words written before every frame: "ADDR=VAL,..." (hex)')
     ap.add_argument('--max-log', type=int, default=128, help='MB of call log per record; a longer capture is dropped (memory)')
     ap.add_argument('--spread', action='store_true', help='capture call numbers 1,2,3,4,6,8,12,16,... of each routine instead of the first N')
+    ap.add_argument('--novel', action='store_true', help='capture every call, keep those that run an instruction or a branch direction no kept record of the routine ran')
     ap.add_argument('--from', dest='from_frame', type=int, default=0, help='capture from this frame on')
     a = ap.parse_args()
 
@@ -49,6 +50,7 @@ def main():
     if a.coverage:
         o.coverage(True)
     o.capture_spread(a.spread)
+    o.lib.oracle_capture_novel(1 if a.novel else 0)
     o.lib.oracle_capture_log_limit(a.max_log)
     o.capture_open(a.out, a.max, a.stride)
     script = Player(a.script)

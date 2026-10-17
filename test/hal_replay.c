@@ -24,9 +24,14 @@ uint16_t io_read16(uint32_t addr) { return (uint16_t)replay_io_read(addr, 2); }
 uint32_t io_read32(uint32_t addr) { return replay_io_read(addr, 4); }
 void tmss_write(uint32_t v) { (void)v; }                 /* (the shim does not log $A14000) */
 
+/* The status register: as the record's call had it, then as the C sets it. Each write is
+ * checked against the 68k's (the shim logs them as writes to SR_PSEUDO): an interrupt the C
+ * code does not wait for is applied at the first write after it, so interrupts land between
+ * the same masked sections as on the 68k. */
 static uint16_t sr = 0x2700;
+void hal_replay_sr(uint16_t v) { sr = v; }
 uint16_t cpu_get_sr(void) { return sr; }
-void cpu_set_sr(uint16_t v) { sr = v; }                  /* (the records place the interrupts) */
+void cpu_set_sr(uint16_t v) { sr = v; replay_io_write(SR_PSEUDO, 2, v); }
 
 /* a wait for the vertical blank: the one the 68k took in its wait loop, replayed */
 void hal_wait_vblank(void)

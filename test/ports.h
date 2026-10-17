@@ -8,3 +8,6 @@ extern const Port ports[];
 extern const uint32_t inner_labels[];
 void expect_reg16(const Record *r, int reg, uint32_t got, const char *what);
 void expect_reg32(const Record *r, int reg, uint32_t got, const char *what);
+/* a register result under mask; a flag result (the C returns whether it is set) */
+void expect_reg(const Record *r, int reg, uint32_t got, uint32_t mask, const char *what);
+void expect_flag(const Record *r, int got, int want, const char *what);

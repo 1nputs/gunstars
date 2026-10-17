@@ -112,3 +112,17 @@ static inline uint8_t sbcd(uint8_t d, uint8_t s, uint8_t *ccr)
     *ccr = (uint8_t)((*ccr & ZF & ((r & 0xFF) ? 0 : ZF)) | (c ? CF | XF : 0) | (r & 0x80 ? NF : 0));
     return (uint8_t)r;
 }
+
+/* roxl / roxr by n through X: C and X the last bit out, N and Z of the result, V clear */
+static inline uint32_t rox_n(uint32_t v, int n, int bits, int left, uint8_t *ccr)
+{
+    uint32_t x = (*ccr & XF) != 0;
+    v &= mask(bits);
+    for (int i = 0; i < n; i++) {
+        uint32_t out = left ? (v >> (bits - 1)) & 1 : v & 1;
+        v = left ? ((v << 1) | x) & mask(bits) : (v >> 1) | (x << (bits - 1));
+        x = out;
+    }
+    *ccr = (uint8_t)((n ? (x ? CF | XF : 0) : (*ccr & XF) | (x ? CF : 0)) | ccr_nz(v, bits));
+    return v;
+}

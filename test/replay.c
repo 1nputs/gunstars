@@ -1,7 +1,9 @@
 /* Capture records and their replay (replay.h). From ninety-four's test/replay.c, with this game's
  * interrupts: H-interrupts come many times a frame, inside most captured calls, so each one's RAM
- * changes are applied as the C code passes the point in the record where it came; a vertical
- * blank is replayed where the C waits for one. */
+ * changes are applied as the C code passes the point in the record where it came. A vertical
+ * blank the 68k took in one of its wait loops is replayed where the C waits for one; one that
+ * came anywhere else (the job loop runs on the main thread, and the vertical blank interrupts it)
+ * is applied like an H-interrupt, at the C code's next access the record has after it. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -84,6 +86,10 @@ void cap_free(Record *recs, size_t n)
 }
 
 static int is_hint(const Call *c) { return (c->pc & IRQ_FLAG) && (c->pc & ~IRQ_FLAG) == (HINT_HANDLER & 0x1FFFFFFFu); }
+static int in_wait_loop(uint32_t pc);
+static uint32_t irq_return(const Call *c) { return ((uint32_t)c->stack[2] << 24 | c->stack[3] << 16 | c->stack[4] << 8 | c->stack[5]) & 0xFFFFFF; }
+/* an interrupt the C code does not wait for: an H-interrupt, or a vertical blank outside a wait */
+static int is_async(const Call *c) { return (c->pc & IRQ_FLAG) && (is_hint(c) || !in_wait_loop(irq_return(c))); }
 
 /* consume block i and everything nested under it */
 static uint32_t take(uint32_t i)
@@ -100,7 +106,7 @@ static void hints_before(uint32_t i)
 {
     for (uint32_t k = cursor; k < i; k++) {
         Call *c = &cur->calls[k];
-        if (!c->consumed && is_hint(c)) { replay_apply(c); take(k); }
+        if (!c->consumed && is_async(c)) { replay_apply(c); take(k); }
     }
 }
 
@@ -121,6 +127,7 @@ const Call *replay_next(uint32_t pc)
         Call *c = &cur->calls[i];
         if (c->consumed || c->pc != pc) continue;
         hints_before(i);
+        if (c->consumed) continue;                 /* it was the interrupt's own */
         cursor = take(i);
         return c;
     }
@@ -133,6 +140,7 @@ uint32_t replay_io_read(uint32_t addr, int width)
         Call *c = &cur->calls[i];
         if (c->consumed || c->pc != (addr | IO_READ_FLAG)) continue;
         hints_before(i);
+        if (c->consumed) continue;
         c->consumed = 1; cursor = i + 1;
         if ((int)c->regs_in[1] != width) replay_fail("io read %06x: width %d, recorded %d", addr, width, c->regs_in[1]);
         return c->regs_in[0];
@@ -145,8 +153,9 @@ int replay_irq(void)
 {
     for (uint32_t i = cursor; i < cur->n_calls; i++) {
         Call *c = &cur->calls[i];
-        if (c->consumed || !(c->pc & IRQ_FLAG) || is_hint(c)) continue;
+        if (c->consumed || !(c->pc & IRQ_FLAG) || is_async(c)) continue;
         hints_before(i);
+        if (c->consumed) continue;
         cursor = take(i);
         replay_apply(c);
         return 1;
@@ -178,22 +187,18 @@ int record_irqs_clean(const Record *r)
 {
     if (r->flags & 2) return 0;                    /* left by unwinding */
     if ((r->flags & 1) && !(r->flags & 4)) return 0;
-    for (uint32_t i = 0; i < r->n_calls; i++) {
-        const Call *c = &r->calls[i];
-        if (!(c->pc & IRQ_FLAG) || is_hint(c)) continue;
-        uint32_t at = (uint32_t)c->stack[2] << 24 | c->stack[3] << 16 | c->stack[4] << 8 | c->stack[5];
-        if (!in_wait_loop(at & 0xFFFFFF)) return 0;
-    }
     return 1;
 }
 
 void replay_io_write(uint32_t addr, int width, uint32_t value)
 {
     uint32_t mask = width == 4 ? 0xFFFFFFFFu : width == 2 ? 0xFFFFu : 0xFFu;
+    if (addr == SR_PSEUDO) mask = 0xFF00;          /* the interrupt mask: the C keeps no flags */
     for (uint32_t i = cursor; i < cur->n_calls; i++) {
         Call *c = &cur->calls[i];
         if (c->consumed || !(c->pc & IO_WRITE_FLAG)) continue;
         hints_before(i);
+        if (c->consumed) continue;
         c->consumed = 1; cursor = i + 1;
         if ((c->pc & 0xFFFFFF) != addr || (int)c->regs_in[1] != width || (c->regs_in[0] & mask) != (value & mask))
             replay_fail("hardware write %06x.%d = %0*x, recorded %06x.%d = %0*x", addr, width, 2 * width, value & mask,
