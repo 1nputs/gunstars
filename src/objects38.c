@@ -1,6 +1,7 @@
-/* Objects of the stages (the types from $38464 to $3F774): the figures next to type $BC, the
- * timers' digits, the shaking ceiling's machine, Black's dice palace (type $280), the debris
- * and pieces of the bosses, the seven-form boss (type $284), and the small types after it. */
+/* Objects of the stages from $38000 to $40FFF: the timers' digits ($31C, $458, $330), the furnace
+ * ($254) and its splinters, the beacon and weight, the clawing boss ($2A8), the embers and
+ * afterimages, and the shared puffs and sparks. (Type $280, the stomper, and the types near
+ * $3CB36 are objects26.c's; type $284, the battleship's deck fight, objects3d.c's.) */
 #include "game.h"
 
 /* ---- shared helpers ---- */
