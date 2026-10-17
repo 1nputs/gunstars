@@ -130,7 +130,9 @@
 #define SYM_sub_0369E 0x00369Eu
 #define SYM_AdjustPalettes 0x0036A4u
 #define SYM_AdjustColour 0x003774u
+#define SYM_sub_037F6 0x0037F6u
 #define SYM_AdjustLine 0x003820u
+#define SYM_sub_03834 0x003834u
 #define SYM_StageStart 0x003900u
 #define SYM_StageFrame 0x00391Cu
 #define SYM_sub_03942 0x003942u
@@ -361,6 +363,7 @@
 #define SYM_sub_074B6 0x0074B6u
 #define SYM_sub_0751E 0x00751Eu
 #define SYM_sub_07558 0x007558u
+#define SYM_sub_07656 0x007656u
 #define SYM_sub_0769A 0x00769Au
 #define SYM_sub_076CC 0x0076CCu
 #define SYM_sub_076E8 0x0076E8u
@@ -1028,7 +1031,10 @@
 #define SYM_EffectsUpdate 0x018BE6u
 #define SYM_sub_18C58 0x018C58u
 #define SYM_sub_18D1E 0x018D1Eu
+#define SYM_sub_18DB4 0x018DB4u
 #define SYM_sub_18EAC 0x018EACu
+#define SYM_sub_18F5A 0x018F5Au
+#define SYM_sub_19030 0x019030u
 #define SYM_sub_190AE 0x0190AEu
 #define SYM_sub_190E4 0x0190E4u
 #define SYM_sub_19142 0x019142u
@@ -1047,15 +1053,24 @@
 #define SYM_sub_19440 0x019440u
 #define SYM_sub_19472 0x019472u
 #define SYM_sub_194A4 0x0194A4u
+#define SYM_sub_19516 0x019516u
 #define SYM_sub_195B0 0x0195B0u
 #define SYM_sub_19616 0x019616u
 #define SYM_sub_196F4 0x0196F4u
 #define SYM_sub_19772 0x019772u
 #define SYM_sub_197CE 0x0197CEu
+#define SYM_sub_19852 0x019852u
 #define SYM_sub_1997C 0x01997Cu
 #define SYM_sub_19ACA 0x019ACAu
 #define SYM_sub_19AEC 0x019AECu
 #define SYM_sub_19B08 0x019B08u
+#define SYM_sub_19B3E 0x019B3Eu
+#define SYM_sub_19C1C 0x019C1Cu
+#define SYM_sub_19C60 0x019C60u
+#define SYM_sub_19CCE 0x019CCEu
+#define SYM_sub_19D0A 0x019D0Au
+#define SYM_sub_19D24 0x019D24u
+#define SYM_sub_19D58 0x019D58u
 #define SYM_sub_19D88 0x019D88u
 #define SYM_sub_19DA6 0x019DA6u
 #define SYM_sub_19DC0 0x019DC0u
@@ -1064,12 +1079,16 @@
 #define SYM_sub_19E56 0x019E56u
 #define SYM_sub_19E96 0x019E96u
 #define SYM_sub_19EAA 0x019EAAu
+#define SYM_sub_19EBE 0x019EBEu
 #define SYM_sub_19ED2 0x019ED2u
 #define SYM_sub_19EE6 0x019EE6u
 #define SYM_sub_19EFA 0x019EFAu
 #define SYM_sub_19F0E 0x019F0Eu
+#define SYM_sub_19F8C 0x019F8Cu
 #define SYM_sub_1A00A 0x01A00Au
+#define SYM_sub_1A054 0x01A054u
 #define SYM_sub_1A0E2 0x01A0E2u
+#define SYM_sub_1A132 0x01A132u
 #define SYM_sub_1A15E 0x01A15Eu
 #define SYM_sub_1A1EA 0x01A1EAu
 #define SYM_ObjectFindEffect 0x01A21Cu
@@ -1341,8 +1360,10 @@
 #define SYM_LogoCopyLH 0x02056Cu
 #define SYM_LogoStepParams 0x0205A4u
 #define SYM_LogoBrighten 0x020646u
+#define SYM_sub_20686 0x020686u
 #define SYM_sub_206D4 0x0206D4u
 #define SYM_sub_2070A 0x02070Au
+#define SYM_sub_207D4 0x0207D4u
 #define SYM_sub_208C6 0x0208C6u
 #define SYM_sub_208D6 0x0208D6u
 #define SYM_sub_208E8 0x0208E8u
@@ -1497,6 +1518,36 @@
 #define SYM_sub_22446 0x022446u
 #define SYM_sub_2247C 0x02247Cu
 #define SYM_sub_2249A 0x02249Au
+#define SYM_sub_2250E 0x02250Eu
+#define SYM_sub_2252C 0x02252Cu
+#define SYM_sub_22542 0x022542u
+#define SYM_sub_22580 0x022580u
+#define SYM_sub_225A6 0x0225A6u
+#define SYM_sub_225C6 0x0225C6u
+#define SYM_sub_225F0 0x0225F0u
+#define SYM_sub_2260C 0x02260Cu
+#define SYM_sub_22642 0x022642u
+#define SYM_sub_2267C 0x02267Cu
+#define SYM_sub_22696 0x022696u
+#define SYM_sub_226B0 0x0226B0u
+#define SYM_sub_226CA 0x0226CAu
+#define SYM_sub_226E4 0x0226E4u
+#define SYM_sub_226FE 0x0226FEu
+#define SYM_sub_2274C 0x02274Cu
+#define SYM_sub_22778 0x022778u
+#define SYM_sub_22796 0x022796u
+#define SYM_sub_227B0 0x0227B0u
+#define SYM_sub_227FE 0x0227FEu
+#define SYM_sub_22818 0x022818u
+#define SYM_sub_22850 0x022850u
+#define SYM_sub_22888 0x022888u
+#define SYM_sub_228C0 0x0228C0u
+#define SYM_sub_228D2 0x0228D2u
+#define SYM_sub_2292C 0x02292Cu
+#define SYM_sub_22956 0x022956u
+#define SYM_sub_22972 0x022972u
+#define SYM_sub_229A8 0x0229A8u
+#define SYM_sub_229DE 0x0229DEu
 #define SYM_sub_22A6E 0x022A6Eu
 #define SYM_sub_22A90 0x022A90u
 #define SYM_sub_22AD2 0x022AD2u
@@ -1506,6 +1557,31 @@
 #define SYM_sub_22B50 0x022B50u
 #define SYM_sub_22B68 0x022B68u
 #define SYM_sub_22B78 0x022B78u
+#define SYM_sub_22BB2 0x022BB2u
+#define SYM_sub_22BDC 0x022BDCu
+#define SYM_sub_22BF4 0x022BF4u
+#define SYM_sub_22C20 0x022C20u
+#define SYM_sub_22C3A 0x022C3Au
+#define SYM_sub_22C54 0x022C54u
+#define SYM_sub_22CA6 0x022CA6u
+#define SYM_sub_22CD6 0x022CD6u
+#define SYM_sub_22CEE 0x022CEEu
+#define SYM_sub_22D1A 0x022D1Au
+#define SYM_sub_22D34 0x022D34u
+#define SYM_sub_22D4E 0x022D4Eu
+#define SYM_sub_22DA0 0x022DA0u
+#define SYM_sub_22DD0 0x022DD0u
+#define SYM_sub_22DE8 0x022DE8u
+#define SYM_sub_22E14 0x022E14u
+#define SYM_sub_22E2E 0x022E2Eu
+#define SYM_sub_22E48 0x022E48u
+#define SYM_sub_22E9A 0x022E9Au
+#define SYM_sub_22ECA 0x022ECAu
+#define SYM_sub_22EE2 0x022EE2u
+#define SYM_sub_22F0E 0x022F0Eu
+#define SYM_sub_22F28 0x022F28u
+#define SYM_sub_22F42 0x022F42u
+#define SYM_sub_22F8E 0x022F8Eu
 #define SYM_sub_22FCE 0x022FCEu
 #define SYM_sub_22FFC 0x022FFCu
 #define SYM_sub_2300A 0x02300Au
@@ -1541,12 +1617,253 @@
 #define SYM_sub_237E4 0x0237E4u
 #define SYM_sub_237FA 0x0237FAu
 #define SYM_sub_23A86 0x023A86u
+#define SYM_sub_23ABE 0x023ABEu
+#define SYM_sub_23B8A 0x023B8Au
+#define SYM_sub_23BBA 0x023BBAu
+#define SYM_sub_23C42 0x023C42u
+#define SYM_sub_23CAE 0x023CAEu
+#define SYM_sub_23CEE 0x023CEEu
+#define SYM_sub_23D2C 0x023D2Cu
+#define SYM_sub_23DE8 0x023DE8u
+#define SYM_sub_23EA0 0x023EA0u
+#define SYM_sub_23F16 0x023F16u
+#define SYM_sub_23F7C 0x023F7Cu
+#define SYM_sub_23FB6 0x023FB6u
+#define SYM_sub_24080 0x024080u
+#define SYM_sub_2408C 0x02408Cu
+#define SYM_sub_24126 0x024126u
+#define SYM_sub_24132 0x024132u
+#define SYM_sub_2422A 0x02422Au
+#define SYM_sub_24262 0x024262u
+#define SYM_sub_2429C 0x02429Cu
+#define SYM_sub_242FA 0x0242FAu
+#define SYM_sub_243B4 0x0243B4u
+#define SYM_sub_2440A 0x02440Au
+#define SYM_sub_2445A 0x02445Au
+#define SYM_sub_24492 0x024492u
+#define SYM_sub_2450C 0x02450Cu
+#define SYM_sub_24540 0x024540u
+#define SYM_sub_24588 0x024588u
+#define SYM_sub_245AC 0x0245ACu
+#define SYM_sub_24684 0x024684u
+#define SYM_sub_246C6 0x0246C6u
+#define SYM_sub_24732 0x024732u
+#define SYM_sub_247CE 0x0247CEu
+#define SYM_sub_247EE 0x0247EEu
+#define SYM_sub_247F2 0x0247F2u
+#define SYM_sub_24856 0x024856u
+#define SYM_sub_248D2 0x0248D2u
+#define SYM_sub_2493E 0x02493Eu
+#define SYM_sub_24972 0x024972u
+#define SYM_sub_2499C 0x02499Cu
+#define SYM_sub_24A58 0x024A58u
+#define SYM_sub_24A94 0x024A94u
+#define SYM_sub_24B10 0x024B10u
+#define SYM_sub_24B40 0x024B40u
+#define SYM_sub_24B4C 0x024B4Cu
+#define SYM_sub_24C1C 0x024C1Cu
+#define SYM_sub_24CA2 0x024CA2u
+#define SYM_sub_24CDC 0x024CDCu
+#define SYM_sub_24D4E 0x024D4Eu
+#define SYM_sub_24D68 0x024D68u
+#define SYM_sub_24DA6 0x024DA6u
+#define SYM_sub_24DCC 0x024DCCu
+#define SYM_sub_24E02 0x024E02u
+#define SYM_sub_24E1C 0x024E1Cu
+#define SYM_sub_24E48 0x024E48u
+#define SYM_sub_24E76 0x024E76u
+#define SYM_sub_24EAC 0x024EACu
+#define SYM_sub_24ECC 0x024ECCu
+#define SYM_sub_24EE4 0x024EE4u
+#define SYM_sub_24F36 0x024F36u
+#define SYM_sub_24FD0 0x024FD0u
+#define SYM_sub_25002 0x025002u
+#define SYM_sub_25030 0x025030u
+#define SYM_sub_25080 0x025080u
+#define SYM_sub_250EA 0x0250EAu
+#define SYM_sub_2517C 0x02517Cu
+#define SYM_sub_251A2 0x0251A2u
+#define SYM_sub_25256 0x025256u
+#define SYM_sub_252F8 0x0252F8u
+#define SYM_sub_25320 0x025320u
+#define SYM_sub_25366 0x025366u
+#define SYM_sub_2538E 0x02538Eu
+#define SYM_sub_253B6 0x0253B6u
+#define SYM_sub_253D8 0x0253D8u
+#define SYM_sub_2540C 0x02540Cu
+#define SYM_sub_2548C 0x02548Cu
+#define SYM_sub_254B0 0x0254B0u
+#define SYM_sub_254F8 0x0254F8u
+#define SYM_sub_2551C 0x02551Cu
+#define SYM_sub_25530 0x025530u
+#define SYM_sub_25560 0x025560u
+#define SYM_sub_2558E 0x02558Eu
+#define SYM_sub_255B6 0x0255B6u
+#define SYM_sub_255E4 0x0255E4u
+#define SYM_sub_255FE 0x0255FEu
+#define SYM_sub_25618 0x025618u
+#define SYM_sub_25634 0x025634u
+#define SYM_sub_2566C 0x02566Cu
+#define SYM_sub_25702 0x025702u
+#define SYM_sub_25798 0x025798u
+#define SYM_sub_257DC 0x0257DCu
+#define SYM_sub_257F8 0x0257F8u
+#define SYM_sub_25832 0x025832u
+#define SYM_sub_258FE 0x0258FEu
+#define SYM_sub_2593A 0x02593Au
+#define SYM_sub_25964 0x025964u
+#define SYM_sub_2598E 0x02598Eu
+#define SYM_sub_259B8 0x0259B8u
+#define SYM_sub_259E2 0x0259E2u
+#define SYM_sub_25A1E 0x025A1Eu
+#define SYM_sub_25A70 0x025A70u
+#define SYM_sub_25A9E 0x025A9Eu
+#define SYM_sub_25ADC 0x025ADCu
+#define SYM_sub_25B44 0x025B44u
+#define SYM_sub_25B5A 0x025B5Au
+#define SYM_sub_25B68 0x025B68u
+#define SYM_sub_25BAC 0x025BACu
+#define SYM_sub_25C48 0x025C48u
+#define SYM_sub_25C96 0x025C96u
+#define SYM_sub_25D0A 0x025D0Au
+#define SYM_sub_25D4C 0x025D4Cu
+#define SYM_sub_25D58 0x025D58u
+#define SYM_sub_25E5C 0x025E5Cu
+#define SYM_sub_25EC4 0x025EC4u
+#define SYM_sub_25F88 0x025F88u
+#define SYM_sub_25FDA 0x025FDAu
+#define SYM_sub_25FF6 0x025FF6u
+#define SYM_sub_26038 0x026038u
+#define SYM_sub_2603C 0x02603Cu
+#define SYM_sub_26050 0x026050u
+#define SYM_sub_26066 0x026066u
+#define SYM_sub_260FC 0x0260FCu
+#define SYM_sub_26126 0x026126u
+#define SYM_sub_261C6 0x0261C6u
+#define SYM_sub_261FE 0x0261FEu
+#define SYM_sub_26246 0x026246u
+#define SYM_sub_2629A 0x02629Au
+#define SYM_sub_262CC 0x0262CCu
+#define SYM_sub_26390 0x026390u
+#define SYM_sub_264C8 0x0264C8u
+#define SYM_sub_264DE 0x0264DEu
+#define SYM_sub_264E6 0x0264E6u
+#define SYM_sub_266C0 0x0266C0u
+#define SYM_sub_26726 0x026726u
+#define SYM_sub_267A2 0x0267A2u
+#define SYM_sub_267E4 0x0267E4u
+#define SYM_sub_26818 0x026818u
+#define SYM_sub_26848 0x026848u
+#define SYM_sub_268A4 0x0268A4u
+#define SYM_sub_2693A 0x02693Au
+#define SYM_sub_26972 0x026972u
+#define SYM_sub_269DE 0x0269DEu
+#define SYM_sub_26AE0 0x026AE0u
+#define SYM_sub_26B32 0x026B32u
+#define SYM_sub_26BFA 0x026BFAu
+#define SYM_sub_26CC8 0x026CC8u
+#define SYM_sub_26D24 0x026D24u
+#define SYM_sub_26D68 0x026D68u
+#define SYM_sub_26DA2 0x026DA2u
+#define SYM_sub_26E16 0x026E16u
+#define SYM_sub_26E26 0x026E26u
+#define SYM_sub_26E76 0x026E76u
+#define SYM_sub_26EBE 0x026EBEu
+#define SYM_sub_26EE4 0x026EE4u
+#define SYM_sub_26F22 0x026F22u
+#define SYM_sub_26F6A 0x026F6Au
+#define SYM_sub_27002 0x027002u
+#define SYM_sub_2704E 0x02704Eu
+#define SYM_sub_2708A 0x02708Au
+#define SYM_sub_270A2 0x0270A2u
+#define SYM_sub_270EC 0x0270ECu
+#define SYM_sub_270FA 0x0270FAu
 #define SYM_sub_27144 0x027144u
+#define SYM_sub_271FE 0x0271FEu
+#define SYM_sub_272D6 0x0272D6u
+#define SYM_sub_272DC 0x0272DCu
 #define SYM_sub_272E0 0x0272E0u
+#define SYM_sub_273CA 0x0273CAu
+#define SYM_sub_273CE 0x0273CEu
+#define SYM_sub_273D4 0x0273D4u
+#define SYM_sub_27434 0x027434u
+#define SYM_sub_2744E 0x02744Eu
+#define SYM_sub_27638 0x027638u
+#define SYM_sub_2764C 0x02764Cu
+#define SYM_sub_2766C 0x02766Cu
+#define SYM_sub_2768A 0x02768Au
+#define SYM_sub_276A6 0x0276A6u
+#define SYM_sub_276C6 0x0276C6u
+#define SYM_sub_276E4 0x0276E4u
+#define SYM_sub_27700 0x027700u
+#define SYM_sub_2772E 0x02772Eu
+#define SYM_sub_27744 0x027744u
+#define SYM_sub_27754 0x027754u
+#define SYM_sub_2776E 0x02776Eu
 #define SYM_sub_277BE 0x0277BEu
 #define SYM_sub_277E8 0x0277E8u
+#define SYM_sub_27848 0x027848u
+#define SYM_sub_28016 0x028016u
+#define SYM_sub_28076 0x028076u
+#define SYM_sub_281E6 0x0281E6u
+#define SYM_sub_28262 0x028262u
+#define SYM_sub_282DA 0x0282DAu
+#define SYM_sub_28318 0x028318u
+#define SYM_sub_283CC 0x0283CCu
+#define SYM_sub_28504 0x028504u
+#define SYM_sub_28642 0x028642u
+#define SYM_sub_28664 0x028664u
+#define SYM_sub_2873E 0x02873Eu
+#define SYM_sub_28768 0x028768u
+#define SYM_sub_287B2 0x0287B2u
+#define SYM_sub_287D0 0x0287D0u
+#define SYM_sub_287F2 0x0287F2u
+#define SYM_sub_28838 0x028838u
+#define SYM_sub_28866 0x028866u
+#define SYM_sub_28904 0x028904u
+#define SYM_sub_289EA 0x0289EAu
+#define SYM_sub_28A1C 0x028A1Cu
+#define SYM_sub_28AB0 0x028AB0u
+#define SYM_sub_28AB6 0x028AB6u
+#define SYM_sub_28B0A 0x028B0Au
+#define SYM_sub_28B24 0x028B24u
+#define SYM_sub_28B4C 0x028B4Cu
+#define SYM_sub_28BE6 0x028BE6u
+#define SYM_sub_28BEE 0x028BEEu
+#define SYM_sub_28D2A 0x028D2Au
+#define SYM_sub_28D8C 0x028D8Cu
+#define SYM_sub_28DA6 0x028DA6u
+#define SYM_sub_28DE0 0x028DE0u
+#define SYM_sub_28E30 0x028E30u
+#define SYM_sub_28E5E 0x028E5Eu
+#define SYM_sub_28E74 0x028E74u
+#define SYM_sub_28ED4 0x028ED4u
+#define SYM_sub_28EEE 0x028EEEu
+#define SYM_sub_28F44 0x028F44u
+#define SYM_sub_28F76 0x028F76u
+#define SYM_sub_28FB0 0x028FB0u
+#define SYM_sub_28FCC 0x028FCCu
+#define SYM_sub_29038 0x029038u
+#define SYM_sub_2904E 0x02904Eu
+#define SYM_sub_2907A 0x02907Au
+#define SYM_sub_290D0 0x0290D0u
+#define SYM_sub_290EE 0x0290EEu
+#define SYM_sub_29108 0x029108u
+#define SYM_sub_2913A 0x02913Au
+#define SYM_sub_29172 0x029172u
+#define SYM_sub_291C6 0x0291C6u
+#define SYM_sub_291F2 0x0291F2u
+#define SYM_sub_29288 0x029288u
+#define SYM_sub_2929E 0x02929Eu
+#define SYM_sub_292C2 0x0292C2u
+#define SYM_sub_2935E 0x02935Eu
+#define SYM_sub_29380 0x029380u
+#define SYM_sub_293CC 0x0293CCu
+#define SYM_sub_29422 0x029422u
+#define SYM_sub_29466 0x029466u
 #define SYM_sub_295D0 0x0295D0u
 #define SYM_sub_29636 0x029636u
+#define SYM_sub_296DA 0x0296DAu
 #define SYM_sub_296F6 0x0296F6u
 #define SYM_sub_29A40 0x029A40u
 #define SYM_sub_29A42 0x029A42u
@@ -1579,9 +1896,14 @@
 #define SYM_sub_2A1C8 0x02A1C8u
 #define SYM_sub_2A1DA 0x02A1DAu
 #define SYM_sub_2A22E 0x02A22Eu
+#define SYM_sub_2A234 0x02A234u
+#define SYM_sub_2A240 0x02A240u
 #define SYM_sub_2A252 0x02A252u
 #define SYM_sub_2A262 0x02A262u
+#define SYM_sub_2A27A 0x02A27Au
+#define SYM_sub_2A292 0x02A292u
 #define SYM_sub_2A2AA 0x02A2AAu
+#define SYM_sub_2A2C2 0x02A2C2u
 #define SYM_sub_2A3C4 0x02A3C4u
 #define SYM_sub_2A436 0x02A436u
 #define SYM_sub_2A48C 0x02A48Cu
@@ -1593,7 +1915,10 @@
 #define SYM_sub_2A5EC 0x02A5ECu
 #define SYM_sub_2A642 0x02A642u
 #define SYM_sub_2A652 0x02A652u
+#define SYM_sub_2A68A 0x02A68Au
 #define SYM_sub_2A6A8 0x02A6A8u
+#define SYM_sub_2A6CA 0x02A6CAu
+#define SYM_sub_2A79E 0x02A79Eu
 #define SYM_sub_2A822 0x02A822u
 #define SYM_sub_2A84E 0x02A84Eu
 #define SYM_sub_2A906 0x02A906u
@@ -1781,6 +2106,7 @@
 #define SYM_sub_2F588 0x02F588u
 #define SYM_sub_2F596 0x02F596u
 #define SYM_sub_2F5B8 0x02F5B8u
+#define SYM_sub_2F804 0x02F804u
 #define SYM_sub_2F80C 0x02F80Cu
 #define SYM_sub_2FB18 0x02FB18u
 #define SYM_sub_2FB5A 0x02FB5Au
@@ -1861,7 +2187,11 @@
 #define SYM_sub_31216 0x031216u
 #define SYM_sub_31222 0x031222u
 #define SYM_sub_3127C 0x03127Cu
+#define SYM_sub_31292 0x031292u
 #define SYM_sub_312BC 0x0312BCu
+#define SYM_sub_31356 0x031356u
+#define SYM_sub_31406 0x031406u
+#define SYM_sub_31422 0x031422u
 #define SYM_sub_3146E 0x03146Eu
 #define SYM_sub_31488 0x031488u
 #define SYM_sub_31588 0x031588u
@@ -1880,6 +2210,29 @@
 #define SYM_sub_3183A 0x03183Au
 #define SYM_sub_3184C 0x03184Cu
 #define SYM_sub_31924 0x031924u
+#define SYM_sub_31948 0x031948u
+#define SYM_sub_3195E 0x03195Eu
+#define SYM_sub_3197E 0x03197Eu
+#define SYM_sub_31994 0x031994u
+#define SYM_sub_319C8 0x0319C8u
+#define SYM_sub_31A26 0x031A26u
+#define SYM_sub_31A28 0x031A28u
+#define SYM_sub_31A9E 0x031A9Eu
+#define SYM_sub_31AEE 0x031AEEu
+#define SYM_sub_31B0E 0x031B0Eu
+#define SYM_sub_31B30 0x031B30u
+#define SYM_sub_31B5E 0x031B5Eu
+#define SYM_sub_31B96 0x031B96u
+#define SYM_sub_31BC6 0x031BC6u
+#define SYM_sub_31BFE 0x031BFEu
+#define SYM_sub_31C32 0x031C32u
+#define SYM_sub_31C78 0x031C78u
+#define SYM_sub_31CE2 0x031CE2u
+#define SYM_sub_31DBC 0x031DBCu
+#define SYM_sub_31DF6 0x031DF6u
+#define SYM_sub_31E42 0x031E42u
+#define SYM_sub_31E76 0x031E76u
+#define SYM_sub_31EF4 0x031EF4u
 #define SYM_sub_31F3A 0x031F3Au
 #define SYM_sub_31F5E 0x031F5Eu
 #define SYM_sub_31F72 0x031F72u
@@ -2079,6 +2432,7 @@
 #define SYM_sub_34F76 0x034F76u
 #define SYM_sub_35002 0x035002u
 #define SYM_sub_3503A 0x03503Au
+#define SYM_sub_350CC 0x0350CCu
 #define SYM_sub_3518A 0x03518Au
 #define SYM_sub_351A8 0x0351A8u
 #define SYM_sub_35286 0x035286u
@@ -2087,6 +2441,59 @@
 #define SYM_sub_35522 0x035522u
 #define SYM_sub_35584 0x035584u
 #define SYM_sub_355CC 0x0355CCu
+#define SYM_sub_3566C 0x03566Cu
+#define SYM_sub_3567E 0x03567Eu
+#define SYM_sub_356B0 0x0356B0u
+#define SYM_sub_356B6 0x0356B6u
+#define SYM_sub_356F2 0x0356F2u
+#define SYM_sub_3577E 0x03577Eu
+#define SYM_sub_35792 0x035792u
+#define SYM_sub_357BE 0x0357BEu
+#define SYM_sub_358AE 0x0358AEu
+#define SYM_sub_358D0 0x0358D0u
+#define SYM_sub_358FC 0x0358FCu
+#define SYM_sub_35940 0x035940u
+#define SYM_sub_359CE 0x0359CEu
+#define SYM_sub_35A22 0x035A22u
+#define SYM_sub_35A48 0x035A48u
+#define SYM_sub_35A68 0x035A68u
+#define SYM_sub_35C04 0x035C04u
+#define SYM_sub_35C28 0x035C28u
+#define SYM_sub_35C2A 0x035C2Au
+#define SYM_sub_35C76 0x035C76u
+#define SYM_sub_35C96 0x035C96u
+#define SYM_sub_35D40 0x035D40u
+#define SYM_sub_35DE6 0x035DE6u
+#define SYM_sub_35E3E 0x035E3Eu
+#define SYM_sub_35E6C 0x035E6Cu
+#define SYM_sub_35F0A 0x035F0Au
+#define SYM_sub_35F32 0x035F32u
+#define SYM_sub_35F86 0x035F86u
+#define SYM_sub_35FEA 0x035FEAu
+#define SYM_sub_36000 0x036000u
+#define SYM_sub_36054 0x036054u
+#define SYM_sub_361B4 0x0361B4u
+#define SYM_sub_361DA 0x0361DAu
+#define SYM_sub_361EA 0x0361EAu
+#define SYM_sub_36462 0x036462u
+#define SYM_sub_36488 0x036488u
+#define SYM_sub_364CE 0x0364CEu
+#define SYM_sub_36520 0x036520u
+#define SYM_sub_36556 0x036556u
+#define SYM_sub_3658A 0x03658Au
+#define SYM_sub_365B2 0x0365B2u
+#define SYM_sub_365D6 0x0365D6u
+#define SYM_sub_365DE 0x0365DEu
+#define SYM_sub_365FE 0x0365FEu
+#define SYM_sub_36608 0x036608u
+#define SYM_sub_36650 0x036650u
+#define SYM_sub_367FC 0x0367FCu
+#define SYM_sub_36A80 0x036A80u
+#define SYM_sub_36B06 0x036B06u
+#define SYM_sub_36B12 0x036B12u
+#define SYM_sub_36BC8 0x036BC8u
+#define SYM_sub_36C62 0x036C62u
+#define SYM_sub_36E54 0x036E54u
 #define SYM_sub_36E88 0x036E88u
 #define SYM_sub_36EB0 0x036EB0u
 #define SYM_sub_36EF6 0x036EF6u
@@ -2152,6 +2559,24 @@
 #define SYM_sub_3839A 0x03839Au
 #define SYM_sub_383AA 0x0383AAu
 #define SYM_sub_383C6 0x0383C6u
+#define SYM_sub_38464 0x038464u
+#define SYM_sub_3847E 0x03847Eu
+#define SYM_sub_384A4 0x0384A4u
+#define SYM_sub_384F6 0x0384F6u
+#define SYM_sub_38508 0x038508u
+#define SYM_sub_3857E 0x03857Eu
+#define SYM_sub_385C8 0x0385C8u
+#define SYM_sub_385F6 0x0385F6u
+#define SYM_sub_38634 0x038634u
+#define SYM_sub_38656 0x038656u
+#define SYM_sub_3866E 0x03866Eu
+#define SYM_sub_38696 0x038696u
+#define SYM_sub_386CC 0x0386CCu
+#define SYM_sub_3872A 0x03872Au
+#define SYM_sub_38758 0x038758u
+#define SYM_sub_38794 0x038794u
+#define SYM_sub_38796 0x038796u
+#define SYM_sub_387CC 0x0387CCu
 #define SYM_sub_38882 0x038882u
 #define SYM_sub_38926 0x038926u
 #define SYM_sub_38928 0x038928u
@@ -2178,13 +2603,21 @@
 #define SYM_sub_39052 0x039052u
 #define SYM_sub_3905E 0x03905Eu
 #define SYM_sub_39070 0x039070u
+#define SYM_sub_390EA 0x0390EAu
 #define SYM_sub_3910C 0x03910Cu
+#define SYM_sub_3915A 0x03915Au
+#define SYM_sub_39166 0x039166u
 #define SYM_sub_39278 0x039278u
 #define SYM_sub_39296 0x039296u
 #define SYM_sub_392BC 0x0392BCu
 #define SYM_sub_392CC 0x0392CCu
 #define SYM_sub_392D8 0x0392D8u
 #define SYM_sub_392DC 0x0392DCu
+#define SYM_sub_39376 0x039376u
+#define SYM_sub_39390 0x039390u
+#define SYM_sub_3939A 0x03939Au
+#define SYM_sub_393C0 0x0393C0u
+#define SYM_sub_393EA 0x0393EAu
 #define SYM_sub_3944C 0x03944Cu
 #define SYM_sub_39466 0x039466u
 #define SYM_sub_3947C 0x03947Cu
@@ -2213,7 +2646,171 @@
 #define SYM_sub_3AB3C 0x03AB3Cu
 #define SYM_sub_3AB44 0x03AB44u
 #define SYM_sub_3AB84 0x03AB84u
+#define SYM_sub_3AC62 0x03AC62u
+#define SYM_sub_3AE9A 0x03AE9Au
+#define SYM_sub_3AF02 0x03AF02u
+#define SYM_sub_3AF72 0x03AF72u
+#define SYM_sub_3AF9A 0x03AF9Au
+#define SYM_sub_3AFA8 0x03AFA8u
+#define SYM_sub_3AFE0 0x03AFE0u
+#define SYM_sub_3B0B6 0x03B0B6u
+#define SYM_sub_3B114 0x03B114u
+#define SYM_sub_3B126 0x03B126u
+#define SYM_sub_3B156 0x03B156u
+#define SYM_sub_3B1C8 0x03B1C8u
+#define SYM_sub_3B1DC 0x03B1DCu
+#define SYM_sub_3B200 0x03B200u
+#define SYM_sub_3B210 0x03B210u
+#define SYM_sub_3B294 0x03B294u
+#define SYM_sub_3B2BA 0x03B2BAu
+#define SYM_sub_3B2E6 0x03B2E6u
+#define SYM_sub_3B32E 0x03B32Eu
+#define SYM_sub_3B354 0x03B354u
+#define SYM_sub_3B380 0x03B380u
+#define SYM_sub_3B3C8 0x03B3C8u
+#define SYM_sub_3B3EC 0x03B3ECu
+#define SYM_sub_3B434 0x03B434u
+#define SYM_sub_3B458 0x03B458u
+#define SYM_sub_3B4A0 0x03B4A0u
+#define SYM_sub_3B556 0x03B556u
+#define SYM_sub_3B59C 0x03B59Cu
+#define SYM_sub_3B626 0x03B626u
+#define SYM_sub_3B686 0x03B686u
+#define SYM_sub_3B6BE 0x03B6BEu
+#define SYM_sub_3B6FE 0x03B6FEu
+#define SYM_sub_3B748 0x03B748u
+#define SYM_sub_3B7BE 0x03B7BEu
+#define SYM_sub_3B83E 0x03B83Eu
+#define SYM_sub_3B856 0x03B856u
+#define SYM_sub_3B868 0x03B868u
+#define SYM_sub_3B8A2 0x03B8A2u
+#define SYM_sub_3B906 0x03B906u
+#define SYM_sub_3B934 0x03B934u
+#define SYM_sub_3B9C4 0x03B9C4u
+#define SYM_sub_3BA0C 0x03BA0Cu
+#define SYM_sub_3BA2E 0x03BA2Eu
+#define SYM_sub_3BA74 0x03BA74u
+#define SYM_sub_3BAB0 0x03BAB0u
+#define SYM_sub_3BAB4 0x03BAB4u
+#define SYM_sub_3BAF0 0x03BAF0u
+#define SYM_sub_3BAF4 0x03BAF4u
+#define SYM_sub_3BB2A 0x03BB2Au
+#define SYM_sub_3BB3E 0x03BB3Eu
+#define SYM_sub_3BB46 0x03BB46u
+#define SYM_sub_3BB80 0x03BB80u
+#define SYM_sub_3BB84 0x03BB84u
+#define SYM_sub_3BBBE 0x03BBBEu
+#define SYM_sub_3BBDA 0x03BBDAu
+#define SYM_sub_3BBFA 0x03BBFAu
+#define SYM_sub_3BC02 0x03BC02u
+#define SYM_sub_3BC0A 0x03BC0Au
+#define SYM_sub_3BC46 0x03BC46u
+#define SYM_sub_3BC4A 0x03BC4Au
+#define SYM_sub_3BC86 0x03BC86u
+#define SYM_sub_3BC8A 0x03BC8Au
+#define SYM_sub_3BCC2 0x03BCC2u
+#define SYM_sub_3BCCA 0x03BCCAu
+#define SYM_sub_3BCD2 0x03BCD2u
+#define SYM_sub_3BD0C 0x03BD0Cu
+#define SYM_sub_3BD10 0x03BD10u
+#define SYM_sub_3BD4C 0x03BD4Cu
+#define SYM_sub_3BD68 0x03BD68u
+#define SYM_sub_3BD8A 0x03BD8Au
+#define SYM_sub_3BD92 0x03BD92u
+#define SYM_sub_3BD9A 0x03BD9Au
+#define SYM_sub_3BDD8 0x03BDD8u
+#define SYM_sub_3BDDC 0x03BDDCu
+#define SYM_sub_3BE1A 0x03BE1Au
+#define SYM_sub_3BE1E 0x03BE1Eu
+#define SYM_sub_3BE56 0x03BE56u
+#define SYM_sub_3BE6A 0x03BE6Au
+#define SYM_sub_3BE72 0x03BE72u
+#define SYM_sub_3BEAE 0x03BEAEu
+#define SYM_sub_3BEB2 0x03BEB2u
+#define SYM_sub_3BEEE 0x03BEEEu
+#define SYM_sub_3BF0A 0x03BF0Au
+#define SYM_sub_3BF2C 0x03BF2Cu
+#define SYM_sub_3BF34 0x03BF34u
+#define SYM_sub_3BF3C 0x03BF3Cu
+#define SYM_sub_3BF7A 0x03BF7Au
+#define SYM_sub_3BF7E 0x03BF7Eu
+#define SYM_sub_3BFBC 0x03BFBCu
+#define SYM_sub_3BFC0 0x03BFC0u
+#define SYM_sub_3BFF6 0x03BFF6u
+#define SYM_sub_3BFFE 0x03BFFEu
+#define SYM_sub_3C006 0x03C006u
+#define SYM_sub_3C042 0x03C042u
+#define SYM_sub_3C046 0x03C046u
+#define SYM_sub_3C080 0x03C080u
+#define SYM_sub_3C09C 0x03C09Cu
+#define SYM_sub_3C0BC 0x03C0BCu
+#define SYM_sub_3C0C4 0x03C0C4u
+#define SYM_sub_3C12E 0x03C12Eu
+#define SYM_sub_3C448 0x03C448u
+#define SYM_sub_3C470 0x03C470u
+#define SYM_sub_3C4AC 0x03C4ACu
+#define SYM_sub_3C4D0 0x03C4D0u
+#define SYM_sub_3C500 0x03C500u
+#define SYM_sub_3C558 0x03C558u
+#define SYM_sub_3C5A8 0x03C5A8u
+#define SYM_sub_3C5EA 0x03C5EAu
+#define SYM_sub_3C5F8 0x03C5F8u
+#define SYM_sub_3C62E 0x03C62Eu
+#define SYM_sub_3C644 0x03C644u
+#define SYM_sub_3C69C 0x03C69Cu
+#define SYM_sub_3C6C4 0x03C6C4u
+#define SYM_sub_3C6E6 0x03C6E6u
+#define SYM_sub_3C710 0x03C710u
+#define SYM_sub_3C73A 0x03C73Au
+#define SYM_sub_3C764 0x03C764u
+#define SYM_sub_3C78E 0x03C78Eu
+#define SYM_sub_3C7B8 0x03C7B8u
+#define SYM_sub_3C7E2 0x03C7E2u
+#define SYM_sub_3C80C 0x03C80Cu
+#define SYM_sub_3C8D0 0x03C8D0u
+#define SYM_sub_3C9C0 0x03C9C0u
+#define SYM_sub_3C9F6 0x03C9F6u
+#define SYM_sub_3CA12 0x03CA12u
+#define SYM_sub_3CA2A 0x03CA2Au
+#define SYM_sub_3CA42 0x03CA42u
+#define SYM_sub_3CA5A 0x03CA5Au
+#define SYM_sub_3CA72 0x03CA72u
+#define SYM_sub_3CA92 0x03CA92u
+#define SYM_sub_3CAB2 0x03CAB2u
+#define SYM_sub_3CAD2 0x03CAD2u
+#define SYM_sub_3CB36 0x03CB36u
+#define SYM_sub_3CBA6 0x03CBA6u
+#define SYM_sub_3CC16 0x03CC16u
+#define SYM_sub_3CC44 0x03CC44u
+#define SYM_sub_3CC6A 0x03CC6Au
+#define SYM_sub_3CCA4 0x03CCA4u
+#define SYM_sub_3CCCA 0x03CCCAu
+#define SYM_sub_3CCF8 0x03CCF8u
+#define SYM_sub_3CD1E 0x03CD1Eu
+#define SYM_sub_3CD58 0x03CD58u
+#define SYM_sub_3CDB6 0x03CDB6u
+#define SYM_sub_3CDE2 0x03CDE2u
+#define SYM_sub_3CE46 0x03CE46u
+#define SYM_sub_3CEBE 0x03CEBEu
+#define SYM_sub_3CF30 0x03CF30u
+#define SYM_sub_3CF46 0x03CF46u
+#define SYM_sub_3CF84 0x03CF84u
+#define SYM_sub_3CF92 0x03CF92u
+#define SYM_sub_3D064 0x03D064u
+#define SYM_sub_3D0B0 0x03D0B0u
+#define SYM_sub_3D0C2 0x03D0C2u
+#define SYM_sub_3D17A 0x03D17Au
+#define SYM_sub_3D1FC 0x03D1FCu
+#define SYM_sub_3D2A6 0x03D2A6u
+#define SYM_sub_3D2F6 0x03D2F6u
+#define SYM_sub_3D33A 0x03D33Au
 #define SYM_sub_3D342 0x03D342u
+#define SYM_sub_3D386 0x03D386u
+#define SYM_sub_3D38E 0x03D38Eu
+#define SYM_sub_3D3A6 0x03D3A6u
+#define SYM_sub_3D3AE 0x03D3AEu
+#define SYM_sub_3D3D6 0x03D3D6u
+#define SYM_sub_3D3FA 0x03D3FAu
 #define SYM_sub_3D4B2 0x03D4B2u
 #define SYM_sub_3D50C 0x03D50Cu
 #define SYM_sub_3D55E 0x03D55Eu
@@ -2377,10 +2974,14 @@
 #define SYM_sub_40408 0x040408u
 #define SYM_sub_4043A 0x04043Au
 #define SYM_sub_40470 0x040470u
+#define SYM_sub_4050E 0x04050Eu
+#define SYM_sub_4054A 0x04054Au
+#define SYM_sub_40586 0x040586u
 #define SYM_sub_4059A 0x04059Au
 #define SYM_sub_405D2 0x0405D2u
 #define SYM_sub_4060E 0x04060Eu
 #define SYM_sub_40628 0x040628u
+#define SYM_sub_4062C 0x04062Cu
 #define SYM_sub_4064E 0x04064Eu
 #define SYM_sub_406B4 0x0406B4u
 #define SYM_sub_406EE 0x0406EEu
@@ -2451,6 +3052,7 @@
 #define SYM_sub_41D02 0x041D02u
 #define SYM_sub_41D32 0x041D32u
 #define SYM_sub_41DBC 0x041DBCu
+#define SYM_sub_41E10 0x041E10u
 #define SYM_sub_41E4A 0x041E4Au
 #define SYM_sub_41E90 0x041E90u
 #define SYM_sub_41F04 0x041F04u
@@ -2466,8 +3068,358 @@
 #define SYM_sub_4228E 0x04228Eu
 #define SYM_sub_422AE 0x0422AEu
 #define SYM_sub_422EC 0x0422ECu
+#define SYM_sub_42358 0x042358u
+#define SYM_sub_423EA 0x0423EAu
+#define SYM_sub_424D6 0x0424D6u
+#define SYM_sub_424F2 0x0424F2u
+#define SYM_sub_4250E 0x04250Eu
+#define SYM_sub_42528 0x042528u
+#define SYM_sub_4255C 0x04255Cu
+#define SYM_sub_425DC 0x0425DCu
+#define SYM_sub_4261E 0x04261Eu
+#define SYM_sub_42686 0x042686u
+#define SYM_sub_426C6 0x0426C6u
+#define SYM_sub_42768 0x042768u
+#define SYM_sub_42778 0x042778u
+#define SYM_sub_42792 0x042792u
+#define SYM_sub_427AC 0x0427ACu
+#define SYM_sub_427F4 0x0427F4u
+#define SYM_sub_42832 0x042832u
+#define SYM_sub_428AE 0x0428AEu
+#define SYM_sub_42926 0x042926u
+#define SYM_sub_4295A 0x04295Au
+#define SYM_sub_4299C 0x04299Cu
+#define SYM_sub_429F8 0x0429F8u
+#define SYM_sub_42A5C 0x042A5Cu
+#define SYM_sub_42AD6 0x042AD6u
+#define SYM_sub_42B2A 0x042B2Au
+#define SYM_sub_42B40 0x042B40u
+#define SYM_sub_42B50 0x042B50u
+#define SYM_sub_42B80 0x042B80u
+#define SYM_sub_42BB0 0x042BB0u
+#define SYM_sub_42BEC 0x042BECu
+#define SYM_sub_42BFA 0x042BFAu
+#define SYM_sub_42C98 0x042C98u
+#define SYM_sub_42D02 0x042D02u
+#define SYM_sub_42D0E 0x042D0Eu
+#define SYM_sub_42D66 0x042D66u
+#define SYM_sub_42DA6 0x042DA6u
+#define SYM_sub_42E28 0x042E28u
+#define SYM_sub_42EFA 0x042EFAu
+#define SYM_sub_42F40 0x042F40u
+#define SYM_sub_42F66 0x042F66u
+#define SYM_sub_430CC 0x0430CCu
+#define SYM_sub_43104 0x043104u
+#define SYM_sub_4311E 0x04311Eu
+#define SYM_sub_43146 0x043146u
+#define SYM_sub_4318E 0x04318Eu
+#define SYM_sub_431D8 0x0431D8u
+#define SYM_sub_431E2 0x0431E2u
+#define SYM_sub_43206 0x043206u
+#define SYM_sub_4324A 0x04324Au
+#define SYM_sub_43258 0x043258u
+#define SYM_sub_43264 0x043264u
+#define SYM_sub_432AA 0x0432AAu
+#define SYM_sub_432B6 0x0432B6u
+#define SYM_sub_43322 0x043322u
+#define SYM_sub_43390 0x043390u
+#define SYM_sub_433B0 0x0433B0u
+#define SYM_sub_43402 0x043402u
+#define SYM_sub_4345C 0x04345Cu
+#define SYM_sub_4347A 0x04347Au
+#define SYM_sub_434A4 0x0434A4u
+#define SYM_sub_434FA 0x0434FAu
+#define SYM_sub_43524 0x043524u
+#define SYM_sub_4357A 0x04357Au
+#define SYM_sub_435F2 0x0435F2u
+#define SYM_sub_43634 0x043634u
+#define SYM_sub_4364E 0x04364Eu
+#define SYM_sub_43676 0x043676u
+#define SYM_sub_4367E 0x04367Eu
+#define SYM_sub_436F6 0x0436F6u
+#define SYM_sub_437F8 0x0437F8u
+#define SYM_sub_4380E 0x04380Eu
 #define SYM_sub_43906 0x043906u
+#define SYM_sub_43942 0x043942u
+#define SYM_sub_43978 0x043978u
+#define SYM_sub_43986 0x043986u
+#define SYM_sub_43994 0x043994u
+#define SYM_sub_439A2 0x0439A2u
+#define SYM_sub_439AC 0x0439ACu
+#define SYM_sub_439E0 0x0439E0u
+#define SYM_sub_43A6A 0x043A6Au
+#define SYM_sub_43B1A 0x043B1Au
+#define SYM_sub_43B42 0x043B42u
+#define SYM_sub_43B80 0x043B80u
+#define SYM_sub_43BE0 0x043BE0u
+#define SYM_sub_43BE6 0x043BE6u
+#define SYM_sub_43BFC 0x043BFCu
+#define SYM_sub_43C2C 0x043C2Cu
+#define SYM_sub_43CDE 0x043CDEu
+#define SYM_sub_43D5E 0x043D5Eu
+#define SYM_sub_43DAC 0x043DACu
+#define SYM_sub_43DB2 0x043DB2u
+#define SYM_sub_43E3A 0x043E3Au
+#define SYM_sub_43EEE 0x043EEEu
+#define SYM_sub_43F64 0x043F64u
+#define SYM_sub_43FA8 0x043FA8u
+#define SYM_sub_43FC0 0x043FC0u
+#define SYM_sub_44028 0x044028u
+#define SYM_sub_44040 0x044040u
+#define SYM_sub_440DA 0x0440DAu
+#define SYM_sub_440F2 0x0440F2u
+#define SYM_sub_4411A 0x04411Au
+#define SYM_sub_4415C 0x04415Cu
+#define SYM_sub_441F8 0x0441F8u
+#define SYM_sub_4420C 0x04420Cu
+#define SYM_sub_4421C 0x04421Cu
+#define SYM_sub_44396 0x044396u
+#define SYM_sub_44436 0x044436u
+#define SYM_sub_444AC 0x0444ACu
+#define SYM_sub_444C8 0x0444C8u
+#define SYM_sub_444F0 0x0444F0u
+#define SYM_sub_4450C 0x04450Cu
+#define SYM_sub_4452C 0x04452Cu
+#define SYM_sub_44578 0x044578u
+#define SYM_sub_445A6 0x0445A6u
+#define SYM_sub_445E2 0x0445E2u
+#define SYM_sub_446BE 0x0446BEu
+#define SYM_sub_446CC 0x0446CCu
+#define SYM_sub_446F6 0x0446F6u
+#define SYM_sub_447E6 0x0447E6u
+#define SYM_sub_44824 0x044824u
+#define SYM_sub_44846 0x044846u
+#define SYM_sub_44864 0x044864u
+#define SYM_sub_4489A 0x04489Au
+#define SYM_sub_448BA 0x0448BAu
+#define SYM_sub_448C6 0x0448C6u
+#define SYM_sub_448F0 0x0448F0u
+#define SYM_sub_4492C 0x04492Cu
+#define SYM_sub_44944 0x044944u
+#define SYM_sub_4494C 0x04494Cu
+#define SYM_sub_4495C 0x04495Cu
+#define SYM_sub_44984 0x044984u
+#define SYM_sub_449BC 0x0449BCu
+#define SYM_sub_449FC 0x0449FCu
+#define SYM_sub_44A08 0x044A08u
+#define SYM_sub_44A22 0x044A22u
+#define SYM_sub_44A48 0x044A48u
+#define SYM_sub_44AA0 0x044AA0u
+#define SYM_sub_44ABA 0x044ABAu
+#define SYM_sub_44B10 0x044B10u
+#define SYM_sub_44B9E 0x044B9Eu
+#define SYM_sub_44BD8 0x044BD8u
+#define SYM_sub_44BDC 0x044BDCu
+#define SYM_sub_44CA6 0x044CA6u
+#define SYM_sub_44CCC 0x044CCCu
+#define SYM_sub_44CF4 0x044CF4u
+#define SYM_sub_44D0E 0x044D0Eu
+#define SYM_sub_44D40 0x044D40u
+#define SYM_sub_44D7E 0x044D7Eu
+#define SYM_sub_44DD0 0x044DD0u
+#define SYM_sub_44E28 0x044E28u
+#define SYM_sub_44E46 0x044E46u
+#define SYM_sub_44E80 0x044E80u
+#define SYM_sub_44EDA 0x044EDAu
+#define SYM_sub_44EEE 0x044EEEu
+#define SYM_sub_44F84 0x044F84u
+#define SYM_sub_44F94 0x044F94u
+#define SYM_sub_44FA4 0x044FA4u
+#define SYM_sub_45000 0x045000u
+#define SYM_sub_45010 0x045010u
+#define SYM_sub_45072 0x045072u
+#define SYM_sub_450A8 0x0450A8u
+#define SYM_sub_450BA 0x0450BAu
+#define SYM_sub_450F8 0x0450F8u
+#define SYM_sub_45134 0x045134u
+#define SYM_sub_4518C 0x04518Cu
+#define SYM_sub_45236 0x045236u
+#define SYM_sub_45248 0x045248u
+#define SYM_sub_45256 0x045256u
+#define SYM_sub_452A2 0x0452A2u
+#define SYM_sub_45332 0x045332u
+#define SYM_sub_4538A 0x04538Au
+#define SYM_sub_45442 0x045442u
+#define SYM_sub_45488 0x045488u
+#define SYM_sub_454AA 0x0454AAu
+#define SYM_sub_454B8 0x0454B8u
+#define SYM_sub_454EC 0x0454ECu
+#define SYM_sub_45550 0x045550u
+#define SYM_sub_4556E 0x04556Eu
+#define SYM_sub_4557C 0x04557Cu
+#define SYM_sub_455BC 0x0455BCu
+#define SYM_sub_455E2 0x0455E2u
+#define SYM_sub_455F0 0x0455F0u
+#define SYM_sub_4560A 0x04560Au
+#define SYM_sub_45680 0x045680u
+#define SYM_sub_4570C 0x04570Cu
+#define SYM_sub_4573E 0x04573Eu
+#define SYM_sub_45756 0x045756u
+#define SYM_sub_45798 0x045798u
+#define SYM_sub_457BA 0x0457BAu
+#define SYM_sub_457D0 0x0457D0u
+#define SYM_sub_457D6 0x0457D6u
+#define SYM_sub_457EE 0x0457EEu
+#define SYM_sub_45868 0x045868u
+#define SYM_sub_458B2 0x0458B2u
+#define SYM_sub_458C8 0x0458C8u
+#define SYM_sub_458F4 0x0458F4u
+#define SYM_sub_45928 0x045928u
+#define SYM_sub_45994 0x045994u
+#define SYM_sub_45B68 0x045B68u
+#define SYM_sub_45B7A 0x045B7Au
+#define SYM_sub_45BB8 0x045BB8u
+#define SYM_sub_45C50 0x045C50u
+#define SYM_sub_45D18 0x045D18u
+#define SYM_sub_45D7E 0x045D7Eu
+#define SYM_sub_45DAA 0x045DAAu
+#define SYM_sub_45DFA 0x045DFAu
+#define SYM_sub_45E0E 0x045E0Eu
+#define SYM_sub_45E1C 0x045E1Cu
+#define SYM_sub_45E36 0x045E36u
+#define SYM_sub_45E50 0x045E50u
+#define SYM_sub_45EC6 0x045EC6u
+#define SYM_sub_45F9E 0x045F9Eu
+#define SYM_sub_45FB6 0x045FB6u
+#define SYM_sub_46094 0x046094u
+#define SYM_sub_460CC 0x0460CCu
+#define SYM_sub_461D2 0x0461D2u
+#define SYM_sub_46280 0x046280u
+#define SYM_sub_46300 0x046300u
+#define SYM_sub_463B8 0x0463B8u
+#define SYM_sub_463EA 0x0463EAu
+#define SYM_sub_4640C 0x04640Cu
+#define SYM_sub_46484 0x046484u
+#define SYM_sub_464F8 0x0464F8u
+#define SYM_sub_4655E 0x04655Eu
+#define SYM_sub_465C0 0x0465C0u
+#define SYM_sub_465E6 0x0465E6u
+#define SYM_sub_46614 0x046614u
+#define SYM_sub_46674 0x046674u
+#define SYM_sub_46690 0x046690u
+#define SYM_sub_46726 0x046726u
+#define SYM_sub_46760 0x046760u
+#define SYM_sub_46784 0x046784u
+#define SYM_sub_467B8 0x0467B8u
+#define SYM_sub_468BA 0x0468BAu
+#define SYM_sub_469D4 0x0469D4u
+#define SYM_sub_46AE4 0x046AE4u
+#define SYM_sub_46B52 0x046B52u
+#define SYM_sub_46BA6 0x046BA6u
+#define SYM_sub_46BFC 0x046BFCu
+#define SYM_sub_46C28 0x046C28u
+#define SYM_sub_46C52 0x046C52u
+#define SYM_sub_46CA2 0x046CA2u
+#define SYM_sub_46CC6 0x046CC6u
+#define SYM_sub_46D46 0x046D46u
+#define SYM_sub_46E9E 0x046E9Eu
+#define SYM_sub_46ED2 0x046ED2u
+#define SYM_sub_46EF2 0x046EF2u
+#define SYM_sub_46F12 0x046F12u
+#define SYM_sub_46F2C 0x046F2Cu
+#define SYM_sub_46F48 0x046F48u
+#define SYM_sub_46F64 0x046F64u
+#define SYM_sub_46F7A 0x046F7Au
+#define SYM_sub_47064 0x047064u
+#define SYM_sub_47132 0x047132u
+#define SYM_sub_47178 0x047178u
+#define SYM_sub_47196 0x047196u
+#define SYM_sub_471E4 0x0471E4u
+#define SYM_sub_4720A 0x04720Au
+#define SYM_sub_4721E 0x04721Eu
+#define SYM_sub_47232 0x047232u
+#define SYM_sub_4724A 0x04724Au
+#define SYM_sub_47262 0x047262u
+#define SYM_sub_4728A 0x04728Au
+#define SYM_sub_472B6 0x0472B6u
+#define SYM_sub_472C6 0x0472C6u
+#define SYM_sub_47316 0x047316u
+#define SYM_sub_4734E 0x04734Eu
+#define SYM_sub_47410 0x047410u
+#define SYM_sub_4743E 0x04743Eu
+#define SYM_sub_475B6 0x0475B6u
+#define SYM_sub_475F0 0x0475F0u
+#define SYM_sub_4761E 0x04761Eu
+#define SYM_sub_47642 0x047642u
+#define SYM_sub_47660 0x047660u
+#define SYM_sub_4768C 0x04768Cu
+#define SYM_sub_476BE 0x0476BEu
+#define SYM_sub_476FE 0x0476FEu
+#define SYM_sub_4771C 0x04771Cu
+#define SYM_sub_47736 0x047736u
+#define SYM_sub_47740 0x047740u
+#define SYM_sub_4775A 0x04775Au
+#define SYM_sub_4776E 0x04776Eu
+#define SYM_sub_4778A 0x04778Au
+#define SYM_sub_4780C 0x04780Cu
+#define SYM_sub_47864 0x047864u
+#define SYM_sub_478E8 0x0478E8u
+#define SYM_sub_4790A 0x04790Au
+#define SYM_sub_47956 0x047956u
+#define SYM_sub_479C0 0x0479C0u
+#define SYM_sub_479E8 0x0479E8u
+#define SYM_sub_479F6 0x0479F6u
+#define SYM_sub_47A22 0x047A22u
+#define SYM_sub_47A32 0x047A32u
+#define SYM_sub_47A90 0x047A90u
+#define SYM_sub_47AE4 0x047AE4u
+#define SYM_sub_47B16 0x047B16u
+#define SYM_sub_47CE0 0x047CE0u
 #define SYM_sub_47D4C 0x047D4Cu
+#define SYM_sub_47D8C 0x047D8Cu
+#define SYM_sub_47DBE 0x047DBEu
+#define SYM_sub_47E50 0x047E50u
+#define SYM_sub_47E9A 0x047E9Au
+#define SYM_sub_47F0E 0x047F0Eu
+#define SYM_sub_47F3E 0x047F3Eu
+#define SYM_sub_47F4C 0x047F4Cu
+#define SYM_sub_47F70 0x047F70u
+#define SYM_sub_47F7A 0x047F7Au
+#define SYM_sub_47F86 0x047F86u
+#define SYM_sub_47F8C 0x047F8Cu
+#define SYM_sub_48044 0x048044u
+#define SYM_sub_48120 0x048120u
+#define SYM_sub_48160 0x048160u
+#define SYM_sub_481A0 0x0481A0u
+#define SYM_sub_481BE 0x0481BEu
+#define SYM_sub_481D8 0x0481D8u
+#define SYM_sub_481E2 0x0481E2u
+#define SYM_sub_481EC 0x0481ECu
+#define SYM_sub_48200 0x048200u
+#define SYM_sub_4821C 0x04821Cu
+#define SYM_sub_48258 0x048258u
+#define SYM_sub_482B2 0x0482B2u
+#define SYM_sub_482DA 0x0482DAu
+#define SYM_sub_482E8 0x0482E8u
+#define SYM_sub_48328 0x048328u
+#define SYM_sub_4841A 0x04841Au
+#define SYM_sub_48526 0x048526u
+#define SYM_sub_485AA 0x0485AAu
+#define SYM_sub_485EC 0x0485ECu
+#define SYM_sub_48606 0x048606u
+#define SYM_sub_486B6 0x0486B6u
+#define SYM_sub_486F8 0x0486F8u
+#define SYM_sub_48722 0x048722u
+#define SYM_sub_48750 0x048750u
+#define SYM_sub_487BC 0x0487BCu
+#define SYM_sub_487C6 0x0487C6u
+#define SYM_sub_4882A 0x04882Au
+#define SYM_sub_48840 0x048840u
+#define SYM_sub_48868 0x048868u
+#define SYM_sub_48886 0x048886u
+#define SYM_sub_488D6 0x0488D6u
+#define SYM_sub_4890A 0x04890Au
+#define SYM_sub_4892E 0x04892Eu
+#define SYM_sub_4895C 0x04895Cu
+#define SYM_sub_48970 0x048970u
+#define SYM_sub_489D2 0x0489D2u
+#define SYM_sub_48A24 0x048A24u
+#define SYM_sub_48A70 0x048A70u
+#define SYM_sub_48A86 0x048A86u
+#define SYM_sub_48ACA 0x048ACAu
+#define SYM_sub_48B78 0x048B78u
+#define SYM_sub_48BDA 0x048BDAu
+#define SYM_sub_48C6E 0x048C6Eu
 #define SYM_sub_48D3C 0x048D3Cu
 #define SYM_sub_48DA2 0x048DA2u
 #define SYM_sub_48DC2 0x048DC2u
@@ -2549,6 +3501,23 @@
 #define SYM_sub_49780 0x049780u
 #define SYM_sub_497A2 0x0497A2u
 #define SYM_sub_497B2 0x0497B2u
+#define SYM_sub_497C2 0x0497C2u
+#define SYM_sub_49800 0x049800u
+#define SYM_sub_4984E 0x04984Eu
+#define SYM_sub_49878 0x049878u
+#define SYM_sub_49896 0x049896u
+#define SYM_sub_498C8 0x0498C8u
+#define SYM_sub_498F2 0x0498F2u
+#define SYM_sub_4990C 0x04990Cu
+#define SYM_sub_49912 0x049912u
+#define SYM_sub_49926 0x049926u
+#define SYM_sub_49936 0x049936u
+#define SYM_sub_49952 0x049952u
+#define SYM_sub_4996A 0x04996Au
+#define SYM_sub_49A24 0x049A24u
+#define SYM_sub_49A5E 0x049A5Eu
+#define SYM_sub_49AAA 0x049AAAu
+#define SYM_sub_49B0A 0x049B0Au
 #define SYM_sub_49B4A 0x049B4Au
 #define SYM_sub_49B58 0x049B58u
 #define SYM_sub_49B6A 0x049B6Au
@@ -2741,10 +3710,13 @@
 #define SYM_sub_4C610 0x04C610u
 #define SYM_sub_4C628 0x04C628u
 #define SYM_sub_4C6A2 0x04C6A2u
+#define SYM_sub_4C6EE 0x04C6EEu
 #define SYM_sub_4C774 0x04C774u
+#define SYM_sub_4C906 0x04C906u
 #define SYM_sub_4C9C6 0x04C9C6u
 #define SYM_sub_4CAEE 0x04CAEEu
 #define SYM_sub_4CB36 0x04CB36u
+#define SYM_sub_4CB4A 0x04CB4Au
 #define SYM_sub_4CC0C 0x04CC0Cu
 #define SYM_sub_4CC1E 0x04CC1Eu
 #define SYM_sub_4CC46 0x04CC46u
@@ -2755,6 +3727,61 @@
 #define SYM_sub_4CFE8 0x04CFE8u
 #define SYM_sub_4D08A 0x04D08Au
 #define SYM_sub_4D0A2 0x04D0A2u
+#define SYM_sub_4D196 0x04D196u
+#define SYM_sub_4D2C4 0x04D2C4u
+#define SYM_sub_4D300 0x04D300u
+#define SYM_sub_4D324 0x04D324u
+#define SYM_sub_4D33A 0x04D33Au
+#define SYM_sub_4D3A8 0x04D3A8u
+#define SYM_sub_4D430 0x04D430u
+#define SYM_sub_4D4E0 0x04D4E0u
+#define SYM_sub_4D566 0x04D566u
+#define SYM_sub_4D644 0x04D644u
+#define SYM_sub_4D6FE 0x04D6FEu
+#define SYM_sub_4D7A0 0x04D7A0u
+#define SYM_sub_4D7B6 0x04D7B6u
+#define SYM_sub_4D806 0x04D806u
+#define SYM_sub_4D874 0x04D874u
+#define SYM_sub_4D8A6 0x04D8A6u
+#define SYM_sub_4D8C4 0x04D8C4u
+#define SYM_sub_4D906 0x04D906u
+#define SYM_sub_4D932 0x04D932u
+#define SYM_sub_4D99C 0x04D99Cu
+#define SYM_sub_4D9BE 0x04D9BEu
+#define SYM_sub_4D9F4 0x04D9F4u
+#define SYM_sub_4D9FC 0x04D9FCu
+#define SYM_sub_4DA2A 0x04DA2Au
+#define SYM_sub_4DA64 0x04DA64u
+#define SYM_sub_4DA8A 0x04DA8Au
+#define SYM_sub_4DB10 0x04DB10u
+#define SYM_sub_4DB36 0x04DB36u
+#define SYM_sub_4DB68 0x04DB68u
+#define SYM_sub_4DB94 0x04DB94u
+#define SYM_sub_4DBB2 0x04DBB2u
+#define SYM_sub_4DBEE 0x04DBEEu
+#define SYM_sub_4DC36 0x04DC36u
+#define SYM_sub_4DCAC 0x04DCACu
+#define SYM_sub_4DD86 0x04DD86u
+#define SYM_sub_4DDAA 0x04DDAAu
+#define SYM_sub_4DDCE 0x04DDCEu
+#define SYM_sub_4DEB8 0x04DEB8u
+#define SYM_sub_4DF22 0x04DF22u
+#define SYM_sub_4DF2C 0x04DF2Cu
+#define SYM_sub_4DF5A 0x04DF5Au
+#define SYM_sub_4DFA0 0x04DFA0u
+#define SYM_sub_4DFAE 0x04DFAEu
+#define SYM_sub_4DFB8 0x04DFB8u
+#define SYM_sub_4DFC4 0x04DFC4u
+#define SYM_sub_4E052 0x04E052u
+#define SYM_sub_4E0D8 0x04E0D8u
+#define SYM_sub_4E218 0x04E218u
+#define SYM_sub_4E272 0x04E272u
+#define SYM_sub_4E2BE 0x04E2BEu
+#define SYM_sub_4E2F2 0x04E2F2u
+#define SYM_sub_4E386 0x04E386u
+#define SYM_sub_4E3D0 0x04E3D0u
+#define SYM_sub_4E428 0x04E428u
+#define SYM_sub_4E4F0 0x04E4F0u
 #define SYM_sub_4E7C4 0x04E7C4u
 #define SYM_sub_4E7CE 0x04E7CEu
 #define SYM_sub_4E9D0 0x04E9D0u
@@ -2794,6 +3821,12 @@
 #define SYM_sub_4F714 0x04F714u
 #define SYM_sub_4F74A 0x04F74Au
 #define SYM_sub_4F7F6 0x04F7F6u
+#define SYM_sub_4F82E 0x04F82Eu
+#define SYM_sub_4F86C 0x04F86Cu
+#define SYM_sub_4F8A6 0x04F8A6u
+#define SYM_sub_4F8AC 0x04F8ACu
+#define SYM_sub_4F8FA 0x04F8FAu
+#define SYM_sub_4F93C 0x04F93Cu
 #define SYM_sub_4F9D4 0x04F9D4u
 #define SYM_sub_4FA00 0x04FA00u
 #define SYM_sub_4FA1E 0x04FA1Eu
@@ -2893,6 +3926,22 @@
 #define SYM_sub_51152 0x051152u
 #define SYM_sub_5128C 0x05128Cu
 #define SYM_sub_512BC 0x0512BCu
+#define SYM_sub_5133A 0x05133Au
+#define SYM_sub_51370 0x051370u
+#define SYM_sub_513CA 0x0513CAu
+#define SYM_sub_513EC 0x0513ECu
+#define SYM_sub_5140E 0x05140Eu
+#define SYM_sub_51446 0x051446u
+#define SYM_sub_51466 0x051466u
+#define SYM_sub_51482 0x051482u
+#define SYM_sub_514BA 0x0514BAu
+#define SYM_sub_5150C 0x05150Cu
+#define SYM_sub_51536 0x051536u
+#define SYM_sub_51560 0x051560u
+#define SYM_sub_515D6 0x0515D6u
+#define SYM_sub_51622 0x051622u
+#define SYM_sub_51674 0x051674u
+#define SYM_sub_51690 0x051690u
 #define SYM_sub_516D6 0x0516D6u
 #define SYM_sub_517C4 0x0517C4u
 #define SYM_sub_51808 0x051808u
@@ -2997,26 +4046,162 @@
 #define SYM_sub_5354E 0x05354Eu
 #define SYM_sub_53590 0x053590u
 #define SYM_sub_535F2 0x0535F2u
+#define SYM_sub_5360A 0x05360Au
+#define SYM_sub_536E4 0x0536E4u
+#define SYM_sub_53722 0x053722u
+#define SYM_sub_5376E 0x05376Eu
+#define SYM_sub_5378C 0x05378Cu
+#define SYM_sub_537A4 0x0537A4u
+#define SYM_sub_537E0 0x0537E0u
+#define SYM_sub_5380A 0x05380Au
+#define SYM_sub_53868 0x053868u
+#define SYM_sub_5387A 0x05387Au
+#define SYM_sub_53920 0x053920u
+#define SYM_sub_53932 0x053932u
+#define SYM_sub_539BE 0x0539BEu
+#define SYM_sub_539D4 0x0539D4u
+#define SYM_sub_539EC 0x0539ECu
+#define SYM_sub_539F8 0x0539F8u
+#define SYM_sub_53A76 0x053A76u
+#define SYM_sub_53AB0 0x053AB0u
+#define SYM_sub_53AFA 0x053AFAu
+#define SYM_sub_53B0E 0x053B0Eu
+#define SYM_sub_53B24 0x053B24u
+#define SYM_sub_53B88 0x053B88u
+#define SYM_sub_53C1C 0x053C1Cu
+#define SYM_sub_53C34 0x053C34u
+#define SYM_sub_53C8C 0x053C8Cu
+#define SYM_sub_53CBA 0x053CBAu
+#define SYM_sub_53CF2 0x053CF2u
+#define SYM_sub_53D06 0x053D06u
+#define SYM_sub_53D20 0x053D20u
+#define SYM_sub_53D3C 0x053D3Cu
+#define SYM_sub_53D4E 0x053D4Eu
+#define SYM_sub_53DA0 0x053DA0u
+#define SYM_sub_53DBA 0x053DBAu
+#define SYM_sub_53E1C 0x053E1Cu
+#define SYM_sub_53E80 0x053E80u
+#define SYM_sub_53EA0 0x053EA0u
+#define SYM_sub_53EA8 0x053EA8u
+#define SYM_sub_53EB4 0x053EB4u
+#define SYM_sub_53F06 0x053F06u
+#define SYM_sub_53F1E 0x053F1Eu
+#define SYM_sub_53F4C 0x053F4Cu
+#define SYM_sub_53F82 0x053F82u
+#define SYM_sub_53FAA 0x053FAAu
+#define SYM_sub_53FFE 0x053FFEu
+#define SYM_sub_5401A 0x05401Au
+#define SYM_sub_54066 0x054066u
+#define SYM_sub_540A2 0x0540A2u
+#define SYM_sub_54126 0x054126u
+#define SYM_sub_54164 0x054164u
+#define SYM_sub_5419C 0x05419Cu
+#define SYM_sub_541A0 0x0541A0u
+#define SYM_sub_541FE 0x0541FEu
+#define SYM_sub_5424A 0x05424Au
+#define SYM_sub_54280 0x054280u
+#define SYM_sub_543AC 0x0543ACu
+#define SYM_sub_54436 0x054436u
+#define SYM_sub_54448 0x054448u
+#define SYM_sub_54458 0x054458u
+#define SYM_sub_544AA 0x0544AAu
+#define SYM_sub_544BE 0x0544BEu
+#define SYM_sub_544CC 0x0544CCu
+#define SYM_sub_545F0 0x0545F0u
+#define SYM_sub_54644 0x054644u
+#define SYM_sub_54692 0x054692u
+#define SYM_sub_546DE 0x0546DEu
+#define SYM_sub_54736 0x054736u
+#define SYM_sub_5478C 0x05478Cu
+#define SYM_sub_54796 0x054796u
+#define SYM_sub_5484C 0x05484Cu
+#define SYM_sub_5489E 0x05489Eu
+#define SYM_sub_5490A 0x05490Au
+#define SYM_sub_54972 0x054972u
+#define SYM_sub_549CC 0x0549CCu
+#define SYM_sub_549FA 0x0549FAu
+#define SYM_sub_54A5A 0x054A5Au
+#define SYM_sub_54D00 0x054D00u
+#define SYM_sub_54D4A 0x054D4Au
+#define SYM_sub_54D5E 0x054D5Eu
+#define SYM_sub_54D7C 0x054D7Cu
+#define SYM_sub_54DCA 0x054DCAu
+#define SYM_sub_54E0C 0x054E0Cu
+#define SYM_sub_54E7C 0x054E7Cu
+#define SYM_sub_54EBE 0x054EBEu
+#define SYM_sub_54EFA 0x054EFAu
+#define SYM_sub_54F20 0x054F20u
+#define SYM_sub_54FCE 0x054FCEu
+#define SYM_sub_5501E 0x05501Eu
+#define SYM_sub_5509C 0x05509Cu
+#define SYM_sub_550D6 0x0550D6u
+#define SYM_sub_55106 0x055106u
+#define SYM_sub_5511E 0x05511Eu
+#define SYM_sub_5513C 0x05513Cu
+#define SYM_sub_55162 0x055162u
+#define SYM_sub_55198 0x055198u
+#define SYM_sub_551F6 0x0551F6u
+#define SYM_sub_552A6 0x0552A6u
+#define SYM_sub_55362 0x055362u
+#define SYM_sub_553C0 0x0553C0u
+#define SYM_sub_55480 0x055480u
+#define SYM_sub_554D0 0x0554D0u
+#define SYM_sub_5551C 0x05551Cu
+#define SYM_sub_5555C 0x05555Cu
+#define SYM_sub_55592 0x055592u
+#define SYM_sub_555CA 0x0555CAu
+#define SYM_sub_555EC 0x0555ECu
+#define SYM_sub_5560E 0x05560Eu
+#define SYM_sub_55628 0x055628u
+#define SYM_sub_55638 0x055638u
+#define SYM_sub_5571E 0x05571Eu
+#define SYM_sub_55784 0x055784u
+#define SYM_sub_557EE 0x0557EEu
+#define SYM_sub_558FA 0x0558FAu
+#define SYM_sub_55A1E 0x055A1Eu
+#define SYM_sub_55ACE 0x055ACEu
 #define SYM_sub_55F6A 0x055F6Au
 #define SYM_sub_55F84 0x055F84u
 #define SYM_sub_55FC0 0x055FC0u
+#define SYM_sub_55FEC 0x055FECu
+#define SYM_sub_56064 0x056064u
+#define SYM_sub_56082 0x056082u
 #define SYM_sub_560A0 0x0560A0u
 #define SYM_sub_560B4 0x0560B4u
 #define SYM_sub_560DA 0x0560DAu
+#define SYM_sub_560DE 0x0560DEu
 #define SYM_sub_560F4 0x0560F4u
 #define SYM_sub_56100 0x056100u
+#define SYM_sub_56128 0x056128u
+#define SYM_sub_56130 0x056130u
+#define SYM_sub_561B2 0x0561B2u
 #define SYM_sub_561CC 0x0561CCu
 #define SYM_sub_561D8 0x0561D8u
 #define SYM_sub_561E4 0x0561E4u
 #define SYM_sub_561F4 0x0561F4u
+#define SYM_sub_56206 0x056206u
+#define SYM_sub_56264 0x056264u
+#define SYM_sub_562E6 0x0562E6u
+#define SYM_sub_56302 0x056302u
+#define SYM_sub_5630E 0x05630Eu
 #define SYM_sub_5631E 0x05631Eu
+#define SYM_sub_56360 0x056360u
+#define SYM_sub_56824 0x056824u
 #define SYM_sub_5684E 0x05684Eu
 #define SYM_sub_568CA 0x0568CAu
+#define SYM_sub_568DE 0x0568DEu
+#define SYM_sub_56912 0x056912u
 #define SYM_sub_56922 0x056922u
 #define SYM_sub_56946 0x056946u
+#define SYM_sub_56992 0x056992u
 #define SYM_sub_569A2 0x0569A2u
 #define SYM_sub_569B2 0x0569B2u
+#define SYM_sub_56A06 0x056A06u
+#define SYM_sub_56AA8 0x056AA8u
+#define SYM_sub_56AC8 0x056AC8u
+#define SYM_sub_56AF4 0x056AF4u
 #define SYM_sub_56AFE 0x056AFEu
+#define SYM_sub_56B20 0x056B20u
 #define SYM_sub_56B2A 0x056B2Au
 #define SYM_sub_56B36 0x056B36u
 #define SYM_sub_56C92 0x056C92u
@@ -3025,6 +4210,9 @@
 #define SYM_sub_56FBA 0x056FBAu
 #define SYM_sub_56FD4 0x056FD4u
 #define SYM_sub_5703E 0x05703Eu
+#define SYM_sub_5717C 0x05717Cu
+#define SYM_sub_5718E 0x05718Eu
+#define SYM_sub_571C0 0x0571C0u
 #define SYM_sub_571C2 0x0571C2u
 #define SYM_sub_571D8 0x0571D8u
 #define SYM_sub_571F2 0x0571F2u
@@ -3032,25 +4220,36 @@
 #define SYM_sub_57282 0x057282u
 #define SYM_sub_5732C 0x05732Cu
 #define SYM_sub_57336 0x057336u
+#define SYM_sub_573E8 0x0573E8u
+#define SYM_sub_573FA 0x0573FAu
+#define SYM_sub_5743A 0x05743Au
 #define SYM_sub_574C0 0x0574C0u
 #define SYM_sub_574D6 0x0574D6u
 #define SYM_sub_5750E 0x05750Eu
 #define SYM_sub_57526 0x057526u
 #define SYM_sub_57574 0x057574u
 #define SYM_sub_57632 0x057632u
+#define SYM_sub_576EC 0x0576ECu
 #define SYM_sub_576F4 0x0576F4u
+#define SYM_sub_57790 0x057790u
 #define SYM_sub_57872 0x057872u
 #define SYM_sub_5790E 0x05790Eu
 #define SYM_sub_5798C 0x05798Cu
 #define SYM_sub_57A4C 0x057A4Cu
+#define SYM_sub_57B96 0x057B96u
 #define SYM_sub_57BC2 0x057BC2u
+#define SYM_sub_57C4C 0x057C4Cu
+#define SYM_sub_57C88 0x057C88u
 #define SYM_sub_57CD0 0x057CD0u
 #define SYM_sub_57D68 0x057D68u
 #define SYM_sub_57D7E 0x057D7Eu
+#define SYM_sub_57E18 0x057E18u
 #define SYM_sub_57E46 0x057E46u
 #define SYM_sub_57E80 0x057E80u
 #define SYM_sub_57F10 0x057F10u
 #define SYM_sub_5801A 0x05801Au
+#define SYM_sub_5804A 0x05804Au
+#define SYM_sub_5822C 0x05822Cu
 #define SYM_sub_58366 0x058366u
 #define SYM_sub_58378 0x058378u
 #define SYM_sub_583B8 0x0583B8u
@@ -3065,9 +4264,18 @@
 #define SYM_sub_58562 0x058562u
 #define SYM_sub_585DC 0x0585DCu
 #define SYM_sub_5861A 0x05861Au
+#define SYM_sub_5864E 0x05864Eu
 #define SYM_sub_586E4 0x0586E4u
 #define SYM_sub_587CA 0x0587CAu
 #define SYM_sub_588C2 0x0588C2u
+#define SYM_sub_58934 0x058934u
+#define SYM_sub_58976 0x058976u
+#define SYM_sub_589E0 0x0589E0u
+#define SYM_sub_589F4 0x0589F4u
+#define SYM_sub_58A28 0x058A28u
+#define SYM_sub_58A56 0x058A56u
+#define SYM_sub_58A6E 0x058A6Eu
+#define SYM_sub_58A82 0x058A82u
 #define SYM_sub_58B3A 0x058B3Au
 #define SYM_sub_58B62 0x058B62u
 #define SYM_sub_58C24 0x058C24u
@@ -3089,6 +4297,232 @@
 #define SYM_sub_5925A 0x05925Au
 #define SYM_sub_59280 0x059280u
 #define SYM_sub_592AA 0x0592AAu
+#define SYM_sub_592FC 0x0592FCu
+#define SYM_sub_59444 0x059444u
+#define SYM_sub_595CC 0x0595CCu
+#define SYM_sub_59622 0x059622u
+#define SYM_sub_59638 0x059638u
+#define SYM_sub_59668 0x059668u
+#define SYM_sub_596B0 0x0596B0u
+#define SYM_sub_5970A 0x05970Au
+#define SYM_sub_59766 0x059766u
+#define SYM_sub_597E4 0x0597E4u
+#define SYM_sub_598E0 0x0598E0u
+#define SYM_sub_59908 0x059908u
+#define SYM_sub_59962 0x059962u
+#define SYM_sub_599E0 0x0599E0u
+#define SYM_sub_59A40 0x059A40u
+#define SYM_sub_59AA4 0x059AA4u
+#define SYM_sub_59AEC 0x059AECu
+#define SYM_sub_59B28 0x059B28u
+#define SYM_sub_59B80 0x059B80u
+#define SYM_sub_59B82 0x059B82u
+#define SYM_sub_59B8A 0x059B8Au
+#define SYM_sub_59BEE 0x059BEEu
+#define SYM_sub_59C3A 0x059C3Au
+#define SYM_sub_59C5A 0x059C5Au
+#define SYM_sub_59CCE 0x059CCEu
+#define SYM_sub_59CEC 0x059CECu
+#define SYM_sub_59D0A 0x059D0Au
+#define SYM_sub_59D14 0x059D14u
+#define SYM_sub_59D7C 0x059D7Cu
+#define SYM_sub_59DB2 0x059DB2u
+#define SYM_sub_59DEE 0x059DEEu
+#define SYM_sub_59E42 0x059E42u
+#define SYM_sub_59E7E 0x059E7Eu
+#define SYM_sub_59ED0 0x059ED0u
+#define SYM_sub_59F0C 0x059F0Cu
+#define SYM_sub_59F60 0x059F60u
+#define SYM_sub_59F9C 0x059F9Cu
+#define SYM_sub_59FEE 0x059FEEu
+#define SYM_sub_5A00E 0x05A00Eu
+#define SYM_sub_5A02E 0x05A02Eu
+#define SYM_sub_5A07E 0x05A07Eu
+#define SYM_sub_5A0BC 0x05A0BCu
+#define SYM_sub_5A0EE 0x05A0EEu
+#define SYM_sub_5A234 0x05A234u
+#define SYM_sub_5A254 0x05A254u
+#define SYM_sub_5A258 0x05A258u
+#define SYM_sub_5A2D4 0x05A2D4u
+#define SYM_sub_5A2FC 0x05A2FCu
+#define SYM_sub_5A33E 0x05A33Eu
+#define SYM_sub_5A35A 0x05A35Au
+#define SYM_sub_5A386 0x05A386u
+#define SYM_sub_5A3BC 0x05A3BCu
+#define SYM_sub_5A3FE 0x05A3FEu
+#define SYM_sub_5A40A 0x05A40Au
+#define SYM_sub_5A40C 0x05A40Cu
+#define SYM_sub_5A41A 0x05A41Au
+#define SYM_sub_5A422 0x05A422u
+#define SYM_sub_5A440 0x05A440u
+#define SYM_sub_5A450 0x05A450u
+#define SYM_sub_5A4CA 0x05A4CAu
+#define SYM_sub_5A51A 0x05A51Au
+#define SYM_sub_5A5FA 0x05A5FAu
+#define SYM_sub_5A64C 0x05A64Cu
+#define SYM_sub_5A69E 0x05A69Eu
+#define SYM_sub_5A75E 0x05A75Eu
+#define SYM_sub_5A786 0x05A786u
+#define SYM_sub_5A846 0x05A846u
+#define SYM_sub_5A8BA 0x05A8BAu
+#define SYM_sub_5A8D4 0x05A8D4u
+#define SYM_sub_5A940 0x05A940u
+#define SYM_sub_5A984 0x05A984u
+#define SYM_sub_5A9C8 0x05A9C8u
+#define SYM_sub_5A9F8 0x05A9F8u
+#define SYM_sub_5AA92 0x05AA92u
+#define SYM_sub_5AB5C 0x05AB5Cu
+#define SYM_sub_5AB68 0x05AB68u
+#define SYM_sub_5ABE8 0x05ABE8u
+#define SYM_sub_5ACA2 0x05ACA2u
+#define SYM_sub_5ACEA 0x05ACEAu
+#define SYM_sub_5AD2C 0x05AD2Cu
+#define SYM_sub_5AD3C 0x05AD3Cu
+#define SYM_sub_5AD4C 0x05AD4Cu
+#define SYM_sub_5AD60 0x05AD60u
+#define SYM_sub_5AD72 0x05AD72u
+#define SYM_sub_5AD9C 0x05AD9Cu
+#define SYM_sub_5AE0C 0x05AE0Cu
+#define SYM_sub_5AEA2 0x05AEA2u
+#define SYM_sub_5AED8 0x05AED8u
+#define SYM_sub_5AF5C 0x05AF5Cu
+#define SYM_sub_5AF70 0x05AF70u
+#define SYM_sub_5AF9A 0x05AF9Au
+#define SYM_sub_5AFF4 0x05AFF4u
+#define SYM_sub_5B016 0x05B016u
+#define SYM_sub_5B0A2 0x05B0A2u
+#define SYM_sub_5B0CA 0x05B0CAu
+#define SYM_sub_5B114 0x05B114u
+#define SYM_sub_5B12A 0x05B12Au
+#define SYM_sub_5B158 0x05B158u
+#define SYM_sub_5B1C8 0x05B1C8u
+#define SYM_sub_5B1EC 0x05B1ECu
+#define SYM_sub_5B22E 0x05B22Eu
+#define SYM_sub_5B280 0x05B280u
+#define SYM_sub_5B282 0x05B282u
+#define SYM_sub_5B2C4 0x05B2C4u
+#define SYM_sub_5B302 0x05B302u
+#define SYM_sub_5B350 0x05B350u
+#define SYM_sub_5B396 0x05B396u
+#define SYM_sub_5B4DC 0x05B4DCu
+#define SYM_sub_5B51E 0x05B51Eu
+#define SYM_sub_5B596 0x05B596u
+#define SYM_sub_5B5DE 0x05B5DEu
+#define SYM_sub_5B5EE 0x05B5EEu
+#define SYM_sub_5B616 0x05B616u
+#define SYM_sub_5B662 0x05B662u
+#define SYM_sub_5B67E 0x05B67Eu
+#define SYM_sub_5B6AC 0x05B6ACu
+#define SYM_sub_5B6D6 0x05B6D6u
+#define SYM_sub_5B6E2 0x05B6E2u
+#define SYM_sub_5B766 0x05B766u
+#define SYM_sub_5B7AA 0x05B7AAu
+#define SYM_sub_5B7D4 0x05B7D4u
+#define SYM_sub_5B81C 0x05B81Cu
+#define SYM_sub_5B8A2 0x05B8A2u
+#define SYM_sub_5B8C0 0x05B8C0u
+#define SYM_sub_5B954 0x05B954u
+#define SYM_sub_5B9F8 0x05B9F8u
+#define SYM_sub_5BA1C 0x05BA1Cu
+#define SYM_sub_5BA24 0x05BA24u
+#define SYM_sub_5BA76 0x05BA76u
+#define SYM_sub_5BA9C 0x05BA9Cu
+#define SYM_sub_5BAE0 0x05BAE0u
+#define SYM_sub_5BB92 0x05BB92u
+#define SYM_sub_5BC14 0x05BC14u
+#define SYM_sub_5BC3A 0x05BC3Au
+#define SYM_sub_5BCA0 0x05BCA0u
+#define SYM_sub_5BCE4 0x05BCE4u
+#define SYM_sub_5BCF0 0x05BCF0u
+#define SYM_sub_5BD28 0x05BD28u
+#define SYM_sub_5BD4A 0x05BD4Au
+#define SYM_sub_5BDC0 0x05BDC0u
+#define SYM_sub_5BE02 0x05BE02u
+#define SYM_sub_5BE4C 0x05BE4Cu
+#define SYM_sub_5BEC8 0x05BEC8u
+#define SYM_sub_5BEEC 0x05BEECu
+#define SYM_sub_5BF00 0x05BF00u
+#define SYM_sub_5BF44 0x05BF44u
+#define SYM_sub_5BF68 0x05BF68u
+#define SYM_sub_5BFBE 0x05BFBEu
+#define SYM_sub_5BFF2 0x05BFF2u
+#define SYM_sub_5C03C 0x05C03Cu
+#define SYM_sub_5C080 0x05C080u
+#define SYM_sub_5C0BE 0x05C0BEu
+#define SYM_sub_5C0D0 0x05C0D0u
+#define SYM_sub_5C104 0x05C104u
+#define SYM_sub_5C134 0x05C134u
+#define SYM_sub_5C2AA 0x05C2AAu
+#define SYM_sub_5C2D8 0x05C2D8u
+#define SYM_sub_5C3DC 0x05C3DCu
+#define SYM_sub_5C440 0x05C440u
+#define SYM_sub_5C4A0 0x05C4A0u
+#define SYM_sub_5C4C2 0x05C4C2u
+#define SYM_sub_5C6B8 0x05C6B8u
+#define SYM_sub_5C788 0x05C788u
+#define SYM_sub_5C83A 0x05C83Au
+#define SYM_sub_5C890 0x05C890u
+#define SYM_sub_5C8AC 0x05C8ACu
+#define SYM_sub_5C928 0x05C928u
+#define SYM_sub_5C94A 0x05C94Au
+#define SYM_sub_5C954 0x05C954u
+#define SYM_sub_5CC02 0x05CC02u
+#define SYM_sub_5CC84 0x05CC84u
+#define SYM_sub_5CCB6 0x05CCB6u
+#define SYM_sub_5CCEE 0x05CCEEu
+#define SYM_sub_5CD3E 0x05CD3Eu
+#define SYM_sub_5D0D8 0x05D0D8u
+#define SYM_sub_5D0F4 0x05D0F4u
+#define SYM_sub_5D122 0x05D122u
+#define SYM_sub_5D146 0x05D146u
+#define SYM_sub_5D156 0x05D156u
+#define SYM_sub_5D170 0x05D170u
+#define SYM_sub_5D202 0x05D202u
+#define SYM_sub_5D248 0x05D248u
+#define SYM_sub_5D292 0x05D292u
+#define SYM_sub_5D2D2 0x05D2D2u
+#define SYM_sub_5D334 0x05D334u
+#define SYM_sub_5D340 0x05D340u
+#define SYM_sub_5D37A 0x05D37Au
+#define SYM_sub_5D450 0x05D450u
+#define SYM_sub_5D4E8 0x05D4E8u
+#define SYM_sub_5D58A 0x05D58Au
+#define SYM_sub_5D5A8 0x05D5A8u
+#define SYM_sub_5D5D6 0x05D5D6u
+#define SYM_sub_5D636 0x05D636u
+#define SYM_sub_5D658 0x05D658u
+#define SYM_sub_5D67A 0x05D67Au
+#define SYM_sub_5D740 0x05D740u
+#define SYM_sub_5D79C 0x05D79Cu
+#define SYM_sub_5D83C 0x05D83Cu
+#define SYM_sub_5D91E 0x05D91Eu
+#define SYM_sub_5D9D0 0x05D9D0u
+#define SYM_sub_5DA34 0x05DA34u
+#define SYM_sub_5DA76 0x05DA76u
+#define SYM_sub_5DAEA 0x05DAEAu
+#define SYM_sub_5DB3C 0x05DB3Cu
+#define SYM_sub_5DB70 0x05DB70u
+#define SYM_sub_5DBC8 0x05DBC8u
+#define SYM_sub_5DBD2 0x05DBD2u
+#define SYM_sub_5DC22 0x05DC22u
+#define SYM_sub_5DC4A 0x05DC4Au
+#define SYM_sub_5DC56 0x05DC56u
+#define SYM_sub_5DD2E 0x05DD2Eu
+#define SYM_sub_5DF32 0x05DF32u
+#define SYM_sub_5DF66 0x05DF66u
+#define SYM_sub_5DFDC 0x05DFDCu
+#define SYM_sub_5E00C 0x05E00Cu
+#define SYM_sub_5E092 0x05E092u
+#define SYM_sub_5E174 0x05E174u
+#define SYM_sub_5E1EC 0x05E1ECu
+#define SYM_sub_5E27A 0x05E27Au
+#define SYM_sub_5E342 0x05E342u
+#define SYM_sub_5E368 0x05E368u
+#define SYM_sub_5E3D0 0x05E3D0u
+#define SYM_sub_5E41E 0x05E41Eu
+#define SYM_sub_5E47C 0x05E47Cu
+#define SYM_sub_5E54A 0x05E54Au
+#define SYM_sub_5E564 0x05E564u
 #define SYM_sub_5E58E 0x05E58Eu
 #define SYM_sub_5E5BA 0x05E5BAu
 #define SYM_sub_5E5F4 0x05E5F4u
@@ -3123,8 +4557,45 @@
 #define SYM_sub_5EF8C 0x05EF8Cu
 #define SYM_sub_5F00C 0x05F00Cu
 #define SYM_sub_5F094 0x05F094u
+#define SYM_sub_5F14E 0x05F14Eu
+#define SYM_sub_5F170 0x05F170u
+#define SYM_sub_5F1A4 0x05F1A4u
+#define SYM_sub_5F23A 0x05F23Au
+#define SYM_sub_5F2F6 0x05F2F6u
+#define SYM_sub_5F312 0x05F312u
+#define SYM_sub_5F33C 0x05F33Cu
 #define SYM_sub_5F362 0x05F362u
 #define SYM_sub_5F388 0x05F388u
+#define SYM_sub_5F3B4 0x05F3B4u
+#define SYM_sub_5F424 0x05F424u
+#define SYM_sub_60564 0x060564u
+#define SYM_sub_60710 0x060710u
+#define SYM_sub_6076E 0x06076Eu
+#define SYM_sub_607AE 0x0607AEu
+#define SYM_sub_60910 0x060910u
+#define SYM_sub_6095E 0x06095Eu
+#define SYM_sub_61108 0x061108u
+#define SYM_sub_61262 0x061262u
+#define SYM_sub_612B2 0x0612B2u
+#define SYM_sub_613C2 0x0613C2u
+#define SYM_sub_61408 0x061408u
+#define SYM_sub_6145E 0x06145Eu
+#define SYM_sub_614AE 0x0614AEu
+#define SYM_sub_6155E 0x06155Eu
+#define SYM_sub_6168C 0x06168Cu
+#define SYM_sub_61CE6 0x061CE6u
+#define SYM_sub_61D32 0x061D32u
+#define SYM_sub_6237E 0x06237Eu
+#define SYM_sub_623BA 0x0623BAu
+#define SYM_sub_623D0 0x0623D0u
+#define SYM_sub_623E8 0x0623E8u
+#define SYM_sub_62406 0x062406u
+#define SYM_sub_62466 0x062466u
+#define SYM_sub_62496 0x062496u
+#define SYM_sub_624AA 0x0624AAu
+#define SYM_sub_624B4 0x0624B4u
+#define SYM_sub_624EC 0x0624ECu
+#define SYM_sub_62540 0x062540u
 #define SYM_Mode48 0x062892u
 #define SYM_Mode48Init 0x0628BCu
 #define SYM_Mode48Approach 0x062902u
@@ -3468,7 +4939,9 @@ static const struct sym rom_syms[] = {
     { 0x00369Eu, "sub_0369E" },
     { 0x0036A4u, "AdjustPalettes" },
     { 0x003774u, "AdjustColour" },
+    { 0x0037F6u, "sub_037F6" },
     { 0x003820u, "AdjustLine" },
+    { 0x003834u, "sub_03834" },
     { 0x003900u, "StageStart" },
     { 0x00391Cu, "StageFrame" },
     { 0x003942u, "sub_03942" },
@@ -3699,6 +5172,7 @@ static const struct sym rom_syms[] = {
     { 0x0074B6u, "sub_074B6" },
     { 0x00751Eu, "sub_0751E" },
     { 0x007558u, "sub_07558" },
+    { 0x007656u, "sub_07656" },
     { 0x00769Au, "sub_0769A" },
     { 0x0076CCu, "sub_076CC" },
     { 0x0076E8u, "sub_076E8" },
@@ -4366,7 +5840,10 @@ static const struct sym rom_syms[] = {
     { 0x018BE6u, "EffectsUpdate" },
     { 0x018C58u, "sub_18C58" },
     { 0x018D1Eu, "sub_18D1E" },
+    { 0x018DB4u, "sub_18DB4" },
     { 0x018EACu, "sub_18EAC" },
+    { 0x018F5Au, "sub_18F5A" },
+    { 0x019030u, "sub_19030" },
     { 0x0190AEu, "sub_190AE" },
     { 0x0190E4u, "sub_190E4" },
     { 0x019142u, "sub_19142" },
@@ -4385,15 +5862,24 @@ static const struct sym rom_syms[] = {
     { 0x019440u, "sub_19440" },
     { 0x019472u, "sub_19472" },
     { 0x0194A4u, "sub_194A4" },
+    { 0x019516u, "sub_19516" },
     { 0x0195B0u, "sub_195B0" },
     { 0x019616u, "sub_19616" },
     { 0x0196F4u, "sub_196F4" },
     { 0x019772u, "sub_19772" },
     { 0x0197CEu, "sub_197CE" },
+    { 0x019852u, "sub_19852" },
     { 0x01997Cu, "sub_1997C" },
     { 0x019ACAu, "sub_19ACA" },
     { 0x019AECu, "sub_19AEC" },
     { 0x019B08u, "sub_19B08" },
+    { 0x019B3Eu, "sub_19B3E" },
+    { 0x019C1Cu, "sub_19C1C" },
+    { 0x019C60u, "sub_19C60" },
+    { 0x019CCEu, "sub_19CCE" },
+    { 0x019D0Au, "sub_19D0A" },
+    { 0x019D24u, "sub_19D24" },
+    { 0x019D58u, "sub_19D58" },
     { 0x019D88u, "sub_19D88" },
     { 0x019DA6u, "sub_19DA6" },
     { 0x019DC0u, "sub_19DC0" },
@@ -4402,12 +5888,16 @@ static const struct sym rom_syms[] = {
     { 0x019E56u, "sub_19E56" },
     { 0x019E96u, "sub_19E96" },
     { 0x019EAAu, "sub_19EAA" },
+    { 0x019EBEu, "sub_19EBE" },
     { 0x019ED2u, "sub_19ED2" },
     { 0x019EE6u, "sub_19EE6" },
     { 0x019EFAu, "sub_19EFA" },
     { 0x019F0Eu, "sub_19F0E" },
+    { 0x019F8Cu, "sub_19F8C" },
     { 0x01A00Au, "sub_1A00A" },
+    { 0x01A054u, "sub_1A054" },
     { 0x01A0E2u, "sub_1A0E2" },
+    { 0x01A132u, "sub_1A132" },
     { 0x01A15Eu, "sub_1A15E" },
     { 0x01A1EAu, "sub_1A1EA" },
     { 0x01A21Cu, "ObjectFindEffect" },
@@ -4679,8 +6169,10 @@ static const struct sym rom_syms[] = {
     { 0x02056Cu, "LogoCopyLH" },
     { 0x0205A4u, "LogoStepParams" },
     { 0x020646u, "LogoBrighten" },
+    { 0x020686u, "sub_20686" },
     { 0x0206D4u, "sub_206D4" },
     { 0x02070Au, "sub_2070A" },
+    { 0x0207D4u, "sub_207D4" },
     { 0x0208C6u, "sub_208C6" },
     { 0x0208D6u, "sub_208D6" },
     { 0x0208E8u, "sub_208E8" },
@@ -4835,6 +6327,36 @@ static const struct sym rom_syms[] = {
     { 0x022446u, "sub_22446" },
     { 0x02247Cu, "sub_2247C" },
     { 0x02249Au, "sub_2249A" },
+    { 0x02250Eu, "sub_2250E" },
+    { 0x02252Cu, "sub_2252C" },
+    { 0x022542u, "sub_22542" },
+    { 0x022580u, "sub_22580" },
+    { 0x0225A6u, "sub_225A6" },
+    { 0x0225C6u, "sub_225C6" },
+    { 0x0225F0u, "sub_225F0" },
+    { 0x02260Cu, "sub_2260C" },
+    { 0x022642u, "sub_22642" },
+    { 0x02267Cu, "sub_2267C" },
+    { 0x022696u, "sub_22696" },
+    { 0x0226B0u, "sub_226B0" },
+    { 0x0226CAu, "sub_226CA" },
+    { 0x0226E4u, "sub_226E4" },
+    { 0x0226FEu, "sub_226FE" },
+    { 0x02274Cu, "sub_2274C" },
+    { 0x022778u, "sub_22778" },
+    { 0x022796u, "sub_22796" },
+    { 0x0227B0u, "sub_227B0" },
+    { 0x0227FEu, "sub_227FE" },
+    { 0x022818u, "sub_22818" },
+    { 0x022850u, "sub_22850" },
+    { 0x022888u, "sub_22888" },
+    { 0x0228C0u, "sub_228C0" },
+    { 0x0228D2u, "sub_228D2" },
+    { 0x02292Cu, "sub_2292C" },
+    { 0x022956u, "sub_22956" },
+    { 0x022972u, "sub_22972" },
+    { 0x0229A8u, "sub_229A8" },
+    { 0x0229DEu, "sub_229DE" },
     { 0x022A6Eu, "sub_22A6E" },
     { 0x022A90u, "sub_22A90" },
     { 0x022AD2u, "sub_22AD2" },
@@ -4844,6 +6366,31 @@ static const struct sym rom_syms[] = {
     { 0x022B50u, "sub_22B50" },
     { 0x022B68u, "sub_22B68" },
     { 0x022B78u, "sub_22B78" },
+    { 0x022BB2u, "sub_22BB2" },
+    { 0x022BDCu, "sub_22BDC" },
+    { 0x022BF4u, "sub_22BF4" },
+    { 0x022C20u, "sub_22C20" },
+    { 0x022C3Au, "sub_22C3A" },
+    { 0x022C54u, "sub_22C54" },
+    { 0x022CA6u, "sub_22CA6" },
+    { 0x022CD6u, "sub_22CD6" },
+    { 0x022CEEu, "sub_22CEE" },
+    { 0x022D1Au, "sub_22D1A" },
+    { 0x022D34u, "sub_22D34" },
+    { 0x022D4Eu, "sub_22D4E" },
+    { 0x022DA0u, "sub_22DA0" },
+    { 0x022DD0u, "sub_22DD0" },
+    { 0x022DE8u, "sub_22DE8" },
+    { 0x022E14u, "sub_22E14" },
+    { 0x022E2Eu, "sub_22E2E" },
+    { 0x022E48u, "sub_22E48" },
+    { 0x022E9Au, "sub_22E9A" },
+    { 0x022ECAu, "sub_22ECA" },
+    { 0x022EE2u, "sub_22EE2" },
+    { 0x022F0Eu, "sub_22F0E" },
+    { 0x022F28u, "sub_22F28" },
+    { 0x022F42u, "sub_22F42" },
+    { 0x022F8Eu, "sub_22F8E" },
     { 0x022FCEu, "sub_22FCE" },
     { 0x022FFCu, "sub_22FFC" },
     { 0x02300Au, "sub_2300A" },
@@ -4879,12 +6426,253 @@ static const struct sym rom_syms[] = {
     { 0x0237E4u, "sub_237E4" },
     { 0x0237FAu, "sub_237FA" },
     { 0x023A86u, "sub_23A86" },
+    { 0x023ABEu, "sub_23ABE" },
+    { 0x023B8Au, "sub_23B8A" },
+    { 0x023BBAu, "sub_23BBA" },
+    { 0x023C42u, "sub_23C42" },
+    { 0x023CAEu, "sub_23CAE" },
+    { 0x023CEEu, "sub_23CEE" },
+    { 0x023D2Cu, "sub_23D2C" },
+    { 0x023DE8u, "sub_23DE8" },
+    { 0x023EA0u, "sub_23EA0" },
+    { 0x023F16u, "sub_23F16" },
+    { 0x023F7Cu, "sub_23F7C" },
+    { 0x023FB6u, "sub_23FB6" },
+    { 0x024080u, "sub_24080" },
+    { 0x02408Cu, "sub_2408C" },
+    { 0x024126u, "sub_24126" },
+    { 0x024132u, "sub_24132" },
+    { 0x02422Au, "sub_2422A" },
+    { 0x024262u, "sub_24262" },
+    { 0x02429Cu, "sub_2429C" },
+    { 0x0242FAu, "sub_242FA" },
+    { 0x0243B4u, "sub_243B4" },
+    { 0x02440Au, "sub_2440A" },
+    { 0x02445Au, "sub_2445A" },
+    { 0x024492u, "sub_24492" },
+    { 0x02450Cu, "sub_2450C" },
+    { 0x024540u, "sub_24540" },
+    { 0x024588u, "sub_24588" },
+    { 0x0245ACu, "sub_245AC" },
+    { 0x024684u, "sub_24684" },
+    { 0x0246C6u, "sub_246C6" },
+    { 0x024732u, "sub_24732" },
+    { 0x0247CEu, "sub_247CE" },
+    { 0x0247EEu, "sub_247EE" },
+    { 0x0247F2u, "sub_247F2" },
+    { 0x024856u, "sub_24856" },
+    { 0x0248D2u, "sub_248D2" },
+    { 0x02493Eu, "sub_2493E" },
+    { 0x024972u, "sub_24972" },
+    { 0x02499Cu, "sub_2499C" },
+    { 0x024A58u, "sub_24A58" },
+    { 0x024A94u, "sub_24A94" },
+    { 0x024B10u, "sub_24B10" },
+    { 0x024B40u, "sub_24B40" },
+    { 0x024B4Cu, "sub_24B4C" },
+    { 0x024C1Cu, "sub_24C1C" },
+    { 0x024CA2u, "sub_24CA2" },
+    { 0x024CDCu, "sub_24CDC" },
+    { 0x024D4Eu, "sub_24D4E" },
+    { 0x024D68u, "sub_24D68" },
+    { 0x024DA6u, "sub_24DA6" },
+    { 0x024DCCu, "sub_24DCC" },
+    { 0x024E02u, "sub_24E02" },
+    { 0x024E1Cu, "sub_24E1C" },
+    { 0x024E48u, "sub_24E48" },
+    { 0x024E76u, "sub_24E76" },
+    { 0x024EACu, "sub_24EAC" },
+    { 0x024ECCu, "sub_24ECC" },
+    { 0x024EE4u, "sub_24EE4" },
+    { 0x024F36u, "sub_24F36" },
+    { 0x024FD0u, "sub_24FD0" },
+    { 0x025002u, "sub_25002" },
+    { 0x025030u, "sub_25030" },
+    { 0x025080u, "sub_25080" },
+    { 0x0250EAu, "sub_250EA" },
+    { 0x02517Cu, "sub_2517C" },
+    { 0x0251A2u, "sub_251A2" },
+    { 0x025256u, "sub_25256" },
+    { 0x0252F8u, "sub_252F8" },
+    { 0x025320u, "sub_25320" },
+    { 0x025366u, "sub_25366" },
+    { 0x02538Eu, "sub_2538E" },
+    { 0x0253B6u, "sub_253B6" },
+    { 0x0253D8u, "sub_253D8" },
+    { 0x02540Cu, "sub_2540C" },
+    { 0x02548Cu, "sub_2548C" },
+    { 0x0254B0u, "sub_254B0" },
+    { 0x0254F8u, "sub_254F8" },
+    { 0x02551Cu, "sub_2551C" },
+    { 0x025530u, "sub_25530" },
+    { 0x025560u, "sub_25560" },
+    { 0x02558Eu, "sub_2558E" },
+    { 0x0255B6u, "sub_255B6" },
+    { 0x0255E4u, "sub_255E4" },
+    { 0x0255FEu, "sub_255FE" },
+    { 0x025618u, "sub_25618" },
+    { 0x025634u, "sub_25634" },
+    { 0x02566Cu, "sub_2566C" },
+    { 0x025702u, "sub_25702" },
+    { 0x025798u, "sub_25798" },
+    { 0x0257DCu, "sub_257DC" },
+    { 0x0257F8u, "sub_257F8" },
+    { 0x025832u, "sub_25832" },
+    { 0x0258FEu, "sub_258FE" },
+    { 0x02593Au, "sub_2593A" },
+    { 0x025964u, "sub_25964" },
+    { 0x02598Eu, "sub_2598E" },
+    { 0x0259B8u, "sub_259B8" },
+    { 0x0259E2u, "sub_259E2" },
+    { 0x025A1Eu, "sub_25A1E" },
+    { 0x025A70u, "sub_25A70" },
+    { 0x025A9Eu, "sub_25A9E" },
+    { 0x025ADCu, "sub_25ADC" },
+    { 0x025B44u, "sub_25B44" },
+    { 0x025B5Au, "sub_25B5A" },
+    { 0x025B68u, "sub_25B68" },
+    { 0x025BACu, "sub_25BAC" },
+    { 0x025C48u, "sub_25C48" },
+    { 0x025C96u, "sub_25C96" },
+    { 0x025D0Au, "sub_25D0A" },
+    { 0x025D4Cu, "sub_25D4C" },
+    { 0x025D58u, "sub_25D58" },
+    { 0x025E5Cu, "sub_25E5C" },
+    { 0x025EC4u, "sub_25EC4" },
+    { 0x025F88u, "sub_25F88" },
+    { 0x025FDAu, "sub_25FDA" },
+    { 0x025FF6u, "sub_25FF6" },
+    { 0x026038u, "sub_26038" },
+    { 0x02603Cu, "sub_2603C" },
+    { 0x026050u, "sub_26050" },
+    { 0x026066u, "sub_26066" },
+    { 0x0260FCu, "sub_260FC" },
+    { 0x026126u, "sub_26126" },
+    { 0x0261C6u, "sub_261C6" },
+    { 0x0261FEu, "sub_261FE" },
+    { 0x026246u, "sub_26246" },
+    { 0x02629Au, "sub_2629A" },
+    { 0x0262CCu, "sub_262CC" },
+    { 0x026390u, "sub_26390" },
+    { 0x0264C8u, "sub_264C8" },
+    { 0x0264DEu, "sub_264DE" },
+    { 0x0264E6u, "sub_264E6" },
+    { 0x0266C0u, "sub_266C0" },
+    { 0x026726u, "sub_26726" },
+    { 0x0267A2u, "sub_267A2" },
+    { 0x0267E4u, "sub_267E4" },
+    { 0x026818u, "sub_26818" },
+    { 0x026848u, "sub_26848" },
+    { 0x0268A4u, "sub_268A4" },
+    { 0x02693Au, "sub_2693A" },
+    { 0x026972u, "sub_26972" },
+    { 0x0269DEu, "sub_269DE" },
+    { 0x026AE0u, "sub_26AE0" },
+    { 0x026B32u, "sub_26B32" },
+    { 0x026BFAu, "sub_26BFA" },
+    { 0x026CC8u, "sub_26CC8" },
+    { 0x026D24u, "sub_26D24" },
+    { 0x026D68u, "sub_26D68" },
+    { 0x026DA2u, "sub_26DA2" },
+    { 0x026E16u, "sub_26E16" },
+    { 0x026E26u, "sub_26E26" },
+    { 0x026E76u, "sub_26E76" },
+    { 0x026EBEu, "sub_26EBE" },
+    { 0x026EE4u, "sub_26EE4" },
+    { 0x026F22u, "sub_26F22" },
+    { 0x026F6Au, "sub_26F6A" },
+    { 0x027002u, "sub_27002" },
+    { 0x02704Eu, "sub_2704E" },
+    { 0x02708Au, "sub_2708A" },
+    { 0x0270A2u, "sub_270A2" },
+    { 0x0270ECu, "sub_270EC" },
+    { 0x0270FAu, "sub_270FA" },
     { 0x027144u, "sub_27144" },
+    { 0x0271FEu, "sub_271FE" },
+    { 0x0272D6u, "sub_272D6" },
+    { 0x0272DCu, "sub_272DC" },
     { 0x0272E0u, "sub_272E0" },
+    { 0x0273CAu, "sub_273CA" },
+    { 0x0273CEu, "sub_273CE" },
+    { 0x0273D4u, "sub_273D4" },
+    { 0x027434u, "sub_27434" },
+    { 0x02744Eu, "sub_2744E" },
+    { 0x027638u, "sub_27638" },
+    { 0x02764Cu, "sub_2764C" },
+    { 0x02766Cu, "sub_2766C" },
+    { 0x02768Au, "sub_2768A" },
+    { 0x0276A6u, "sub_276A6" },
+    { 0x0276C6u, "sub_276C6" },
+    { 0x0276E4u, "sub_276E4" },
+    { 0x027700u, "sub_27700" },
+    { 0x02772Eu, "sub_2772E" },
+    { 0x027744u, "sub_27744" },
+    { 0x027754u, "sub_27754" },
+    { 0x02776Eu, "sub_2776E" },
     { 0x0277BEu, "sub_277BE" },
     { 0x0277E8u, "sub_277E8" },
+    { 0x027848u, "sub_27848" },
+    { 0x028016u, "sub_28016" },
+    { 0x028076u, "sub_28076" },
+    { 0x0281E6u, "sub_281E6" },
+    { 0x028262u, "sub_28262" },
+    { 0x0282DAu, "sub_282DA" },
+    { 0x028318u, "sub_28318" },
+    { 0x0283CCu, "sub_283CC" },
+    { 0x028504u, "sub_28504" },
+    { 0x028642u, "sub_28642" },
+    { 0x028664u, "sub_28664" },
+    { 0x02873Eu, "sub_2873E" },
+    { 0x028768u, "sub_28768" },
+    { 0x0287B2u, "sub_287B2" },
+    { 0x0287D0u, "sub_287D0" },
+    { 0x0287F2u, "sub_287F2" },
+    { 0x028838u, "sub_28838" },
+    { 0x028866u, "sub_28866" },
+    { 0x028904u, "sub_28904" },
+    { 0x0289EAu, "sub_289EA" },
+    { 0x028A1Cu, "sub_28A1C" },
+    { 0x028AB0u, "sub_28AB0" },
+    { 0x028AB6u, "sub_28AB6" },
+    { 0x028B0Au, "sub_28B0A" },
+    { 0x028B24u, "sub_28B24" },
+    { 0x028B4Cu, "sub_28B4C" },
+    { 0x028BE6u, "sub_28BE6" },
+    { 0x028BEEu, "sub_28BEE" },
+    { 0x028D2Au, "sub_28D2A" },
+    { 0x028D8Cu, "sub_28D8C" },
+    { 0x028DA6u, "sub_28DA6" },
+    { 0x028DE0u, "sub_28DE0" },
+    { 0x028E30u, "sub_28E30" },
+    { 0x028E5Eu, "sub_28E5E" },
+    { 0x028E74u, "sub_28E74" },
+    { 0x028ED4u, "sub_28ED4" },
+    { 0x028EEEu, "sub_28EEE" },
+    { 0x028F44u, "sub_28F44" },
+    { 0x028F76u, "sub_28F76" },
+    { 0x028FB0u, "sub_28FB0" },
+    { 0x028FCCu, "sub_28FCC" },
+    { 0x029038u, "sub_29038" },
+    { 0x02904Eu, "sub_2904E" },
+    { 0x02907Au, "sub_2907A" },
+    { 0x0290D0u, "sub_290D0" },
+    { 0x0290EEu, "sub_290EE" },
+    { 0x029108u, "sub_29108" },
+    { 0x02913Au, "sub_2913A" },
+    { 0x029172u, "sub_29172" },
+    { 0x0291C6u, "sub_291C6" },
+    { 0x0291F2u, "sub_291F2" },
+    { 0x029288u, "sub_29288" },
+    { 0x02929Eu, "sub_2929E" },
+    { 0x0292C2u, "sub_292C2" },
+    { 0x02935Eu, "sub_2935E" },
+    { 0x029380u, "sub_29380" },
+    { 0x0293CCu, "sub_293CC" },
+    { 0x029422u, "sub_29422" },
+    { 0x029466u, "sub_29466" },
     { 0x0295D0u, "sub_295D0" },
     { 0x029636u, "sub_29636" },
+    { 0x0296DAu, "sub_296DA" },
     { 0x0296F6u, "sub_296F6" },
     { 0x029A40u, "sub_29A40" },
     { 0x029A42u, "sub_29A42" },
@@ -4917,9 +6705,14 @@ static const struct sym rom_syms[] = {
     { 0x02A1C8u, "sub_2A1C8" },
     { 0x02A1DAu, "sub_2A1DA" },
     { 0x02A22Eu, "sub_2A22E" },
+    { 0x02A234u, "sub_2A234" },
+    { 0x02A240u, "sub_2A240" },
     { 0x02A252u, "sub_2A252" },
     { 0x02A262u, "sub_2A262" },
+    { 0x02A27Au, "sub_2A27A" },
+    { 0x02A292u, "sub_2A292" },
     { 0x02A2AAu, "sub_2A2AA" },
+    { 0x02A2C2u, "sub_2A2C2" },
     { 0x02A3C4u, "sub_2A3C4" },
     { 0x02A436u, "sub_2A436" },
     { 0x02A48Cu, "sub_2A48C" },
@@ -4931,7 +6724,10 @@ static const struct sym rom_syms[] = {
     { 0x02A5ECu, "sub_2A5EC" },
     { 0x02A642u, "sub_2A642" },
     { 0x02A652u, "sub_2A652" },
+    { 0x02A68Au, "sub_2A68A" },
     { 0x02A6A8u, "sub_2A6A8" },
+    { 0x02A6CAu, "sub_2A6CA" },
+    { 0x02A79Eu, "sub_2A79E" },
     { 0x02A822u, "sub_2A822" },
     { 0x02A84Eu, "sub_2A84E" },
     { 0x02A906u, "sub_2A906" },
@@ -5119,6 +6915,7 @@ static const struct sym rom_syms[] = {
     { 0x02F588u, "sub_2F588" },
     { 0x02F596u, "sub_2F596" },
     { 0x02F5B8u, "sub_2F5B8" },
+    { 0x02F804u, "sub_2F804" },
     { 0x02F80Cu, "sub_2F80C" },
     { 0x02FB18u, "sub_2FB18" },
     { 0x02FB5Au, "sub_2FB5A" },
@@ -5199,7 +6996,11 @@ static const struct sym rom_syms[] = {
     { 0x031216u, "sub_31216" },
     { 0x031222u, "sub_31222" },
     { 0x03127Cu, "sub_3127C" },
+    { 0x031292u, "sub_31292" },
     { 0x0312BCu, "sub_312BC" },
+    { 0x031356u, "sub_31356" },
+    { 0x031406u, "sub_31406" },
+    { 0x031422u, "sub_31422" },
     { 0x03146Eu, "sub_3146E" },
     { 0x031488u, "sub_31488" },
     { 0x031588u, "sub_31588" },
@@ -5218,6 +7019,29 @@ static const struct sym rom_syms[] = {
     { 0x03183Au, "sub_3183A" },
     { 0x03184Cu, "sub_3184C" },
     { 0x031924u, "sub_31924" },
+    { 0x031948u, "sub_31948" },
+    { 0x03195Eu, "sub_3195E" },
+    { 0x03197Eu, "sub_3197E" },
+    { 0x031994u, "sub_31994" },
+    { 0x0319C8u, "sub_319C8" },
+    { 0x031A26u, "sub_31A26" },
+    { 0x031A28u, "sub_31A28" },
+    { 0x031A9Eu, "sub_31A9E" },
+    { 0x031AEEu, "sub_31AEE" },
+    { 0x031B0Eu, "sub_31B0E" },
+    { 0x031B30u, "sub_31B30" },
+    { 0x031B5Eu, "sub_31B5E" },
+    { 0x031B96u, "sub_31B96" },
+    { 0x031BC6u, "sub_31BC6" },
+    { 0x031BFEu, "sub_31BFE" },
+    { 0x031C32u, "sub_31C32" },
+    { 0x031C78u, "sub_31C78" },
+    { 0x031CE2u, "sub_31CE2" },
+    { 0x031DBCu, "sub_31DBC" },
+    { 0x031DF6u, "sub_31DF6" },
+    { 0x031E42u, "sub_31E42" },
+    { 0x031E76u, "sub_31E76" },
+    { 0x031EF4u, "sub_31EF4" },
     { 0x031F3Au, "sub_31F3A" },
     { 0x031F5Eu, "sub_31F5E" },
     { 0x031F72u, "sub_31F72" },
@@ -5417,6 +7241,7 @@ static const struct sym rom_syms[] = {
     { 0x034F76u, "sub_34F76" },
     { 0x035002u, "sub_35002" },
     { 0x03503Au, "sub_3503A" },
+    { 0x0350CCu, "sub_350CC" },
     { 0x03518Au, "sub_3518A" },
     { 0x0351A8u, "sub_351A8" },
     { 0x035286u, "sub_35286" },
@@ -5425,6 +7250,59 @@ static const struct sym rom_syms[] = {
     { 0x035522u, "sub_35522" },
     { 0x035584u, "sub_35584" },
     { 0x0355CCu, "sub_355CC" },
+    { 0x03566Cu, "sub_3566C" },
+    { 0x03567Eu, "sub_3567E" },
+    { 0x0356B0u, "sub_356B0" },
+    { 0x0356B6u, "sub_356B6" },
+    { 0x0356F2u, "sub_356F2" },
+    { 0x03577Eu, "sub_3577E" },
+    { 0x035792u, "sub_35792" },
+    { 0x0357BEu, "sub_357BE" },
+    { 0x0358AEu, "sub_358AE" },
+    { 0x0358D0u, "sub_358D0" },
+    { 0x0358FCu, "sub_358FC" },
+    { 0x035940u, "sub_35940" },
+    { 0x0359CEu, "sub_359CE" },
+    { 0x035A22u, "sub_35A22" },
+    { 0x035A48u, "sub_35A48" },
+    { 0x035A68u, "sub_35A68" },
+    { 0x035C04u, "sub_35C04" },
+    { 0x035C28u, "sub_35C28" },
+    { 0x035C2Au, "sub_35C2A" },
+    { 0x035C76u, "sub_35C76" },
+    { 0x035C96u, "sub_35C96" },
+    { 0x035D40u, "sub_35D40" },
+    { 0x035DE6u, "sub_35DE6" },
+    { 0x035E3Eu, "sub_35E3E" },
+    { 0x035E6Cu, "sub_35E6C" },
+    { 0x035F0Au, "sub_35F0A" },
+    { 0x035F32u, "sub_35F32" },
+    { 0x035F86u, "sub_35F86" },
+    { 0x035FEAu, "sub_35FEA" },
+    { 0x036000u, "sub_36000" },
+    { 0x036054u, "sub_36054" },
+    { 0x0361B4u, "sub_361B4" },
+    { 0x0361DAu, "sub_361DA" },
+    { 0x0361EAu, "sub_361EA" },
+    { 0x036462u, "sub_36462" },
+    { 0x036488u, "sub_36488" },
+    { 0x0364CEu, "sub_364CE" },
+    { 0x036520u, "sub_36520" },
+    { 0x036556u, "sub_36556" },
+    { 0x03658Au, "sub_3658A" },
+    { 0x0365B2u, "sub_365B2" },
+    { 0x0365D6u, "sub_365D6" },
+    { 0x0365DEu, "sub_365DE" },
+    { 0x0365FEu, "sub_365FE" },
+    { 0x036608u, "sub_36608" },
+    { 0x036650u, "sub_36650" },
+    { 0x0367FCu, "sub_367FC" },
+    { 0x036A80u, "sub_36A80" },
+    { 0x036B06u, "sub_36B06" },
+    { 0x036B12u, "sub_36B12" },
+    { 0x036BC8u, "sub_36BC8" },
+    { 0x036C62u, "sub_36C62" },
+    { 0x036E54u, "sub_36E54" },
     { 0x036E88u, "sub_36E88" },
     { 0x036EB0u, "sub_36EB0" },
     { 0x036EF6u, "sub_36EF6" },
@@ -5490,6 +7368,24 @@ static const struct sym rom_syms[] = {
     { 0x03839Au, "sub_3839A" },
     { 0x0383AAu, "sub_383AA" },
     { 0x0383C6u, "sub_383C6" },
+    { 0x038464u, "sub_38464" },
+    { 0x03847Eu, "sub_3847E" },
+    { 0x0384A4u, "sub_384A4" },
+    { 0x0384F6u, "sub_384F6" },
+    { 0x038508u, "sub_38508" },
+    { 0x03857Eu, "sub_3857E" },
+    { 0x0385C8u, "sub_385C8" },
+    { 0x0385F6u, "sub_385F6" },
+    { 0x038634u, "sub_38634" },
+    { 0x038656u, "sub_38656" },
+    { 0x03866Eu, "sub_3866E" },
+    { 0x038696u, "sub_38696" },
+    { 0x0386CCu, "sub_386CC" },
+    { 0x03872Au, "sub_3872A" },
+    { 0x038758u, "sub_38758" },
+    { 0x038794u, "sub_38794" },
+    { 0x038796u, "sub_38796" },
+    { 0x0387CCu, "sub_387CC" },
     { 0x038882u, "sub_38882" },
     { 0x038926u, "sub_38926" },
     { 0x038928u, "sub_38928" },
@@ -5516,13 +7412,21 @@ static const struct sym rom_syms[] = {
     { 0x039052u, "sub_39052" },
     { 0x03905Eu, "sub_3905E" },
     { 0x039070u, "sub_39070" },
+    { 0x0390EAu, "sub_390EA" },
     { 0x03910Cu, "sub_3910C" },
+    { 0x03915Au, "sub_3915A" },
+    { 0x039166u, "sub_39166" },
     { 0x039278u, "sub_39278" },
     { 0x039296u, "sub_39296" },
     { 0x0392BCu, "sub_392BC" },
     { 0x0392CCu, "sub_392CC" },
     { 0x0392D8u, "sub_392D8" },
     { 0x0392DCu, "sub_392DC" },
+    { 0x039376u, "sub_39376" },
+    { 0x039390u, "sub_39390" },
+    { 0x03939Au, "sub_3939A" },
+    { 0x0393C0u, "sub_393C0" },
+    { 0x0393EAu, "sub_393EA" },
     { 0x03944Cu, "sub_3944C" },
     { 0x039466u, "sub_39466" },
     { 0x03947Cu, "sub_3947C" },
@@ -5551,7 +7455,171 @@ static const struct sym rom_syms[] = {
     { 0x03AB3Cu, "sub_3AB3C" },
     { 0x03AB44u, "sub_3AB44" },
     { 0x03AB84u, "sub_3AB84" },
+    { 0x03AC62u, "sub_3AC62" },
+    { 0x03AE9Au, "sub_3AE9A" },
+    { 0x03AF02u, "sub_3AF02" },
+    { 0x03AF72u, "sub_3AF72" },
+    { 0x03AF9Au, "sub_3AF9A" },
+    { 0x03AFA8u, "sub_3AFA8" },
+    { 0x03AFE0u, "sub_3AFE0" },
+    { 0x03B0B6u, "sub_3B0B6" },
+    { 0x03B114u, "sub_3B114" },
+    { 0x03B126u, "sub_3B126" },
+    { 0x03B156u, "sub_3B156" },
+    { 0x03B1C8u, "sub_3B1C8" },
+    { 0x03B1DCu, "sub_3B1DC" },
+    { 0x03B200u, "sub_3B200" },
+    { 0x03B210u, "sub_3B210" },
+    { 0x03B294u, "sub_3B294" },
+    { 0x03B2BAu, "sub_3B2BA" },
+    { 0x03B2E6u, "sub_3B2E6" },
+    { 0x03B32Eu, "sub_3B32E" },
+    { 0x03B354u, "sub_3B354" },
+    { 0x03B380u, "sub_3B380" },
+    { 0x03B3C8u, "sub_3B3C8" },
+    { 0x03B3ECu, "sub_3B3EC" },
+    { 0x03B434u, "sub_3B434" },
+    { 0x03B458u, "sub_3B458" },
+    { 0x03B4A0u, "sub_3B4A0" },
+    { 0x03B556u, "sub_3B556" },
+    { 0x03B59Cu, "sub_3B59C" },
+    { 0x03B626u, "sub_3B626" },
+    { 0x03B686u, "sub_3B686" },
+    { 0x03B6BEu, "sub_3B6BE" },
+    { 0x03B6FEu, "sub_3B6FE" },
+    { 0x03B748u, "sub_3B748" },
+    { 0x03B7BEu, "sub_3B7BE" },
+    { 0x03B83Eu, "sub_3B83E" },
+    { 0x03B856u, "sub_3B856" },
+    { 0x03B868u, "sub_3B868" },
+    { 0x03B8A2u, "sub_3B8A2" },
+    { 0x03B906u, "sub_3B906" },
+    { 0x03B934u, "sub_3B934" },
+    { 0x03B9C4u, "sub_3B9C4" },
+    { 0x03BA0Cu, "sub_3BA0C" },
+    { 0x03BA2Eu, "sub_3BA2E" },
+    { 0x03BA74u, "sub_3BA74" },
+    { 0x03BAB0u, "sub_3BAB0" },
+    { 0x03BAB4u, "sub_3BAB4" },
+    { 0x03BAF0u, "sub_3BAF0" },
+    { 0x03BAF4u, "sub_3BAF4" },
+    { 0x03BB2Au, "sub_3BB2A" },
+    { 0x03BB3Eu, "sub_3BB3E" },
+    { 0x03BB46u, "sub_3BB46" },
+    { 0x03BB80u, "sub_3BB80" },
+    { 0x03BB84u, "sub_3BB84" },
+    { 0x03BBBEu, "sub_3BBBE" },
+    { 0x03BBDAu, "sub_3BBDA" },
+    { 0x03BBFAu, "sub_3BBFA" },
+    { 0x03BC02u, "sub_3BC02" },
+    { 0x03BC0Au, "sub_3BC0A" },
+    { 0x03BC46u, "sub_3BC46" },
+    { 0x03BC4Au, "sub_3BC4A" },
+    { 0x03BC86u, "sub_3BC86" },
+    { 0x03BC8Au, "sub_3BC8A" },
+    { 0x03BCC2u, "sub_3BCC2" },
+    { 0x03BCCAu, "sub_3BCCA" },
+    { 0x03BCD2u, "sub_3BCD2" },
+    { 0x03BD0Cu, "sub_3BD0C" },
+    { 0x03BD10u, "sub_3BD10" },
+    { 0x03BD4Cu, "sub_3BD4C" },
+    { 0x03BD68u, "sub_3BD68" },
+    { 0x03BD8Au, "sub_3BD8A" },
+    { 0x03BD92u, "sub_3BD92" },
+    { 0x03BD9Au, "sub_3BD9A" },
+    { 0x03BDD8u, "sub_3BDD8" },
+    { 0x03BDDCu, "sub_3BDDC" },
+    { 0x03BE1Au, "sub_3BE1A" },
+    { 0x03BE1Eu, "sub_3BE1E" },
+    { 0x03BE56u, "sub_3BE56" },
+    { 0x03BE6Au, "sub_3BE6A" },
+    { 0x03BE72u, "sub_3BE72" },
+    { 0x03BEAEu, "sub_3BEAE" },
+    { 0x03BEB2u, "sub_3BEB2" },
+    { 0x03BEEEu, "sub_3BEEE" },
+    { 0x03BF0Au, "sub_3BF0A" },
+    { 0x03BF2Cu, "sub_3BF2C" },
+    { 0x03BF34u, "sub_3BF34" },
+    { 0x03BF3Cu, "sub_3BF3C" },
+    { 0x03BF7Au, "sub_3BF7A" },
+    { 0x03BF7Eu, "sub_3BF7E" },
+    { 0x03BFBCu, "sub_3BFBC" },
+    { 0x03BFC0u, "sub_3BFC0" },
+    { 0x03BFF6u, "sub_3BFF6" },
+    { 0x03BFFEu, "sub_3BFFE" },
+    { 0x03C006u, "sub_3C006" },
+    { 0x03C042u, "sub_3C042" },
+    { 0x03C046u, "sub_3C046" },
+    { 0x03C080u, "sub_3C080" },
+    { 0x03C09Cu, "sub_3C09C" },
+    { 0x03C0BCu, "sub_3C0BC" },
+    { 0x03C0C4u, "sub_3C0C4" },
+    { 0x03C12Eu, "sub_3C12E" },
+    { 0x03C448u, "sub_3C448" },
+    { 0x03C470u, "sub_3C470" },
+    { 0x03C4ACu, "sub_3C4AC" },
+    { 0x03C4D0u, "sub_3C4D0" },
+    { 0x03C500u, "sub_3C500" },
+    { 0x03C558u, "sub_3C558" },
+    { 0x03C5A8u, "sub_3C5A8" },
+    { 0x03C5EAu, "sub_3C5EA" },
+    { 0x03C5F8u, "sub_3C5F8" },
+    { 0x03C62Eu, "sub_3C62E" },
+    { 0x03C644u, "sub_3C644" },
+    { 0x03C69Cu, "sub_3C69C" },
+    { 0x03C6C4u, "sub_3C6C4" },
+    { 0x03C6E6u, "sub_3C6E6" },
+    { 0x03C710u, "sub_3C710" },
+    { 0x03C73Au, "sub_3C73A" },
+    { 0x03C764u, "sub_3C764" },
+    { 0x03C78Eu, "sub_3C78E" },
+    { 0x03C7B8u, "sub_3C7B8" },
+    { 0x03C7E2u, "sub_3C7E2" },
+    { 0x03C80Cu, "sub_3C80C" },
+    { 0x03C8D0u, "sub_3C8D0" },
+    { 0x03C9C0u, "sub_3C9C0" },
+    { 0x03C9F6u, "sub_3C9F6" },
+    { 0x03CA12u, "sub_3CA12" },
+    { 0x03CA2Au, "sub_3CA2A" },
+    { 0x03CA42u, "sub_3CA42" },
+    { 0x03CA5Au, "sub_3CA5A" },
+    { 0x03CA72u, "sub_3CA72" },
+    { 0x03CA92u, "sub_3CA92" },
+    { 0x03CAB2u, "sub_3CAB2" },
+    { 0x03CAD2u, "sub_3CAD2" },
+    { 0x03CB36u, "sub_3CB36" },
+    { 0x03CBA6u, "sub_3CBA6" },
+    { 0x03CC16u, "sub_3CC16" },
+    { 0x03CC44u, "sub_3CC44" },
+    { 0x03CC6Au, "sub_3CC6A" },
+    { 0x03CCA4u, "sub_3CCA4" },
+    { 0x03CCCAu, "sub_3CCCA" },
+    { 0x03CCF8u, "sub_3CCF8" },
+    { 0x03CD1Eu, "sub_3CD1E" },
+    { 0x03CD58u, "sub_3CD58" },
+    { 0x03CDB6u, "sub_3CDB6" },
+    { 0x03CDE2u, "sub_3CDE2" },
+    { 0x03CE46u, "sub_3CE46" },
+    { 0x03CEBEu, "sub_3CEBE" },
+    { 0x03CF30u, "sub_3CF30" },
+    { 0x03CF46u, "sub_3CF46" },
+    { 0x03CF84u, "sub_3CF84" },
+    { 0x03CF92u, "sub_3CF92" },
+    { 0x03D064u, "sub_3D064" },
+    { 0x03D0B0u, "sub_3D0B0" },
+    { 0x03D0C2u, "sub_3D0C2" },
+    { 0x03D17Au, "sub_3D17A" },
+    { 0x03D1FCu, "sub_3D1FC" },
+    { 0x03D2A6u, "sub_3D2A6" },
+    { 0x03D2F6u, "sub_3D2F6" },
+    { 0x03D33Au, "sub_3D33A" },
     { 0x03D342u, "sub_3D342" },
+    { 0x03D386u, "sub_3D386" },
+    { 0x03D38Eu, "sub_3D38E" },
+    { 0x03D3A6u, "sub_3D3A6" },
+    { 0x03D3AEu, "sub_3D3AE" },
+    { 0x03D3D6u, "sub_3D3D6" },
+    { 0x03D3FAu, "sub_3D3FA" },
     { 0x03D4B2u, "sub_3D4B2" },
     { 0x03D50Cu, "sub_3D50C" },
     { 0x03D55Eu, "sub_3D55E" },
@@ -5715,10 +7783,14 @@ static const struct sym rom_syms[] = {
     { 0x040408u, "sub_40408" },
     { 0x04043Au, "sub_4043A" },
     { 0x040470u, "sub_40470" },
+    { 0x04050Eu, "sub_4050E" },
+    { 0x04054Au, "sub_4054A" },
+    { 0x040586u, "sub_40586" },
     { 0x04059Au, "sub_4059A" },
     { 0x0405D2u, "sub_405D2" },
     { 0x04060Eu, "sub_4060E" },
     { 0x040628u, "sub_40628" },
+    { 0x04062Cu, "sub_4062C" },
     { 0x04064Eu, "sub_4064E" },
     { 0x0406B4u, "sub_406B4" },
     { 0x0406EEu, "sub_406EE" },
@@ -5789,6 +7861,7 @@ static const struct sym rom_syms[] = {
     { 0x041D02u, "sub_41D02" },
     { 0x041D32u, "sub_41D32" },
     { 0x041DBCu, "sub_41DBC" },
+    { 0x041E10u, "sub_41E10" },
     { 0x041E4Au, "sub_41E4A" },
     { 0x041E90u, "sub_41E90" },
     { 0x041F04u, "sub_41F04" },
@@ -5804,8 +7877,358 @@ static const struct sym rom_syms[] = {
     { 0x04228Eu, "sub_4228E" },
     { 0x0422AEu, "sub_422AE" },
     { 0x0422ECu, "sub_422EC" },
+    { 0x042358u, "sub_42358" },
+    { 0x0423EAu, "sub_423EA" },
+    { 0x0424D6u, "sub_424D6" },
+    { 0x0424F2u, "sub_424F2" },
+    { 0x04250Eu, "sub_4250E" },
+    { 0x042528u, "sub_42528" },
+    { 0x04255Cu, "sub_4255C" },
+    { 0x0425DCu, "sub_425DC" },
+    { 0x04261Eu, "sub_4261E" },
+    { 0x042686u, "sub_42686" },
+    { 0x0426C6u, "sub_426C6" },
+    { 0x042768u, "sub_42768" },
+    { 0x042778u, "sub_42778" },
+    { 0x042792u, "sub_42792" },
+    { 0x0427ACu, "sub_427AC" },
+    { 0x0427F4u, "sub_427F4" },
+    { 0x042832u, "sub_42832" },
+    { 0x0428AEu, "sub_428AE" },
+    { 0x042926u, "sub_42926" },
+    { 0x04295Au, "sub_4295A" },
+    { 0x04299Cu, "sub_4299C" },
+    { 0x0429F8u, "sub_429F8" },
+    { 0x042A5Cu, "sub_42A5C" },
+    { 0x042AD6u, "sub_42AD6" },
+    { 0x042B2Au, "sub_42B2A" },
+    { 0x042B40u, "sub_42B40" },
+    { 0x042B50u, "sub_42B50" },
+    { 0x042B80u, "sub_42B80" },
+    { 0x042BB0u, "sub_42BB0" },
+    { 0x042BECu, "sub_42BEC" },
+    { 0x042BFAu, "sub_42BFA" },
+    { 0x042C98u, "sub_42C98" },
+    { 0x042D02u, "sub_42D02" },
+    { 0x042D0Eu, "sub_42D0E" },
+    { 0x042D66u, "sub_42D66" },
+    { 0x042DA6u, "sub_42DA6" },
+    { 0x042E28u, "sub_42E28" },
+    { 0x042EFAu, "sub_42EFA" },
+    { 0x042F40u, "sub_42F40" },
+    { 0x042F66u, "sub_42F66" },
+    { 0x0430CCu, "sub_430CC" },
+    { 0x043104u, "sub_43104" },
+    { 0x04311Eu, "sub_4311E" },
+    { 0x043146u, "sub_43146" },
+    { 0x04318Eu, "sub_4318E" },
+    { 0x0431D8u, "sub_431D8" },
+    { 0x0431E2u, "sub_431E2" },
+    { 0x043206u, "sub_43206" },
+    { 0x04324Au, "sub_4324A" },
+    { 0x043258u, "sub_43258" },
+    { 0x043264u, "sub_43264" },
+    { 0x0432AAu, "sub_432AA" },
+    { 0x0432B6u, "sub_432B6" },
+    { 0x043322u, "sub_43322" },
+    { 0x043390u, "sub_43390" },
+    { 0x0433B0u, "sub_433B0" },
+    { 0x043402u, "sub_43402" },
+    { 0x04345Cu, "sub_4345C" },
+    { 0x04347Au, "sub_4347A" },
+    { 0x0434A4u, "sub_434A4" },
+    { 0x0434FAu, "sub_434FA" },
+    { 0x043524u, "sub_43524" },
+    { 0x04357Au, "sub_4357A" },
+    { 0x0435F2u, "sub_435F2" },
+    { 0x043634u, "sub_43634" },
+    { 0x04364Eu, "sub_4364E" },
+    { 0x043676u, "sub_43676" },
+    { 0x04367Eu, "sub_4367E" },
+    { 0x0436F6u, "sub_436F6" },
+    { 0x0437F8u, "sub_437F8" },
+    { 0x04380Eu, "sub_4380E" },
     { 0x043906u, "sub_43906" },
+    { 0x043942u, "sub_43942" },
+    { 0x043978u, "sub_43978" },
+    { 0x043986u, "sub_43986" },
+    { 0x043994u, "sub_43994" },
+    { 0x0439A2u, "sub_439A2" },
+    { 0x0439ACu, "sub_439AC" },
+    { 0x0439E0u, "sub_439E0" },
+    { 0x043A6Au, "sub_43A6A" },
+    { 0x043B1Au, "sub_43B1A" },
+    { 0x043B42u, "sub_43B42" },
+    { 0x043B80u, "sub_43B80" },
+    { 0x043BE0u, "sub_43BE0" },
+    { 0x043BE6u, "sub_43BE6" },
+    { 0x043BFCu, "sub_43BFC" },
+    { 0x043C2Cu, "sub_43C2C" },
+    { 0x043CDEu, "sub_43CDE" },
+    { 0x043D5Eu, "sub_43D5E" },
+    { 0x043DACu, "sub_43DAC" },
+    { 0x043DB2u, "sub_43DB2" },
+    { 0x043E3Au, "sub_43E3A" },
+    { 0x043EEEu, "sub_43EEE" },
+    { 0x043F64u, "sub_43F64" },
+    { 0x043FA8u, "sub_43FA8" },
+    { 0x043FC0u, "sub_43FC0" },
+    { 0x044028u, "sub_44028" },
+    { 0x044040u, "sub_44040" },
+    { 0x0440DAu, "sub_440DA" },
+    { 0x0440F2u, "sub_440F2" },
+    { 0x04411Au, "sub_4411A" },
+    { 0x04415Cu, "sub_4415C" },
+    { 0x0441F8u, "sub_441F8" },
+    { 0x04420Cu, "sub_4420C" },
+    { 0x04421Cu, "sub_4421C" },
+    { 0x044396u, "sub_44396" },
+    { 0x044436u, "sub_44436" },
+    { 0x0444ACu, "sub_444AC" },
+    { 0x0444C8u, "sub_444C8" },
+    { 0x0444F0u, "sub_444F0" },
+    { 0x04450Cu, "sub_4450C" },
+    { 0x04452Cu, "sub_4452C" },
+    { 0x044578u, "sub_44578" },
+    { 0x0445A6u, "sub_445A6" },
+    { 0x0445E2u, "sub_445E2" },
+    { 0x0446BEu, "sub_446BE" },
+    { 0x0446CCu, "sub_446CC" },
+    { 0x0446F6u, "sub_446F6" },
+    { 0x0447E6u, "sub_447E6" },
+    { 0x044824u, "sub_44824" },
+    { 0x044846u, "sub_44846" },
+    { 0x044864u, "sub_44864" },
+    { 0x04489Au, "sub_4489A" },
+    { 0x0448BAu, "sub_448BA" },
+    { 0x0448C6u, "sub_448C6" },
+    { 0x0448F0u, "sub_448F0" },
+    { 0x04492Cu, "sub_4492C" },
+    { 0x044944u, "sub_44944" },
+    { 0x04494Cu, "sub_4494C" },
+    { 0x04495Cu, "sub_4495C" },
+    { 0x044984u, "sub_44984" },
+    { 0x0449BCu, "sub_449BC" },
+    { 0x0449FCu, "sub_449FC" },
+    { 0x044A08u, "sub_44A08" },
+    { 0x044A22u, "sub_44A22" },
+    { 0x044A48u, "sub_44A48" },
+    { 0x044AA0u, "sub_44AA0" },
+    { 0x044ABAu, "sub_44ABA" },
+    { 0x044B10u, "sub_44B10" },
+    { 0x044B9Eu, "sub_44B9E" },
+    { 0x044BD8u, "sub_44BD8" },
+    { 0x044BDCu, "sub_44BDC" },
+    { 0x044CA6u, "sub_44CA6" },
+    { 0x044CCCu, "sub_44CCC" },
+    { 0x044CF4u, "sub_44CF4" },
+    { 0x044D0Eu, "sub_44D0E" },
+    { 0x044D40u, "sub_44D40" },
+    { 0x044D7Eu, "sub_44D7E" },
+    { 0x044DD0u, "sub_44DD0" },
+    { 0x044E28u, "sub_44E28" },
+    { 0x044E46u, "sub_44E46" },
+    { 0x044E80u, "sub_44E80" },
+    { 0x044EDAu, "sub_44EDA" },
+    { 0x044EEEu, "sub_44EEE" },
+    { 0x044F84u, "sub_44F84" },
+    { 0x044F94u, "sub_44F94" },
+    { 0x044FA4u, "sub_44FA4" },
+    { 0x045000u, "sub_45000" },
+    { 0x045010u, "sub_45010" },
+    { 0x045072u, "sub_45072" },
+    { 0x0450A8u, "sub_450A8" },
+    { 0x0450BAu, "sub_450BA" },
+    { 0x0450F8u, "sub_450F8" },
+    { 0x045134u, "sub_45134" },
+    { 0x04518Cu, "sub_4518C" },
+    { 0x045236u, "sub_45236" },
+    { 0x045248u, "sub_45248" },
+    { 0x045256u, "sub_45256" },
+    { 0x0452A2u, "sub_452A2" },
+    { 0x045332u, "sub_45332" },
+    { 0x04538Au, "sub_4538A" },
+    { 0x045442u, "sub_45442" },
+    { 0x045488u, "sub_45488" },
+    { 0x0454AAu, "sub_454AA" },
+    { 0x0454B8u, "sub_454B8" },
+    { 0x0454ECu, "sub_454EC" },
+    { 0x045550u, "sub_45550" },
+    { 0x04556Eu, "sub_4556E" },
+    { 0x04557Cu, "sub_4557C" },
+    { 0x0455BCu, "sub_455BC" },
+    { 0x0455E2u, "sub_455E2" },
+    { 0x0455F0u, "sub_455F0" },
+    { 0x04560Au, "sub_4560A" },
+    { 0x045680u, "sub_45680" },
+    { 0x04570Cu, "sub_4570C" },
+    { 0x04573Eu, "sub_4573E" },
+    { 0x045756u, "sub_45756" },
+    { 0x045798u, "sub_45798" },
+    { 0x0457BAu, "sub_457BA" },
+    { 0x0457D0u, "sub_457D0" },
+    { 0x0457D6u, "sub_457D6" },
+    { 0x0457EEu, "sub_457EE" },
+    { 0x045868u, "sub_45868" },
+    { 0x0458B2u, "sub_458B2" },
+    { 0x0458C8u, "sub_458C8" },
+    { 0x0458F4u, "sub_458F4" },
+    { 0x045928u, "sub_45928" },
+    { 0x045994u, "sub_45994" },
+    { 0x045B68u, "sub_45B68" },
+    { 0x045B7Au, "sub_45B7A" },
+    { 0x045BB8u, "sub_45BB8" },
+    { 0x045C50u, "sub_45C50" },
+    { 0x045D18u, "sub_45D18" },
+    { 0x045D7Eu, "sub_45D7E" },
+    { 0x045DAAu, "sub_45DAA" },
+    { 0x045DFAu, "sub_45DFA" },
+    { 0x045E0Eu, "sub_45E0E" },
+    { 0x045E1Cu, "sub_45E1C" },
+    { 0x045E36u, "sub_45E36" },
+    { 0x045E50u, "sub_45E50" },
+    { 0x045EC6u, "sub_45EC6" },
+    { 0x045F9Eu, "sub_45F9E" },
+    { 0x045FB6u, "sub_45FB6" },
+    { 0x046094u, "sub_46094" },
+    { 0x0460CCu, "sub_460CC" },
+    { 0x0461D2u, "sub_461D2" },
+    { 0x046280u, "sub_46280" },
+    { 0x046300u, "sub_46300" },
+    { 0x0463B8u, "sub_463B8" },
+    { 0x0463EAu, "sub_463EA" },
+    { 0x04640Cu, "sub_4640C" },
+    { 0x046484u, "sub_46484" },
+    { 0x0464F8u, "sub_464F8" },
+    { 0x04655Eu, "sub_4655E" },
+    { 0x0465C0u, "sub_465C0" },
+    { 0x0465E6u, "sub_465E6" },
+    { 0x046614u, "sub_46614" },
+    { 0x046674u, "sub_46674" },
+    { 0x046690u, "sub_46690" },
+    { 0x046726u, "sub_46726" },
+    { 0x046760u, "sub_46760" },
+    { 0x046784u, "sub_46784" },
+    { 0x0467B8u, "sub_467B8" },
+    { 0x0468BAu, "sub_468BA" },
+    { 0x0469D4u, "sub_469D4" },
+    { 0x046AE4u, "sub_46AE4" },
+    { 0x046B52u, "sub_46B52" },
+    { 0x046BA6u, "sub_46BA6" },
+    { 0x046BFCu, "sub_46BFC" },
+    { 0x046C28u, "sub_46C28" },
+    { 0x046C52u, "sub_46C52" },
+    { 0x046CA2u, "sub_46CA2" },
+    { 0x046CC6u, "sub_46CC6" },
+    { 0x046D46u, "sub_46D46" },
+    { 0x046E9Eu, "sub_46E9E" },
+    { 0x046ED2u, "sub_46ED2" },
+    { 0x046EF2u, "sub_46EF2" },
+    { 0x046F12u, "sub_46F12" },
+    { 0x046F2Cu, "sub_46F2C" },
+    { 0x046F48u, "sub_46F48" },
+    { 0x046F64u, "sub_46F64" },
+    { 0x046F7Au, "sub_46F7A" },
+    { 0x047064u, "sub_47064" },
+    { 0x047132u, "sub_47132" },
+    { 0x047178u, "sub_47178" },
+    { 0x047196u, "sub_47196" },
+    { 0x0471E4u, "sub_471E4" },
+    { 0x04720Au, "sub_4720A" },
+    { 0x04721Eu, "sub_4721E" },
+    { 0x047232u, "sub_47232" },
+    { 0x04724Au, "sub_4724A" },
+    { 0x047262u, "sub_47262" },
+    { 0x04728Au, "sub_4728A" },
+    { 0x0472B6u, "sub_472B6" },
+    { 0x0472C6u, "sub_472C6" },
+    { 0x047316u, "sub_47316" },
+    { 0x04734Eu, "sub_4734E" },
+    { 0x047410u, "sub_47410" },
+    { 0x04743Eu, "sub_4743E" },
+    { 0x0475B6u, "sub_475B6" },
+    { 0x0475F0u, "sub_475F0" },
+    { 0x04761Eu, "sub_4761E" },
+    { 0x047642u, "sub_47642" },
+    { 0x047660u, "sub_47660" },
+    { 0x04768Cu, "sub_4768C" },
+    { 0x0476BEu, "sub_476BE" },
+    { 0x0476FEu, "sub_476FE" },
+    { 0x04771Cu, "sub_4771C" },
+    { 0x047736u, "sub_47736" },
+    { 0x047740u, "sub_47740" },
+    { 0x04775Au, "sub_4775A" },
+    { 0x04776Eu, "sub_4776E" },
+    { 0x04778Au, "sub_4778A" },
+    { 0x04780Cu, "sub_4780C" },
+    { 0x047864u, "sub_47864" },
+    { 0x0478E8u, "sub_478E8" },
+    { 0x04790Au, "sub_4790A" },
+    { 0x047956u, "sub_47956" },
+    { 0x0479C0u, "sub_479C0" },
+    { 0x0479E8u, "sub_479E8" },
+    { 0x0479F6u, "sub_479F6" },
+    { 0x047A22u, "sub_47A22" },
+    { 0x047A32u, "sub_47A32" },
+    { 0x047A90u, "sub_47A90" },
+    { 0x047AE4u, "sub_47AE4" },
+    { 0x047B16u, "sub_47B16" },
+    { 0x047CE0u, "sub_47CE0" },
     { 0x047D4Cu, "sub_47D4C" },
+    { 0x047D8Cu, "sub_47D8C" },
+    { 0x047DBEu, "sub_47DBE" },
+    { 0x047E50u, "sub_47E50" },
+    { 0x047E9Au, "sub_47E9A" },
+    { 0x047F0Eu, "sub_47F0E" },
+    { 0x047F3Eu, "sub_47F3E" },
+    { 0x047F4Cu, "sub_47F4C" },
+    { 0x047F70u, "sub_47F70" },
+    { 0x047F7Au, "sub_47F7A" },
+    { 0x047F86u, "sub_47F86" },
+    { 0x047F8Cu, "sub_47F8C" },
+    { 0x048044u, "sub_48044" },
+    { 0x048120u, "sub_48120" },
+    { 0x048160u, "sub_48160" },
+    { 0x0481A0u, "sub_481A0" },
+    { 0x0481BEu, "sub_481BE" },
+    { 0x0481D8u, "sub_481D8" },
+    { 0x0481E2u, "sub_481E2" },
+    { 0x0481ECu, "sub_481EC" },
+    { 0x048200u, "sub_48200" },
+    { 0x04821Cu, "sub_4821C" },
+    { 0x048258u, "sub_48258" },
+    { 0x0482B2u, "sub_482B2" },
+    { 0x0482DAu, "sub_482DA" },
+    { 0x0482E8u, "sub_482E8" },
+    { 0x048328u, "sub_48328" },
+    { 0x04841Au, "sub_4841A" },
+    { 0x048526u, "sub_48526" },
+    { 0x0485AAu, "sub_485AA" },
+    { 0x0485ECu, "sub_485EC" },
+    { 0x048606u, "sub_48606" },
+    { 0x0486B6u, "sub_486B6" },
+    { 0x0486F8u, "sub_486F8" },
+    { 0x048722u, "sub_48722" },
+    { 0x048750u, "sub_48750" },
+    { 0x0487BCu, "sub_487BC" },
+    { 0x0487C6u, "sub_487C6" },
+    { 0x04882Au, "sub_4882A" },
+    { 0x048840u, "sub_48840" },
+    { 0x048868u, "sub_48868" },
+    { 0x048886u, "sub_48886" },
+    { 0x0488D6u, "sub_488D6" },
+    { 0x04890Au, "sub_4890A" },
+    { 0x04892Eu, "sub_4892E" },
+    { 0x04895Cu, "sub_4895C" },
+    { 0x048970u, "sub_48970" },
+    { 0x0489D2u, "sub_489D2" },
+    { 0x048A24u, "sub_48A24" },
+    { 0x048A70u, "sub_48A70" },
+    { 0x048A86u, "sub_48A86" },
+    { 0x048ACAu, "sub_48ACA" },
+    { 0x048B78u, "sub_48B78" },
+    { 0x048BDAu, "sub_48BDA" },
+    { 0x048C6Eu, "sub_48C6E" },
     { 0x048D3Cu, "sub_48D3C" },
     { 0x048DA2u, "sub_48DA2" },
     { 0x048DC2u, "sub_48DC2" },
@@ -5887,6 +8310,23 @@ static const struct sym rom_syms[] = {
     { 0x049780u, "sub_49780" },
     { 0x0497A2u, "sub_497A2" },
     { 0x0497B2u, "sub_497B2" },
+    { 0x0497C2u, "sub_497C2" },
+    { 0x049800u, "sub_49800" },
+    { 0x04984Eu, "sub_4984E" },
+    { 0x049878u, "sub_49878" },
+    { 0x049896u, "sub_49896" },
+    { 0x0498C8u, "sub_498C8" },
+    { 0x0498F2u, "sub_498F2" },
+    { 0x04990Cu, "sub_4990C" },
+    { 0x049912u, "sub_49912" },
+    { 0x049926u, "sub_49926" },
+    { 0x049936u, "sub_49936" },
+    { 0x049952u, "sub_49952" },
+    { 0x04996Au, "sub_4996A" },
+    { 0x049A24u, "sub_49A24" },
+    { 0x049A5Eu, "sub_49A5E" },
+    { 0x049AAAu, "sub_49AAA" },
+    { 0x049B0Au, "sub_49B0A" },
     { 0x049B4Au, "sub_49B4A" },
     { 0x049B58u, "sub_49B58" },
     { 0x049B6Au, "sub_49B6A" },
@@ -6079,10 +8519,13 @@ static const struct sym rom_syms[] = {
     { 0x04C610u, "sub_4C610" },
     { 0x04C628u, "sub_4C628" },
     { 0x04C6A2u, "sub_4C6A2" },
+    { 0x04C6EEu, "sub_4C6EE" },
     { 0x04C774u, "sub_4C774" },
+    { 0x04C906u, "sub_4C906" },
     { 0x04C9C6u, "sub_4C9C6" },
     { 0x04CAEEu, "sub_4CAEE" },
     { 0x04CB36u, "sub_4CB36" },
+    { 0x04CB4Au, "sub_4CB4A" },
     { 0x04CC0Cu, "sub_4CC0C" },
     { 0x04CC1Eu, "sub_4CC1E" },
     { 0x04CC46u, "sub_4CC46" },
@@ -6093,6 +8536,61 @@ static const struct sym rom_syms[] = {
     { 0x04CFE8u, "sub_4CFE8" },
     { 0x04D08Au, "sub_4D08A" },
     { 0x04D0A2u, "sub_4D0A2" },
+    { 0x04D196u, "sub_4D196" },
+    { 0x04D2C4u, "sub_4D2C4" },
+    { 0x04D300u, "sub_4D300" },
+    { 0x04D324u, "sub_4D324" },
+    { 0x04D33Au, "sub_4D33A" },
+    { 0x04D3A8u, "sub_4D3A8" },
+    { 0x04D430u, "sub_4D430" },
+    { 0x04D4E0u, "sub_4D4E0" },
+    { 0x04D566u, "sub_4D566" },
+    { 0x04D644u, "sub_4D644" },
+    { 0x04D6FEu, "sub_4D6FE" },
+    { 0x04D7A0u, "sub_4D7A0" },
+    { 0x04D7B6u, "sub_4D7B6" },
+    { 0x04D806u, "sub_4D806" },
+    { 0x04D874u, "sub_4D874" },
+    { 0x04D8A6u, "sub_4D8A6" },
+    { 0x04D8C4u, "sub_4D8C4" },
+    { 0x04D906u, "sub_4D906" },
+    { 0x04D932u, "sub_4D932" },
+    { 0x04D99Cu, "sub_4D99C" },
+    { 0x04D9BEu, "sub_4D9BE" },
+    { 0x04D9F4u, "sub_4D9F4" },
+    { 0x04D9FCu, "sub_4D9FC" },
+    { 0x04DA2Au, "sub_4DA2A" },
+    { 0x04DA64u, "sub_4DA64" },
+    { 0x04DA8Au, "sub_4DA8A" },
+    { 0x04DB10u, "sub_4DB10" },
+    { 0x04DB36u, "sub_4DB36" },
+    { 0x04DB68u, "sub_4DB68" },
+    { 0x04DB94u, "sub_4DB94" },
+    { 0x04DBB2u, "sub_4DBB2" },
+    { 0x04DBEEu, "sub_4DBEE" },
+    { 0x04DC36u, "sub_4DC36" },
+    { 0x04DCACu, "sub_4DCAC" },
+    { 0x04DD86u, "sub_4DD86" },
+    { 0x04DDAAu, "sub_4DDAA" },
+    { 0x04DDCEu, "sub_4DDCE" },
+    { 0x04DEB8u, "sub_4DEB8" },
+    { 0x04DF22u, "sub_4DF22" },
+    { 0x04DF2Cu, "sub_4DF2C" },
+    { 0x04DF5Au, "sub_4DF5A" },
+    { 0x04DFA0u, "sub_4DFA0" },
+    { 0x04DFAEu, "sub_4DFAE" },
+    { 0x04DFB8u, "sub_4DFB8" },
+    { 0x04DFC4u, "sub_4DFC4" },
+    { 0x04E052u, "sub_4E052" },
+    { 0x04E0D8u, "sub_4E0D8" },
+    { 0x04E218u, "sub_4E218" },
+    { 0x04E272u, "sub_4E272" },
+    { 0x04E2BEu, "sub_4E2BE" },
+    { 0x04E2F2u, "sub_4E2F2" },
+    { 0x04E386u, "sub_4E386" },
+    { 0x04E3D0u, "sub_4E3D0" },
+    { 0x04E428u, "sub_4E428" },
+    { 0x04E4F0u, "sub_4E4F0" },
     { 0x04E7C4u, "sub_4E7C4" },
     { 0x04E7CEu, "sub_4E7CE" },
     { 0x04E9D0u, "sub_4E9D0" },
@@ -6132,6 +8630,12 @@ static const struct sym rom_syms[] = {
     { 0x04F714u, "sub_4F714" },
     { 0x04F74Au, "sub_4F74A" },
     { 0x04F7F6u, "sub_4F7F6" },
+    { 0x04F82Eu, "sub_4F82E" },
+    { 0x04F86Cu, "sub_4F86C" },
+    { 0x04F8A6u, "sub_4F8A6" },
+    { 0x04F8ACu, "sub_4F8AC" },
+    { 0x04F8FAu, "sub_4F8FA" },
+    { 0x04F93Cu, "sub_4F93C" },
     { 0x04F9D4u, "sub_4F9D4" },
     { 0x04FA00u, "sub_4FA00" },
     { 0x04FA1Eu, "sub_4FA1E" },
@@ -6231,6 +8735,22 @@ static const struct sym rom_syms[] = {
     { 0x051152u, "sub_51152" },
     { 0x05128Cu, "sub_5128C" },
     { 0x0512BCu, "sub_512BC" },
+    { 0x05133Au, "sub_5133A" },
+    { 0x051370u, "sub_51370" },
+    { 0x0513CAu, "sub_513CA" },
+    { 0x0513ECu, "sub_513EC" },
+    { 0x05140Eu, "sub_5140E" },
+    { 0x051446u, "sub_51446" },
+    { 0x051466u, "sub_51466" },
+    { 0x051482u, "sub_51482" },
+    { 0x0514BAu, "sub_514BA" },
+    { 0x05150Cu, "sub_5150C" },
+    { 0x051536u, "sub_51536" },
+    { 0x051560u, "sub_51560" },
+    { 0x0515D6u, "sub_515D6" },
+    { 0x051622u, "sub_51622" },
+    { 0x051674u, "sub_51674" },
+    { 0x051690u, "sub_51690" },
     { 0x0516D6u, "sub_516D6" },
     { 0x0517C4u, "sub_517C4" },
     { 0x051808u, "sub_51808" },
@@ -6335,26 +8855,162 @@ static const struct sym rom_syms[] = {
     { 0x05354Eu, "sub_5354E" },
     { 0x053590u, "sub_53590" },
     { 0x0535F2u, "sub_535F2" },
+    { 0x05360Au, "sub_5360A" },
+    { 0x0536E4u, "sub_536E4" },
+    { 0x053722u, "sub_53722" },
+    { 0x05376Eu, "sub_5376E" },
+    { 0x05378Cu, "sub_5378C" },
+    { 0x0537A4u, "sub_537A4" },
+    { 0x0537E0u, "sub_537E0" },
+    { 0x05380Au, "sub_5380A" },
+    { 0x053868u, "sub_53868" },
+    { 0x05387Au, "sub_5387A" },
+    { 0x053920u, "sub_53920" },
+    { 0x053932u, "sub_53932" },
+    { 0x0539BEu, "sub_539BE" },
+    { 0x0539D4u, "sub_539D4" },
+    { 0x0539ECu, "sub_539EC" },
+    { 0x0539F8u, "sub_539F8" },
+    { 0x053A76u, "sub_53A76" },
+    { 0x053AB0u, "sub_53AB0" },
+    { 0x053AFAu, "sub_53AFA" },
+    { 0x053B0Eu, "sub_53B0E" },
+    { 0x053B24u, "sub_53B24" },
+    { 0x053B88u, "sub_53B88" },
+    { 0x053C1Cu, "sub_53C1C" },
+    { 0x053C34u, "sub_53C34" },
+    { 0x053C8Cu, "sub_53C8C" },
+    { 0x053CBAu, "sub_53CBA" },
+    { 0x053CF2u, "sub_53CF2" },
+    { 0x053D06u, "sub_53D06" },
+    { 0x053D20u, "sub_53D20" },
+    { 0x053D3Cu, "sub_53D3C" },
+    { 0x053D4Eu, "sub_53D4E" },
+    { 0x053DA0u, "sub_53DA0" },
+    { 0x053DBAu, "sub_53DBA" },
+    { 0x053E1Cu, "sub_53E1C" },
+    { 0x053E80u, "sub_53E80" },
+    { 0x053EA0u, "sub_53EA0" },
+    { 0x053EA8u, "sub_53EA8" },
+    { 0x053EB4u, "sub_53EB4" },
+    { 0x053F06u, "sub_53F06" },
+    { 0x053F1Eu, "sub_53F1E" },
+    { 0x053F4Cu, "sub_53F4C" },
+    { 0x053F82u, "sub_53F82" },
+    { 0x053FAAu, "sub_53FAA" },
+    { 0x053FFEu, "sub_53FFE" },
+    { 0x05401Au, "sub_5401A" },
+    { 0x054066u, "sub_54066" },
+    { 0x0540A2u, "sub_540A2" },
+    { 0x054126u, "sub_54126" },
+    { 0x054164u, "sub_54164" },
+    { 0x05419Cu, "sub_5419C" },
+    { 0x0541A0u, "sub_541A0" },
+    { 0x0541FEu, "sub_541FE" },
+    { 0x05424Au, "sub_5424A" },
+    { 0x054280u, "sub_54280" },
+    { 0x0543ACu, "sub_543AC" },
+    { 0x054436u, "sub_54436" },
+    { 0x054448u, "sub_54448" },
+    { 0x054458u, "sub_54458" },
+    { 0x0544AAu, "sub_544AA" },
+    { 0x0544BEu, "sub_544BE" },
+    { 0x0544CCu, "sub_544CC" },
+    { 0x0545F0u, "sub_545F0" },
+    { 0x054644u, "sub_54644" },
+    { 0x054692u, "sub_54692" },
+    { 0x0546DEu, "sub_546DE" },
+    { 0x054736u, "sub_54736" },
+    { 0x05478Cu, "sub_5478C" },
+    { 0x054796u, "sub_54796" },
+    { 0x05484Cu, "sub_5484C" },
+    { 0x05489Eu, "sub_5489E" },
+    { 0x05490Au, "sub_5490A" },
+    { 0x054972u, "sub_54972" },
+    { 0x0549CCu, "sub_549CC" },
+    { 0x0549FAu, "sub_549FA" },
+    { 0x054A5Au, "sub_54A5A" },
+    { 0x054D00u, "sub_54D00" },
+    { 0x054D4Au, "sub_54D4A" },
+    { 0x054D5Eu, "sub_54D5E" },
+    { 0x054D7Cu, "sub_54D7C" },
+    { 0x054DCAu, "sub_54DCA" },
+    { 0x054E0Cu, "sub_54E0C" },
+    { 0x054E7Cu, "sub_54E7C" },
+    { 0x054EBEu, "sub_54EBE" },
+    { 0x054EFAu, "sub_54EFA" },
+    { 0x054F20u, "sub_54F20" },
+    { 0x054FCEu, "sub_54FCE" },
+    { 0x05501Eu, "sub_5501E" },
+    { 0x05509Cu, "sub_5509C" },
+    { 0x0550D6u, "sub_550D6" },
+    { 0x055106u, "sub_55106" },
+    { 0x05511Eu, "sub_5511E" },
+    { 0x05513Cu, "sub_5513C" },
+    { 0x055162u, "sub_55162" },
+    { 0x055198u, "sub_55198" },
+    { 0x0551F6u, "sub_551F6" },
+    { 0x0552A6u, "sub_552A6" },
+    { 0x055362u, "sub_55362" },
+    { 0x0553C0u, "sub_553C0" },
+    { 0x055480u, "sub_55480" },
+    { 0x0554D0u, "sub_554D0" },
+    { 0x05551Cu, "sub_5551C" },
+    { 0x05555Cu, "sub_5555C" },
+    { 0x055592u, "sub_55592" },
+    { 0x0555CAu, "sub_555CA" },
+    { 0x0555ECu, "sub_555EC" },
+    { 0x05560Eu, "sub_5560E" },
+    { 0x055628u, "sub_55628" },
+    { 0x055638u, "sub_55638" },
+    { 0x05571Eu, "sub_5571E" },
+    { 0x055784u, "sub_55784" },
+    { 0x0557EEu, "sub_557EE" },
+    { 0x0558FAu, "sub_558FA" },
+    { 0x055A1Eu, "sub_55A1E" },
+    { 0x055ACEu, "sub_55ACE" },
     { 0x055F6Au, "sub_55F6A" },
     { 0x055F84u, "sub_55F84" },
     { 0x055FC0u, "sub_55FC0" },
+    { 0x055FECu, "sub_55FEC" },
+    { 0x056064u, "sub_56064" },
+    { 0x056082u, "sub_56082" },
     { 0x0560A0u, "sub_560A0" },
     { 0x0560B4u, "sub_560B4" },
     { 0x0560DAu, "sub_560DA" },
+    { 0x0560DEu, "sub_560DE" },
     { 0x0560F4u, "sub_560F4" },
     { 0x056100u, "sub_56100" },
+    { 0x056128u, "sub_56128" },
+    { 0x056130u, "sub_56130" },
+    { 0x0561B2u, "sub_561B2" },
     { 0x0561CCu, "sub_561CC" },
     { 0x0561D8u, "sub_561D8" },
     { 0x0561E4u, "sub_561E4" },
     { 0x0561F4u, "sub_561F4" },
+    { 0x056206u, "sub_56206" },
+    { 0x056264u, "sub_56264" },
+    { 0x0562E6u, "sub_562E6" },
+    { 0x056302u, "sub_56302" },
+    { 0x05630Eu, "sub_5630E" },
     { 0x05631Eu, "sub_5631E" },
+    { 0x056360u, "sub_56360" },
+    { 0x056824u, "sub_56824" },
     { 0x05684Eu, "sub_5684E" },
     { 0x0568CAu, "sub_568CA" },
+    { 0x0568DEu, "sub_568DE" },
+    { 0x056912u, "sub_56912" },
     { 0x056922u, "sub_56922" },
     { 0x056946u, "sub_56946" },
+    { 0x056992u, "sub_56992" },
     { 0x0569A2u, "sub_569A2" },
     { 0x0569B2u, "sub_569B2" },
+    { 0x056A06u, "sub_56A06" },
+    { 0x056AA8u, "sub_56AA8" },
+    { 0x056AC8u, "sub_56AC8" },
+    { 0x056AF4u, "sub_56AF4" },
     { 0x056AFEu, "sub_56AFE" },
+    { 0x056B20u, "sub_56B20" },
     { 0x056B2Au, "sub_56B2A" },
     { 0x056B36u, "sub_56B36" },
     { 0x056C92u, "sub_56C92" },
@@ -6363,6 +9019,9 @@ static const struct sym rom_syms[] = {
     { 0x056FBAu, "sub_56FBA" },
     { 0x056FD4u, "sub_56FD4" },
     { 0x05703Eu, "sub_5703E" },
+    { 0x05717Cu, "sub_5717C" },
+    { 0x05718Eu, "sub_5718E" },
+    { 0x0571C0u, "sub_571C0" },
     { 0x0571C2u, "sub_571C2" },
     { 0x0571D8u, "sub_571D8" },
     { 0x0571F2u, "sub_571F2" },
@@ -6370,25 +9029,36 @@ static const struct sym rom_syms[] = {
     { 0x057282u, "sub_57282" },
     { 0x05732Cu, "sub_5732C" },
     { 0x057336u, "sub_57336" },
+    { 0x0573E8u, "sub_573E8" },
+    { 0x0573FAu, "sub_573FA" },
+    { 0x05743Au, "sub_5743A" },
     { 0x0574C0u, "sub_574C0" },
     { 0x0574D6u, "sub_574D6" },
     { 0x05750Eu, "sub_5750E" },
     { 0x057526u, "sub_57526" },
     { 0x057574u, "sub_57574" },
     { 0x057632u, "sub_57632" },
+    { 0x0576ECu, "sub_576EC" },
     { 0x0576F4u, "sub_576F4" },
+    { 0x057790u, "sub_57790" },
     { 0x057872u, "sub_57872" },
     { 0x05790Eu, "sub_5790E" },
     { 0x05798Cu, "sub_5798C" },
     { 0x057A4Cu, "sub_57A4C" },
+    { 0x057B96u, "sub_57B96" },
     { 0x057BC2u, "sub_57BC2" },
+    { 0x057C4Cu, "sub_57C4C" },
+    { 0x057C88u, "sub_57C88" },
     { 0x057CD0u, "sub_57CD0" },
     { 0x057D68u, "sub_57D68" },
     { 0x057D7Eu, "sub_57D7E" },
+    { 0x057E18u, "sub_57E18" },
     { 0x057E46u, "sub_57E46" },
     { 0x057E80u, "sub_57E80" },
     { 0x057F10u, "sub_57F10" },
     { 0x05801Au, "sub_5801A" },
+    { 0x05804Au, "sub_5804A" },
+    { 0x05822Cu, "sub_5822C" },
     { 0x058366u, "sub_58366" },
     { 0x058378u, "sub_58378" },
     { 0x0583B8u, "sub_583B8" },
@@ -6403,9 +9073,18 @@ static const struct sym rom_syms[] = {
     { 0x058562u, "sub_58562" },
     { 0x0585DCu, "sub_585DC" },
     { 0x05861Au, "sub_5861A" },
+    { 0x05864Eu, "sub_5864E" },
     { 0x0586E4u, "sub_586E4" },
     { 0x0587CAu, "sub_587CA" },
     { 0x0588C2u, "sub_588C2" },
+    { 0x058934u, "sub_58934" },
+    { 0x058976u, "sub_58976" },
+    { 0x0589E0u, "sub_589E0" },
+    { 0x0589F4u, "sub_589F4" },
+    { 0x058A28u, "sub_58A28" },
+    { 0x058A56u, "sub_58A56" },
+    { 0x058A6Eu, "sub_58A6E" },
+    { 0x058A82u, "sub_58A82" },
     { 0x058B3Au, "sub_58B3A" },
     { 0x058B62u, "sub_58B62" },
     { 0x058C24u, "sub_58C24" },
@@ -6427,6 +9106,232 @@ static const struct sym rom_syms[] = {
     { 0x05925Au, "sub_5925A" },
     { 0x059280u, "sub_59280" },
     { 0x0592AAu, "sub_592AA" },
+    { 0x0592FCu, "sub_592FC" },
+    { 0x059444u, "sub_59444" },
+    { 0x0595CCu, "sub_595CC" },
+    { 0x059622u, "sub_59622" },
+    { 0x059638u, "sub_59638" },
+    { 0x059668u, "sub_59668" },
+    { 0x0596B0u, "sub_596B0" },
+    { 0x05970Au, "sub_5970A" },
+    { 0x059766u, "sub_59766" },
+    { 0x0597E4u, "sub_597E4" },
+    { 0x0598E0u, "sub_598E0" },
+    { 0x059908u, "sub_59908" },
+    { 0x059962u, "sub_59962" },
+    { 0x0599E0u, "sub_599E0" },
+    { 0x059A40u, "sub_59A40" },
+    { 0x059AA4u, "sub_59AA4" },
+    { 0x059AECu, "sub_59AEC" },
+    { 0x059B28u, "sub_59B28" },
+    { 0x059B80u, "sub_59B80" },
+    { 0x059B82u, "sub_59B82" },
+    { 0x059B8Au, "sub_59B8A" },
+    { 0x059BEEu, "sub_59BEE" },
+    { 0x059C3Au, "sub_59C3A" },
+    { 0x059C5Au, "sub_59C5A" },
+    { 0x059CCEu, "sub_59CCE" },
+    { 0x059CECu, "sub_59CEC" },
+    { 0x059D0Au, "sub_59D0A" },
+    { 0x059D14u, "sub_59D14" },
+    { 0x059D7Cu, "sub_59D7C" },
+    { 0x059DB2u, "sub_59DB2" },
+    { 0x059DEEu, "sub_59DEE" },
+    { 0x059E42u, "sub_59E42" },
+    { 0x059E7Eu, "sub_59E7E" },
+    { 0x059ED0u, "sub_59ED0" },
+    { 0x059F0Cu, "sub_59F0C" },
+    { 0x059F60u, "sub_59F60" },
+    { 0x059F9Cu, "sub_59F9C" },
+    { 0x059FEEu, "sub_59FEE" },
+    { 0x05A00Eu, "sub_5A00E" },
+    { 0x05A02Eu, "sub_5A02E" },
+    { 0x05A07Eu, "sub_5A07E" },
+    { 0x05A0BCu, "sub_5A0BC" },
+    { 0x05A0EEu, "sub_5A0EE" },
+    { 0x05A234u, "sub_5A234" },
+    { 0x05A254u, "sub_5A254" },
+    { 0x05A258u, "sub_5A258" },
+    { 0x05A2D4u, "sub_5A2D4" },
+    { 0x05A2FCu, "sub_5A2FC" },
+    { 0x05A33Eu, "sub_5A33E" },
+    { 0x05A35Au, "sub_5A35A" },
+    { 0x05A386u, "sub_5A386" },
+    { 0x05A3BCu, "sub_5A3BC" },
+    { 0x05A3FEu, "sub_5A3FE" },
+    { 0x05A40Au, "sub_5A40A" },
+    { 0x05A40Cu, "sub_5A40C" },
+    { 0x05A41Au, "sub_5A41A" },
+    { 0x05A422u, "sub_5A422" },
+    { 0x05A440u, "sub_5A440" },
+    { 0x05A450u, "sub_5A450" },
+    { 0x05A4CAu, "sub_5A4CA" },
+    { 0x05A51Au, "sub_5A51A" },
+    { 0x05A5FAu, "sub_5A5FA" },
+    { 0x05A64Cu, "sub_5A64C" },
+    { 0x05A69Eu, "sub_5A69E" },
+    { 0x05A75Eu, "sub_5A75E" },
+    { 0x05A786u, "sub_5A786" },
+    { 0x05A846u, "sub_5A846" },
+    { 0x05A8BAu, "sub_5A8BA" },
+    { 0x05A8D4u, "sub_5A8D4" },
+    { 0x05A940u, "sub_5A940" },
+    { 0x05A984u, "sub_5A984" },
+    { 0x05A9C8u, "sub_5A9C8" },
+    { 0x05A9F8u, "sub_5A9F8" },
+    { 0x05AA92u, "sub_5AA92" },
+    { 0x05AB5Cu, "sub_5AB5C" },
+    { 0x05AB68u, "sub_5AB68" },
+    { 0x05ABE8u, "sub_5ABE8" },
+    { 0x05ACA2u, "sub_5ACA2" },
+    { 0x05ACEAu, "sub_5ACEA" },
+    { 0x05AD2Cu, "sub_5AD2C" },
+    { 0x05AD3Cu, "sub_5AD3C" },
+    { 0x05AD4Cu, "sub_5AD4C" },
+    { 0x05AD60u, "sub_5AD60" },
+    { 0x05AD72u, "sub_5AD72" },
+    { 0x05AD9Cu, "sub_5AD9C" },
+    { 0x05AE0Cu, "sub_5AE0C" },
+    { 0x05AEA2u, "sub_5AEA2" },
+    { 0x05AED8u, "sub_5AED8" },
+    { 0x05AF5Cu, "sub_5AF5C" },
+    { 0x05AF70u, "sub_5AF70" },
+    { 0x05AF9Au, "sub_5AF9A" },
+    { 0x05AFF4u, "sub_5AFF4" },
+    { 0x05B016u, "sub_5B016" },
+    { 0x05B0A2u, "sub_5B0A2" },
+    { 0x05B0CAu, "sub_5B0CA" },
+    { 0x05B114u, "sub_5B114" },
+    { 0x05B12Au, "sub_5B12A" },
+    { 0x05B158u, "sub_5B158" },
+    { 0x05B1C8u, "sub_5B1C8" },
+    { 0x05B1ECu, "sub_5B1EC" },
+    { 0x05B22Eu, "sub_5B22E" },
+    { 0x05B280u, "sub_5B280" },
+    { 0x05B282u, "sub_5B282" },
+    { 0x05B2C4u, "sub_5B2C4" },
+    { 0x05B302u, "sub_5B302" },
+    { 0x05B350u, "sub_5B350" },
+    { 0x05B396u, "sub_5B396" },
+    { 0x05B4DCu, "sub_5B4DC" },
+    { 0x05B51Eu, "sub_5B51E" },
+    { 0x05B596u, "sub_5B596" },
+    { 0x05B5DEu, "sub_5B5DE" },
+    { 0x05B5EEu, "sub_5B5EE" },
+    { 0x05B616u, "sub_5B616" },
+    { 0x05B662u, "sub_5B662" },
+    { 0x05B67Eu, "sub_5B67E" },
+    { 0x05B6ACu, "sub_5B6AC" },
+    { 0x05B6D6u, "sub_5B6D6" },
+    { 0x05B6E2u, "sub_5B6E2" },
+    { 0x05B766u, "sub_5B766" },
+    { 0x05B7AAu, "sub_5B7AA" },
+    { 0x05B7D4u, "sub_5B7D4" },
+    { 0x05B81Cu, "sub_5B81C" },
+    { 0x05B8A2u, "sub_5B8A2" },
+    { 0x05B8C0u, "sub_5B8C0" },
+    { 0x05B954u, "sub_5B954" },
+    { 0x05B9F8u, "sub_5B9F8" },
+    { 0x05BA1Cu, "sub_5BA1C" },
+    { 0x05BA24u, "sub_5BA24" },
+    { 0x05BA76u, "sub_5BA76" },
+    { 0x05BA9Cu, "sub_5BA9C" },
+    { 0x05BAE0u, "sub_5BAE0" },
+    { 0x05BB92u, "sub_5BB92" },
+    { 0x05BC14u, "sub_5BC14" },
+    { 0x05BC3Au, "sub_5BC3A" },
+    { 0x05BCA0u, "sub_5BCA0" },
+    { 0x05BCE4u, "sub_5BCE4" },
+    { 0x05BCF0u, "sub_5BCF0" },
+    { 0x05BD28u, "sub_5BD28" },
+    { 0x05BD4Au, "sub_5BD4A" },
+    { 0x05BDC0u, "sub_5BDC0" },
+    { 0x05BE02u, "sub_5BE02" },
+    { 0x05BE4Cu, "sub_5BE4C" },
+    { 0x05BEC8u, "sub_5BEC8" },
+    { 0x05BEECu, "sub_5BEEC" },
+    { 0x05BF00u, "sub_5BF00" },
+    { 0x05BF44u, "sub_5BF44" },
+    { 0x05BF68u, "sub_5BF68" },
+    { 0x05BFBEu, "sub_5BFBE" },
+    { 0x05BFF2u, "sub_5BFF2" },
+    { 0x05C03Cu, "sub_5C03C" },
+    { 0x05C080u, "sub_5C080" },
+    { 0x05C0BEu, "sub_5C0BE" },
+    { 0x05C0D0u, "sub_5C0D0" },
+    { 0x05C104u, "sub_5C104" },
+    { 0x05C134u, "sub_5C134" },
+    { 0x05C2AAu, "sub_5C2AA" },
+    { 0x05C2D8u, "sub_5C2D8" },
+    { 0x05C3DCu, "sub_5C3DC" },
+    { 0x05C440u, "sub_5C440" },
+    { 0x05C4A0u, "sub_5C4A0" },
+    { 0x05C4C2u, "sub_5C4C2" },
+    { 0x05C6B8u, "sub_5C6B8" },
+    { 0x05C788u, "sub_5C788" },
+    { 0x05C83Au, "sub_5C83A" },
+    { 0x05C890u, "sub_5C890" },
+    { 0x05C8ACu, "sub_5C8AC" },
+    { 0x05C928u, "sub_5C928" },
+    { 0x05C94Au, "sub_5C94A" },
+    { 0x05C954u, "sub_5C954" },
+    { 0x05CC02u, "sub_5CC02" },
+    { 0x05CC84u, "sub_5CC84" },
+    { 0x05CCB6u, "sub_5CCB6" },
+    { 0x05CCEEu, "sub_5CCEE" },
+    { 0x05CD3Eu, "sub_5CD3E" },
+    { 0x05D0D8u, "sub_5D0D8" },
+    { 0x05D0F4u, "sub_5D0F4" },
+    { 0x05D122u, "sub_5D122" },
+    { 0x05D146u, "sub_5D146" },
+    { 0x05D156u, "sub_5D156" },
+    { 0x05D170u, "sub_5D170" },
+    { 0x05D202u, "sub_5D202" },
+    { 0x05D248u, "sub_5D248" },
+    { 0x05D292u, "sub_5D292" },
+    { 0x05D2D2u, "sub_5D2D2" },
+    { 0x05D334u, "sub_5D334" },
+    { 0x05D340u, "sub_5D340" },
+    { 0x05D37Au, "sub_5D37A" },
+    { 0x05D450u, "sub_5D450" },
+    { 0x05D4E8u, "sub_5D4E8" },
+    { 0x05D58Au, "sub_5D58A" },
+    { 0x05D5A8u, "sub_5D5A8" },
+    { 0x05D5D6u, "sub_5D5D6" },
+    { 0x05D636u, "sub_5D636" },
+    { 0x05D658u, "sub_5D658" },
+    { 0x05D67Au, "sub_5D67A" },
+    { 0x05D740u, "sub_5D740" },
+    { 0x05D79Cu, "sub_5D79C" },
+    { 0x05D83Cu, "sub_5D83C" },
+    { 0x05D91Eu, "sub_5D91E" },
+    { 0x05D9D0u, "sub_5D9D0" },
+    { 0x05DA34u, "sub_5DA34" },
+    { 0x05DA76u, "sub_5DA76" },
+    { 0x05DAEAu, "sub_5DAEA" },
+    { 0x05DB3Cu, "sub_5DB3C" },
+    { 0x05DB70u, "sub_5DB70" },
+    { 0x05DBC8u, "sub_5DBC8" },
+    { 0x05DBD2u, "sub_5DBD2" },
+    { 0x05DC22u, "sub_5DC22" },
+    { 0x05DC4Au, "sub_5DC4A" },
+    { 0x05DC56u, "sub_5DC56" },
+    { 0x05DD2Eu, "sub_5DD2E" },
+    { 0x05DF32u, "sub_5DF32" },
+    { 0x05DF66u, "sub_5DF66" },
+    { 0x05DFDCu, "sub_5DFDC" },
+    { 0x05E00Cu, "sub_5E00C" },
+    { 0x05E092u, "sub_5E092" },
+    { 0x05E174u, "sub_5E174" },
+    { 0x05E1ECu, "sub_5E1EC" },
+    { 0x05E27Au, "sub_5E27A" },
+    { 0x05E342u, "sub_5E342" },
+    { 0x05E368u, "sub_5E368" },
+    { 0x05E3D0u, "sub_5E3D0" },
+    { 0x05E41Eu, "sub_5E41E" },
+    { 0x05E47Cu, "sub_5E47C" },
+    { 0x05E54Au, "sub_5E54A" },
+    { 0x05E564u, "sub_5E564" },
     { 0x05E58Eu, "sub_5E58E" },
     { 0x05E5BAu, "sub_5E5BA" },
     { 0x05E5F4u, "sub_5E5F4" },
@@ -6461,8 +9366,45 @@ static const struct sym rom_syms[] = {
     { 0x05EF8Cu, "sub_5EF8C" },
     { 0x05F00Cu, "sub_5F00C" },
     { 0x05F094u, "sub_5F094" },
+    { 0x05F14Eu, "sub_5F14E" },
+    { 0x05F170u, "sub_5F170" },
+    { 0x05F1A4u, "sub_5F1A4" },
+    { 0x05F23Au, "sub_5F23A" },
+    { 0x05F2F6u, "sub_5F2F6" },
+    { 0x05F312u, "sub_5F312" },
+    { 0x05F33Cu, "sub_5F33C" },
     { 0x05F362u, "sub_5F362" },
     { 0x05F388u, "sub_5F388" },
+    { 0x05F3B4u, "sub_5F3B4" },
+    { 0x05F424u, "sub_5F424" },
+    { 0x060564u, "sub_60564" },
+    { 0x060710u, "sub_60710" },
+    { 0x06076Eu, "sub_6076E" },
+    { 0x0607AEu, "sub_607AE" },
+    { 0x060910u, "sub_60910" },
+    { 0x06095Eu, "sub_6095E" },
+    { 0x061108u, "sub_61108" },
+    { 0x061262u, "sub_61262" },
+    { 0x0612B2u, "sub_612B2" },
+    { 0x0613C2u, "sub_613C2" },
+    { 0x061408u, "sub_61408" },
+    { 0x06145Eu, "sub_6145E" },
+    { 0x0614AEu, "sub_614AE" },
+    { 0x06155Eu, "sub_6155E" },
+    { 0x06168Cu, "sub_6168C" },
+    { 0x061CE6u, "sub_61CE6" },
+    { 0x061D32u, "sub_61D32" },
+    { 0x06237Eu, "sub_6237E" },
+    { 0x0623BAu, "sub_623BA" },
+    { 0x0623D0u, "sub_623D0" },
+    { 0x0623E8u, "sub_623E8" },
+    { 0x062406u, "sub_62406" },
+    { 0x062466u, "sub_62466" },
+    { 0x062496u, "sub_62496" },
+    { 0x0624AAu, "sub_624AA" },
+    { 0x0624B4u, "sub_624B4" },
+    { 0x0624ECu, "sub_624EC" },
+    { 0x062540u, "sub_62540" },
     { 0x062892u, "Mode48" },
     { 0x0628BCu, "Mode48Init" },
     { 0x062902u, "Mode48Approach" },
@@ -6685,11 +9627,14 @@ static const uint32_t trivial_syms[] = {
     0x012A96u, 0x013D8Au, 0x014160u, 0x0147E8u, 0x014D58u, 0x015038u, 0x015314u, 0x015AAEu,
     0x01C40Au, 0x01D30Au, 0x01E5D8u, 0x01EDD2u, 0x01F8EAu, 0x02035Cu, 0x020940u, 0x020980u,
     0x0209DCu, 0x020A02u, 0x020A5Cu, 0x020B68u, 0x020BBEu, 0x020D60u, 0x020D76u, 0x020DC2u,
-    0x020DD8u, 0x020F9Eu, 0x021038u, 0x0214E8u, 0x02154Au, 0x029A40u, 0x029AA0u, 0x029B7Eu,
-    0x02A12Eu, 0x02C2AAu, 0x02D02Au, 0x02F4BAu, 0x030748u, 0x03222Cu, 0x032282u, 0x03306Au,
-    0x033CDCu, 0x033D04u, 0x0342A4u, 0x037D82u, 0x0382CCu, 0x038926u, 0x038EF2u, 0x03DB92u,
-    0x03DC9Cu, 0x040A50u, 0x048F30u, 0x048F66u, 0x049402u, 0x04AB3Eu, 0x04B01Cu, 0x04C20Au,
-    0x04C4A6u, 0x04C4A8u, 0x04F4FCu, 0x050828u, 0x0508FCu, 0x050B1Cu, 0x050CB4u, 0x050DD0u,
-    0x053140u, 0x058446u, 0x0590DEu, 0x05EF10u, 0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au,
-    0x065C2Au, 0x065C2Eu,
+    0x020DD8u, 0x020F9Eu, 0x021038u, 0x0214E8u, 0x02154Au, 0x022F8Eu, 0x0247EEu, 0x026038u,
+    0x0272D6u, 0x0272DCu, 0x0273CAu, 0x0273CEu, 0x029A40u, 0x029AA0u, 0x029B7Eu, 0x02A12Eu,
+    0x02A68Au, 0x02C2AAu, 0x02D02Au, 0x02F4BAu, 0x030748u, 0x031A26u, 0x03222Cu, 0x032282u,
+    0x03306Au, 0x033CDCu, 0x033D04u, 0x0342A4u, 0x035C28u, 0x037D82u, 0x0382CCu, 0x038794u,
+    0x038926u, 0x038EF2u, 0x03BAB0u, 0x03BC46u, 0x03BDD8u, 0x03BF7Au, 0x03DB92u, 0x03DC9Cu,
+    0x040628u, 0x040A50u, 0x044BD8u, 0x047F86u, 0x048F30u, 0x048F66u, 0x049402u, 0x04AB3Eu,
+    0x04B01Cu, 0x04C20Au, 0x04C4A6u, 0x04C4A8u, 0x04F4FCu, 0x050828u, 0x0508FCu, 0x050B1Cu,
+    0x050CB4u, 0x050DD0u, 0x053140u, 0x05419Cu, 0x0560DAu, 0x056128u, 0x0571C0u, 0x058446u,
+    0x0590DEu, 0x059B80u, 0x05A254u, 0x05A40Au, 0x05B280u, 0x05DC4Au, 0x05EF0Au, 0x05EF10u,
+    0x062FCCu, 0x065A2Eu, 0x065A48u, 0x065A4Au, 0x065C2Au, 0x065C2Eu,
 };

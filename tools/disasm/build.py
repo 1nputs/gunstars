@@ -25,6 +25,19 @@ VASM = os.path.join(ROOT, 'ref', 'vasm-src', 'vasm', 'vasmm68k_mot')
 ROM_SIZE = 0x100000
 
 
+# tables of routines the game reaches through data (not a jump table's pattern): every entry is
+# code. ObjectRoutines: each object type's routine, by the type ($54C, 409 entries to $BB0)
+CODE_TABLES = [(0x00054C, 409)]
+
+
+def code_table_entries(rom):
+    out = []
+    for at, n in CODE_TABLES:
+        for k in range(n):
+            out.append(int.from_bytes(rom[at + 4 * k:at + 4 * k + 4], 'big'))
+    return out
+
+
 def load_u32(path, n):
     a = array.array('I')
     if os.path.exists(path):
@@ -112,8 +125,9 @@ class Disasm:
         self.tables = {}
         # code a static call reaches is code even where something also reads it as data (a
         # command list copies ROM that holds routines too): from a call's target, the flow is
-        # followed through such bytes
-        forced = set()
+        # followed through such bytes; so are the code tables' entries
+        forced = set(code_table_entries(self.rom))
+        work.extend(forced)
         while True:
             while work:
                 a = work.pop()
@@ -215,6 +229,7 @@ class Disasm:
                 entries.add(i.target)
         for a, ts in self.tables.items():
             entries.update(ts)
+        entries.update(code_table_entries(self.rom))
         self.entries = {e for e in entries if e in self.insn}
         for e in self.entries:
             kind[e] = 'sub'
