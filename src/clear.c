@@ -109,6 +109,8 @@ void VdpShadowRegsAlt(void) { vdp_shadow(VDP_INIT_ALT); }
 /* $002B68 ... : RAM */
 void ClearRamFF0000(void) { clear_ram(0x0000, 0x8000); }
 void ClearRamFF8000(void) { clear_ram(0x8000, 0x2000); }
+/* $002B82: the planes' buffer, $FF0000-$FF1FFF */
+void ClearPlaneBuffer(void) { clear_ram(0x0000, 0x2000); }
 void ClearRamA000(void) { clear_ram(0xA000, 0x100); clear_ram(0xA100, 0x100); }
 void ClearRamA200(void) { clear_ram(0xA200, 0x80); }
 void ClearPlayers(void) { clear_ram(0xA400, 0x60); clear_ram(0xA600, 0x60); }

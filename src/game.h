@@ -211,6 +211,7 @@ void ClearBuffers(void);                                             /* $002AAA 
 void VdpShadowRegs(void);                                            /* $002AD6 */
 void VdpShadowRegsAlt(void);                                         /* $002ADE */
 void ClearRamFF0000(void);                                           /* $002B68 */
+void ClearPlaneBuffer(void);                                         /* $002B82 */
 void ClearRamFF8000(void);                                           /* $002B9C */
 void ClearRamA000(void);                                             /* $002BB4 */
 void ClearRamA200(void);                                             /* $002BE2 */
@@ -2813,6 +2814,62 @@ void Stage6Allies(uint16_t count);                                   /* $050012 
 void Stage6AllyA800(uint16_t d0);                                    /* $050182 d0.w */
 void Stage6AlliesStep0(void);                                        /* $050122 */
 void Stage6AlliesStep2(void);                                        /* $05012C */
+
+/* ---- the battleship's deck fight, type $284 (objects3d.c) ---- */
+void DeckTiltLevel(void);                                            /* $03F20E */
+void DeckTiltRock(void);                                             /* $03F24A */
+void DeckTiltLean(void);                                             /* $03F2BA */
+void DeckTiltCentre(void);                                           /* $03F30A */
+void DeckFightStart(uint16_t obj);                                   /* $03DEC0 a5 */
+void DeckFightStand(uint16_t obj);                                   /* $03DF1A a5 */
+void DeckFightWalk(uint16_t obj);                                    /* $03DF76 a5 */
+void DeckFightStagger(uint16_t obj);                                 /* $03DFF0 a5 */
+void DeckFightWindUp(uint16_t obj);                                  /* $03E066 a5 */
+void DeckFightCharge(uint16_t obj);                                  /* $03E0DC a5 */
+void DeckFightFall(uint16_t obj);                                    /* $03E01E a5 */
+void DeckFightFallen(uint16_t obj);                                  /* $03E134 a5 */
+void DeckFightClimb(uint16_t obj);                                   /* $03E182 a5 */
+void DeckFightGrab(uint16_t obj);                                    /* $03E1F4 a5 */
+void DeckFightThrow(uint16_t obj);                                   /* $03E280 a5 */
+void DeckFightSlam(uint16_t obj);                                    /* $03E2EA a5 */
+void DeckFightPause(uint16_t obj);                                   /* $03E354 a5 */
+void DeckFightJump(uint16_t obj);                                    /* $03E39E a5 */
+void DeckFightLand(uint16_t obj);                                    /* $03E40A a5 */
+void DeckFightBeaten(uint16_t obj);                                  /* $03E71A a5 */
+void DeckFightDying(uint16_t obj);                                   /* $03E792 a5 */
+void DeckFightFallAway(uint16_t obj);                                /* $03E80A a5 */
+void DeckFightCrouch(uint16_t obj);                                  /* $03E4BE a5 */
+void DeckFightSpring(uint16_t obj);                                  /* $03E4FC a5 */
+void DeckFightLandSpin(uint16_t obj);                                /* $03E51C a5 */
+void DeckFightSpin(uint16_t obj);                                    /* $03E576 a5 */
+void DeckFightToss(uint16_t obj);                                    /* $03E468 a5 */
+void DeckFightBombs(uint16_t obj);                                   /* $03E496 a5 */
+void DeckFightBroken(uint16_t obj);                                  /* $03E650 a5 */
+void DeckFightKnocked(uint16_t obj);                                 /* $03E66E a5 */
+void Boss380Begin(uint16_t obj);                                     /* $02FB5A a5 */
+void DeckBossStart(uint16_t obj);                                    /* $03D55E a5 */
+void DeckBossWait(uint16_t obj);                                     /* $03D5F6 a5 */
+void DeckBossRise(uint16_t obj);                                     /* $03D66C a5 */
+void DeckBossSail(uint16_t obj);                                     /* $03D6F2 a5 */
+void DeckBossLoaded(uint16_t obj);                                   /* $03D7DA a5 */
+void DeckBossClimb(uint16_t obj);                                    /* $03D7FA a5 */
+void DeckBossOn(uint16_t obj);                                       /* $03D848 a5 */
+void DeckBoss380Fight(uint16_t obj);                                 /* $03D884 a5 */
+void DeckBossSink(uint16_t obj);                                     /* $03D8FC a5 */
+void DeckBossLoaded2(uint16_t obj);                                  /* $03D960 a5 */
+void DeckBossRaise(uint16_t obj);                                    /* $03D978 a5 */
+void DeckBossSettle(uint16_t obj);                                   /* $03D9C2 a5 */
+void DeckBossBattle(uint16_t obj);                                   /* $03DA44 a5 */
+void DeckBossFallen(uint16_t obj);                                   /* $03DAEA a5 */
+void DeckBossFade(uint16_t obj);                                     /* $03DA66 a5 */
+void DeckBossGone(uint16_t obj);                                     /* $03DB2C a5 */
+void DeckBossFadeIn(uint16_t obj);                                   /* $03DB52 a5 */
+void DeckBossDone(uint16_t obj);                                     /* $03DB92 a5 */
+void DeckBoss(uint16_t obj);                                         /* $03D4B2 a5 */
+
+/* ---- types $1567C-$16B9E (objects15.c) ---- */
+void HeldPart(uint16_t obj);                                         /* $016ABE a5 */
+void Settling(uint16_t obj);                                         /* $016B9E a5 */
 
 /* ---- not ported yet ---- */
 

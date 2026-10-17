@@ -89,7 +89,7 @@
 #define SYM_VdpShadowRegsAlt 0x002ADEu
 #define SYM_IoInit 0x002B2Au
 #define SYM_ClearRamFF0000 0x002B68u
-#define SYM_sub_02B82 0x002B82u
+#define SYM_ClearPlaneBuffer 0x002B82u
 #define SYM_ClearRamFF8000 0x002B9Cu
 #define SYM_ClearRamA000 0x002BB4u
 #define SYM_ClearRamA200 0x002BE2u
@@ -922,8 +922,8 @@
 #define SYM_sub_169CC 0x0169CCu
 #define SYM_sub_16A28 0x016A28u
 #define SYM_sub_16A70 0x016A70u
-#define SYM_sub_16ABE 0x016ABEu
-#define SYM_sub_16B9E 0x016B9Eu
+#define SYM_HeldPart 0x016ABEu
+#define SYM_Settling 0x016B9Eu
 #define SYM_PlayerSetAnim 0x016BF6u
 #define SYM_PlayerShoot 0x01776Au
 #define SYM_WeaponFire 0x0177ECu
@@ -2112,7 +2112,7 @@
 #define SYM_Boss380 0x02F804u
 #define SYM_Boss380Think 0x02F80Cu
 #define SYM_Boss380Setup 0x02FB18u
-#define SYM_sub_2FB5A 0x02FB5Au
+#define SYM_Boss380Begin 0x02FB5Au
 #define SYM_Boss380Stand 0x02FBC0u
 #define SYM_Boss380HitFlying 0x02FC64u
 #define SYM_Boss380Hit 0x02FCACu
@@ -2814,120 +2814,120 @@
 #define SYM_sub_3D3AE 0x03D3AEu
 #define SYM_sub_3D3D6 0x03D3D6u
 #define SYM_sub_3D3FA 0x03D3FAu
-#define SYM_sub_3D4B2 0x03D4B2u
-#define SYM_sub_3D50C 0x03D50Cu
-#define SYM_sub_3D55E 0x03D55Eu
-#define SYM_sub_3D5F6 0x03D5F6u
-#define SYM_sub_3D66C 0x03D66Cu
-#define SYM_sub_3D6B4 0x03D6B4u
-#define SYM_sub_3D6F2 0x03D6F2u
-#define SYM_sub_3D7DA 0x03D7DAu
-#define SYM_sub_3D7FA 0x03D7FAu
-#define SYM_sub_3D848 0x03D848u
-#define SYM_sub_3D884 0x03D884u
-#define SYM_sub_3D8FC 0x03D8FCu
-#define SYM_sub_3D960 0x03D960u
-#define SYM_sub_3D978 0x03D978u
-#define SYM_sub_3D9C2 0x03D9C2u
-#define SYM_sub_3DA44 0x03DA44u
-#define SYM_sub_3DA66 0x03DA66u
-#define SYM_sub_3DAEA 0x03DAEAu
-#define SYM_sub_3DB2C 0x03DB2Cu
-#define SYM_sub_3DB52 0x03DB52u
-#define SYM_sub_3DB92 0x03DB92u
+#define SYM_DeckBoss 0x03D4B2u
+#define SYM_DeckBossStep 0x03D50Cu
+#define SYM_DeckBossStart 0x03D55Eu
+#define SYM_DeckBossWait 0x03D5F6u
+#define SYM_DeckBossRise 0x03D66Cu
+#define SYM_DeckLinesFlat 0x03D6B4u
+#define SYM_DeckBossSail 0x03D6F2u
+#define SYM_DeckBossLoaded 0x03D7DAu
+#define SYM_DeckBossClimb 0x03D7FAu
+#define SYM_DeckBossOn 0x03D848u
+#define SYM_DeckBoss380Fight 0x03D884u
+#define SYM_DeckBossSink 0x03D8FCu
+#define SYM_DeckBossLoaded2 0x03D960u
+#define SYM_DeckBossRaise 0x03D978u
+#define SYM_DeckBossSettle 0x03D9C2u
+#define SYM_DeckBossBattle 0x03DA44u
+#define SYM_DeckBossFade 0x03DA66u
+#define SYM_DeckBossFallen 0x03DAEAu
+#define SYM_DeckBossGone 0x03DB2Cu
+#define SYM_DeckBossFadeIn 0x03DB52u
+#define SYM_DeckBossDone 0x03DB92u
 #define SYM_Beacon 0x03DB94u
 #define SYM_Weight 0x03DC04u
 #define SYM_WeightStart 0x03DC28u
 #define SYM_WeightFall 0x03DC4Eu
 #define SYM_WeightRest 0x03DC9Cu
-#define SYM_sub_3DC9E 0x03DC9Eu
-#define SYM_sub_3DCC2 0x03DCC2u
-#define SYM_sub_3DCEE 0x03DCEEu
-#define SYM_sub_3DD28 0x03DD28u
-#define SYM_sub_3DEC0 0x03DEC0u
-#define SYM_sub_3DF1A 0x03DF1Au
-#define SYM_sub_3DF76 0x03DF76u
-#define SYM_sub_3DFF0 0x03DFF0u
-#define SYM_sub_3E01E 0x03E01Eu
-#define SYM_sub_3E066 0x03E066u
-#define SYM_sub_3E0DC 0x03E0DCu
-#define SYM_sub_3E134 0x03E134u
-#define SYM_sub_3E182 0x03E182u
-#define SYM_sub_3E1F4 0x03E1F4u
-#define SYM_sub_3E280 0x03E280u
-#define SYM_sub_3E2EA 0x03E2EAu
-#define SYM_sub_3E354 0x03E354u
-#define SYM_sub_3E39E 0x03E39Eu
-#define SYM_sub_3E40A 0x03E40Au
-#define SYM_sub_3E468 0x03E468u
-#define SYM_sub_3E496 0x03E496u
-#define SYM_sub_3E4BE 0x03E4BEu
-#define SYM_sub_3E4FC 0x03E4FCu
-#define SYM_sub_3E51C 0x03E51Cu
-#define SYM_sub_3E576 0x03E576u
-#define SYM_sub_3E650 0x03E650u
-#define SYM_sub_3E66E 0x03E66Eu
-#define SYM_sub_3E71A 0x03E71Au
-#define SYM_sub_3E792 0x03E792u
-#define SYM_sub_3E80A 0x03E80Au
-#define SYM_sub_3E854 0x03E854u
-#define SYM_sub_3E9CA 0x03E9CAu
-#define SYM_sub_3E9EA 0x03E9EAu
-#define SYM_sub_3E9F4 0x03E9F4u
+#define SYM_DeckLifts 0x03DC9Eu
+#define SYM_DeckWobble 0x03DCC2u
+#define SYM_DeckFight 0x03DCEEu
+#define SYM_DeckFightMove 0x03DD28u
+#define SYM_DeckFightStart 0x03DEC0u
+#define SYM_DeckFightStand 0x03DF1Au
+#define SYM_DeckFightWalk 0x03DF76u
+#define SYM_DeckFightStagger 0x03DFF0u
+#define SYM_DeckFightFall 0x03E01Eu
+#define SYM_DeckFightWindUp 0x03E066u
+#define SYM_DeckFightCharge 0x03E0DCu
+#define SYM_DeckFightFallen 0x03E134u
+#define SYM_DeckFightClimb 0x03E182u
+#define SYM_DeckFightGrab 0x03E1F4u
+#define SYM_DeckFightThrow 0x03E280u
+#define SYM_DeckFightSlam 0x03E2EAu
+#define SYM_DeckFightPause 0x03E354u
+#define SYM_DeckFightJump 0x03E39Eu
+#define SYM_DeckFightLand 0x03E40Au
+#define SYM_DeckFightToss 0x03E468u
+#define SYM_DeckFightBombs 0x03E496u
+#define SYM_DeckFightCrouch 0x03E4BEu
+#define SYM_DeckFightSpring 0x03E4FCu
+#define SYM_DeckFightLandSpin 0x03E51Cu
+#define SYM_DeckFightSpin 0x03E576u
+#define SYM_DeckFightBroken 0x03E650u
+#define SYM_DeckFightKnocked 0x03E66Eu
+#define SYM_DeckFightBeaten 0x03E71Au
+#define SYM_DeckFightDying 0x03E792u
+#define SYM_DeckFightFallAway 0x03E80Au
+#define SYM_DeckFightDecide 0x03E854u
+#define SYM_DeckFightSide 0x03E9CAu
+#define SYM_DeckFightEdge 0x03E9EAu
+#define SYM_DeckFightInside 0x03E9F4u
 #define SYM_AfterImage 0x03EA52u
-#define SYM_sub_3EA88 0x03EA88u
-#define SYM_sub_3EA9E 0x03EA9Eu
-#define SYM_sub_3EAD6 0x03EAD6u
-#define SYM_sub_3EADE 0x03EADEu
-#define SYM_sub_3EB5C 0x03EB5Cu
+#define SYM_DeckFightGrabBox 0x03EA88u
+#define SYM_DeckFightCaught 0x03EA9Eu
+#define SYM_DeckFightBodyBox 0x03EAD6u
+#define SYM_DeckFightHold 0x03EADEu
+#define SYM_DeckFightCount 0x03EB5Cu
 #define SYM_PuffTrail 0x03EB82u
-#define SYM_sub_3EBCC 0x03EBCCu
-#define SYM_sub_3EBF0 0x03EBF0u
-#define SYM_sub_3EC26 0x03EC26u
-#define SYM_sub_3EC42 0x03EC42u
-#define SYM_sub_3EC54 0x03EC54u
-#define SYM_sub_3EC7A 0x03EC7Au
-#define SYM_sub_3EC84 0x03EC84u
-#define SYM_sub_3EC8E 0x03EC8Eu
-#define SYM_sub_3ECEE 0x03ECEEu
-#define SYM_sub_3ED4A 0x03ED4Au
-#define SYM_sub_3ED6A 0x03ED6Au
-#define SYM_sub_3EDB8 0x03EDB8u
-#define SYM_sub_3EDCA 0x03EDCAu
-#define SYM_sub_3EE10 0x03EE10u
-#define SYM_sub_3EE40 0x03EE40u
-#define SYM_sub_3EEB6 0x03EEB6u
-#define SYM_sub_3EEEC 0x03EEECu
-#define SYM_sub_3EF44 0x03EF44u
-#define SYM_sub_3EF6C 0x03EF6Cu
-#define SYM_sub_3EFA2 0x03EFA2u
-#define SYM_sub_3F078 0x03F078u
-#define SYM_sub_3F09E 0x03F09Eu
-#define SYM_sub_3F0B0 0x03F0B0u
-#define SYM_sub_3F0D4 0x03F0D4u
-#define SYM_sub_3F0DE 0x03F0DEu
-#define SYM_sub_3F0E6 0x03F0E6u
-#define SYM_sub_3F11E 0x03F11Eu
-#define SYM_sub_3F162 0x03F162u
-#define SYM_sub_3F16C 0x03F16Cu
-#define SYM_sub_3F1A8 0x03F1A8u
-#define SYM_sub_3F1EC 0x03F1ECu
-#define SYM_sub_3F20E 0x03F20Eu
-#define SYM_sub_3F24A 0x03F24Au
-#define SYM_sub_3F2BA 0x03F2BAu
-#define SYM_sub_3F30A 0x03F30Au
-#define SYM_sub_3F3EE 0x03F3EEu
-#define SYM_sub_3F41A 0x03F41Au
-#define SYM_sub_3F432 0x03F432u
-#define SYM_sub_3F466 0x03F466u
-#define SYM_sub_3F47E 0x03F47Eu
-#define SYM_sub_3F514 0x03F514u
-#define SYM_sub_3F530 0x03F530u
+#define SYM_DeckEdgeRising 0x03EBCCu
+#define SYM_DeckEdgeAll 0x03EBF0u
+#define SYM_DeckEdgeClear 0x03EC26u
+#define SYM_DeckLowerTileFixed 0x03EC42u
+#define SYM_DeckLowerTile 0x03EC54u
+#define SYM_DeckDrawUpper 0x03EC7Au
+#define SYM_DeckDrawLower 0x03EC84u
+#define SYM_DeckLinesA 0x03EC8Eu
+#define SYM_DeckColumns 0x03ECEEu
+#define SYM_DeckLowerLines 0x03ED4Au
+#define SYM_DeckLowerColumns 0x03ED6Au
+#define SYM_DeckMarkers 0x03EDB8u
+#define SYM_DeckMarkerNew 0x03EDCAu
+#define SYM_DeckTrack 0x03EE10u
+#define SYM_DeckMarkersMove 0x03EE40u
+#define SYM_DeckCarry 0x03EEB6u
+#define SYM_DeckCarryBlast 0x03EEECu
+#define SYM_DeckMarker 0x03EF44u
+#define SYM_DeckStand 0x03EF6Cu
+#define SYM_DeckBrawler 0x03EFA2u
+#define SYM_DeckMotionScroll 0x03F078u
+#define SYM_DeckMotionHigh 0x03F09Eu
+#define SYM_DeckMotionLow 0x03F0B0u
+#define SYM_DeckMotion 0x03F0D4u
+#define SYM_DeckBobMid 0x03F0DEu
+#define SYM_DeckBob 0x03F0E6u
+#define SYM_DeckSway 0x03F11Eu
+#define SYM_DeckLowerMotion 0x03F162u
+#define SYM_DeckLowerBob 0x03F16Cu
+#define SYM_DeckLowerSway 0x03F1A8u
+#define SYM_DeckTilt 0x03F1ECu
+#define SYM_DeckTiltLevel 0x03F20Eu
+#define SYM_DeckTiltRock 0x03F24Au
+#define SYM_DeckTiltLean 0x03F2BAu
+#define SYM_DeckTiltCentre 0x03F30Au
+#define SYM_DeckHintLines 0x03F3EEu
+#define SYM_DeckRumble 0x03F41Au
+#define SYM_DeckFightThrowThing 0x03F432u
+#define SYM_DeckFightPart 0x03F466u
+#define SYM_DeckFightBombFan 0x03F47Eu
+#define SYM_DeckJob 0x03F514u
+#define SYM_DeckHatch 0x03F530u
 #define SYM_Creeper 0x03F564u
 #define SYM_Afterimage 0x03F592u
 #define SYM_AfterimageBlink 0x03F5EAu
-#define SYM_sub_3F618 0x03F618u
-#define SYM_sub_3F634 0x03F634u
+#define SYM_DeckFlecks 0x03F618u
+#define SYM_DeckEmbers 0x03F634u
 #define SYM_EmberRing 0x03F65Au
 #define SYM_Fleck 0x03F68Au
 #define SYM_EmberPlace 0x03F6CEu
@@ -4955,7 +4955,7 @@ static const struct sym rom_syms[] = {
     { 0x002ADEu, "VdpShadowRegsAlt" },
     { 0x002B2Au, "IoInit" },
     { 0x002B68u, "ClearRamFF0000" },
-    { 0x002B82u, "sub_02B82" },
+    { 0x002B82u, "ClearPlaneBuffer" },
     { 0x002B9Cu, "ClearRamFF8000" },
     { 0x002BB4u, "ClearRamA000" },
     { 0x002BE2u, "ClearRamA200" },
@@ -5788,8 +5788,8 @@ static const struct sym rom_syms[] = {
     { 0x0169CCu, "sub_169CC" },
     { 0x016A28u, "sub_16A28" },
     { 0x016A70u, "sub_16A70" },
-    { 0x016ABEu, "sub_16ABE" },
-    { 0x016B9Eu, "sub_16B9E" },
+    { 0x016ABEu, "HeldPart" },
+    { 0x016B9Eu, "Settling" },
     { 0x016BF6u, "PlayerSetAnim" },
     { 0x01776Au, "PlayerShoot" },
     { 0x0177ECu, "WeaponFire" },
@@ -6978,7 +6978,7 @@ static const struct sym rom_syms[] = {
     { 0x02F804u, "Boss380" },
     { 0x02F80Cu, "Boss380Think" },
     { 0x02FB18u, "Boss380Setup" },
-    { 0x02FB5Au, "sub_2FB5A" },
+    { 0x02FB5Au, "Boss380Begin" },
     { 0x02FBC0u, "Boss380Stand" },
     { 0x02FC64u, "Boss380HitFlying" },
     { 0x02FCACu, "Boss380Hit" },
@@ -7680,120 +7680,120 @@ static const struct sym rom_syms[] = {
     { 0x03D3AEu, "sub_3D3AE" },
     { 0x03D3D6u, "sub_3D3D6" },
     { 0x03D3FAu, "sub_3D3FA" },
-    { 0x03D4B2u, "sub_3D4B2" },
-    { 0x03D50Cu, "sub_3D50C" },
-    { 0x03D55Eu, "sub_3D55E" },
-    { 0x03D5F6u, "sub_3D5F6" },
-    { 0x03D66Cu, "sub_3D66C" },
-    { 0x03D6B4u, "sub_3D6B4" },
-    { 0x03D6F2u, "sub_3D6F2" },
-    { 0x03D7DAu, "sub_3D7DA" },
-    { 0x03D7FAu, "sub_3D7FA" },
-    { 0x03D848u, "sub_3D848" },
-    { 0x03D884u, "sub_3D884" },
-    { 0x03D8FCu, "sub_3D8FC" },
-    { 0x03D960u, "sub_3D960" },
-    { 0x03D978u, "sub_3D978" },
-    { 0x03D9C2u, "sub_3D9C2" },
-    { 0x03DA44u, "sub_3DA44" },
-    { 0x03DA66u, "sub_3DA66" },
-    { 0x03DAEAu, "sub_3DAEA" },
-    { 0x03DB2Cu, "sub_3DB2C" },
-    { 0x03DB52u, "sub_3DB52" },
-    { 0x03DB92u, "sub_3DB92" },
+    { 0x03D4B2u, "DeckBoss" },
+    { 0x03D50Cu, "DeckBossStep" },
+    { 0x03D55Eu, "DeckBossStart" },
+    { 0x03D5F6u, "DeckBossWait" },
+    { 0x03D66Cu, "DeckBossRise" },
+    { 0x03D6B4u, "DeckLinesFlat" },
+    { 0x03D6F2u, "DeckBossSail" },
+    { 0x03D7DAu, "DeckBossLoaded" },
+    { 0x03D7FAu, "DeckBossClimb" },
+    { 0x03D848u, "DeckBossOn" },
+    { 0x03D884u, "DeckBoss380Fight" },
+    { 0x03D8FCu, "DeckBossSink" },
+    { 0x03D960u, "DeckBossLoaded2" },
+    { 0x03D978u, "DeckBossRaise" },
+    { 0x03D9C2u, "DeckBossSettle" },
+    { 0x03DA44u, "DeckBossBattle" },
+    { 0x03DA66u, "DeckBossFade" },
+    { 0x03DAEAu, "DeckBossFallen" },
+    { 0x03DB2Cu, "DeckBossGone" },
+    { 0x03DB52u, "DeckBossFadeIn" },
+    { 0x03DB92u, "DeckBossDone" },
     { 0x03DB94u, "Beacon" },
     { 0x03DC04u, "Weight" },
     { 0x03DC28u, "WeightStart" },
     { 0x03DC4Eu, "WeightFall" },
     { 0x03DC9Cu, "WeightRest" },
-    { 0x03DC9Eu, "sub_3DC9E" },
-    { 0x03DCC2u, "sub_3DCC2" },
-    { 0x03DCEEu, "sub_3DCEE" },
-    { 0x03DD28u, "sub_3DD28" },
-    { 0x03DEC0u, "sub_3DEC0" },
-    { 0x03DF1Au, "sub_3DF1A" },
-    { 0x03DF76u, "sub_3DF76" },
-    { 0x03DFF0u, "sub_3DFF0" },
-    { 0x03E01Eu, "sub_3E01E" },
-    { 0x03E066u, "sub_3E066" },
-    { 0x03E0DCu, "sub_3E0DC" },
-    { 0x03E134u, "sub_3E134" },
-    { 0x03E182u, "sub_3E182" },
-    { 0x03E1F4u, "sub_3E1F4" },
-    { 0x03E280u, "sub_3E280" },
-    { 0x03E2EAu, "sub_3E2EA" },
-    { 0x03E354u, "sub_3E354" },
-    { 0x03E39Eu, "sub_3E39E" },
-    { 0x03E40Au, "sub_3E40A" },
-    { 0x03E468u, "sub_3E468" },
-    { 0x03E496u, "sub_3E496" },
-    { 0x03E4BEu, "sub_3E4BE" },
-    { 0x03E4FCu, "sub_3E4FC" },
-    { 0x03E51Cu, "sub_3E51C" },
-    { 0x03E576u, "sub_3E576" },
-    { 0x03E650u, "sub_3E650" },
-    { 0x03E66Eu, "sub_3E66E" },
-    { 0x03E71Au, "sub_3E71A" },
-    { 0x03E792u, "sub_3E792" },
-    { 0x03E80Au, "sub_3E80A" },
-    { 0x03E854u, "sub_3E854" },
-    { 0x03E9CAu, "sub_3E9CA" },
-    { 0x03E9EAu, "sub_3E9EA" },
-    { 0x03E9F4u, "sub_3E9F4" },
+    { 0x03DC9Eu, "DeckLifts" },
+    { 0x03DCC2u, "DeckWobble" },
+    { 0x03DCEEu, "DeckFight" },
+    { 0x03DD28u, "DeckFightMove" },
+    { 0x03DEC0u, "DeckFightStart" },
+    { 0x03DF1Au, "DeckFightStand" },
+    { 0x03DF76u, "DeckFightWalk" },
+    { 0x03DFF0u, "DeckFightStagger" },
+    { 0x03E01Eu, "DeckFightFall" },
+    { 0x03E066u, "DeckFightWindUp" },
+    { 0x03E0DCu, "DeckFightCharge" },
+    { 0x03E134u, "DeckFightFallen" },
+    { 0x03E182u, "DeckFightClimb" },
+    { 0x03E1F4u, "DeckFightGrab" },
+    { 0x03E280u, "DeckFightThrow" },
+    { 0x03E2EAu, "DeckFightSlam" },
+    { 0x03E354u, "DeckFightPause" },
+    { 0x03E39Eu, "DeckFightJump" },
+    { 0x03E40Au, "DeckFightLand" },
+    { 0x03E468u, "DeckFightToss" },
+    { 0x03E496u, "DeckFightBombs" },
+    { 0x03E4BEu, "DeckFightCrouch" },
+    { 0x03E4FCu, "DeckFightSpring" },
+    { 0x03E51Cu, "DeckFightLandSpin" },
+    { 0x03E576u, "DeckFightSpin" },
+    { 0x03E650u, "DeckFightBroken" },
+    { 0x03E66Eu, "DeckFightKnocked" },
+    { 0x03E71Au, "DeckFightBeaten" },
+    { 0x03E792u, "DeckFightDying" },
+    { 0x03E80Au, "DeckFightFallAway" },
+    { 0x03E854u, "DeckFightDecide" },
+    { 0x03E9CAu, "DeckFightSide" },
+    { 0x03E9EAu, "DeckFightEdge" },
+    { 0x03E9F4u, "DeckFightInside" },
     { 0x03EA52u, "AfterImage" },
-    { 0x03EA88u, "sub_3EA88" },
-    { 0x03EA9Eu, "sub_3EA9E" },
-    { 0x03EAD6u, "sub_3EAD6" },
-    { 0x03EADEu, "sub_3EADE" },
-    { 0x03EB5Cu, "sub_3EB5C" },
+    { 0x03EA88u, "DeckFightGrabBox" },
+    { 0x03EA9Eu, "DeckFightCaught" },
+    { 0x03EAD6u, "DeckFightBodyBox" },
+    { 0x03EADEu, "DeckFightHold" },
+    { 0x03EB5Cu, "DeckFightCount" },
     { 0x03EB82u, "PuffTrail" },
-    { 0x03EBCCu, "sub_3EBCC" },
-    { 0x03EBF0u, "sub_3EBF0" },
-    { 0x03EC26u, "sub_3EC26" },
-    { 0x03EC42u, "sub_3EC42" },
-    { 0x03EC54u, "sub_3EC54" },
-    { 0x03EC7Au, "sub_3EC7A" },
-    { 0x03EC84u, "sub_3EC84" },
-    { 0x03EC8Eu, "sub_3EC8E" },
-    { 0x03ECEEu, "sub_3ECEE" },
-    { 0x03ED4Au, "sub_3ED4A" },
-    { 0x03ED6Au, "sub_3ED6A" },
-    { 0x03EDB8u, "sub_3EDB8" },
-    { 0x03EDCAu, "sub_3EDCA" },
-    { 0x03EE10u, "sub_3EE10" },
-    { 0x03EE40u, "sub_3EE40" },
-    { 0x03EEB6u, "sub_3EEB6" },
-    { 0x03EEECu, "sub_3EEEC" },
-    { 0x03EF44u, "sub_3EF44" },
-    { 0x03EF6Cu, "sub_3EF6C" },
-    { 0x03EFA2u, "sub_3EFA2" },
-    { 0x03F078u, "sub_3F078" },
-    { 0x03F09Eu, "sub_3F09E" },
-    { 0x03F0B0u, "sub_3F0B0" },
-    { 0x03F0D4u, "sub_3F0D4" },
-    { 0x03F0DEu, "sub_3F0DE" },
-    { 0x03F0E6u, "sub_3F0E6" },
-    { 0x03F11Eu, "sub_3F11E" },
-    { 0x03F162u, "sub_3F162" },
-    { 0x03F16Cu, "sub_3F16C" },
-    { 0x03F1A8u, "sub_3F1A8" },
-    { 0x03F1ECu, "sub_3F1EC" },
-    { 0x03F20Eu, "sub_3F20E" },
-    { 0x03F24Au, "sub_3F24A" },
-    { 0x03F2BAu, "sub_3F2BA" },
-    { 0x03F30Au, "sub_3F30A" },
-    { 0x03F3EEu, "sub_3F3EE" },
-    { 0x03F41Au, "sub_3F41A" },
-    { 0x03F432u, "sub_3F432" },
-    { 0x03F466u, "sub_3F466" },
-    { 0x03F47Eu, "sub_3F47E" },
-    { 0x03F514u, "sub_3F514" },
-    { 0x03F530u, "sub_3F530" },
+    { 0x03EBCCu, "DeckEdgeRising" },
+    { 0x03EBF0u, "DeckEdgeAll" },
+    { 0x03EC26u, "DeckEdgeClear" },
+    { 0x03EC42u, "DeckLowerTileFixed" },
+    { 0x03EC54u, "DeckLowerTile" },
+    { 0x03EC7Au, "DeckDrawUpper" },
+    { 0x03EC84u, "DeckDrawLower" },
+    { 0x03EC8Eu, "DeckLinesA" },
+    { 0x03ECEEu, "DeckColumns" },
+    { 0x03ED4Au, "DeckLowerLines" },
+    { 0x03ED6Au, "DeckLowerColumns" },
+    { 0x03EDB8u, "DeckMarkers" },
+    { 0x03EDCAu, "DeckMarkerNew" },
+    { 0x03EE10u, "DeckTrack" },
+    { 0x03EE40u, "DeckMarkersMove" },
+    { 0x03EEB6u, "DeckCarry" },
+    { 0x03EEECu, "DeckCarryBlast" },
+    { 0x03EF44u, "DeckMarker" },
+    { 0x03EF6Cu, "DeckStand" },
+    { 0x03EFA2u, "DeckBrawler" },
+    { 0x03F078u, "DeckMotionScroll" },
+    { 0x03F09Eu, "DeckMotionHigh" },
+    { 0x03F0B0u, "DeckMotionLow" },
+    { 0x03F0D4u, "DeckMotion" },
+    { 0x03F0DEu, "DeckBobMid" },
+    { 0x03F0E6u, "DeckBob" },
+    { 0x03F11Eu, "DeckSway" },
+    { 0x03F162u, "DeckLowerMotion" },
+    { 0x03F16Cu, "DeckLowerBob" },
+    { 0x03F1A8u, "DeckLowerSway" },
+    { 0x03F1ECu, "DeckTilt" },
+    { 0x03F20Eu, "DeckTiltLevel" },
+    { 0x03F24Au, "DeckTiltRock" },
+    { 0x03F2BAu, "DeckTiltLean" },
+    { 0x03F30Au, "DeckTiltCentre" },
+    { 0x03F3EEu, "DeckHintLines" },
+    { 0x03F41Au, "DeckRumble" },
+    { 0x03F432u, "DeckFightThrowThing" },
+    { 0x03F466u, "DeckFightPart" },
+    { 0x03F47Eu, "DeckFightBombFan" },
+    { 0x03F514u, "DeckJob" },
+    { 0x03F530u, "DeckHatch" },
     { 0x03F564u, "Creeper" },
     { 0x03F592u, "Afterimage" },
     { 0x03F5EAu, "AfterimageBlink" },
-    { 0x03F618u, "sub_3F618" },
-    { 0x03F634u, "sub_3F634" },
+    { 0x03F618u, "DeckFlecks" },
+    { 0x03F634u, "DeckEmbers" },
     { 0x03F65Au, "EmberRing" },
     { 0x03F68Au, "Fleck" },
     { 0x03F6CEu, "EmberPlace" },

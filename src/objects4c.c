@@ -4497,7 +4497,7 @@ void Boss548Knocked(uint16_t obj)
 {
     add32(obj + 0x1C, 0x4000);
     if (rd32(obj + 0x1C) & 0x80000000u) return;
-    if (!Boss548Floor(obj)) return;
+    if (Boss548Floor(obj)) return;
     wr16(v_shakeSprites, 4);
     wr32(obj + 0x18, 0);
     wr32(obj + 0x1C, 0);
@@ -4529,7 +4529,7 @@ void Boss548Thrown(uint16_t obj)
     else clr8(obj + 0x0E, 3);
     add32(obj + 0x1C, 0x4000);
     if (rd32(obj + 0x1C) & 0x80000000u) return;
-    if (!Boss548Floor(obj)) return;
+    if (Boss548Floor(obj)) return;
     Boss548Blink(obj);
     wr16(obj + 0x5E, 0x14);
     wr16(obj + O_STATE, 0x14);
@@ -4582,7 +4582,7 @@ void Boss548Leap(uint16_t obj)
 {
     add32(obj + 0x1C, 0x4000);
     if (rd32(obj + 0x1C) & 0x80000000u) return;
-    if (!Boss548Floor(obj)) return;
+    if (Boss548Floor(obj)) return;
     wr16(v_shakeSprites, 6);
     boss6_land(obj);
 }
@@ -4850,7 +4850,7 @@ void Boss548Dive(uint16_t obj)
         add32(obj + 0x1C, 0x4000);
         if (rd32(obj + 0x1C) & 0x80000000u) return;
     }
-    if (!Boss548Floor(obj)) return;
+    if (Boss548Floor(obj)) return;
     wr16(obj + O_STATE, 0x2C);
     wr16(BOSS6_DASH, 0);
     wr32(obj + 0x1C, 0xFFFD8000);
