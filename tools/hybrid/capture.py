@@ -36,12 +36,14 @@ def main():
     o.load(a.rom)
     if a.state:
         o.unserialize(open(a.state, 'rb').read())
-    fns = []
+    fns, unknown = [], []
     for f in filter(None, a.fn.split(',')):
         try:
             o.addr(f); fns.append(f)
         except ValueError:
-            print(f'skipping {f}: no address known')
+            unknown.append(f)
+    if unknown:   # a name the disassembly does not know yet (make disasm after names.txt changes)
+        sys.exit(f'no address known for: {", ".join(unknown)}')
     if not a.from_frame:
         for f in fns:
             o.bp(f)

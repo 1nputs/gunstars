@@ -36,6 +36,11 @@ void cpu_set_sr(uint16_t v) { sr = v; replay_io_write(SR_PSEUDO, 2, v); }
 
 /* a wait for the vertical blank: the one the 68k took in its wait loop, replayed. With none
  * left the C would wait for ever: the record is abandoned (a failure). */
+void cpu_spin(uint32_t loops)
+{
+    (void)loops;                     /* nothing to replay: no access, only time */
+}
+
 void hal_wait_vblank(void)
 {
     if (replay_irq()) return;

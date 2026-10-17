@@ -50,3 +50,7 @@ void cpu_set_sr(uint16_t sr);
 
 /* a wait for the vertical blank: the 68k spun on something the interrupt changes */
 void hal_wait_vblank(void);
+
+/* a busy loop that only takes time: `loops` turns of a dbf (about 10 cycles each). With the
+ * interrupts masked, the vertical blanks it spans are lost but one (stage 5's ~21 frames) */
+void cpu_spin(uint32_t loops);
