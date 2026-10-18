@@ -545,6 +545,7 @@
 #define SYM_Player1JoinReset 0x00EBF6u
 #define SYM_Player2JoinReset 0x00EC0Au
 #define SYM_PlayerJoin 0x00EC3Cu
+#define SYM_PlayersContinue 0x00ED90u
 #define SYM_PlayersKeepChoices 0x00EDEEu
 #define SYM_Player2KeepChoices 0x00EE0Eu
 #define SYM_PlayersInit 0x00EE2Au
@@ -5549,6 +5550,7 @@ static const struct sym rom_syms[] = {
     { 0x00EBF6u, "Player1JoinReset" },
     { 0x00EC0Au, "Player2JoinReset" },
     { 0x00EC3Cu, "PlayerJoin" },
+    { 0x00ED90u, "PlayersContinue" },
     { 0x00EDEEu, "PlayersKeepChoices" },
     { 0x00EE0Eu, "Player2KeepChoices" },
     { 0x00EE2Au, "PlayersInit" },

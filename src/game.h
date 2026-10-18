@@ -2159,6 +2159,7 @@ void SelectScrollLine(void);                                         /* $01F4B0 
 void Player2KeepChoices(void);                                       /* $00EE0E */
 void PlayersKeepChoices(void);                                       /* $00EDEE */
 void PlayersStart(void);                                             /* $00EB58 */
+void PlayersContinue(void);                                          /* $00ED90 */
 void SelectArrows(void);                                             /* $01E2AC */
 void WeaponSelectStart(void);                                        /* $01E18C */
 uint16_t WeaponPending(void);                                        /* $01E4AC -> d0.w */

@@ -7,8 +7,10 @@
 # miss). A run passes when it plays its frames out: a routine
 # not ported, a crash or a hang (past its time limit) fails it. Each run's log (the mode and
 # stage every 30 frames) goes to out/sweep/NAME.log, and a summary is printed: the stages and
-# modes each run went through.
-#   tools/native_sweep.sh [NAME...]     (default: inv0-inv6 rush0-rush6; JOBS=7 at once)
+# modes each run went through. "continue" is stage1.txt to frame 2000, where both players'
+# vitality is emptied, then Start every 40 frames with the continue screen's choice held at "yes",
+# so the game over continues (once: the idle players are not knocked out again).
+#   tools/native_sweep.sh [NAME...]     (default: inv0-inv6 rush0-rush6 continue; JOBS=7 at once)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 BIN=build/gunstar
@@ -18,6 +20,17 @@ mkdir -p out/sweep
 [ -x "$BIN" ] || { echo "no $BIN (make gunstar)"; exit 1; }
 
 one() {
+  if [ "$1" = continue ]; then
+    # stage1.txt to the knock-out, then Start every 40 frames (in play it pauses and goes on; on
+    # the continue screen it takes the choice)
+    { awk -F: '$1 + 0 < 2000' out/scripts/stage1.txt
+      for f in $(seq 2000 40 29960); do echo "$f:START"; echo "$((f + 2)):"; done; } > out/sweep/continue.txt
+    GUNSTAR_TRACE=1 timeout --signal=KILL 1200 "$BIN" --headless --frames 30000 --input out/sweep/continue.txt \
+        --poke "2000:FFA424=0000,FFA624=0000" --hold-if "FFA284=003C:FFA28A=0000" \
+        > out/sweep/continue.out 2> out/sweep/continue.log
+    echo "$?" > out/sweep/continue.status
+    return
+  fi
   local name=$1 n=${1: -1} frames=60000
   [ "${name#rush}" != "$name" ] && frames=120000
   [ -f "out/scripts/$name.txt" ] || { echo "$name: no out/scripts/$name.txt (tools/hybrid/evidence_all.sh)"; return 1; }
@@ -30,7 +43,7 @@ one() {
 export -f one
 export BIN INV
 
-names=${*:-inv0 inv1 inv2 inv3 inv4 inv5 inv6 rush0 rush1 rush2 rush3 rush4 rush5 rush6}
+names=${*:-inv0 inv1 inv2 inv3 inv4 inv5 inv6 rush0 rush1 rush2 rush3 rush4 rush5 rush6 continue}
 printf '%s\n' $names | xargs -P "$JOBS" -I{} bash -c 'one {}'
 
 python3 - $names <<'EOF'

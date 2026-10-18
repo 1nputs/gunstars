@@ -2206,6 +2206,7 @@ FFF766 v_textLine            # the text box's line (times 8)
 00EE0E Player2KeepChoices
 00EDEE PlayersKeepChoices
 00EB58 PlayersStart
+00ED90 PlayersContinue
 01E2AC SelectArrows
 01E18C WeaponSelectStart
 01E4AC WeaponPending

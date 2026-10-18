@@ -90,6 +90,33 @@ void PlayersStart(void)
     }
 }
 
+/* a player going on after a continue: reset to its kept choices, playing (+$D4 $C), one more
+ * join counted */
+static void player_continues(uint16_t p, int second)
+{
+    if (second) Player2JoinReset();
+    else Player1JoinReset();
+    wr16(p + 0xD4, 0xC);
+    wr16(p + 0xC0, (uint16_t)(rd16(p + 0xC0) + 1));
+}
+
+/* $00ED90. After "continue": who plays again, by the title's choice as at the start. */
+void PlayersContinue(void)
+{
+    int16_t c = (int16_t)(rd16(0xA290) - 4);
+    if (c == 0) {
+        wr8(v_players, 2);
+        player_continues(v_player2, 1);
+    } else if (c < 0) {
+        wr8(v_players, 1);
+        player_continues(v_player1, 0);
+    } else {
+        wr8(v_players, 3);
+        player_continues(v_player1, 0);
+        player_continues(v_player2, 1);
+    }
+}
+
 /* $01E2AC. The players' arrows (types $4F0, $4F4). */
 void SelectArrows(void)
 {
@@ -1244,8 +1271,8 @@ static void game_over_text(void)
     sprite_table(8, 0, 0x500, 0x02008C, 0x02009C, 1, 0xE0);
 }
 
-/* $01FCAA. Choosing: "no" (or the choice the original leaves unreached, "yes": the fade back to
- * the stage) ends in the game over. */
+/* $01FCAA. Choosing: "no" ends in the game over; "yes" fades out to mode $34 (the stage again)
+ * with the players set up afresh (PlayersContinue). */
 void ContinueInput(void)
 {
     if (!rd16(v_fadeSpeed)) {
@@ -1254,7 +1281,7 @@ void ContinueInput(void)
             wr8(v_displayOn, 0);
             wr16(v_mode, 0x34);
             wr16(v_modeState, 0);
-            call68k(0x00ED90);                       /* loc_00ED90: the players again (not ported) */
+            PlayersContinue();
             return;
         }
         ContinueCursor();
