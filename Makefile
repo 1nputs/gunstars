@@ -8,6 +8,7 @@
 #   make gunstar        the native game (build/gunstar, on pulseman at MDRT)
 #   make windows        the game for Windows, cross-built with Zig (tools/build_windows.sh)
 #   make sweep          the native game through every stage, headless (tools/native_sweep.sh)
+#   make release        the release files in build/release (tools/package_release.sh)
 CC      ?= gcc
 WERROR  ?= -Werror
 WARN    := -Wall -Wextra -Wshadow -Wstrict-prototypes -Wmissing-prototypes $(WERROR)
@@ -20,7 +21,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep
+.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep release
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -60,6 +61,8 @@ windows:
 	tools/build_windows.sh
 sweep: build/gunstar
 	tools/native_sweep.sh
+release:
+	tools/package_release.sh
 mdrt:
 	@test -f $(MDRT)/Makefile || { echo "no pulseman at $(MDRT): git submodule update --init"; exit 1; }
 	$(MAKE) -C $(MDRT) MODE=release B=$(MDRTB) sdl

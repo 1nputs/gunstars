@@ -15,8 +15,9 @@ fight down, step through it a frame at a time. Closed the window mid-stage? **Th
 you back where you were.** Pulled off something beautiful? **F10 saves the last 20 seconds** as a
 GIF to share. Next up: Red and Blue, online, together.
 
-Bring your own cartridge dump and you're shooting in a minute (what to install first is under
-[Build](#build)):
+Bring your own cartridge dump. **Download** the release for Linux or Windows
+([CHANGELOG.md](CHANGELOG.md) says what's in it), unpack it and run `gunstar` (`gunstar.exe`), or
+build it and you're shooting in a minute (what to install first is under [Build](#build)):
 
 ```
 git clone --recursive https://github.com/1nputs/gunstars.git && cd gunstars
@@ -154,6 +155,10 @@ WADDR=WVAL:ADDR=VAL`, `--poke FRAME:ADDR=VAL`).
   `tools/hybrid/oracle_shim.c`, `tools/hybrid/capture_all.sh`, `tools/disasm/build.py` and
   `test/captest.c`. The working notes (the handoff guide, the plan, the survey, the playbook for
   the method) are kept outside the repository.
+- **Releases.** `tools/package_release.sh` makes `build/release/`: the Linux tarball (Zig's
+  Clang against glibc 2.28, so it runs on 2018-era distributions, with the C++ runtime linked
+  in), the Windows zip, and `SHA256SUMS`; the version is `GUNSTAR_VERSION` in `native/main.c`,
+  and `CHANGELOG.md` says what each one holds.
 - **Rules.** The ROM and everything made from it (the disassembly, captures, traces, states,
   screenshots, GIFs) stay out of git. Commit after each finished job. Before and after a change:
   `make test`, `make z80test` for the sound, `make sweep` for the native game. A routine is ported against its records: name it

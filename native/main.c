@@ -3,6 +3,7 @@
  *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
  *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
+ *           [--version]
  *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
  *           (headless: native/state.c)
  *           [--hold ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] (RAM words, hex, as the oracle's
@@ -17,6 +18,10 @@
 #include <string.h>
 #include "game.h"
 #include "native.h"
+
+#ifndef GUNSTAR_VERSION
+#define GUNSTAR_VERSION "0.1.0"
+#endif
 
 static jmp_buf out, again;
 static long stop_after = -1;
@@ -269,7 +274,8 @@ int main(int argc, char **argv)
     long save_frame = -1;
     int headless = 0, scale = 0;
     for (int i = 1; i < argc; i++) {
-        if (!strcmp(argv[i], "--rom") && i + 1 < argc) rom = rom_given = argv[++i];
+        if (!strcmp(argv[i], "--version")) { printf("gunstar %s (gunstars: Gunstar Heroes, rebuilt in C)\n", GUNSTAR_VERSION); return 0; }
+        else if (!strcmp(argv[i], "--rom") && i + 1 < argc) rom = rom_given = argv[++i];
         else if (!strcmp(argv[i], "--headless")) headless = 1;
         else if (!strcmp(argv[i], "--frames") && i + 1 < argc) stop_after = atol(argv[++i]);
         else if (!strcmp(argv[i], "--shot") && i + 1 < argc) shot_path = argv[++i];
@@ -288,7 +294,7 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--hold-if") && i + 1 < argc) { if (!read_holds(argv[++i], 1)) { fprintf(stderr, "bad --hold-if\n"); return 2; } }
         else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
         else {
-            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...]\n", argv[0]);
             return 2;
         }
     }

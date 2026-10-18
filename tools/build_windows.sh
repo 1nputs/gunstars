@@ -8,6 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SDL_VERSION=2.32.10
+VERSION=$(sed -n 's/^#define GUNSTAR_VERSION "\(.*\)"/\1/p' native/main.c)
 if [ -z "${ZIG:-}" ]; then
   if command -v zig > /dev/null; then ZIG=zig
   elif python3 -c "import ziglang" 2> /dev/null; then ZIG="python3 -m ziglang"
@@ -39,11 +40,11 @@ $CXX -o build/win/gunstar.exe build/win/obj/*.o ext/pulseman/build/win/libmdrt_s
   "$SDL/lib/libSDL2main.a" "$SDL/lib/libSDL2.dll.a" -lm
 cp "$SDL/bin/SDL2.dll" build/win/
 cp LICENSE build/win/LICENSE.txt
-cat > build/win/README.txt <<'EOF'
-gunstars: Gunstar Heroes, rebuilt in C (https://github.com/1nputs/gunstars).
+cat > build/win/README.txt <<EOF
+gunstars $VERSION: Gunstar Heroes, rebuilt in C (https://github.com/1nputs/gunstars).
 
 Run gunstar.exe. The first time it asks for your ROM: Gunstar Heroes (U), the 1 MB retail
-cartridge; pick it in the file browser, or run gunstar.exe --rom "C:\path\to\the.gen".
+cartridge; pick it in the file browser, or run gunstar.exe --rom "C:\\path\\to\\the.gen".
 Keys: pad 1 arrows, Z / X / C = A / B / C, Enter = Start (A weapon, B shoot, C jump);
 pad 2 I J K L, Q / W / E, Tab. Esc opens the menu (save slots, video, sound, controls).
 F4 held rewinds, F5 pauses, F6 held fast-forwards, F10 saves the last 20 seconds as a GIF.
