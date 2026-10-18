@@ -19,6 +19,12 @@ static uint64_t frame_base;             /* the player's master clock at this fra
 static uint32_t t_bus;                  /* master clocks of the game's Z80 bus accesses this frame */
 
 #define BUS_ACCESS 56                   /* a 68k byte access through the Z80's bus, with its instruction */
+/* the 68k's time from one YM2612 write to the next, as the oracle's sound traces show it (the
+ * driver's write routine): about 250 master clocks from a register's address to its data, 1,500
+ * to 3,700 from the data to the next address. Written all at once, a key off and the key on after
+ * it fall in one of the chip's samples and the note is not struck again. */
+#define YM_ADDRESS_TIME 250
+#define YM_DATA_TIME 2100
 
 static mdrt_vdp *vdp(void) { return mdrt_get_vdp(native_m); }
 static uint32_t now(void) { return mdrt_now(native_m) + t_bus; }
@@ -82,6 +88,7 @@ void ym_write8(uint16_t off, uint8_t v)
     z80_now();
     mdrt_ym_write(native_m, now(), off & 3, v);
     if (off & 1) z80_player_ym_busy(frame_base + now());   /* (the player polls the busy flag) */
+    t_bus += (off & 1) ? YM_DATA_TIME - BUS_ACCESS : YM_ADDRESS_TIME - BUS_ACCESS;
 }
 
 uint8_t z80_ram_read8(uint16_t off) { z80_now(); return z80_mem[off & 0x1FFF]; }
@@ -116,11 +123,11 @@ void cpu_spin(uint32_t loops) { mdrt_charge(native_m, loops * 10); }
 /* the frame's end: the handshake, then the next frame's vertical blank interrupt */
 void hal_wait_vblank(void)
 {
-    uint32_t len = mdrt_frame_mclks(native_m);
+    uint32_t len = mdrt_frame_mclks(native_m), end = now();
     if (mdrt_wait_vblank(native_m)) native_quit();
     run_to(frame_base + len);                             /* (if the runtime's tick has not) */
     frame_base += len;
-    t_bus = 0;
+    t_bus = end > len ? end - len : 0;                    /* (the game's writes ran past the frame) */
     z80_player_frame();
     native_frame_done(++frames);
     if (mdrt_vdp_reg(vdp(), 1) & 0x20) VBlank();
