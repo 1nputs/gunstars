@@ -18,7 +18,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstar mdrt
+.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -52,6 +52,16 @@ mdrt:
 test: build/captest
 	@test -n "$(CAPS)" || { echo "no captures in out/captures (tools/hybrid/capture_all.sh records them)"; exit 1; }
 	./build/captest $(CAPS)
+
+# the Z80's sample player (src/z80.c) against the oracle's sound traces (tools/oracle/sndtrace.py,
+# from power on, into out/snd)
+SNDS    := $(wildcard out/snd/*.sndtrace)
+build/z80test: test/z80test.c src/z80.c src/z80.h src/mem.c src/mem.h
+	@mkdir -p build
+	$(CC) $(CFLAGS) -O2 -Isrc -o $@ test/z80test.c src/z80.c src/mem.c
+z80test: build/z80test
+	@test -n "$(SNDS)" || { echo "no sound traces in out/snd (tools/oracle/sndtrace.py records them)"; exit 1; }
+	./build/z80test $(SNDS)
 
 oracle: build/oracle.so
 build/oracle.so: tools/hybrid/oracle_shim.c
