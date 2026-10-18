@@ -1,6 +1,6 @@
 /* The native game's entry: a window (pulseman's SDL2 platform), or headless with pictures.
  *
- *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
+ *   gunstars [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
  *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
  *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
@@ -236,7 +236,7 @@ int main(int argc, char **argv)
     c.audio_rate = 48000;
     c.read68k = read68k;
     if (!headless) {
-        mdrt_sdl_options o = { .title = "Gunstar Heroes", .scale = scale, .app = "gunstar",
+        mdrt_sdl_options o = { .title = "Gunstar Heroes", .scale = scale, .app = "gunstars",
                                .rom_path = rom_given, .rom_default = rom,
                                .rom_hint = "Gunstar Heroes (U): the 1 MB cartridge",
                                .rom_check = rom_ok, .rom_use = rom_use };

@@ -1,11 +1,11 @@
-# gunstar: Gunstar Heroes rebuilt in C.
+# gunstars: Gunstar Heroes rebuilt in C.
 #   make test           the function-level capture tests (out/captures/*.cap); fails on any mismatch
 #                       (DRAFT=build/draft/NAME.c ...: with drafts under test, tools/disasm/draft.py)
 #   make oracle         the hooked oracle core (build/oracle.so)
 #   make evidence       the disassembly's evidence from every recorded session (out/evidence)
 #   make disasm         the disassembly (build/disasm): byte-exact source, routines, symbols
 #   make gen            the committed generated headers (src/symbols_gen.h) from the disassembly
-#   make gunstar        the native game (build/gunstar, on pulseman at MDRT)
+#   make gunstars       the native game (build/gunstars, on pulseman at MDRT)
 CC      ?= gcc
 WERROR  ?= -Werror
 WARN    := -Wall -Wextra -Wshadow -Wstrict-prototypes -Wmissing-prototypes $(WERROR)
@@ -18,7 +18,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test
+.PHONY: all test oracle evidence disasm gen clean gunstars gunstar mdrt z80test
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -33,15 +33,16 @@ build/captest: $(SRC) $(HDR) $(TESTSRC) $(TESTHDR) build/ports_gen.inc $(DRAFT)
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(DRAFTFLAGS) -Isrc -Itest -Ibuild -o $@ $(SRC) $(DRAFT) $(TESTSRC) -lz
 
-# the native game: build/gunstar, on pulseman (MDRT: the submodule ext/pulseman; its release
+# the native game: build/gunstars, on pulseman (MDRT: the submodule ext/pulseman; its release
 # build with the SDL2 platform)
 MDRT    ?= ext/pulseman
 MDRTB   ?= build/release
 NATIVE  := $(wildcard native/*.c)
 MDRTLIBS := $(MDRT)/$(MDRTB)/libmdrt_sdl2.a $(MDRT)/$(MDRTB)/libmdrt.a
 SDLLIBS := $(filter-out -mwindows,$(shell pkg-config --libs sdl2 2>/dev/null))
-gunstar: build/gunstar
-build/gunstar: $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
+gunstars: build/gunstars
+gunstar: gunstars                    # (the old name)
+build/gunstars: $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
 	@mkdir -p build
 	$(CC) $(CFLAGS) -O2 -Isrc -Ibuild -Inative -I$(MDRT)/include $(shell pkg-config --cflags sdl2 2>/dev/null) \
 	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm -lstdc++
