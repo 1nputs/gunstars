@@ -5,7 +5,7 @@
 #                                        the C++ runtime linked in: it needs only the system's SDL2
 #   gunstars-VERSION-windows-x64.zip     gunstar.exe and SDL2.dll (tools/build_windows.sh)
 #   SHA256SUMS
-#   release-notes.md                     this version's section of CHANGELOG.md
+#   release-notes.md                     this version's section of CHANGELOG.md, unwrapped
 # Needs Zig (`zig`, or `pip install ziglang`; ZIG= names another) and SDL2's development files
 # (the headers and libSDL2-2.0.so.0 to link against: libsdl2-dev).
 set -euo pipefail
@@ -82,6 +82,19 @@ text = open('CHANGELOG.md').read()
 m = re.search(r'^## ' + re.escape(version) + r'\b.*?(?=^## |\Z)', text, re.M | re.S)
 if not m:
     sys.exit(f'no section for {version} in CHANGELOG.md')
-open(out, 'w').write(m.group(0).rstrip() + '\n')
+# unwrapped: a paragraph or a list item on one line (GitHub shows every line break in a release's
+# notes); headings, tables, code and blank lines as they are
+lines, code = [], False
+for line in m.group(0).rstrip().split('\n'):
+    starts = line.startswith(('#', '|', '- ', '* ', '> ')) or re.match(r'\d+\. ', line)
+    if line.startswith('```'):
+        code = not code
+        lines.append(line)
+    elif (not code and line.strip() and not starts and lines and lines[-1].strip()
+          and not lines[-1].startswith(('#', '|', '```'))):
+        lines[-1] += ' ' + line.strip()
+    else:
+        lines.append(line)
+open(out, 'w').write('\n'.join(lines) + '\n')
 PYEOF
 ls -l "$OUT"
