@@ -117,8 +117,9 @@ please tell us what it said.
 with `--input FILE` (both pads from a script: `FRAME:BUTTONS|BUTTONS` lines, as
 `tools/oracle/script.py` writes them), `--shot FILE.ppm`, `--shots DIR --every N`, `--sound
 FILE.sndtrace` (everything the sound chips were told, and what they played), `--save-state
-FRAME:FILE`, `--load-state FILE`, and `--requests FILE --state FILE` (save, load and rewind as
-the menu and F4 make them).
+FRAME:FILE`, `--load-state FILE`, `--requests FILE --state FILE` (save, load and rewind as
+the menu and F4 make them), and RAM words held or written (`--hold ADDR=VAL`, `--hold-if
+WADDR=WVAL:ADDR=VAL`, `--poke FRAME:ADDR=VAL`).
 
 ## For agents: where this stands (17 October 2026)
 
@@ -138,9 +139,10 @@ the menu and F4 make them).
   players through the stages, held vitality runs through stages 4 to 6, the options screen, each
   player's weapons held at every pair); each must write the same RAM and touch the hardware in
   the same order with the same values. `make z80test` replays the oracle's sound traces: the
-  sample player's 1,167,306 writes to the YM2612 must come at the same master clock. Native
-  states are checked headless: a state loaded, a rewind, must reach the uninterrupted run's state
-  byte for byte.
+  sample player's 1,167,306 writes to the YM2612 must come at the same master clock. `make
+  sweep` plays the native game through every stage headless (14 runs, 1.26 million frames, both
+  players' vitality held): none may stop. Native states are checked headless: a state loaded, a
+  rewind, must reach the uninterrupted run's state byte for byte.
 - **Done.** The harness and the disassembler; every routine of the cartridge; the native game on
   pulseman (sound, the H-interrupt effects, the samples), save states, quick resume and rewind.
 - **Not done yet.** Lockstep (the native game against the oracle at every vertical blank, as
@@ -154,7 +156,7 @@ the menu and F4 make them).
   the method) are kept outside the repository.
 - **Rules.** The ROM and everything made from it (the disassembly, captures, traces, states,
   screenshots, GIFs) stay out of git. Commit after each finished job. Before and after a change:
-  `make test`, and `make z80test` for the sound. A routine is ported against its records: name it
+  `make test`, `make z80test` for the sound, `make sweep` for the native game. A routine is ported against its records: name it
   in `tools/disasm/names.txt`, give its prototype a `/* $ADDRESS registers */` comment in
   `src/game.h`, `make disasm && make gen && make`, capture a session that reaches it, test.
   pulseman is changed only in `ext/pulseman` on its branch `gunstar`, and merged into its `main`

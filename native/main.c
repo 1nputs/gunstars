@@ -5,6 +5,10 @@
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
  *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
  *           (headless: native/state.c)
+ *           [--hold ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] (RAM words, hex, as the oracle's
+ *           run.py: held before every frame's vertical blank code, or written before frame F's)
+ *           [--hold-if WADDR=WVAL:ADDR=VAL,...] (held while the word at WADDR is WVAL: an option
+ *           set while a screen is up, whatever frame it comes up at)
  *
  * A routine not ported yet stops the game with its address (call68k_missing). */
 #include <setjmp.h>
@@ -167,13 +171,66 @@ static void keep_picture(void *user, const uint16_t *px, int w, int h, int pitch
     for (int y = 0; y < pic_h; y++) memcpy(picture + y * pic_w, px + y * pitch, (size_t)pic_w * 2);
 }
 
+/* --hold, --poke: RAM words (hex addresses in work RAM) */
+static struct { long frame; uint16_t addr, value; } *pokes;
+static size_t npokes, nholds;
+static struct { uint16_t addr, value, when_addr, when_value; int when; } *holds;
+
+static int read_holds(const char *spec, int when)
+{
+    for (const char *p = spec; *p;) {
+        unsigned a, v, wa = 0, wv = 0;
+        int n;
+        if (when) {
+            if (sscanf(p, "%x=%x:%n", &wa, &wv, &n) != 2) return 0;
+            p += n;
+        }
+        if (sscanf(p, "%x=%x%n", &a, &v, &n) != 2) return 0;
+        holds = realloc(holds, (nholds + 1) * sizeof *holds);
+        holds[nholds].addr = (uint16_t)a;
+        holds[nholds].when = when;
+        holds[nholds].when_addr = (uint16_t)wa;
+        holds[nholds].when_value = (uint16_t)wv;
+        holds[nholds++].value = (uint16_t)v;
+        p += n;
+        if (*p == ',') p++;
+    }
+    return 1;
+}
+
+static int read_pokes(const char *spec)
+{
+    for (const char *p = spec; *p;) {
+        long f;
+        int n;
+        if (sscanf(p, "%ld:%n", &f, &n) != 1) return 0;
+        p += n;
+        while (*p && *p != ';') {
+            unsigned a, v;
+            if (sscanf(p, "%x=%x%n", &a, &v, &n) != 2) return 0;
+            pokes = realloc(pokes, (npokes + 1) * sizeof *pokes);
+            pokes[npokes].frame = f;
+            pokes[npokes].addr = (uint16_t)a;
+            pokes[npokes++].value = (uint16_t)v;
+            p += n;
+            if (*p == ',') p++;
+        }
+        if (*p == ';') p++;
+    }
+    return 1;
+}
+
 void native_frame_done(long frame)
 {
+    for (size_t i = 0; i < npokes; i++)
+        if (pokes[i].frame == frame) wr16(pokes[i].addr, pokes[i].value);
+    for (size_t i = 0; i < nholds; i++)
+        if (!holds[i].when || rd16(holds[i].when_addr) == holds[i].when_value) wr16(holds[i].addr, holds[i].value);
     static int trace = -1;
     if (trace < 0) trace = getenv("GUNSTAR_TRACE") != NULL;
     if (trace && frame % 30 == 0)
-        fprintf(stderr, "frame %ld: mode %02X step %02X fade %04X/%04X display %02X timer %04X jobs %04X\n", frame,
-                rd16(v_mode), rd16(v_modeState), rd16(v_fadeSpeed), rd16(v_fadeLevel), rd8(v_displayOn),
+        fprintf(stderr, "frame %ld: mode %02X step %02X stage %02X fade %04X/%04X display %02X timer %04X jobs %04X\n", frame,
+                rd16(v_mode), rd16(v_modeState), rd16(0xA204), rd16(v_fadeSpeed), rd16(v_fadeLevel), rd8(v_displayOn),
                 rd16(v_modeTimer), rd16(0xF720));
     if (shots_dir && frame % shots_every == 0) {
         char path[1024];
@@ -227,8 +284,11 @@ int main(int argc, char **argv)
         } else if (!strcmp(argv[i], "--load-state") && i + 1 < argc) load_path = argv[++i];
         else if (!strcmp(argv[i], "--requests") && i + 1 < argc) { if (!read_requests(argv[++i])) return 1; }
         else if (!strcmp(argv[i], "--state") && i + 1 < argc) state_file = argv[++i];
+        else if (!strcmp(argv[i], "--hold") && i + 1 < argc) { if (!read_holds(argv[++i], 0)) { fprintf(stderr, "bad --hold\n"); return 2; } }
+        else if (!strcmp(argv[i], "--hold-if") && i + 1 < argc) { if (!read_holds(argv[++i], 1)) { fprintf(stderr, "bad --hold-if\n"); return 2; } }
+        else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
         else {
-            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...]\n", argv[0]);
             return 2;
         }
     }
