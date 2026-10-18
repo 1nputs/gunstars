@@ -44,8 +44,8 @@ Or build it: `git clone --recursive`, `make gunstar` (see the README).
   exactly: the same memory written, the same hardware touched in the same order.
 - The Z80 sample player's 1,167,306 writes to the sound chip come at the emulator's exact master
   clock.
-- The game plays every stage headless (14 runs, 1.26 million frames) without a stop, and a saved
-  state goes on byte for byte as the run it was taken from.
+- The game plays every stage headless (15 runs, 1.29 million frames, a continue among them)
+  without a stop, and a saved state goes on byte for byte as the run it was taken from.
 
 **Known**
 

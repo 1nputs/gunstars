@@ -141,7 +141,7 @@ WADDR=WVAL:ADDR=VAL`, `--poke FRAME:ADDR=VAL`).
   player's weapons held at every pair); each must write the same RAM and touch the hardware in
   the same order with the same values. `make z80test` replays the oracle's sound traces: the
   sample player's 1,167,306 writes to the YM2612 must come at the same master clock. `make
-  sweep` plays the native game through every stage headless (14 runs, 1.26 million frames, both
+  sweep` plays the native game through every stage headless (15 runs, 1.29 million frames, both
   players' vitality held): none may stop. Native states are checked headless: a state loaded, a
   rewind, must reach the uninterrupted run's state byte for byte.
 - **Done.** The harness and the disassembler; every routine of the cartridge; the native game on
