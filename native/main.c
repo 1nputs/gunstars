@@ -3,6 +3,8 @@
  *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
  *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
+ *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
+ *           (headless: native/state.c)
  *
  * A routine not ported yet stops the game with its address (call68k_missing). */
 #include <setjmp.h>
@@ -12,7 +14,7 @@
 #include "game.h"
 #include "native.h"
 
-static jmp_buf out;
+static jmp_buf out, again;
 static long stop_after = -1;
 static const char *shot_path, *shots_dir;
 static long shots_every = 60;
@@ -20,6 +22,7 @@ static uint16_t picture[320 * 240];
 static int pic_w, pic_h;
 
 void native_quit(void) { longjmp(out, 1); }
+void native_restart(void) { longjmp(again, 1); }
 
 /* --input FILE: both pads from a script as tools/oracle/script.py reads it ("FRAME:P1|P2"
  * entries, by newline or comma; buttons joined by '+'; held until the next entry; '#' a
@@ -70,6 +73,44 @@ static int read_script(const char *path)
     fclose(f);
     return 1;
 }
+
+/* --requests FILE: the player's requests as the window's menu and F4 make them ("N:SAVE",
+ * "N:LOAD", "N:REWIND", "N:" none, by the handshakes since power on: a rewind sets the frame count
+ * back), SAVE and LOAD at their handshake, REWIND until the next entry; --state FILE the file
+ * they name */
+static struct { long at; unsigned req; } *reqs;
+static size_t reqs_n;
+static long handshakes;
+static const char *state_file;
+
+static int read_requests(const char *path)
+{
+    FILE *f = fopen(path, "r");
+    if (!f) { fprintf(stderr, "cannot read %s\n", path); return 0; }
+    char line[256];
+    while (fgets(line, sizeof line, f)) {
+        char *colon = strchr(line, ':');
+        if (!colon) continue;
+        reqs = realloc(reqs, (reqs_n + 1) * sizeof *reqs);
+        reqs[reqs_n].at = atol(line);
+        reqs[reqs_n].req = strstr(colon, "SAVE") ? MDRT_REQUEST_SAVE : strstr(colon, "LOAD") ? MDRT_REQUEST_LOAD
+                         : strstr(colon, "REWIND") ? MDRT_REQUEST_REWIND : 0;
+        reqs_n++;
+    }
+    fclose(f);
+    return 1;
+}
+
+static unsigned script_requests(void *user)
+{
+    (void)user;
+    long h = ++handshakes;
+    unsigned r = 0;
+    for (size_t i = 0; i < reqs_n && reqs[i].at <= h; i++) r = reqs[i].at == h ? reqs[i].req : reqs[i].req & MDRT_REQUEST_REWIND;
+    return r;
+}
+
+static const char *script_request_path(void *user) { (void)user; return state_file; }
 
 static void script_source(void *user, uint16_t b[2])
 {
@@ -148,6 +189,8 @@ void native_game(mdrt *m, void *user)
     if (setjmp(out)) return;
     native_hal_start(m);
     for (uint32_t a = 0; a < RAM_SIZE; a++) ram[a] = 0;
+    native_states_init(m);
+    if (setjmp(again)) MainLoop();                        /* (a state loaded: on from MainLoop's wait) */
     Start();
     MainLoop();
 }
@@ -165,7 +208,8 @@ static void sink(void *user, const void *bytes, size_t n) { fwrite(bytes, 1, n, 
 int main(int argc, char **argv)
 {
     const char *rom = "Gunstar Heroes (U) [!].gen", *rom_given = NULL;
-    const char *sound_path = NULL;
+    const char *sound_path = NULL, *save_path = NULL, *load_path = NULL;
+    long save_frame = -1;
     int headless = 0, scale = 0;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--rom") && i + 1 < argc) rom = rom_given = argv[++i];
@@ -177,8 +221,14 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--input") && i + 1 < argc) { if (!read_script(argv[++i])) return 1; }
         else if (!strcmp(argv[i], "--sound") && i + 1 < argc) sound_path = argv[++i];
+        else if (!strcmp(argv[i], "--save-state") && i + 1 < argc && strchr(argv[i + 1], ':')) {
+            save_frame = atol(argv[++i]);
+            save_path = strchr(argv[i], ':') + 1;
+        } else if (!strcmp(argv[i], "--load-state") && i + 1 < argc) load_path = argv[++i];
+        else if (!strcmp(argv[i], "--requests") && i + 1 < argc) { if (!read_requests(argv[++i])) return 1; }
+        else if (!strcmp(argv[i], "--state") && i + 1 < argc) state_file = argv[++i];
         else {
-            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]\n", argv[0]);
             return 2;
         }
     }
@@ -194,9 +244,14 @@ int main(int argc, char **argv)
     }
     if (!rom_load(rom)) { fprintf(stderr, "cannot load the ROM %s\n", rom); return 1; }
     c.platform = (mdrt_platform){ .present = keep_picture };
+    if (reqs_n) {
+        c.platform.requests = script_requests;
+        c.platform.request_path = script_request_path;
+    }
     mdrt *m = mdrt_new(&c);
     if (!m) return 1;
     if (script_n) mdrt_set_pad_source(m, script_source, NULL);
+    native_states_options(save_frame, save_path, load_path);
     FILE *sound = sound_path ? fopen(sound_path, "wb") : NULL;
     if (sound_path && !sound) { fprintf(stderr, "cannot write %s\n", sound_path); return 1; }
     if (sound) mdrt_record(m, MDRT_TRACE_SOUND, sink, sound);
@@ -218,6 +273,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "\n");
     }
     printf("%ld frames\n", native_frames());
+    if (reqs_n) printf("%ld handshakes\n", handshakes);
     mdrt_free(m);
     return 0;
 }

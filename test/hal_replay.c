@@ -47,3 +47,5 @@ void hal_wait_vblank(void)
     replay_fail("a vertical-blank wait with no recorded interrupt");
     replay_abandon();
 }
+
+void hal_wait_vblank_main(void) { hal_wait_vblank(); }

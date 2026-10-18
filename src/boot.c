@@ -114,7 +114,7 @@ void MainLoop(void)
     for (;;) {
         cpu_set_sr(0x2300);
         RunJobs();
-        hal_wait_vblank();
+        hal_wait_vblank_main();
     }
 }
 

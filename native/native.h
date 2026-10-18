@@ -17,3 +17,14 @@ void native_frame_done(long frame);
 /* the HAL from power on (hal_native.c) */
 void native_hal_start(mdrt *m);
 long native_frames(void);
+long native_handshakes(void);           /* (the session's: a state does not set it back) */
+/* the HAL's part of a state (its clock and frame count): written to out (NULL: only the size) */
+size_t native_hal_save(uint8_t *out);
+int native_hal_load(const uint8_t *in, size_t size);
+/* states (state.c): the console's parts from power on; the headless options; at every wait once
+ * the frame's vertical blank code has run (at_main: MainLoop's) */
+void native_states_init(mdrt *m);
+void native_states_options(long save_frame, const char *save_path, const char *load_path);
+void native_states_wait(int at_main);
+/* the game from MainLoop again, after a state was loaded (main.c; does not return) */
+void native_restart(void);

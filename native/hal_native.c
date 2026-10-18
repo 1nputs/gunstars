@@ -7,6 +7,7 @@
  * flag at $1FFD, before it writes the chip) the player runs on meanwhile, as beside a real 68k.
  * The runtime's sound tick runs the player through the rest of the frame. */
 #include <stdio.h>
+#include <string.h>
 #include "game.h"
 #include "hal.h"
 #include "native.h"
@@ -17,6 +18,8 @@ static uint16_t sr = 0x2700;            /* the 68k's status register: its interr
 static long frames;
 static uint64_t frame_base;             /* the player's master clock at this frame's start */
 static uint32_t t_bus;                  /* master clocks of the game's Z80 bus accesses this frame */
+static int at_main;                     /* in MainLoop's wait */
+static long handshakes;                 /* (this session's: not in a state) */
 
 #define BUS_ACCESS 56                   /* a 68k byte access through the Z80's bus, with its instruction */
 /* the 68k's time from one YM2612 write to the next, as the oracle's sound traces show it (the
@@ -66,6 +69,7 @@ void native_hal_start(mdrt *m)
     mdrt_set_sound_tick(m, sound_tick, NULL);
     sr = 0x2700;
     frames = 0;
+    at_main = 0;
     frame_base = 0;
     t_bus = 0;
     z80_player_power_on();
@@ -73,6 +77,32 @@ void native_hal_start(mdrt *m)
 }
 
 long native_frames(void) { return frames; }
+long native_handshakes(void) { return handshakes; }
+
+/* a state's: the status register, the frame count, the clock */
+#define HAL_STATE (2 + 8 + 8 + 4)
+size_t native_hal_save(uint8_t *out)
+{
+    if (out) {
+        int64_t f = frames;
+        memcpy(out, &sr, 2);
+        memcpy(out + 2, &f, 8);
+        memcpy(out + 10, &frame_base, 8);
+        memcpy(out + 18, &t_bus, 4);
+    }
+    return HAL_STATE;
+}
+int native_hal_load(const uint8_t *in, size_t size)
+{
+    if (size != HAL_STATE) return -1;
+    int64_t f;
+    memcpy(&sr, in, 2);
+    memcpy(&f, in + 2, 8);
+    memcpy(&frame_base, in + 10, 8);
+    memcpy(&t_bus, in + 18, 4);
+    frames = (long)f;
+    return 0;
+}
 
 uint16_t vdp_status(void) { return mdrt_vdp_status(vdp()); }
 uint16_t vdp_read(void) { return mdrt_vdp_read16(vdp()); }
@@ -124,7 +154,10 @@ void cpu_spin(uint32_t loops) { mdrt_charge(native_m, loops * 10); }
 void hal_wait_vblank(void)
 {
     uint32_t len = mdrt_frame_mclks(native_m), end = now();
+    int main_wait = at_main;
+    at_main = 0;
     if (mdrt_wait_vblank(native_m)) native_quit();
+    handshakes++;
     run_to(frame_base + len);                             /* (if the runtime's tick has not) */
     frame_base += len;
     t_bus = end > len ? end - len : 0;                    /* (the game's writes ran past the frame) */
@@ -132,4 +165,12 @@ void hal_wait_vblank(void)
     native_frame_done(++frames);
     if (mdrt_vdp_reg(vdp(), 1) & 0x20) VBlank();
     mdrt_vblank_end(native_m);
+    native_states_wait(main_wait);                        /* (a state saved or loaded: state.c) */
+}
+
+/* MainLoop's wait: where states are taken and the game goes on from after a load */
+void hal_wait_vblank_main(void)
+{
+    at_main = 1;
+    hal_wait_vblank();
 }
