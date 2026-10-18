@@ -20,8 +20,8 @@ Bring your own cartridge dump and you're shooting in a minute (what to install f
 
 ```
 git clone --recursive https://github.com/1nputs/gunstars.git && cd gunstars
-make gunstars
-./build/gunstars       # the first time, it asks for your ROM: Gunstar Heroes (U), the 1 MB cartridge
+make gunstar
+./build/gunstar       # the first time, it asks for your ROM: Gunstar Heroes (U), the 1 MB cartridge
 ```
 
 The first time, pick your ROM in the game's file browser (or give it with `--rom FILE`); it is
@@ -72,7 +72,7 @@ option in the menu). On a Mac, hold Fn for the function keys.
 
 The hardware side is [pulseman](https://github.com/1nputs/pulseman), our Mega Drive runtime,
 included as a git submodule in `ext/pulseman`: clone with `--recursive`, or after a plain clone
-run `git submodule update --init`. `make gunstars` builds it too. Besides that you need a C and
+run `git submodule update --init`. `make gunstar` builds it too. Besides that you need a C and
 C++ compiler, `make`, `pkg-config` and SDL2.
 
 **Linux** (built and tested here, Debian 13, GCC 14):
@@ -81,39 +81,39 @@ C++ compiler, `make`, `pkg-config` and SDL2.
 sudo apt install build-essential pkg-config libsdl2-dev          # Debian, Ubuntu
 sudo dnf install gcc gcc-c++ make pkgconf-pkg-config SDL2-devel  # Fedora
 sudo pacman -S --needed base-devel sdl2                          # Arch
-make gunstars
-./build/gunstars --rom "/path/to/Gunstar Heroes (U) [!].gen"
+make gunstar
+./build/gunstar --rom "/path/to/Gunstar Heroes (U) [!].gen"
 ```
 
 **macOS** (not tried yet):
 
 ```
 brew install sdl2 pkg-config
-make gunstars
-./build/gunstars --rom "/path/to/Gunstar Heroes (U) [!].gen"
+make gunstar
+./build/gunstar --rom "/path/to/Gunstar Heroes (U) [!].gen"
 ```
 
 **Windows**: cross-built here from Linux, warning-free, with [Zig](https://ziglang.org)'s Clang
 (`pip install ziglang` will do) and SDL2's own MinGW package, which the script fetches:
 
 ```
-make windows        # build/win/gunstars.exe with SDL2.dll, and build/gunstars-windows-x64.zip
+make windows        # build/win/gunstar.exe with SDL2.dll, and build/gunstars-windows-x64.zip
 ```
 
-Unzip it anywhere on Windows 10 or later and run `gunstars.exe` (it needs only `SDL2.dll` beside
+Unzip it anywhere on Windows 10 or later and run `gunstar.exe` (it needs only `SDL2.dll` beside
 it). Not yet run on Windows itself: tell us how it goes. Or build on Windows with
 [MSYS2](https://www.msys2.org), in its *UCRT64* shell (not tried yet):
 
 ```
 pacman -S --needed git make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-SDL2
-make CC=gcc CXX=g++ gunstars
-./build/gunstars.exe --rom "C:/path/to/Gunstar Heroes (U) [!].gen"
+make CC=gcc CXX=g++ gunstar
+./build/gunstar.exe --rom "C:/path/to/Gunstar Heroes (U) [!].gen"
 ```
 
-If a compiler newer than these warns about something, `make WERROR= gunstars` builds anyway;
+If a compiler newer than these warns about something, `make WERROR= gunstar` builds anyway;
 please tell us what it said.
 
-**Headless** (no window: for tests, tools and agents): `./build/gunstars --headless --frames N`
+**Headless** (no window: for tests, tools and agents): `./build/gunstar --headless --frames N`
 with `--input FILE` (both pads from a script: `FRAME:BUTTONS|BUTTONS` lines, as
 `tools/oracle/script.py` writes them), `--shot FILE.ppm`, `--shots DIR --every N`, `--sound
 FILE.sndtrace` (everything the sound chips were told, and what they played), `--save-state

@@ -131,7 +131,7 @@ static int save(const char *path)
 static int load(const char *path)
 {
     FILE *f = fopen(path, "rb");
-    if (!f) { fprintf(stderr, "gunstars: cannot open %s\n", path); return -1; }
+    if (!f) { fprintf(stderr, "gunstar: cannot open %s\n", path); return -1; }
     fseek(f, 0, SEEK_END);
     long n = ftell(f);
     fseek(f, 0, SEEK_SET);
@@ -139,7 +139,7 @@ static int load(const char *path)
     int bad = !b || fread(b, 1, (size_t)n, f) != (size_t)n || mdrt_set_state(m, b, (size_t)n);
     fclose(f);
     free(b);
-    if (bad) fprintf(stderr, "gunstars: %s is not a state of this build\n", path);
+    if (bad) fprintf(stderr, "gunstar: %s is not a state of this build\n", path);
     return bad ? -1 : 0;
 }
 
@@ -160,12 +160,12 @@ void native_states_wait(int at_main)
         const char *p = load_path;
         load_path = NULL;
         if (load(p) == 0) {
-            printf("gunstars: state loaded from %s (frame %ld)\n", p, native_frames());
+            printf("gunstar: state loaded from %s (frame %ld)\n", p, native_frames());
             native_restart();
         }
     }
     if ((req & MDRT_REQUEST_LOAD) && path && load(path) == 0) {
-        printf("gunstars: state loaded from %s (frame %ld)\n", path, native_frames());
+        printf("gunstar: state loaded from %s (frame %ld)\n", path, native_frames());
         ring_n = 0;
         pending[0] = 0;
         native_restart();
@@ -176,14 +176,14 @@ void native_states_wait(int at_main)
     }
     if (!at_main) return;
     if (pending[0]) {
-        if (save(pending)) printf("gunstars: state saved at frame %ld into %s\n", frame, pending);
-        else fprintf(stderr, "gunstars: cannot write %s\n", pending);
+        if (save(pending)) printf("gunstar: state saved at frame %ld into %s\n", frame, pending);
+        else fprintf(stderr, "gunstar: cannot write %s\n", pending);
         pending[0] = 0;
     }
     if (save_frame >= 0 && frame >= save_frame) {         /* --save-state */
         save_frame = -1;
-        if (save(save_path)) printf("gunstars: state saved at frame %ld into %s\n", frame, save_path);
-        else fprintf(stderr, "gunstars: cannot write %s\n", save_path);
+        if (save(save_path)) printf("gunstar: state saved at frame %ld into %s\n", frame, save_path);
+        else fprintf(stderr, "gunstar: cannot write %s\n", save_path);
     }
     if ((req & MDRT_REQUEST_REWIND) && ring_n) {          /* a step back: the newest, kept when it is the last */
         int i = (ring_first + ring_n - 1) % REWIND_STATES;

@@ -5,7 +5,7 @@
 #   make evidence       the disassembly's evidence from every recorded session (out/evidence)
 #   make disasm         the disassembly (build/disasm): byte-exact source, routines, symbols
 #   make gen            the committed generated headers (src/symbols_gen.h) from the disassembly
-#   make gunstars       the native game (build/gunstars, on pulseman at MDRT)
+#   make gunstar        the native game (build/gunstar, on pulseman at MDRT)
 #   make windows        the game for Windows, cross-built with Zig (tools/build_windows.sh)
 #   make sweep          the native game through every stage, headless (tools/native_sweep.sh)
 CC      ?= gcc
@@ -20,7 +20,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstars gunstar mdrt z80test windows sweep
+.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -35,7 +35,7 @@ build/captest: $(SRC) $(HDR) $(TESTSRC) $(TESTHDR) build/ports_gen.inc $(DRAFT)
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(DRAFTFLAGS) -Isrc -Itest -Ibuild -o $@ $(SRC) $(DRAFT) $(TESTSRC) -lz
 
-# the native game: build/gunstars, on pulseman (MDRT: the submodule ext/pulseman; its release
+# the native game: build/gunstar, on pulseman (MDRT: the submodule ext/pulseman; its release
 # build with the SDL2 platform)
 MDRT    ?= ext/pulseman
 MDRTB   ?= build/release
@@ -49,17 +49,16 @@ EXE     ?= .exe
 CXXLIB  ?= -static-libgcc -Wl,-Bstatic -lstdc++ -Wl,--whole-archive -lwinpthread -Wl,--no-whole-archive -Wl,-Bdynamic
 endif
 CXXLIB  ?= -lstdc++                  # (pulseman's ymfm core is C++)
-gunstars: build/gunstars$(EXE)
-gunstar: gunstars                    # (the old name)
-build/gunstars$(EXE): $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
+gunstar: build/gunstar$(EXE)
+build/gunstar$(EXE): $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
 	@mkdir -p build
 	$(CC) $(CFLAGS) -O2 -Isrc -Ibuild -Inative -I$(MDRT)/include $(shell pkg-config --cflags sdl2 2>/dev/null) \
 	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm $(CXXLIB)
-# Windows from Linux: build/win/gunstars.exe and build/gunstars-windows-x64.zip, with Zig
+# Windows from Linux: build/win/gunstar.exe and build/gunstars-windows-x64.zip, with Zig
 # (tools/build_windows.sh)
 windows:
 	tools/build_windows.sh
-sweep: build/gunstars
+sweep: build/gunstar
 	tools/native_sweep.sh
 mdrt:
 	@test -f $(MDRT)/Makefile || { echo "no pulseman at $(MDRT): git submodule update --init"; exit 1; }

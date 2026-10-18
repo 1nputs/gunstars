@@ -11,11 +11,11 @@
 #   tools/native_sweep.sh [NAME...]     (default: inv0-inv6 rush0-rush6; JOBS=7 at once)
 set -uo pipefail
 cd "$(dirname "$0")/.."
-BIN=build/gunstars
+BIN=build/gunstar
 INV="FFA424=03E7,FFA624=03E7,FFC9A4=0001"
 JOBS=${JOBS:-7}
 mkdir -p out/sweep
-[ -x "$BIN" ] || { echo "no $BIN (make gunstars)"; exit 1; }
+[ -x "$BIN" ] || { echo "no $BIN (make gunstar)"; exit 1; }
 
 one() {
   local name=$1 n=${1: -1} frames=60000
