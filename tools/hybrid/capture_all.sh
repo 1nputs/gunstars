@@ -10,6 +10,7 @@
 #              frames: pauses, continues); inv4-inv6: the later stages, vitality held
 #   sound_*    the sound driver: the title and demos' music, stage music and effects
 #   vblank_*   VBlank (each record a whole frame) and the reset's set-up routines
+#   shots_a-e  the players' shots, each player's weapons held at a pair (stage 1, vitality held)
 #   game_options, game_options2: the options screen (tools/hybrid/options_script.py's input); its
 #              states, then the routines under them
 #   engine_*, game_*, logo_*, treasure_*, players_*, stages_*, objects_*: the engine's routines,
@@ -39,7 +40,7 @@ names() {
 import sys, re
 want = {'the engine': ('clearing', 'sprites'), 'the game': ('modes',), 'the logo': ('the SEGA logo',),
         'the treasure': ('the Treasure logo',), 'the players': ('the players',), 'the engine frame': ('the engine frame',),
-        'the stages': ('the stages',), 'the options': ("the options' modes",), 'the objects': ('[the objects]',)}[sys.argv[1]]
+        'the stages': ('the stages',), 'the shots': ("the players' shots",), 'the options': ("the options' modes",), 'the objects': ('[the objects]',)}[sys.argv[1]]
 out, on = [], False
 for line in open('tools/disasm/names.txt'):
     if line.startswith('# ----'):
@@ -62,6 +63,7 @@ TREASURE=$(names "the treasure"),FF2058
 PLAYERS=$(names "the players")
 # the options' routines below its states (game_options records those, and the capture frames
 # nest only 4 deep)
+SHOTS=$(names "the shots")
 OPTLEAVES=$(names "the options" | tr , '\n' | grep -vxE 'Options|OptionsSetup|OptionsMenu|OptionsToConfig|OptionsConfig|OptionsFromConfig' | paste -sd,)
 ENGINEFRAME=$(names "the engine frame")
 OBJECTS=$(names "the objects")
@@ -142,6 +144,19 @@ run() {
       [ $n -gt 3 ] && poke=$(stage_poke $n)
       session $1 --fn "$OBJECTS" --frames 120000 --max 48 --novel --script @out/scripts/rush$n.txt \
           --hold "$INV" --poke "$poke" ;;
+    shots_a|shots_b|shots_c|shots_d|shots_e)
+      # both players' weapons held: player 1's, player 2's (P_WEAPON_A, _B, P_WEAPON: 1 the first
+      # alone, 3 the two combined)
+      case $1 in
+        shots_a) w1=0008,0008,0300; w2=0010,0010,0300 ;;   # lightning with lightning; fire with fire
+        shots_b) w1=000C,0010,0300; w2=0008,0010,0300 ;;
+        shots_c) w1=0008,000C,0300; w2=0004,0010,0300 ;;
+        shots_d) w1=000C,000C,0100; w2=0004,000C,0300 ;;   # chaser; force with chaser
+        shots_e) w1=0010,0010,0100; w2=000C,0004,0300 ;;   # fire; chaser with force
+      esac
+      weapons() { local a b w; IFS=, read -r a b w <<< "$2"; echo "FFA$1""6E=$a,FFA$1""70=$b,FFA$1""72=$w"; }
+      session $1 --fn "$SHOTS" --frames 12000 --max 48 --novel --from 1500 --script @out/scripts/stage1.txt \
+          --hold "$INV,$(weapons 4 $w1),$(weapons 6 $w2)" ;;
     players_inv0|players_inv1|players_inv2|players_inv3|players_inv4|players_inv5|players_inv6)
       n=${1#players_inv}; poke=""
       [ $n -gt 3 ] && poke=$(stage_poke $n)
@@ -165,7 +180,7 @@ SOUNDS="sound_attract sound_spread sound_stage0 sound_stage1 sound_stage2 sound_
 ALL="frame_attract frame_stage0 frame_inv4 frame_inv5 frame_inv6 $NOVEL $SOUNDS vblank_attract vblank_stage0
      engine_attract engine_stage0 engine_spread engine_inv5 game_attract game_stage0 game_stage2 game_options game_options2 logo_attract logo_spread treasure_attract treasure_spread
      players_attract players_stage0 players_stage2 players_spread players_inv0 players_inv1 players_inv2
-     players_inv3 players_inv4 players_inv5 players_inv6 frame2_attract frame2_stage0 frame2_stage1 frame2_stage2 frame2_stage3
+     players_inv3 players_inv4 players_inv5 players_inv6 shots_a shots_b shots_c shots_d shots_e frame2_attract frame2_stage0 frame2_stage1 frame2_stage2 frame2_stage3
      stages_attract stages_stage0 stages_rush0 stages_stage1 stages_rush1 stages_stage2 stages_rush2 stages_stage3 stages_rush3 stages_rush4 stages_rush5 stages_rush6
      objects_attract objects_stage0 objects_stage1 objects_stage2 objects_stage3 objects_rush0 objects_rush1
      objects_rush2 objects_rush3 objects_rush4 objects_rush5 objects_rush6"
