@@ -5,6 +5,7 @@
 #                                        the C++ runtime linked in: it needs only the system's SDL2
 #   gunstars-VERSION-windows-x64.zip     gunstar.exe and SDL2.dll (tools/build_windows.sh)
 #   SHA256SUMS
+#   release-notes.md                     this version's section of CHANGELOG.md
 # Needs Zig (`zig`, or `pip install ziglang`; ZIG= names another) and SDL2's development files
 # (the headers and libSDL2-2.0.so.0 to link against: libsdl2-dev).
 set -euo pipefail
@@ -72,4 +73,15 @@ tools/build_windows.sh > /dev/null
 cp build/gunstars-windows-x64.zip "$OUT/gunstars-$VERSION-windows-x64.zip"
 
 (cd "$OUT" && sha256sum gunstars-* > SHA256SUMS)
+
+# the release's notes: this version's section of CHANGELOG.md, for the GitHub release
+python3 - "$VERSION" "$OUT/release-notes.md" <<'PYEOF'
+import re, sys
+version, out = sys.argv[1:3]
+text = open('CHANGELOG.md').read()
+m = re.search(r'^## ' + re.escape(version) + r'\b.*?(?=^## |\Z)', text, re.M | re.S)
+if not m:
+    sys.exit(f'no section for {version} in CHANGELOG.md')
+open(out, 'w').write(m.group(0).rstrip() + '\n')
+PYEOF
 ls -l "$OUT"
