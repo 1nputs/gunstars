@@ -1031,68 +1031,68 @@
 #define SYM_MuzzlePriority 0x018BC2u
 #define SYM_ShotPriority 0x018BD4u
 #define SYM_EffectsUpdate 0x018BE6u
-#define SYM_sub_18C58 0x018C58u
-#define SYM_sub_18D1E 0x018D1Eu
-#define SYM_sub_18DB4 0x018DB4u
-#define SYM_sub_18EAC 0x018EACu
-#define SYM_sub_18F5A 0x018F5Au
-#define SYM_sub_19030 0x019030u
-#define SYM_sub_190AE 0x0190AEu
-#define SYM_sub_190E4 0x0190E4u
+#define SYM_ForceShot 0x018C58u
+#define SYM_ForceForceShot 0x018D1Eu
+#define SYM_ChaserShot 0x018DB4u
+#define SYM_ChaserChaserShot 0x018EACu
+#define SYM_ForceChaserShot 0x018F5Au
+#define SYM_ChaserSprite 0x019030u
+#define SYM_NextTarget 0x0190AEu
+#define SYM_TurnToTarget 0x0190E4u
 #define SYM_SpeedFromAngle 0x019142u
-#define SYM_sub_1916C 0x01916Cu
-#define SYM_sub_19206 0x019206u
-#define SYM_sub_19292 0x019292u
-#define SYM_sub_192B6 0x0192B6u
-#define SYM_sub_19312 0x019312u
-#define SYM_sub_19330 0x019330u
-#define SYM_sub_19374 0x019374u
-#define SYM_sub_1938E 0x01938Eu
-#define SYM_sub_193A8 0x0193A8u
-#define SYM_sub_193C2 0x0193C2u
-#define SYM_sub_193DC 0x0193DCu
-#define SYM_sub_1940E 0x01940Eu
-#define SYM_sub_19440 0x019440u
-#define SYM_sub_19472 0x019472u
-#define SYM_sub_194A4 0x0194A4u
-#define SYM_sub_19516 0x019516u
-#define SYM_sub_195B0 0x0195B0u
-#define SYM_sub_19616 0x019616u
-#define SYM_sub_196F4 0x0196F4u
-#define SYM_sub_19772 0x019772u
-#define SYM_sub_197CE 0x0197CEu
-#define SYM_sub_19852 0x019852u
-#define SYM_sub_1997C 0x01997Cu
-#define SYM_sub_19ACA 0x019ACAu
-#define SYM_sub_19AEC 0x019AECu
-#define SYM_sub_19B08 0x019B08u
-#define SYM_sub_19B3E 0x019B3Eu
-#define SYM_sub_19C1C 0x019C1Cu
-#define SYM_sub_19C60 0x019C60u
-#define SYM_sub_19CCE 0x019CCEu
-#define SYM_sub_19D0A 0x019D0Au
-#define SYM_sub_19D24 0x019D24u
-#define SYM_sub_19D58 0x019D58u
+#define SYM_LightningShot 0x01916Cu
+#define SYM_LightningChaserShot 0x019206u
+#define SYM_LightningChaserInit 0x019292u
+#define SYM_LightningChaserSteer 0x0192B6u
+#define SYM_LightningChaserTarget 0x019312u
+#define SYM_SteerAround 0x019330u
+#define SYM_SteerOctant0 0x019374u
+#define SYM_SteerOctant4 0x01938Eu
+#define SYM_SteerOctant2 0x0193A8u
+#define SYM_SteerOctant6 0x0193C2u
+#define SYM_SteerOctant1 0x0193DCu
+#define SYM_SteerOctant3 0x01940Eu
+#define SYM_SteerOctant5 0x019440u
+#define SYM_SteerOctant7 0x019472u
+#define SYM_LightningFireShot 0x0194A4u
+#define SYM_LightningLightningShot 0x019516u
+#define SYM_ForceLightningShot 0x0195B0u
+#define SYM_BeamSprite 0x019616u
+#define SYM_FlameShot 0x0196F4u
+#define SYM_FlamePosition 0x019772u
+#define SYM_FlameAnimate 0x0197CEu
+#define SYM_FireFireShot 0x019852u
+#define SYM_ForceFireShot 0x01997Cu
+#define SYM_RingStage 0x019ACAu
+#define SYM_RingAnimate 0x019AECu
+#define SYM_RingPosition 0x019B08u
+#define SYM_ChaserFireShot 0x019B3Eu
+#define SYM_ChaserFireInit 0x019C1Cu
+#define SYM_ChaserFireSteer 0x019C60u
+#define SYM_ChaserFireMove 0x019CCEu
+#define SYM_ChaserFireDrift 0x019D0Au
+#define SYM_ChaserFireTrail 0x019D24u
+#define SYM_ChaserFireAnimate 0x019D58u
 #define SYM_EffectOwner 0x019D88u
 #define SYM_EffectAtHand 0x019DA6u
-#define SYM_sub_19DC0 0x019DC0u
+#define SYM_ShotAtDistance 0x019DC0u
 #define SYM_EffectPriority 0x019DFAu
 #define SYM_EffectFlicker 0x019E16u
-#define SYM_sub_19E56 0x019E56u
-#define SYM_sub_19E96 0x019E96u
-#define SYM_sub_19EAA 0x019EAAu
-#define SYM_sub_19EBE 0x019EBEu
-#define SYM_sub_19ED2 0x019ED2u
-#define SYM_sub_19EE6 0x019EE6u
-#define SYM_sub_19EFA 0x019EFAu
-#define SYM_sub_19F0E 0x019F0Eu
-#define SYM_sub_19F8C 0x019F8Cu
-#define SYM_sub_1A00A 0x01A00Au
-#define SYM_sub_1A054 0x01A054u
-#define SYM_sub_1A0E2 0x01A0E2u
-#define SYM_sub_1A132 0x01A132u
-#define SYM_sub_1A15E 0x01A15Eu
-#define SYM_sub_1A1EA 0x01A1EAu
+#define SYM_EffectFlickerHard 0x019E56u
+#define SYM_ForcePower 0x019E96u
+#define SYM_ChaserChaserPower 0x019EAAu
+#define SYM_ForceChaserPower 0x019EBEu
+#define SYM_LightningFirePower 0x019ED2u
+#define SYM_LightningChaserPower 0x019EE6u
+#define SYM_LightningPower 0x019EFAu
+#define SYM_FlamePower 0x019F0Eu
+#define SYM_FireFirePower 0x019F8Cu
+#define SYM_ForceFirePower 0x01A00Au
+#define SYM_ChaserFirePower 0x01A054u
+#define SYM_ShotSpark 0x01A0E2u
+#define SYM_Bubble 0x01A132u
+#define SYM_Dust 0x01A15Eu
+#define SYM_ShotHitMark 0x01A1EAu
 #define SYM_ObjectFindEffect 0x01A21Cu
 #define SYM_Sparkle 0x01A246u
 #define SYM_Item 0x01A2A2u
@@ -6035,68 +6035,68 @@ static const struct sym rom_syms[] = {
     { 0x018BC2u, "MuzzlePriority" },
     { 0x018BD4u, "ShotPriority" },
     { 0x018BE6u, "EffectsUpdate" },
-    { 0x018C58u, "sub_18C58" },
-    { 0x018D1Eu, "sub_18D1E" },
-    { 0x018DB4u, "sub_18DB4" },
-    { 0x018EACu, "sub_18EAC" },
-    { 0x018F5Au, "sub_18F5A" },
-    { 0x019030u, "sub_19030" },
-    { 0x0190AEu, "sub_190AE" },
-    { 0x0190E4u, "sub_190E4" },
+    { 0x018C58u, "ForceShot" },
+    { 0x018D1Eu, "ForceForceShot" },
+    { 0x018DB4u, "ChaserShot" },
+    { 0x018EACu, "ChaserChaserShot" },
+    { 0x018F5Au, "ForceChaserShot" },
+    { 0x019030u, "ChaserSprite" },
+    { 0x0190AEu, "NextTarget" },
+    { 0x0190E4u, "TurnToTarget" },
     { 0x019142u, "SpeedFromAngle" },
-    { 0x01916Cu, "sub_1916C" },
-    { 0x019206u, "sub_19206" },
-    { 0x019292u, "sub_19292" },
-    { 0x0192B6u, "sub_192B6" },
-    { 0x019312u, "sub_19312" },
-    { 0x019330u, "sub_19330" },
-    { 0x019374u, "sub_19374" },
-    { 0x01938Eu, "sub_1938E" },
-    { 0x0193A8u, "sub_193A8" },
-    { 0x0193C2u, "sub_193C2" },
-    { 0x0193DCu, "sub_193DC" },
-    { 0x01940Eu, "sub_1940E" },
-    { 0x019440u, "sub_19440" },
-    { 0x019472u, "sub_19472" },
-    { 0x0194A4u, "sub_194A4" },
-    { 0x019516u, "sub_19516" },
-    { 0x0195B0u, "sub_195B0" },
-    { 0x019616u, "sub_19616" },
-    { 0x0196F4u, "sub_196F4" },
-    { 0x019772u, "sub_19772" },
-    { 0x0197CEu, "sub_197CE" },
-    { 0x019852u, "sub_19852" },
-    { 0x01997Cu, "sub_1997C" },
-    { 0x019ACAu, "sub_19ACA" },
-    { 0x019AECu, "sub_19AEC" },
-    { 0x019B08u, "sub_19B08" },
-    { 0x019B3Eu, "sub_19B3E" },
-    { 0x019C1Cu, "sub_19C1C" },
-    { 0x019C60u, "sub_19C60" },
-    { 0x019CCEu, "sub_19CCE" },
-    { 0x019D0Au, "sub_19D0A" },
-    { 0x019D24u, "sub_19D24" },
-    { 0x019D58u, "sub_19D58" },
+    { 0x01916Cu, "LightningShot" },
+    { 0x019206u, "LightningChaserShot" },
+    { 0x019292u, "LightningChaserInit" },
+    { 0x0192B6u, "LightningChaserSteer" },
+    { 0x019312u, "LightningChaserTarget" },
+    { 0x019330u, "SteerAround" },
+    { 0x019374u, "SteerOctant0" },
+    { 0x01938Eu, "SteerOctant4" },
+    { 0x0193A8u, "SteerOctant2" },
+    { 0x0193C2u, "SteerOctant6" },
+    { 0x0193DCu, "SteerOctant1" },
+    { 0x01940Eu, "SteerOctant3" },
+    { 0x019440u, "SteerOctant5" },
+    { 0x019472u, "SteerOctant7" },
+    { 0x0194A4u, "LightningFireShot" },
+    { 0x019516u, "LightningLightningShot" },
+    { 0x0195B0u, "ForceLightningShot" },
+    { 0x019616u, "BeamSprite" },
+    { 0x0196F4u, "FlameShot" },
+    { 0x019772u, "FlamePosition" },
+    { 0x0197CEu, "FlameAnimate" },
+    { 0x019852u, "FireFireShot" },
+    { 0x01997Cu, "ForceFireShot" },
+    { 0x019ACAu, "RingStage" },
+    { 0x019AECu, "RingAnimate" },
+    { 0x019B08u, "RingPosition" },
+    { 0x019B3Eu, "ChaserFireShot" },
+    { 0x019C1Cu, "ChaserFireInit" },
+    { 0x019C60u, "ChaserFireSteer" },
+    { 0x019CCEu, "ChaserFireMove" },
+    { 0x019D0Au, "ChaserFireDrift" },
+    { 0x019D24u, "ChaserFireTrail" },
+    { 0x019D58u, "ChaserFireAnimate" },
     { 0x019D88u, "EffectOwner" },
     { 0x019DA6u, "EffectAtHand" },
-    { 0x019DC0u, "sub_19DC0" },
+    { 0x019DC0u, "ShotAtDistance" },
     { 0x019DFAu, "EffectPriority" },
     { 0x019E16u, "EffectFlicker" },
-    { 0x019E56u, "sub_19E56" },
-    { 0x019E96u, "sub_19E96" },
-    { 0x019EAAu, "sub_19EAA" },
-    { 0x019EBEu, "sub_19EBE" },
-    { 0x019ED2u, "sub_19ED2" },
-    { 0x019EE6u, "sub_19EE6" },
-    { 0x019EFAu, "sub_19EFA" },
-    { 0x019F0Eu, "sub_19F0E" },
-    { 0x019F8Cu, "sub_19F8C" },
-    { 0x01A00Au, "sub_1A00A" },
-    { 0x01A054u, "sub_1A054" },
-    { 0x01A0E2u, "sub_1A0E2" },
-    { 0x01A132u, "sub_1A132" },
-    { 0x01A15Eu, "sub_1A15E" },
-    { 0x01A1EAu, "sub_1A1EA" },
+    { 0x019E56u, "EffectFlickerHard" },
+    { 0x019E96u, "ForcePower" },
+    { 0x019EAAu, "ChaserChaserPower" },
+    { 0x019EBEu, "ForceChaserPower" },
+    { 0x019ED2u, "LightningFirePower" },
+    { 0x019EE6u, "LightningChaserPower" },
+    { 0x019EFAu, "LightningPower" },
+    { 0x019F0Eu, "FlamePower" },
+    { 0x019F8Cu, "FireFirePower" },
+    { 0x01A00Au, "ForceFirePower" },
+    { 0x01A054u, "ChaserFirePower" },
+    { 0x01A0E2u, "ShotSpark" },
+    { 0x01A132u, "Bubble" },
+    { 0x01A15Eu, "Dust" },
+    { 0x01A1EAu, "ShotHitMark" },
     { 0x01A21Cu, "ObjectFindEffect" },
     { 0x01A246u, "Sparkle" },
     { 0x01A2A2u, "Item" },

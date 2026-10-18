@@ -618,6 +618,65 @@ void MuzzleFlash(uint16_t obj);                                      /* $018B3A 
 void MuzzlePriority(uint16_t obj, uint16_t m);                       /* $018BC2 a5, a4 */
 void ShotPriority(uint16_t obj, uint16_t s);                         /* $018BD4 a5, a0 */
 
+/* ---- the players' shots (shots.c) ---- */
+void ForceShot(uint16_t obj);                                        /* $018C58 a5 */
+void ForceForceShot(uint16_t obj);                                   /* $018D1E a5 */
+void ChaserShot(uint16_t obj);                                       /* $018DB4 a5 */
+void ChaserChaserShot(uint16_t obj);                                 /* $018EAC a5 */
+void ForceChaserShot(uint16_t obj);                                  /* $018F5A a5 */
+void ChaserSprite(uint16_t obj);                                     /* $019030 a5 */
+uint16_t NextTarget(uint16_t obj);                                   /* $0190AE a5 -> a0.w */
+uint16_t TurnToTarget(uint16_t obj, uint16_t step);                  /* $0190E4 a5, d7.w -> d2.w */
+void LightningShot(uint16_t obj);                                    /* $01916C a5 */
+void LightningChaserShot(uint16_t obj);                              /* $019206 a5 */
+void LightningChaserInit(uint16_t obj);                              /* $019292 a5 */
+void LightningChaserSteer(uint16_t obj);                             /* $0192B6 a5 */
+void LightningChaserTarget(uint16_t obj);                            /* $019312 a5 */
+void SteerAround(uint16_t obj);                                      /* $019330 a5 */
+void SteerOctant0(uint16_t obj, uint16_t target);                    /* $019374 a5, a1 */
+void SteerOctant4(uint16_t obj, uint16_t target);                    /* $01938E a5, a1 */
+void SteerOctant2(uint16_t obj, uint16_t target);                    /* $0193A8 a5, a1 */
+void SteerOctant6(uint16_t obj, uint16_t target);                    /* $0193C2 a5, a1 */
+void SteerOctant1(uint16_t obj, uint16_t target);                    /* $0193DC a5, a1 */
+void SteerOctant3(uint16_t obj, uint16_t target);                    /* $01940E a5, a1 */
+void SteerOctant5(uint16_t obj, uint16_t target);                    /* $019440 a5, a1 */
+void SteerOctant7(uint16_t obj, uint16_t target);                    /* $019472 a5, a1 */
+void LightningFireShot(uint16_t obj);                                /* $0194A4 a5 */
+void LightningLightningShot(uint16_t obj);                           /* $019516 a5 */
+void ForceLightningShot(uint16_t obj);                               /* $0195B0 a5 */
+void BeamSprite(uint16_t obj);                                       /* $019616 a5 */
+void FlameShot(uint16_t obj);                                        /* $0196F4 a5 */
+void FlamePosition(uint16_t obj, uint16_t *x, uint16_t *y);          /* $019772 a5 -> d0.w, d1.w */
+void FlameAnimate(uint16_t obj);                                     /* $0197CE a5 */
+void FireFireShot(uint16_t obj);                                     /* $019852 a5 */
+void ForceFireShot(uint16_t obj);                                    /* $01997C a5 */
+void RingStage(uint16_t obj);                                        /* $019ACA a5 */
+void RingAnimate(uint16_t obj);                                      /* $019AEC a5 */
+void RingPosition(uint16_t obj);                                     /* $019B08 a5 */
+void ChaserFireShot(uint16_t obj);                                   /* $019B3E a5 */
+void ChaserFireInit(uint16_t obj);                                   /* $019C1C a5 */
+void ChaserFireSteer(uint16_t obj);                                  /* $019C60 a5 */
+void ChaserFireMove(uint16_t obj);                                   /* $019CCE a5 */
+void ChaserFireDrift(uint16_t obj);                                  /* $019D0A a5 */
+void ChaserFireTrail(uint16_t obj);                                  /* $019D24 a5 */
+void ChaserFireAnimate(uint16_t obj);                                /* $019D58 a5 */
+void ShotAtDistance(uint16_t obj, uint16_t player, uint16_t dist);   /* $019DC0 a5, a0, d0.w */
+void EffectFlickerHard(uint16_t obj);                                /* $019E56 a5 */
+void ForcePower(uint16_t obj);                                       /* $019E96 a5 */
+void ChaserChaserPower(uint16_t obj);                                /* $019EAA a5 */
+void ForceChaserPower(uint16_t obj);                                 /* $019EBE a5 */
+void LightningFirePower(uint16_t obj);                               /* $019ED2 a5 */
+void LightningChaserPower(uint16_t obj);                             /* $019EE6 a5 */
+void LightningPower(uint16_t obj);                                   /* $019EFA a5 */
+void FlamePower(uint16_t obj);                                       /* $019F0E a5 */
+void FireFirePower(uint16_t obj);                                    /* $019F8C a5 */
+void ForceFirePower(uint16_t obj);                                   /* $01A00A a5 */
+void ChaserFirePower(uint16_t obj);                                  /* $01A054 a5 */
+void ShotSpark(uint16_t obj);                                        /* $01A0E2 a5 */
+void Bubble(uint16_t obj);                                           /* $01A132 a5 */
+void Dust(uint16_t obj);                                             /* $01A15E a5 */
+void ShotHitMark(uint16_t obj);                                      /* $01A1EA a5 */
+
 /* ---- the players in the scenes (scenes.c) ---- */
 void ScenePlayer1(uint16_t obj);                                     /* $020DDA a5 */
 void ScenePlayer2(uint16_t obj);                                     /* $020E14 a5 */
