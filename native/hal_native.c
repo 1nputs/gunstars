@@ -1,22 +1,55 @@
-/* hal.h on pulseman: the VDP, PSG, YM2612 and pads are the runtime's.
+/* hal.h on pulseman: the VDP, PSG, YM2612 and pads are the runtime's; the Z80 is src/z80.c, the
+ * sample player ported to C, whose YM2612 writes go to the runtime's chip at their time.
  *
- * The 68k's own sound driver writes the YM2612 directly (holding the Z80's bus); the Z80 only
- * plays samples, and its program is not ported yet, so Z80 RAM is kept but nothing plays it.
- * Writes are put at the runtime's position in the frame (mdrt_now): the game's code moves no
- * clock, so they land at the frame's start, where the vertical blank runs the sound driver. */
+ * The 68k's own sound driver writes the YM2612 directly (holding the Z80's bus). Time: the
+ * runtime's position in the frame (mdrt_now), plus a little for each of the game's accesses to the
+ * Z80's bus (the game's code moves no clock of its own): when the game waits on the Z80 (its busy
+ * flag at $1FFD, before it writes the chip) the player runs on meanwhile, as beside a real 68k.
+ * The runtime's sound tick runs the player through the rest of the frame. */
 #include <stdio.h>
 #include "game.h"
 #include "hal.h"
 #include "native.h"
+#include "z80.h"
 
 mdrt *native_m;
 static uint16_t sr = 0x2700;            /* the 68k's status register: its interrupt mask */
-static int bus_taken;                   /* the 68k holds the Z80's bus */
-static uint8_t z80_ram[0x2000];
 static long frames;
+static uint64_t frame_base;             /* the player's master clock at this frame's start */
+static uint32_t t_bus;                  /* master clocks of the game's Z80 bus accesses this frame */
+
+#define BUS_ACCESS 56                   /* a 68k byte access through the Z80's bus, with its instruction */
 
 static mdrt_vdp *vdp(void) { return mdrt_get_vdp(native_m); }
-static uint32_t now(void) { return mdrt_now(native_m); }
+static uint32_t now(void) { return mdrt_now(native_m) + t_bus; }
+
+static void run_to(uint64_t t)
+{
+    while (t > zp.now) {
+        uint64_t step = t - zp.now > 1u << 30 ? 1u << 30 : t - zp.now;
+        z80_player_run((uint32_t)step);
+    }
+}
+
+/* the player catches up with the game, after the access's time */
+static void z80_now(void)
+{
+    t_bus += BUS_ACCESS;
+    run_to(frame_base + now());
+}
+
+/* the player's YM2612 writes, to the runtime's chip at their time in the frame */
+static void player_ym(int port, uint8_t value)
+{
+    mdrt_ym_write(native_m, zp.zc > frame_base ? (uint32_t)(zp.zc - frame_base) : 0, port, value);
+}
+
+/* the runtime's sound tick: the player through the frame */
+static void sound_tick(void *user, uint32_t until)
+{
+    (void)user;
+    run_to(frame_base + until);
+}
 
 static void hint(void *user) { (void)user; HintHandler(); }
 
@@ -24,10 +57,13 @@ void native_hal_start(mdrt *m)
 {
     native_m = m;
     mdrt_set_hint(m, hint, NULL);
+    mdrt_set_sound_tick(m, sound_tick, NULL);
     sr = 0x2700;
-    bus_taken = 0;
     frames = 0;
-    for (int i = 0; i < 0x2000; i++) z80_ram[i] = 0;
+    frame_base = 0;
+    t_bus = 0;
+    z80_player_power_on();
+    z80_player_ym = player_ym;
 }
 
 long native_frames(void) { return frames; }
@@ -41,17 +77,28 @@ void vdp_data32(uint32_t v) { mdrt_vdp_data32(vdp(), v); }
 
 void psg_write(uint8_t v) { mdrt_psg_port(native_m, now(), v); }
 uint8_t ym_read8(uint16_t off) { (void)off; return 0; }                  /* never busy */
-void ym_write8(uint16_t off, uint8_t v) { mdrt_ym_write(native_m, now(), off & 3, v); }
+void ym_write8(uint16_t off, uint8_t v)
+{
+    z80_now();
+    mdrt_ym_write(native_m, now(), off & 3, v);
+    if (off & 1) z80_player_ym_busy(frame_base + now());   /* (the player polls the busy flag) */
+}
 
-uint8_t z80_ram_read8(uint16_t off) { return z80_ram[off & 0x1FFF]; }
-void z80_ram_write8(uint16_t off, uint8_t v) { z80_ram[off & 0x1FFF] = v; }
+uint8_t z80_ram_read8(uint16_t off) { z80_now(); return z80_mem[off & 0x1FFF]; }
+void z80_ram_write8(uint16_t off, uint8_t v) { z80_now(); z80_mem[off & 0x1FFF] = v; }
 void z80_ram_write32(uint16_t off, uint32_t v)
 {
-    for (int i = 0; i < 4; i++) z80_ram[(off + i) & 0x1FFF] = (uint8_t)(v >> (24 - 8 * i));
+    z80_now();
+    for (int i = 0; i < 4; i++) z80_mem[(off + i) & 0x1FFF] = (uint8_t)(v >> (24 - 8 * i));
 }
-void z80_busreq(uint16_t v) { bus_taken = (v & 0x100) != 0; }
-uint8_t z80_busack(void) { return bus_taken ? 0 : 1; }                  /* granted at once */
-void z80_reset(uint16_t v) { if (!(v & 0x100)) mdrt_ym_reset(native_m, now()); }
+void z80_busreq(uint16_t v) { z80_now(); z80_player_busreq(v); }
+uint8_t z80_busack(void) { z80_now(); return zp.bus_taken ? 0 : 1; }    /* granted at once */
+void z80_reset(uint16_t v)
+{
+    z80_now();
+    if (!(v & 0x100)) mdrt_ym_reset(native_m, now());
+    z80_player_reset(v);
+}
 
 uint8_t io_read8(uint32_t addr) { return mdrt_pad_read(mdrt_get_pads(native_m), addr | 1); }
 void io_write8(uint32_t addr, uint8_t v) { mdrt_pad_write(mdrt_get_pads(native_m), addr | 1, v); }
@@ -69,7 +116,12 @@ void cpu_spin(uint32_t loops) { mdrt_charge(native_m, loops * 10); }
 /* the frame's end: the handshake, then the next frame's vertical blank interrupt */
 void hal_wait_vblank(void)
 {
+    uint32_t len = mdrt_frame_mclks(native_m);
     if (mdrt_wait_vblank(native_m)) native_quit();
+    run_to(frame_base + len);                             /* (if the runtime's tick has not) */
+    frame_base += len;
+    t_bus = 0;
+    z80_player_frame();
     native_frame_done(++frames);
     if (mdrt_vdp_reg(vdp(), 1) & 0x20) VBlank();
     mdrt_vblank_end(native_m);

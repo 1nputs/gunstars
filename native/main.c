@@ -2,6 +2,7 @@
  *
  *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
  *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
+ *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
  *
  * A routine not ported yet stops the game with its address (call68k_missing). */
 #include <setjmp.h>
@@ -159,9 +160,12 @@ static const char *rom_ok(const uint8_t *b, size_t n, void *user)
 
 static void rom_use(const uint8_t *b, size_t n, void *user) { (void)n; (void)user; rom_image = b; }
 
+static void sink(void *user, const void *bytes, size_t n) { fwrite(bytes, 1, n, (FILE *)user); }
+
 int main(int argc, char **argv)
 {
     const char *rom = "Gunstar Heroes (U) [!].gen", *rom_given = NULL;
+    const char *sound_path = NULL;
     int headless = 0, scale = 0;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--rom") && i + 1 < argc) rom = rom_given = argv[++i];
@@ -172,8 +176,9 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--every") && i + 1 < argc) shots_every = atol(argv[++i]);
         else if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--input") && i + 1 < argc) { if (!read_script(argv[++i])) return 1; }
+        else if (!strcmp(argv[i], "--sound") && i + 1 < argc) sound_path = argv[++i];
         else {
-            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace]\n", argv[0]);
             return 2;
         }
     }
@@ -192,7 +197,14 @@ int main(int argc, char **argv)
     mdrt *m = mdrt_new(&c);
     if (!m) return 1;
     if (script_n) mdrt_set_pad_source(m, script_source, NULL);
+    FILE *sound = sound_path ? fopen(sound_path, "wb") : NULL;
+    if (sound_path && !sound) { fprintf(stderr, "cannot write %s\n", sound_path); return 1; }
+    if (sound) mdrt_record(m, MDRT_TRACE_SOUND, sink, sound);
     native_game(m, NULL);
+    if (sound) {
+        mdrt_record(m, MDRT_TRACE_SOUND, NULL, NULL);
+        fclose(sound);
+    }
     if (shot_path) write_ppm(shot_path);
     if (getenv("GUNSTAR_TRACE")) {
         mdrt_vdp_state st;

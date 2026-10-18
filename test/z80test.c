@@ -89,6 +89,7 @@ static int run(const char *path)
     if (fread(d, 1, (size_t)len, f) != (size_t)len) { fclose(f); free(d); return 1; }
     fclose(f);
     if (memcmp(d, "MDST", 4) || u32(d + 4) != 3) { printf("%s: not a version 3 sndtrace\n", name); free(d); return 1; }
+    if (u32(d + 16) & 4) { printf("%s: recorded by the runtime, not the oracle, skipped\n", name); free(d); return 0; }
     if (u32(d + 16) & 2) { printf("%s: recorded with the Nuked FM core (another busy flag), skipped\n", name); free(d); return 0; }
     if (!(u32(d + 16) & 1)) { printf("%s: not from power on (the player's registers unknown), skipped\n", name); free(d); return 0; }
     size_t o = 20;
