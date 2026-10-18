@@ -93,7 +93,16 @@ make gunstars
 ./build/gunstars --rom "/path/to/Gunstar Heroes (U) [!].gen"
 ```
 
-**Windows** (not tried yet), with [MSYS2](https://www.msys2.org), in its *UCRT64* shell:
+**Windows**: cross-built here from Linux, warning-free, with [Zig](https://ziglang.org)'s Clang
+(`pip install ziglang` will do) and SDL2's own MinGW package, which the script fetches:
+
+```
+make windows        # build/win/gunstars.exe with SDL2.dll, and build/gunstars-windows-x64.zip
+```
+
+Unzip it anywhere on Windows 10 or later and run `gunstars.exe` (it needs only `SDL2.dll` beside
+it). Not yet run on Windows itself: tell us how it goes. Or build on Windows with
+[MSYS2](https://www.msys2.org), in its *UCRT64* shell (not tried yet):
 
 ```
 pacman -S --needed git make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-SDL2
@@ -180,7 +189,8 @@ From the least ambitious to the most.
 - [x] Fast-forward, slow motion, frame step, pause when the window loses focus
 - [ ] Lockstep against the original at every frame, and golden runs
 - [ ] Every corner recorded and tested (stage 5's corridor, stage 6, stage 1's maze)
-- [ ] Built and played on macOS and Windows
+- [x] A Windows build (`make windows`, cross-built with Zig)
+- [ ] Played on Windows; built and played on macOS
 - [ ] The cartridge's slowdown as an option
 - [ ] Skip the logos, boot straight into a game
 - [ ] Game Genie and Action Replay codes

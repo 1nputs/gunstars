@@ -6,6 +6,8 @@
 #   make disasm         the disassembly (build/disasm): byte-exact source, routines, symbols
 #   make gen            the committed generated headers (src/symbols_gen.h) from the disassembly
 #   make gunstars       the native game (build/gunstars, on pulseman at MDRT)
+#   make windows        the game for Windows, cross-built with Zig (tools/build_windows.sh)
+#   make sweep          the native game through every stage, headless (tools/native_sweep.sh)
 CC      ?= gcc
 WERROR  ?= -Werror
 WARN    := -Wall -Wextra -Wshadow -Wstrict-prototypes -Wmissing-prototypes $(WERROR)
@@ -18,7 +20,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstars gunstar mdrt z80test
+.PHONY: all test oracle evidence disasm gen clean gunstars gunstar mdrt z80test windows sweep
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -39,13 +41,26 @@ MDRT    ?= ext/pulseman
 MDRTB   ?= build/release
 NATIVE  := $(wildcard native/*.c)
 MDRTLIBS := $(MDRT)/$(MDRTB)/libmdrt_sdl2.a $(MDRT)/$(MDRTB)/libmdrt.a
+# (SDL2's -mwindows is left out on Windows, so the game keeps its console)
 SDLLIBS := $(filter-out -mwindows,$(shell pkg-config --libs sdl2 2>/dev/null))
-gunstars: build/gunstars
+ifeq ($(OS),Windows_NT)
+EXE     ?= .exe
+# (Windows, MSYS2: the C++ runtime linked in, so the game needs only SDL2.dll beside it)
+CXXLIB  ?= -static-libgcc -Wl,-Bstatic -lstdc++ -Wl,--whole-archive -lwinpthread -Wl,--no-whole-archive -Wl,-Bdynamic
+endif
+CXXLIB  ?= -lstdc++                  # (pulseman's ymfm core is C++)
+gunstars: build/gunstars$(EXE)
 gunstar: gunstars                    # (the old name)
-build/gunstars: $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
+build/gunstars$(EXE): $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
 	@mkdir -p build
 	$(CC) $(CFLAGS) -O2 -Isrc -Ibuild -Inative -I$(MDRT)/include $(shell pkg-config --cflags sdl2 2>/dev/null) \
-	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm -lstdc++
+	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm $(CXXLIB)
+# Windows from Linux: build/win/gunstars.exe and build/gunstars-windows-x64.zip, with Zig
+# (tools/build_windows.sh)
+windows:
+	tools/build_windows.sh
+sweep: build/gunstars
+	tools/native_sweep.sh
 mdrt:
 	@test -f $(MDRT)/Makefile || { echo "no pulseman at $(MDRT): git submodule update --init"; exit 1; }
 	$(MAKE) -C $(MDRT) MODE=release B=$(MDRTB) sdl
