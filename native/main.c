@@ -26,7 +26,7 @@
 #include "z80.h"
 
 #ifndef GUNSTAR_VERSION
-#define GUNSTAR_VERSION "0.2.0"
+#define GUNSTAR_VERSION "0.2.1"
 #endif
 
 static jmp_buf out, again;

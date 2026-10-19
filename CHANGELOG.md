@@ -1,15 +1,51 @@
 # Changelog
 
-## Unreleased
+## 0.2.1 (19 October 2026): an online fix
+
+Gunstar Heroes, Treasure's 1993 run-and-gun, rebuilt in C on
+[pulseman](https://github.com/1nputs/pulseman). Bring your own ROM: Gunstar Heroes (U), the 1 MB
+retail cartridge. This release fixes a way an online session could end early; everything else is
+as in 0.2.0, whose notes go over the whole game.
+
+**Downloads**
+
+| | |
+|---|---|
+| `gunstars-0.2.1-linux-x64.tar.gz` | x86-64 Linux from about 2018 on (glibc 2.28); needs SDL2 (`libsdl2-2.0-0`, `SDL2`, `sdl2`) |
+| `gunstars-0.2.1-windows-x64.zip` | Windows 10 or later, x86-64; `gunstar.exe` with `SDL2.dll` beside it. Cross-built: tell us how it runs |
+| `SHA256SUMS` | the files' checksums |
+
+Or build it: `git clone --recursive`, `make gunstar` (see the README).
 
 **Fixed**
 
-- Online: a rollback could keep a state saved while the other player's buttons were still being
-  guessed. When the right buttons then gave the game no point to save at on that frame, a later
-  rollback could load the stale state, and the session ended as "desync at frame N". A rollback
-  now forgets every state after the frame it goes back to (pulseman's fix, `769753a` on its
-  `gunstar` branch). gunstar's own sessions never hit it, before or after the fix (the netplay
-  check, and six harsher sessions at input delay 0 and 1); pulseman's new test does.
+- Online: a session could end as "desync at frame N". When the game corrects a wrong guess of
+  the other player's buttons it goes back to a state it saved and plays the frames again; it could
+  keep a state saved while the guess played, and when the right buttons gave the game no moment to
+  save at on that frame, a later correction could load the guessed state, and the two games no
+  longer agreed. A correction now forgets every state after the frame it goes back to. Found in
+  the four-player sessions of [ninety-four](https://github.com/1nputs/ninety-four) (NHL '94,
+  rebuilt on pulseman too); gunstar's own sessions never hit it, but nothing in the game ruled it
+  out.
+- The v0.2.0 tag went on the commit before that release (`acf7468`; the downloads were built from
+  `b66ed55`): a build of it calls itself 0.1.0 and cannot play online with the 0.2.0 downloads.
+  The v0.2.1 tag names the commit its downloads were built from.
+
+**Online with 0.2.0**
+
+- Both players need 0.2.1: it does not play online with 0.2.0 (the game says so: another game,
+  build or settings). Save states, quick resume and settings carry over.
+
+**How it was checked**
+
+- Again on this build: the 39,405 recorded calls, the Z80 sample player, every stage headless (15
+  runs, 1.29 million frames), the 12 golden runs (238,100 frames) and their saved states, all
+  exactly as 0.2.0.
+- Online: pulseman's new test, a game whose moments to save at depend on how it was played, ended
+  as a desync without the fix (64 and 126 of 900 frames right) and plays every frame right with
+  it. gunstar's three sessions through simulated networks, and six harsher ones (input delay 0 and
+  1, up to 60 ms each way with 50 of jitter, 15% of packets lost, the TAS's game, a continue, stages
+  3 and 6), play every frame exactly as one machine with the same buttons.
 
 ## 0.2.0 (19 October 2026): online co-op
 
