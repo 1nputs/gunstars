@@ -79,6 +79,8 @@ controller). By IP address, no server.
 
 In the menu (Esc), **Online play**:
 
+- **Your name**: what the other player sees when you join ("Sam has joined", on the bottom of
+  the picture) and when you leave.
 - **Play as**: *host* (you are player 1; the other joins you), *join a host* (you are player 2),
   or *both connect* (each of you types the other's address and starts: most home routers need
   no setup then, and the two games decide who is player 1).
@@ -86,6 +88,8 @@ In the menu (Esc), **Online play**:
   it in (Ctrl+V pastes).
 - **Port**: 7000 unless you both change it. To host, your router must let this UDP port in to
   you (a forwarded port), unless you share a network or a VPN such as Tailscale or ZeroTier.
+  The page shows your LAN address (for a friend on the same network, or the address to forward
+  the port to).
 - **Input delay**: how many frames late a button press reaches the game (the host's choice, 2
   by default): more is fewer corrections, less is snappier.
 - **Start**: the game starts again, waits for the other player (Esc gives up), and you play.
@@ -97,7 +101,7 @@ the game; **Leave the session** is on the Online play page. If either leaves or 
 drops, the other's game goes on alone. Both of you need the same build (the game says so if not).
 
 From a terminal it is the same: `./gunstar --host [PORT]`, `./gunstar --join ADDRESS[:PORT]`, or
-`./gunstar --peer ADDRESS` on both sides, with `--delay N`.
+`./gunstar --peer ADDRESS` on both sides, with `--delay N` and `--name NAME`.
 
 ## Build
 

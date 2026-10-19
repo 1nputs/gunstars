@@ -45,8 +45,8 @@ int native_net_open(const mdrt_net_options *o, const char *version, const char *
 {
     udp = mdrt_net_open_udp(o, err, errsize);
     if (!udp) return 0;
-    mdrt_net_config c = { .role = o->role, .identity = native_net_identity(version, setup), .delay = o->delay, .window = 8,
-                          .rollback = 30, .check_every = 60 };
+    mdrt_net_config c = { .role = o->role, .identity = native_net_identity(version, setup), .name = o->name, .delay = o->delay,
+                          .window = 8, .rollback = 30, .check_every = 60 };
     c.link = mdrt_udp_link(udp);
     c.local_input = local_input;
     local_fn = input;
@@ -79,6 +79,8 @@ int native_net_connect(void)
     headless = 1;
     fprintf(stderr, "netplay: playing with %s, %s, pad %d, input delay %d\n", mdrt_udp_peer(udp, peer, sizeof peer),
             mdrt_net_is_host(net) ? "hosting" : "joined", mdrt_net_pads(net) == 1 ? 1 : 2, mdrt_net_delay(net));
+    const char *who = mdrt_net_peer_name(net);
+    fprintf(stderr, "netplay: %s has joined\n", who[0] ? who : mdrt_net_is_host(net) ? "player 2" : "player 1");
     return 1;
 }
 

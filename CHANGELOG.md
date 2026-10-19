@@ -16,6 +16,8 @@ off while you play together, and if one leaves the other plays on alone.
   every frame as a solo run with the same buttons; the release's Clang build and a build with the
   undefined behaviour sanitizer play every golden run bit for bit as the GCC build; a save state
   from 0.1.0 loads and plays on the same.
+- Your name on the Online play page (or `--name`): the other sees "NAME has joined" over the
+  bottom of the picture, and "NAME left". The page shows your LAN address.
 - Not yet played between two real machines.
 
 ## 0.1.0 (18 October 2026): the first release
