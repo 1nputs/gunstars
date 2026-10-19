@@ -3,6 +3,8 @@
  *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
  *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
+ *           [--golden FILE] (headless: a line of hashes a frame, tools/golden.py)
+ *           [--fm-core nuked|ymfm] (the FM core; pulseman's default: Nuked-OPN2)
  *           [--version]
  *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
  *           (headless: native/state.c)
@@ -18,6 +20,7 @@
 #include <string.h>
 #include "game.h"
 #include "native.h"
+#include "z80.h"
 
 #ifndef GUNSTAR_VERSION
 #define GUNSTAR_VERSION "0.1.0"
@@ -168,9 +171,46 @@ static void write_ppm(const char *path)
     fclose(f);
 }
 
+/* --golden FILE: a line a frame, at its handshake (before its vertical blank code): the frame,
+ * hashes of work RAM, the VDP's state, the Z80's RAM, the picture and the frame's sound, and the
+ * sound's samples, so that two builds can be compared frame for frame, bit for bit (make golden,
+ * make golden-check: tools/golden.py) */
+static FILE *golden;
+static uint64_t golden_pic, golden_snd;
+static int golden_samples;
+
+static uint64_t fnv(uint64_t h, const void *p, size_t n)
+{
+    const uint8_t *b = p;
+    for (size_t i = 0; i < n; i++) h = (h ^ b[i]) * 0x100000001B3ull;
+    return h;
+}
+#define FNV0 0xCBF29CE484222325ull
+
+static void golden_audio(void *user, const int16_t *s, int n)
+{
+    (void)user;
+    golden_snd = fnv(FNV0, s, (size_t)n * 4);
+    golden_samples = n;
+}
+
+static void golden_line(long frame)
+{
+    mdrt_vdp_state s;
+    mdrt_vdp_get_state(mdrt_get_vdp(native_m), &s);
+    uint64_t v = fnv(fnv(fnv(fnv(FNV0, s.reg, 24), s.vram, 0x10000), s.cram, sizeof s.cram), s.vsram, sizeof s.vsram);
+    fprintf(golden, "%ld %016llx %016llx %016llx %016llx %016llx %d\n", frame, (unsigned long long)fnv(FNV0, ram, RAM_SIZE),
+            (unsigned long long)v, (unsigned long long)fnv(FNV0, z80_mem, sizeof z80_mem), (unsigned long long)golden_pic,
+            (unsigned long long)golden_snd, golden_samples);
+}
+
 static void keep_picture(void *user, const uint16_t *px, int w, int h, int pitch)
 {
     (void)user;
+    if (golden) {
+        golden_pic = FNV0;
+        for (int y = 0; y < h; y++) golden_pic = fnv(golden_pic, px + y * pitch, (size_t)w * 2);
+    }
     pic_w = w > 320 ? 320 : w;
     pic_h = h > 240 ? 240 : h;
     for (int y = 0; y < pic_h; y++) memcpy(picture + y * pic_w, px + y * pitch, (size_t)pic_w * 2);
@@ -227,6 +267,7 @@ static int read_pokes(const char *spec)
 
 void native_frame_done(long frame)
 {
+    if (golden) golden_line(frame);
     for (size_t i = 0; i < npokes; i++)
         if (pokes[i].frame == frame) wr16(pokes[i].addr, pokes[i].value);
     for (size_t i = 0; i < nholds; i++)
@@ -270,7 +311,7 @@ static void sink(void *user, const void *bytes, size_t n) { fwrite(bytes, 1, n, 
 int main(int argc, char **argv)
 {
     const char *rom = "Gunstar Heroes (U) [!].gen", *rom_given = NULL;
-    const char *sound_path = NULL, *save_path = NULL, *load_path = NULL;
+    const char *sound_path = NULL, *save_path = NULL, *load_path = NULL, *fm_core = NULL, *golden_path = NULL;
     long save_frame = -1;
     int headless = 0, scale = 0;
     for (int i = 1; i < argc; i++) {
@@ -284,6 +325,8 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--input") && i + 1 < argc) { if (!read_script(argv[++i])) return 1; }
         else if (!strcmp(argv[i], "--sound") && i + 1 < argc) sound_path = argv[++i];
+        else if (!strcmp(argv[i], "--fm-core") && i + 1 < argc) fm_core = argv[++i];
+        else if (!strcmp(argv[i], "--golden") && i + 1 < argc) { golden_path = argv[++i]; headless = 1; }
         else if (!strcmp(argv[i], "--save-state") && i + 1 < argc && strchr(argv[i + 1], ':')) {
             save_frame = atol(argv[++i]);
             save_path = strchr(argv[i], ':') + 1;
@@ -294,13 +337,14 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--hold-if") && i + 1 < argc) { if (!read_holds(argv[++i], 1)) { fprintf(stderr, "bad --hold-if\n"); return 2; } }
         else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
         else {
-            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...]\n", argv[0]);
+            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...]\n", argv[0]);
             return 2;
         }
     }
     mdrt_config c = { 0 };
     c.audio_rate = 48000;
     c.read68k = read68k;
+    c.fm_core = fm_core;
     if (!headless) {
         mdrt_sdl_options o = { .title = "Gunstar Heroes", .scale = scale, .app = "gunstar",
                                .rom_path = rom_given, .rom_default = rom,
@@ -310,6 +354,10 @@ int main(int argc, char **argv)
     }
     if (!rom_load(rom)) { fprintf(stderr, "cannot load the ROM %s\n", rom); return 1; }
     c.platform = (mdrt_platform){ .present = keep_picture };
+    if (golden_path) {
+        if (!(golden = fopen(golden_path, "w"))) { fprintf(stderr, "cannot write %s\n", golden_path); return 1; }
+        c.platform.audio = golden_audio;
+    }
     if (reqs_n) {
         c.platform.requests = script_requests;
         c.platform.request_path = script_request_path;
@@ -326,6 +374,7 @@ int main(int argc, char **argv)
         mdrt_record(m, MDRT_TRACE_SOUND, NULL, NULL);
         fclose(sound);
     }
+    if (golden && fclose(golden)) { fprintf(stderr, "cannot write %s\n", golden_path); return 1; }
     if (shot_path) write_ppm(shot_path);
     if (getenv("GUNSTAR_TRACE")) {
         mdrt_vdp_state st;

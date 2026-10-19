@@ -119,10 +119,11 @@ with `--input FILE` (both pads from a script: `FRAME:BUTTONS|BUTTONS` lines, as
 `tools/oracle/script.py` writes them), `--shot FILE.ppm`, `--shots DIR --every N`, `--sound
 FILE.sndtrace` (everything the sound chips were told, and what they played), `--save-state
 FRAME:FILE`, `--load-state FILE`, `--requests FILE --state FILE` (save, load and rewind as
-the menu and F4 make them), and RAM words held or written (`--hold ADDR=VAL`, `--hold-if
-WADDR=WVAL:ADDR=VAL`, `--poke FRAME:ADDR=VAL`).
+the menu and F4 make them), `--golden FILE` (a line of hashes a frame: `make golden`), `--fm-core
+nuked|ymfm`, and RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=WVAL:ADDR=VAL`,
+`--poke FRAME:ADDR=VAL`).
 
-## For agents: where this stands (17 October 2026)
+## For agents: where this stands (19 October 2026)
 
 - **What it is.** A C reimplementation of Gunstar Heroes (Genesis, US retail, SHA-1
   `7721e302555f16e3242ad4a47ed87a1de1882122`). No labelled disassembly existed, so this project
@@ -142,13 +143,17 @@ WADDR=WVAL:ADDR=VAL`, `--poke FRAME:ADDR=VAL`).
   the same order with the same values. `make z80test` replays the oracle's sound traces: the
   sample player's 1,167,306 writes to the YM2612 must come at the same master clock. `make
   sweep` plays the native game through every stage headless (15 runs, 1.29 million frames, both
-  players' vitality held): none may stop. Native states are checked headless: a state loaded, a
-  rewind, must reach the uninterrupted run's state byte for byte.
+  players' vitality held): none may stop. `make golden-check` plays 12 golden runs (238,100
+  frames: the attract loop, the options, the TAS's two-player game, every stage, a stage
+  cleared, a continue) and compares every frame's hashes (work RAM, the VDP, the Z80's RAM, the
+  picture, the sound) with those `make golden` recorded from an earlier build, bit for bit; a
+  state saved in four of them and loaded in a new process, and the menu's save, load and rewind,
+  must go on frame for frame as the run did.
 - **Done.** The harness and the disassembler; every routine of the cartridge; the native game on
   pulseman (sound, the H-interrupt effects, the samples), save states, quick resume and rewind.
 - **Not done yet.** Lockstep (the native game against the oracle at every vertical blank, as
-  ninety-four's `make lockstep`) and golden runs; the native game has no lag frames, so its runs
-  drift from the oracle's after the first. Records for the parts no recorded run reaches: the
+  ninety-four's `make lockstep`); the native game has no lag frames, so its runs drift from the
+  oracle's after the first. Records for the parts no recorded run reaches: the
   bubble under water, a few object types, stage 1's maze after the mine cart, stage 5's
   corridor, most of stage 6.
 - **Read first.** `ext/pulseman/README.md` and `docs/API.md` there; the comments at the top of
@@ -161,7 +166,9 @@ WADDR=WVAL:ADDR=VAL`, `--poke FRAME:ADDR=VAL`).
   and `CHANGELOG.md` says what each one holds.
 - **Rules.** The ROM and everything made from it (the disassembly, captures, traces, states,
   screenshots, GIFs) stay out of git. Commit after each finished job. Before and after a change:
-  `make test`, `make z80test` for the sound, `make sweep` for the native game. A routine is ported against its records: name it
+  `make test`, `make z80test` for the sound, `make golden-check` and `make sweep` for the native
+  game (`make golden` first, on the build before the change: `tools/golden.py record --force`
+  records again). A routine is ported against its records: name it
   in `tools/disasm/names.txt`, give its prototype a `/* $ADDRESS registers */` comment in
   `src/game.h`, `make disasm && make gen && make`, capture a session that reaches it, test.
   pulseman is changed only in `ext/pulseman` on its branch `gunstar`, and merged into its `main`
@@ -173,6 +180,7 @@ cp /path/to/rom "Gunstar Heroes (U) [!].gen"         # your ROM at the repo root
 make oracle && make evidence && make gen             # the oracle; the evidence runs; the disassembly
 tools/hybrid/capture_all.sh                          # every capture session (about two hours)
 make test && make z80test                            # the checks (z80test: tools/oracle/sndtrace.py into out/snd)
+make golden && make golden-check                     # the native game's golden runs, recorded, then checked
 ```
 
 ## Features
@@ -194,7 +202,8 @@ From the least ambitious to the most.
 - [x] Colour options; scanlines, CRT mask, composite dither blending
 - [x] Screenshots, the replay (the last 20 seconds) and recordings as GIFs
 - [x] Fast-forward, slow motion, frame step, pause when the window loses focus
-- [ ] Lockstep against the original at every frame, and golden runs
+- [x] Golden runs: every frame of 12 runs against a recorded build, bit for bit, states too
+- [ ] Lockstep against the original at every frame
 - [ ] Every corner recorded and tested (stage 5's corridor, stage 6, stage 1's maze)
 - [x] A Windows build (`make windows`, cross-built with Zig)
 - [ ] Played on Windows; built and played on macOS

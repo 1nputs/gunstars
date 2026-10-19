@@ -8,6 +8,8 @@
 #   make gunstar        the native game (build/gunstar, on pulseman at MDRT)
 #   make windows        the game for Windows, cross-built with Zig (tools/build_windows.sh)
 #   make sweep          the native game through every stage, headless (tools/native_sweep.sh)
+#   make golden         the native game's golden runs, recorded (out/golden: tools/golden.py)
+#   make golden-check   the build's runs against them, frame for frame, bit for bit; states too
 #   make release        the release files in build/release (tools/package_release.sh)
 CC      ?= gcc
 WERROR  ?= -Werror
@@ -21,7 +23,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep release
+.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep release golden golden-check
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -61,6 +63,10 @@ windows:
 	tools/build_windows.sh
 sweep: build/gunstar
 	tools/native_sweep.sh
+golden: build/gunstar
+	$(PY) tools/golden.py record
+golden-check: build/gunstar
+	$(PY) tools/golden.py check
 release:
 	tools/package_release.sh
 mdrt:
