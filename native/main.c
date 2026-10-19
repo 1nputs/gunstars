@@ -4,6 +4,9 @@
  *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
  *           [--golden FILE] (headless: a line of hashes a frame, tools/golden.py)
+ *           [--host [PORT] | --join ADDR[:PORT] | --peer ADDR[:PORT]] [--port PORT] [--delay N]
+ *           [--net-sim MS,MS,%,%] (netplay, net.c: from power on; in the window each player's
+ *           controls, headless their column of the --input script)
  *           [--fm-core nuked|ymfm] (the FM core; pulseman's default: Nuked-OPN2)
  *           [--version]
  *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
@@ -123,6 +126,25 @@ static unsigned script_requests(void *user)
 }
 
 static const char *script_request_path(void *user) { (void)user; return state_file; }
+
+/* netplay's local player, headless: this pad's column of the script */
+static uint16_t script_pad(int pad, int k)
+{
+    (void)k;
+    long frame = native_frames();
+    uint16_t b = 0;
+    for (size_t i = 0; i < script_n && script[i].frame <= frame; i++) b = pad < 2 ? script[i].pads[pad] : 0;
+    return b;
+}
+
+/* netplay's local player in the window: the window's pad 1 controls (pad 2's for a second pad) */
+static uint16_t window_pad(int pad, int k)
+{
+    (void)pad;
+    uint16_t b[MDRT_PADS];
+    mdrt_platform_input(native_m, b);
+    return b[k];
+}
 
 static void script_source(void *user, uint16_t b[2])
 {
@@ -283,7 +305,7 @@ void native_frame_done(long frame)
         snprintf(path, sizeof path, "%s/%06ld.ppm", shots_dir, frame);
         write_ppm(path);
     }
-    if (stop_after >= 0 && frame >= stop_after) native_quit();
+    if (stop_after >= 0 && frame >= stop_after && !native_net_on()) native_quit();   /* (netplay: net.c ends it) */
 }
 
 void native_game(mdrt *m, void *user)
@@ -293,9 +315,17 @@ void native_game(mdrt *m, void *user)
     native_hal_start(m);
     for (uint32_t a = 0; a < RAM_SIZE; a++) ram[a] = 0;
     native_states_init(m);
+    native_net_start(m);                                  /* (netplay: from power on) */
     if (setjmp(again)) MainLoop();                        /* (a state loaded: on from MainLoop's wait) */
     Start();
     MainLoop();
+}
+
+/* an option that changes the simulation, into netplay's identity */
+static void add_setup(char *setup, size_t size, const char *opt, const char *value)
+{
+    size_t k = strlen(setup);
+    snprintf(setup + k, size - k, "%s %s ", opt, value);
 }
 
 static const char *rom_ok(const uint8_t *b, size_t n, void *user)
@@ -314,6 +344,10 @@ int main(int argc, char **argv)
     const char *sound_path = NULL, *save_path = NULL, *load_path = NULL, *fm_core = NULL, *golden_path = NULL;
     long save_frame = -1;
     int headless = 0, scale = 0;
+    mdrt_net_options netopt;
+    mdrt_net_options_init(&netopt);
+    char setup[2048] = "", err[256];                      /* (the options that change the simulation: netplay's identity) */
+    int net;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--version")) { printf("gunstar %s (gunstars: Gunstar Heroes, rebuilt in C)\n", GUNSTAR_VERSION); return 0; }
         else if (!strcmp(argv[i], "--rom") && i + 1 < argc) rom = rom_given = argv[++i];
@@ -333,14 +367,16 @@ int main(int argc, char **argv)
         } else if (!strcmp(argv[i], "--load-state") && i + 1 < argc) load_path = argv[++i];
         else if (!strcmp(argv[i], "--requests") && i + 1 < argc) { if (!read_requests(argv[++i])) return 1; }
         else if (!strcmp(argv[i], "--state") && i + 1 < argc) state_file = argv[++i];
-        else if (!strcmp(argv[i], "--hold") && i + 1 < argc) { if (!read_holds(argv[++i], 0)) { fprintf(stderr, "bad --hold\n"); return 2; } }
-        else if (!strcmp(argv[i], "--hold-if") && i + 1 < argc) { if (!read_holds(argv[++i], 1)) { fprintf(stderr, "bad --hold-if\n"); return 2; } }
-        else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
-        else {
-            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...]\n", argv[0]);
+        else if (!strcmp(argv[i], "--hold") && i + 1 < argc) { add_setup(setup, sizeof setup, argv[i], argv[i + 1]); if (!read_holds(argv[++i], 0)) { fprintf(stderr, "bad --hold\n"); return 2; } }
+        else if (!strcmp(argv[i], "--hold-if") && i + 1 < argc) { add_setup(setup, sizeof setup, argv[i], argv[i + 1]); if (!read_holds(argv[++i], 1)) { fprintf(stderr, "bad --hold-if\n"); return 2; } }
+        else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { add_setup(setup, sizeof setup, argv[i], argv[i + 1]); if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
+        else if ((net = mdrt_net_parse(&netopt, argc, argv, &i, err, sizeof err)) < 0) { fprintf(stderr, "%s\n", err); return 2; }
+        else if (!net) {
+            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] %s\n", argv[0], MDRT_NET_USAGE);
             return 2;
         }
     }
+    if (netopt.on && (load_path || reqs_n)) { fprintf(stderr, "netplay starts at power on: no --load-state or --requests\n"); return 2; }
     mdrt_config c = { 0 };
     c.audio_rate = 48000;
     c.read68k = read68k;
@@ -350,7 +386,15 @@ int main(int argc, char **argv)
                                .rom_path = rom_given, .rom_default = rom,
                                .rom_hint = "Gunstar Heroes (U): the 1 MB cartridge",
                                .rom_check = rom_ok, .rom_use = rom_use };
-        return mdrt_sdl_run(&c, &o, native_game, NULL);
+        if (netopt.on) {                                  /* (the window connects, then powers on) */
+            native_input_fn local = script_n ? script_pad : window_pad;   /* (--input: the script's column, for tests) */
+            if (!native_net_open(&netopt, GUNSTAR_VERSION, setup, local, err, sizeof err)) { fprintf(stderr, "netplay: %s\n", err); return 1; }
+            o.net = native_net();
+            o.net_udp = native_net_udp();
+        }
+        int r = mdrt_sdl_run(&c, &o, native_game, NULL);
+        native_net_close();
+        return r;
     }
     if (!rom_load(rom)) { fprintf(stderr, "cannot load the ROM %s\n", rom); return 1; }
     c.platform = (mdrt_platform){ .present = keep_picture };
@@ -366,10 +410,16 @@ int main(int argc, char **argv)
     if (!m) return 1;
     if (script_n) mdrt_set_pad_source(m, script_source, NULL);
     native_states_options(save_frame, save_path, load_path);
+    if (netopt.on) {                                      /* (from power on: the session's pads replace the script's) */
+        if (!native_net_open(&netopt, GUNSTAR_VERSION, setup, script_pad, err, sizeof err)) { fprintf(stderr, "netplay: %s\n", err); return 1; }
+        if (!native_net_connect()) return 1;
+        native_net_stop_at(stop_after);
+    }
     FILE *sound = sound_path ? fopen(sound_path, "wb") : NULL;
     if (sound_path && !sound) { fprintf(stderr, "cannot write %s\n", sound_path); return 1; }
     if (sound) mdrt_record(m, MDRT_TRACE_SOUND, sink, sound);
     native_game(m, NULL);
+    native_net_close();
     if (sound) {
         mdrt_record(m, MDRT_TRACE_SOUND, NULL, NULL);
         fclose(sound);

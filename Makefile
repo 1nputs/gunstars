@@ -10,6 +10,9 @@
 #   make sweep          the native game through every stage, headless (tools/native_sweep.sh)
 #   make golden         the native game's golden runs, recorded (out/golden: tools/golden.py)
 #   make golden-check   the build's runs against them, frame for frame, bit for bit; states too
+#   make netplay-check  two headless players over a simulated network against solo runs (tools/netplay_check.py)
+#   make golden-cross   the Linux release's build (Zig's Clang: make linux) against the golden runs
+#   make golden-ubsan   a build with GCC's undefined behaviour sanitizer against the golden runs
 #   make release        the release files in build/release (tools/package_release.sh)
 CC      ?= gcc
 WERROR  ?= -Werror
@@ -23,7 +26,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep release golden golden-check
+.PHONY: FORCE all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep release golden golden-check netplay-check linux golden-cross golden-ubsan
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -52,11 +55,21 @@ EXE     ?= .exe
 CXXLIB  ?= -static-libgcc -Wl,-Bstatic -lstdc++ -Wl,--whole-archive -lwinpthread -Wl,--no-whole-archive -Wl,-Bdynamic
 endif
 CXXLIB  ?= -lstdc++                  # (pulseman's ymfm core is C++)
+ifeq ($(OS),Windows_NT)
+NETLIB  ?= -lws2_32                  # (netplay's sockets)
+endif
 gunstar: build/gunstar$(EXE)
-build/gunstar$(EXE): $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc mdrt
+build/gunstar$(EXE): $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc build/build_id.h mdrt
 	@mkdir -p build
 	$(CC) $(CFLAGS) -O2 -Isrc -Ibuild -Inative -I$(MDRT)/include $(shell pkg-config --cflags sdl2 2>/dev/null) \
-	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm $(CXXLIB)
+	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm $(CXXLIB) $(NETLIB)
+# the build's identity, which netplay's peers compare (the same code on both): the commit, written
+# again only when it changes
+build/build_id.h: FORCE
+	@mkdir -p build
+	@id='#define GUNSTAR_BUILD "'"$$(git describe --always --dirty 2>/dev/null || echo unknown)"'"'; \
+	    [ "$$(cat $@ 2>/dev/null)" = "$$id" ] || echo "$$id" > $@
+FORCE:
 # Windows from Linux: build/win/gunstar.exe and build/gunstars-windows-x64.zip, with Zig
 # (tools/build_windows.sh)
 windows:
@@ -67,6 +80,21 @@ golden: build/gunstar
 	$(PY) tools/golden.py record
 golden-check: build/gunstar
 	$(PY) tools/golden.py check
+netplay-check: build/gunstar
+	$(PY) tools/netplay_check.py
+# the same code built otherwise must play the golden runs bit for bit (netplay's peers may have
+# either build): the Linux release's (Zig's Clang, tools/build_linux.sh), and one that stops at
+# any undefined behaviour
+linux:
+	tools/build_linux.sh
+golden-cross: linux
+	$(PY) tools/golden.py check --bin build/linux-x64/gunstar
+build/ubsan/gunstar: $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc build/build_id.h mdrt
+	@mkdir -p build/ubsan
+	$(CC) $(CFLAGS) -O2 -fsanitize=undefined -fno-sanitize-recover=undefined -Isrc -Ibuild -Inative -I$(MDRT)/include \
+	    $(shell pkg-config --cflags sdl2 2>/dev/null) -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm $(CXXLIB) $(NETLIB)
+golden-ubsan: build/ubsan/gunstar
+	$(PY) tools/golden.py check --bin build/ubsan/gunstar
 release:
 	tools/package_release.sh
 mdrt:

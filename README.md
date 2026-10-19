@@ -69,6 +69,37 @@ All of it is kept in `settings.ini`, in the folder you run the game from, beside
 can also edit it while the game is closed). The game pauses when its window loses focus (an
 option in the menu). On a Mac, hold Fn for the function keys.
 
+## Online co-op
+
+Two players, each at their own machine, play the whole game together from power on, with
+rollback: your own player answers your keys at once, and the other's buttons are guessed until
+they arrive; when a guess was wrong the game puts the last few frames right before showing the
+next, so you hardly ever see it. Each of you plays with your own pad 1 controls (keys or
+controller); the host is player 1, the one who joins player 2. By IP address, no server:
+
+```
+./gunstar --host                      # the host: waits on UDP port 7000 (--host 7100 for another)
+./gunstar --join 203.0.113.5          # the other: the host's address (:7100 for another port)
+```
+
+The host's router must let UDP port 7000 in (a forwarded port), or both of you can be on the same
+network (a LAN, or a VPN such as Tailscale or ZeroTier: use that address). Or each of you gives
+the other's public address and both connect at once, which gets through most home routers with
+no forwarding at all:
+
+```
+./gunstar --peer 198.51.100.7         # player one, giving player two's address
+./gunstar --peer 203.0.113.5          # player two, giving player one's
+```
+
+The two games settle which of you is player 1 between them. `--delay N` (the host's
+choice, 2 frames by default) sets how many frames late a button press reaches the game: more is
+fewer corrections, less is snappier. Both must run the same build (the game says so if not). The
+window's title shows the round trip, the delay and the last correction. While you play together,
+pause, slow motion, fast-forward, rewind, the save slots and quick resume are off (the game's own
+pause, Start, pauses both); the menu stays open without stopping the game. If either leaves or the
+connection drops, the other's game goes on alone.
+
 ## Build
 
 The hardware side is [pulseman](https://github.com/1nputs/pulseman), our Mega Drive runtime,
@@ -120,8 +151,9 @@ with `--input FILE` (both pads from a script: `FRAME:BUTTONS|BUTTONS` lines, as
 FILE.sndtrace` (everything the sound chips were told, and what they played), `--save-state
 FRAME:FILE`, `--load-state FILE`, `--requests FILE --state FILE` (save, load and rewind as
 the menu and F4 make them), `--golden FILE` (a line of hashes a frame: `make golden`), `--fm-core
-nuked|ymfm`, and RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=WVAL:ADDR=VAL`,
-`--poke FRAME:ADDR=VAL`).
+nuked|ymfm`, RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=WVAL:ADDR=VAL`,
+`--poke FRAME:ADDR=VAL`), and netplay (`--host`, `--join`, `--peer`, `--port`, `--delay`, and
+`--net-sim MS,MS,%,%` for a simulated network: each player's buttons their column of the script).
 
 ## For agents: where this stands (19 October 2026)
 
@@ -148,9 +180,17 @@ nuked|ymfm`, and RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=
   cleared, a continue) and compares every frame's hashes (work RAM, the VDP, the Z80's RAM, the
   picture, the sound) with those `make golden` recorded from an earlier build, bit for bit; a
   state saved in four of them and loaded in a new process, and the menu's save, load and rewind,
-  must go on frame for frame as the run did.
+  must go on frame for frame as the run did. `make golden-cross` plays them with the Linux
+  release's build (Zig's Clang) and `make golden-ubsan` with a build that stops at any undefined
+  behaviour: both bit for bit as GCC's, which is what lets two players' builds agree. `make
+  netplay-check` plays three netplay sessions, two headless processes each over the loopback
+  through a simulated network (delay, jitter, loss, duplicates), and every frame either finally
+  played must be a solo run's with the same buttons.
 - **Done.** The harness and the disassembler; every routine of the cartridge; the native game on
-  pulseman (sound, the H-interrupt effects, the samples), save states, quick resume and rewind.
+  pulseman (sound, the H-interrupt effects, the samples), save states, quick resume and rewind;
+  rollback netplay (pulseman's `mdrt/netplay.h` and `mdrt/net_udp.h`; the game's side in
+  `native/net.c`: its resumable point MainLoop's wait, a rollback going on from there as a loaded
+  state does).
 - **Not done yet.** Lockstep (the native game against the oracle at every vertical blank, as
   ninety-four's `make lockstep`); the native game has no lag frames, so its runs drift from the
   oracle's after the first. Records for the parts no recorded run reaches: the
@@ -168,7 +208,8 @@ nuked|ymfm`, and RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=
   screenshots, GIFs) stay out of git. Commit after each finished job. Before and after a change:
   `make test`, `make z80test` for the sound, `make golden-check` and `make sweep` for the native
   game (`make golden` first, on the build before the change: `tools/golden.py record --force`
-  records again). A routine is ported against its records: name it
+  records again), `make netplay-check` for netplay or pulseman, `make golden-cross` now and then.
+  A routine is ported against its records: name it
   in `tools/disasm/names.txt`, give its prototype a `/* $ADDRESS registers */` comment in
   `src/game.h`, `make disasm && make gen && make`, capture a session that reaches it, test.
   pulseman is changed only in `ext/pulseman` on its branch `gunstar`, and merged into its `main`
@@ -181,6 +222,7 @@ make oracle && make evidence && make gen             # the oracle; the evidence 
 tools/hybrid/capture_all.sh                          # every capture session (about two hours)
 make test && make z80test                            # the checks (z80test: tools/oracle/sndtrace.py into out/snd)
 make golden && make golden-check                     # the native game's golden runs, recorded, then checked
+make netplay-check                                   # two players over a simulated network, against solo runs
 ```
 
 ## Features
@@ -217,7 +259,7 @@ From the least ambitious to the most.
 - [ ] Play in the browser (WebAssembly)
 - [ ] Widescreen
 - [ ] Lua scripting: overlays, practice tools, bots
-- [ ] **Rollback netplay: two players online**
+- [x] **Rollback netplay: two players online**, by IP address (not yet played between two real machines)
 
 ## Greets
 

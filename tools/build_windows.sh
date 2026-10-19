@@ -32,12 +32,12 @@ CFLAGS="-std=c11 -O2 -Wall -Wextra -Wshadow -Wstrict-prototypes -Wmissing-protot
 make -s -C ext/pulseman MODE=release B=build/win CC="$CC" CXX="$CXX" AR="$ZIG ar" SDLCFLAGS="$SDLCFLAGS" \
   build/win/libmdrt.a build/win/libmdrt_sdl2.a
 # the generated adapters and dispatch (the same on every host)
-make -s build/ports_gen.inc
+make -s build/ports_gen.inc build/build_id.h
 mkdir -p build/win/obj
 ls src/*.c native/*.c | xargs -P "$(nproc)" -I{} sh -c \
   "$CC $CFLAGS -Isrc -Ibuild -Inative -Iext/pulseman/include $SDLCFLAGS -c {} -o build/win/obj/\$(basename {} .c).o"
 $CXX -o build/win/gunstar.exe build/win/obj/*.o ext/pulseman/build/win/libmdrt_sdl2.a ext/pulseman/build/win/libmdrt.a \
-  "$SDL/lib/libSDL2main.a" "$SDL/lib/libSDL2.dll.a" -lm
+  "$SDL/lib/libSDL2main.a" "$SDL/lib/libSDL2.dll.a" -lm -lws2_32
 cp "$SDL/bin/SDL2.dll" build/win/
 cp LICENSE build/win/LICENSE.txt
 cat > build/win/README.txt <<EOF

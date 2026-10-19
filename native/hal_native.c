@@ -165,6 +165,7 @@ void hal_wait_vblank(void)
     native_frame_done(++frames);
     if (mdrt_vdp_reg(vdp(), 1) & 0x20) VBlank();
     mdrt_vblank_end(native_m);
+    native_net_wait(main_wait);                           /* (netplay: a rollback goes on from MainLoop) */
     native_states_wait(main_wait);                        /* (a state saved or loaded: state.c) */
 }
 

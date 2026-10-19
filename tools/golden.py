@@ -24,7 +24,9 @@ play) and tools/hybrid/options_script.py. tools/native_sweep.sh plays the same r
 (1.29 million frames) and checks only that they play out.
 
     tools/golden.py record [--force]     (make golden: the runs not yet recorded; --force: all of them)
-    tools/golden.py check                (make golden-check)
+    tools/golden.py check [--bin GAME]   (make golden-check; another build of the same code against
+                                         the recorded runs: make golden-cross, Zig's Clang;
+                                         make golden-ubsan, GCC's undefined behaviour sanitizer)
 """
 import argparse
 import os
@@ -168,9 +170,15 @@ def main():
     ap.add_argument('--dir', default=os.path.join(ROOT, 'out', 'golden'))
     ap.add_argument('--force', action='store_true', help='record over existing golden runs')
     ap.add_argument('--jobs', type=int, default=os.cpu_count() or 4)
+    ap.add_argument('--bin', help='check this build (default build/gunstar)')
     a = ap.parse_args()
+    global GUNSTAR
+    if a.bin:
+        if a.action == 'record':
+            sys.exit('golden runs are recorded with build/gunstar')
+        GUNSTAR = os.path.abspath(a.bin)
     if not os.path.exists(GUNSTAR):
-        sys.exit('no build/gunstar (make gunstar)')
+        sys.exit('no %s (make gunstar)' % os.path.relpath(GUNSTAR, ROOT))
     golden_inputs = os.path.join(a.dir, 'inputs')
     if a.action == 'record':                              # (without --force: only the runs it has none of)
         if a.force and os.path.isdir(a.dir):

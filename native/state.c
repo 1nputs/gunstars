@@ -30,22 +30,39 @@ static const char *save_path, *load_path;
 
 /* ---- the game's parts ---------------------------------------------------------------------- */
 
+/* the player's registers field by field, little-endian, at the offsets its struct has on the usual
+ * hosts: a state's bytes are the same on every host and compiler, the padding zeros */
+#define Z80_REGS 64
+#define Z80_FIELDS(X) X(0, 8, now) X(8, 8, zc) X(16, 8, frame) X(24, 8, ym_free) X(32, 1, running) X(33, 1, bus_taken) \
+    X(34, 2, pc) X(36, 2, sp) X(38, 2, ix) X(40, 2, iy) X(42, 1, a) X(43, 1, f) X(44, 1, b) X(45, 1, c) X(46, 1, d) \
+    X(47, 1, e) X(48, 1, h) X(49, 1, l) X(50, 1, b2) X(51, 1, c2) X(52, 1, d2) X(53, 1, e2) X(54, 1, h2) X(55, 1, l2) \
+    X(56, 4, bank)
+static void put_le(uint8_t *o, uint64_t v, int n) { for (int k = 0; k < n; k++) o[k] = (uint8_t)(v >> (8 * k)); }
+static uint64_t get_le(const uint8_t *in, int n) { uint64_t v = 0; for (int k = 0; k < n; k++) v |= (uint64_t)in[k] << (8 * k); return v; }
+
 static size_t z80_save(void *user, uint8_t *out)
 {
     (void)user;
     if (out) {
         memcpy(out, z80_mem, sizeof z80_mem);
-        memcpy(out + sizeof z80_mem, &zp, sizeof zp);
+        uint8_t *o = out + sizeof z80_mem;
+        memset(o, 0, Z80_REGS);
+#define PUT(at, n, field) put_le(o + (at), zp.field, n);
+        Z80_FIELDS(PUT)
+#undef PUT
     }
-    return sizeof z80_mem + sizeof zp;
+    return sizeof z80_mem + Z80_REGS;
 }
 
 static int z80_load(void *user, const uint8_t *in, size_t size)
 {
     (void)user;
-    if (size != sizeof z80_mem + sizeof zp) return -1;
+    if (size != sizeof z80_mem + Z80_REGS) return -1;
     memcpy(z80_mem, in, sizeof z80_mem);
-    memcpy(&zp, in + sizeof z80_mem, sizeof zp);
+    const uint8_t *r = in + sizeof z80_mem;
+#define GET(at, n, field) zp.field = get_le(r + (at), n);
+    Z80_FIELDS(GET)
+#undef GET
     return 0;
 }
 
@@ -152,7 +169,7 @@ void native_states_wait(int at_main)
     long frame = native_frames();
     if (native_handshakes() != seen) {
         seen = native_handshakes();
-        req = mdrt_requests(m);
+        req = native_net_on() ? 0 : mdrt_requests(m);   /* (netplay: no save, load or rewind) */
     }
     const char *path = mdrt_request_path(m);
     if (pending[0] && frame > pending_until) pending[0] = 0;   /* (not in play: the platform gives up on it) */

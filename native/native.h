@@ -4,6 +4,7 @@
 #pragma once
 #include <stdint.h>
 #include "mdrt/mdrt.h"
+#include "mdrt/net_udp.h"
 #include "mdrt/platform_sdl2.h"
 
 extern mdrt *native_m;                  /* the console */
@@ -28,3 +29,18 @@ void native_states_options(long save_frame, const char *save_path, const char *l
 void native_states_wait(int at_main);
 /* the game from MainLoop again, after a state was loaded (main.c; does not return) */
 void native_restart(void);
+/* netplay (net.c): the session the options ask for (version and setup for the identity: the
+ * build's, and the command line's options that change the simulation); input gives this player's
+ * buttons now for pad (0-3), the k-th pad this peer plays. Headless: connect, then power on. At
+ * every wait once the vertical blank code has run, native_net_wait (it may restart the game);
+ * native_net_stop_at: a headless run's last frame. */
+typedef uint16_t (*native_input_fn)(int pad, int k);
+int native_net_open(const mdrt_net_options *o, const char *version, const char *setup, native_input_fn input, char *err, size_t errsize);
+int native_net_on(void);
+int native_net_connect(void);
+void native_net_start(mdrt *m);
+void native_net_stop_at(long frame);
+void native_net_wait(int main_wait);
+void native_net_close(void);
+mdrt_net *native_net(void);                     /* (the session, and its UDP link, for the window) */
+mdrt_udp *native_net_udp(void);

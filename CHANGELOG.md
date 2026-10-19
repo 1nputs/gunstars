@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+**Online co-op.** Two players, each at their own machine, play the whole game together with
+rollback netplay: your own player answers at once, the other's buttons are guessed until they
+arrive, and a wrong guess is put right within the frame. By IP address: `gunstar --host` and
+`gunstar --join ADDRESS` (the host's router lets UDP port 7000 in, or you share a network or a
+VPN), or `gunstar --peer ADDRESS` on both sides, which gets through most home routers with no
+forwarding. `--delay N` sets the input delay (2 frames by default). The window's title shows the
+round trip and the corrections; pause, slow motion, fast-forward, rewind and the save slots are
+off while you play together, and if one leaves the other plays on alone.
+
+- Checked: three sessions over a simulated network (delay, jitter, 2-10% of packets lost) play
+  every frame as a solo run with the same buttons; the release's Clang build and a build with the
+  undefined behaviour sanitizer play every golden run bit for bit as the GCC build; a save state
+  from 0.1.0 loads and plays on the same.
+- Not yet played between two real machines.
+
 ## 0.1.0 (18 October 2026): the first release
 
 Gunstar Heroes, Treasure's 1993 run-and-gun, rebuilt in C on
