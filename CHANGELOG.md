@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+**Fixed**
+
+- Online: a rollback could keep a state saved while the other player's buttons were still being
+  guessed. When the right buttons then gave the game no point to save at on that frame, a later
+  rollback could load the stale state, and the session ended as "desync at frame N". A rollback
+  now forgets every state after the frame it goes back to (pulseman's fix, `769753a` on its
+  `gunstar` branch). gunstar's own sessions never hit it, before or after the fix (the netplay
+  check, and six harsher sessions at input delay 0 and 1); pulseman's new test does.
+
 ## 0.2.0 (19 October 2026): online co-op
 
 Gunstar Heroes, Treasure's 1993 run-and-gun, rebuilt in C on
