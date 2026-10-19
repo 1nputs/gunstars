@@ -75,30 +75,29 @@ Two players, each at their own machine, play the whole game together from power 
 rollback: your own player answers your keys at once, and the other's buttons are guessed until
 they arrive; when a guess was wrong the game puts the last few frames right before showing the
 next, so you hardly ever see it. Each of you plays with your own pad 1 controls (keys or
-controller); the host is player 1, the one who joins player 2. By IP address, no server:
+controller). By IP address, no server.
 
-```
-./gunstar --host                      # the host: waits on UDP port 7000 (--host 7100 for another)
-./gunstar --join 203.0.113.5          # the other: the host's address (:7100 for another port)
-```
+In the menu (Esc), **Online play**:
 
-The host's router must let UDP port 7000 in (a forwarded port), or both of you can be on the same
-network (a LAN, or a VPN such as Tailscale or ZeroTier: use that address). Or each of you gives
-the other's public address and both connect at once, which gets through most home routers with
-no forwarding at all:
+- **Play as**: *host* (you are player 1; the other joins you), *join a host* (you are player 2),
+  or *both connect* (each of you types the other's address and starts: most home routers need
+  no setup then, and the two games decide who is player 1).
+- **Address** (to join, or both connect): the other's public address (or a LAN or VPN one). Type
+  it in (Ctrl+V pastes).
+- **Port**: 7000 unless you both change it. To host, your router must let this UDP port in to
+  you (a forwarded port), unless you share a network or a VPN such as Tailscale or ZeroTier.
+- **Input delay**: how many frames late a button press reaches the game (the host's choice, 2
+  by default): more is fewer corrections, less is snappier.
+- **Start**: the game starts again, waits for the other player (Esc gives up), and you play.
 
-```
-./gunstar --peer 198.51.100.7         # player one, giving player two's address
-./gunstar --peer 203.0.113.5          # player two, giving player one's
-```
+What you chose is kept for next time. The window's title shows the round trip, the delay and the
+last correction. While you play together, pause, slow motion, fast-forward, rewind, the save slots
+and quick resume are off (the game's own pause, Start, pauses both), and the menu does not stop
+the game; **Leave the session** is on the Online play page. If either leaves or the connection
+drops, the other's game goes on alone. Both of you need the same build (the game says so if not).
 
-The two games settle which of you is player 1 between them. `--delay N` (the host's
-choice, 2 frames by default) sets how many frames late a button press reaches the game: more is
-fewer corrections, less is snappier. Both must run the same build (the game says so if not). The
-window's title shows the round trip, the delay and the last correction. While you play together,
-pause, slow motion, fast-forward, rewind, the save slots and quick resume are off (the game's own
-pause, Start, pauses both); the menu stays open without stopping the game. If either leaves or the
-connection drops, the other's game goes on alone.
+From a terminal it is the same: `./gunstar --host [PORT]`, `./gunstar --join ADDRESS[:PORT]`, or
+`./gunstar --peer ADDRESS` on both sides, with `--delay N`.
 
 ## Build
 

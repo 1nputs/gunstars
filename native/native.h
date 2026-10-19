@@ -42,5 +42,6 @@ void native_net_start(mdrt *m);
 void native_net_stop_at(long frame);
 void native_net_wait(int main_wait);
 void native_net_close(void);
-mdrt_net *native_net(void);                     /* (the session, and its UDP link, for the window) */
+const char *native_net_identity(const char *version, const char *setup);   /* (the window's Online page's) */
+mdrt_net *native_net(void);                     /* (the command line's session, and its UDP link, for the window) */
 mdrt_udp *native_net_udp(void);

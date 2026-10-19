@@ -386,6 +386,7 @@ int main(int argc, char **argv)
                                .rom_path = rom_given, .rom_default = rom,
                                .rom_hint = "Gunstar Heroes (U): the 1 MB cartridge",
                                .rom_check = rom_ok, .rom_use = rom_use };
+        o.net_identity = native_net_identity(GUNSTAR_VERSION, setup);   /* (the menu's Online page) */
         if (netopt.on) {                                  /* (the window connects, then powers on) */
             native_input_fn local = script_n ? script_pad : window_pad;   /* (--input: the script's column, for tests) */
             if (!native_net_open(&netopt, GUNSTAR_VERSION, setup, local, err, sizeof err)) { fprintf(stderr, "netplay: %s\n", err); return 1; }
