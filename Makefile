@@ -63,11 +63,13 @@ build/gunstar$(EXE): $(SRC) $(HDR) $(NATIVE) native/native.h build/ports_gen.inc
 	@mkdir -p build
 	$(CC) $(CFLAGS) -O2 -Isrc -Ibuild -Inative -I$(MDRT)/include $(shell pkg-config --cflags sdl2 2>/dev/null) \
 	    -o $@ $(SRC) $(NATIVE) $(MDRTLIBS) $(SDLLIBS) -lm $(CXXLIB) $(NETLIB)
-# the build's identity, which netplay's peers compare (the same code on both): the commit, written
-# again only when it changes
+# the build's identity, which netplay's peers compare (the same code on both): the commit (its hash,
+# whatever tags it has, so a build from the tag agrees with the download), "-dirty" with changes
+# not committed; written again only when it changes
 build/build_id.h: FORCE
 	@mkdir -p build
-	@id='#define GUNSTAR_BUILD "'"$$(git describe --always --dirty 2>/dev/null || echo unknown)"'"'; \
+	@c=$$(git rev-parse HEAD 2>/dev/null | cut -c1-12); git diff --quiet HEAD 2>/dev/null || c="$$c-dirty"; \
+	    id='#define GUNSTAR_BUILD "'"$${c:-unknown}"'"'; \
 	    [ "$$(cat $@ 2>/dev/null)" = "$$id" ] || echo "$$id" > $@
 FORCE:
 # Windows from Linux: build/win/gunstar.exe and build/gunstars-windows-x64.zip, with Zig

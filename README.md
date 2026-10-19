@@ -13,7 +13,9 @@ And things the cartridge never had: **save anywhere in a stage and load it back 
 the menu), and hold F4 to rewind** the hit you just took. Hold F6 to fast-forward, slow a boss
 fight down, step through it a frame at a time. Closed the window mid-stage? **The next start puts
 you back where you were.** Pulled off something beautiful? **F10 saves the last 20 seconds** as a
-GIF to share. Next up: Red and Blue, online, together.
+GIF to share. And **Red and Blue, online, together**: a friend at their own machine, from the
+menu's Online play, with rollback netplay that answers your keys at once and quietly puts right
+whatever it had to guess of theirs.
 
 Bring your own cartridge dump. **Download** the release for Linux or Windows
 ([CHANGELOG.md](CHANGELOG.md) says what's in it), unpack it and run `gunstar` (`gunstar.exe`), or
