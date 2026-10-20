@@ -33,8 +33,10 @@ Or build it: `git clone --recursive`, `make gunstar` (see the README).
 
 **Online with 0.2.0**
 
-- Both players need 0.2.1: it does not play online with 0.2.0 (the game says so: another game,
-  build or settings). Save states, quick resume and settings carry over.
+- Both players need 0.2.1: it does not play online with 0.2.0 (the game says so: "another version
+  of netplay"). Save states, quick resume and settings carry over.
+- Under it is pulseman's newest netplay, which its four-player games use for up to four machines;
+  gunstar stays two players, one at each machine, as in 0.2.0.
 
 **How it was checked**
 
@@ -45,7 +47,9 @@ Or build it: `git clone --recursive`, `make gunstar` (see the README).
   as a desync without the fix (64 and 126 of 900 frames right) and plays every frame right with
   it. gunstar's three sessions through simulated networks, and six harsher ones (input delay 0 and
   1, up to 60 ms each way with 50 of jitter, 15% of packets lost, the TAS's game, a continue, stages
-  3 and 6), play every frame exactly as one machine with the same buttons.
+  3 and 6), play every frame exactly as one machine with the same buttons; two windows on one
+  machine played through a lossy network and parted; 0.2.0 and 0.2.1 refuse each other, either one
+  hosting.
 
 ## 0.2.0 (19 October 2026): online co-op
 
