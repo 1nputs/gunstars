@@ -58,10 +58,10 @@ moves them). Game controllers work too (the first two are players 1 and 2).
 ROM, a reset, states, the video (a pixel-art upscaler: Scale2x, Scale3x, MMPX or xBR; sharp,
 integer or fit scaling; square pixels or 4:3; the colours' levels; dithering blended as a
 television blended it; a picture tube's scanlines and mask; full screen), captures, the sound
-(volume, and the FM sound core and chip: hear the difference as you play), the players'
+(volume, and the FM core and chip: hear the difference as you play), the players'
 controllers, buttons and turbo, and every key: pick one and press the new key.
 
-**Save slots and quick resume:** the menu's Save and Load pages have eight slots, each with a
+**Save slots and quick resume:** the menu's Save state and Load state pages have eight slots, each with a
 picture of the moment, in `states/` beside the game. A state is taken between frames once the
 game's work for the frame is done; while a stage's graphics are being unpacked (a second or so
 at a stage's start) a save waits for that. Quit in the middle of a stage and the next start puts
@@ -81,25 +81,26 @@ controller). By IP address, no server.
 
 In the menu (Esc), **Online play**:
 
-- **Your name**: what the other player sees when you join ("Sam has joined", on the bottom of
-  the picture) and when you leave.
-- **Play as**: *host* (you are player 1; the other joins you), *join a host* (you are player 2),
-  or *both connect* (each of you types the other's address and starts: most home routers need
-  no setup then, and the two games decide who is player 1).
-- **Address** (to join, or both connect): the other's public address (or a LAN or VPN one). Type
-  it in (Ctrl+V pastes).
-- **Port**: 7000 unless you both change it. To host, your router must let this UDP port in to
-  you (a forwarded port), unless you share a network or a VPN such as Tailscale or ZeroTier.
-  The page shows your LAN address (for a friend on the same network, or the address to forward
-  the port to).
+- **Name**: what the other player sees when you join ("Sam has joined", on the bottom of the
+  picture) and when you leave.
+- **Role**: *host* (you are player 1; the other joins you), *join* (you are player 2), or *both
+  connect* (each of you types the other's address and connects: most home routers need no setup
+  then, and the two games decide who is player 1).
+- **Host address** (to join), or **Their address** (both connect): the other's public address (or
+  a LAN or VPN one). Type it in (Ctrl+V pastes).
+- **Port** (**Host port** to join): 7000 unless you both change it. To host, your router must let
+  this UDP port in to you (a forwarded port), unless you share a network or a VPN such as
+  Tailscale or ZeroTier. The page's **LAN address** is yours (for a friend on the same network,
+  or the address to forward the port to).
 - **Input delay**: how many frames late a button press reaches the game (the host's choice, 2
   by default): more is fewer corrections, less is snappier.
-- **Start**: the game starts again, waits for the other player (Esc gives up), and you play.
+- **Host game** (or **Connect**): the game starts again, waits for the other player (Esc gives
+  up), and you play.
 
 What you chose is kept for next time. The window's title shows the round trip, the delay and the
 last correction. While you play together, pause, slow motion, fast-forward, rewind, the save slots
 and quick resume are off (the game's own pause, Start, pauses both), and the menu does not stop
-the game; **Leave the session** is on the Online play page. If either leaves or the connection
+the game; **Leave session** is on the Online play page. If either leaves or the connection
 drops, the other's game goes on alone. Both of you need the same build (the game says so if not).
 
 From a terminal it is the same: `./gunstar --host [PORT]`, `./gunstar --join ADDRESS[:PORT]`, or
