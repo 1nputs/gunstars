@@ -28,6 +28,9 @@
 #ifndef GUNSTAR_VERSION
 #define GUNSTAR_VERSION "0.2.1"
 #endif
+/* netplay's options (mdrt_net_parse) as gunstar takes them: two players, one at each machine (not
+ * pulseman's --here and --players) */
+#define GUNSTAR_NET_USAGE "[--host [PORT] | --join ADDR[:PORT] | --peer ADDR[:PORT]] [--port PORT] [--delay N] [--name NAME] [--net-sim MS,MS,%,%]"
 
 static jmp_buf out, again;
 static long stop_after = -1;
@@ -372,11 +375,12 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { add_setup(setup, sizeof setup, argv[i], argv[i + 1]); if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
         else if ((net = mdrt_net_parse(&netopt, argc, argv, &i, err, sizeof err)) < 0) { fprintf(stderr, "%s\n", err); return 2; }
         else if (!net) {
-            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] %s\n", argv[0], MDRT_NET_USAGE);
+            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] %s\n", argv[0], GUNSTAR_NET_USAGE);
             return 2;
         }
     }
     if (netopt.on && (load_path || reqs_n)) { fprintf(stderr, "netplay starts at power on: no --load-state or --requests\n"); return 2; }
+    if (netopt.on && (netopt.here != 1 || netopt.players != 2)) { fprintf(stderr, "netplay: two players, one at each machine (no --here or --players)\n"); return 2; }
     mdrt_config c = { 0 };
     c.audio_rate = 48000;
     c.read68k = read68k;
