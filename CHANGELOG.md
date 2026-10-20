@@ -1,5 +1,85 @@
 # Changelog
 
+## 0.2.2 (20 October 2026): a Mac app, states online
+
+Gunstar Heroes, Treasure's 1993 run-and-gun, rebuilt in C on
+[pulseman](https://github.com/1nputs/pulseman). Bring your own ROM: Gunstar Heroes (U), the 1 MB
+retail cartridge. This release brings a macOS app, save states and the host's reset to online play,
+and the Autosave; everything else is as in 0.2.0, whose notes go over the whole game.
+
+**Downloads**
+
+| | |
+|---|---|
+| `gunstars-0.2.2-linux-x64.tar.gz` | x86-64 Linux from about 2018 on (glibc 2.28); needs SDL2 (`libsdl2-2.0-0`, `SDL2`, `sdl2`) |
+| `gunstars-0.2.2-windows-x64.zip` | Windows 10 or later, x86-64; `gunstar.exe` with `SDL2.dll` beside it. Cross-built: tell us how it runs |
+| `gunstars-0.2.2-macos-universal.zip` (new) | macOS 11 or later, Apple Silicon and Intel in one app, SDL2 inside it. Cross-built: tell us how it runs |
+| `SHA256SUMS` | the files' checksums |
+
+Or build it: `git clone --recursive`, `make gunstar` (see the README).
+
+**New**
+
+- **macOS**: `gunstars.app`, one app for Apple Silicon and Intel. No registered Apple developer
+  signed it, so the first time, Control-click it and choose Open (on macOS 15 and later: try to open
+  it once, then Open Anyway in System Settings, Privacy & Security). Opened from the Finder it
+  keeps its settings, saves and screenshots in `~/Library/Application Support/gunstars`. The first
+  time you join a game, allow it to find devices on your local network: without that a Mac can
+  host but not join. Built on Linux, not yet run on a Mac.
+- **Save states online**: either player's Save state keeps the newest moment both games have
+  played alike, and closing the game keeps one as the Autosave. The host's Load state sends a
+  state to the other game; both load it at the same frame and play on together from there (only
+  the host loads).
+- **The host's Reset online** starts the game again from power on on both machines, at the same
+  frame.
+- **Joining** says "reaching the host" until the host answers, with the system's reason when
+  nothing can be sent and, after a few seconds, what to check; then "connected to" the host's
+  name, on the picture too.
+- **The Autosave**, in place of quick resume: closing the game keeps the moment in
+  `states/autosave.state`, and the Load state page's first line takes you back. The next start is
+  always a fresh one.
+- Shorter labels in the menu: Save state, Load state, FM core, FPS counter; on the Online play page
+  Name, Role, Host address, Port, Host game or Connect, LAN address, Leave session.
+
+**Changed**
+
+- The window no longer pauses when it loses focus (Esc still pauses), and the option is gone.
+
+**Fixed**
+
+- Hosting again on the same port after leaving a session said "Address already in use"; it hosts.
+
+**From 0.2.1**
+
+- Both players need 0.2.2 to play online (the game says "another version of netplay" if not).
+- Save slots and settings carry over. 0.2.1's quick resume (`states/resume.state`) is not
+  loaded any more: rename it `autosave.state` to keep it, then load it from the Load state page.
+
+**How it was checked**
+
+- Again on this build: the 39,405 recorded calls, the Z80 sample player, every stage headless (15
+  runs, 1.29 million frames), the 12 golden runs (238,100 frames) and their saved states, all
+  exactly as 0.2.1, built by GCC and by Clang and with the undefined-behaviour checker.
+- The host's Reset: a reset at frame 1500 plays on exactly as a fresh power on (2,489 frames, the
+  whole machine compared). Online, a session where the host resets at frame 3000 plays all 6,000
+  frames on both machines exactly as one machine with the same buttons; so do resets placed just
+  after the guest's buttons change, which the host has to roll back across (one host powered on
+  again three times in a session).
+- States online: the host's state loaded for both mid-session; both machines load it at the same
+  frame and play all 5,000 frames as one machine that loads it there. A state saved in the session,
+  loaded alone afterwards, plays on as the session did (1,001 frames).
+- Ten harsher sessions (input delay 0 and 1, up to 60 ms each way with 50 of jitter, 15% of packets
+  lost, the TAS's game, a continue, stages 3 and 6, two with resets and two with loads) play every
+  frame exactly as one machine; two windows on one machine reset and loaded a state together, 24
+  desync checks agreeing, and parted.
+- pulseman's own tests, and its window's: the Autosave, a state saved and loaded in a session, the
+  host's Reset, the menu. Their frame-rate checks fail on this machine while it is loaded, as they
+  do for 0.2.1's pulseman.
+- The downloads: the Linux one plays the golden runs exactly, loads a 0.2.0 state, and played a
+  session (a reset in it) joined to a GCC build of the same commit; 0.2.1 and 0.2.2 refuse each
+  other, either one hosting. The Mac app was checked inside (both architectures, signed for
+  running, SDL2 in it) but not run on a Mac.
+
 ## 0.2.1 (19 October 2026): an online fix
 
 Gunstar Heroes, Treasure's 1993 run-and-gun, rebuilt in C on

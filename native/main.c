@@ -29,7 +29,7 @@
 #include "z80.h"
 
 #ifndef GUNSTAR_VERSION
-#define GUNSTAR_VERSION "0.2.1"
+#define GUNSTAR_VERSION "0.2.2"
 #endif
 /* netplay's options (mdrt_net_parse) as gunstar takes them: two players, one at each machine (not
  * pulseman's --here and --players) */
