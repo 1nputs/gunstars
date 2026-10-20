@@ -13,20 +13,33 @@ extern mdrt *native_m;                  /* the console */
 void native_game(mdrt *m, void *user);
 /* stop the session (the window closed, the run's frames done, a routine not ported): back out */
 void native_quit(void);
+/* the console powered on again in place (mdrt_power_on done: the host's reset in a session, or a
+ * script's RESET alone): the game from its power on (main.c; does not return) */
+void native_power_on_again(void);
+/* at every wait once the vertical blank code has run: alone, a script's RESET (main.c) */
+void native_script_reset(void);
 /* after each frame's handshake: the frame count, for the run's stop and its pictures (main.c) */
 void native_frame_done(long frame);
-/* the HAL from power on (hal_native.c) */
+/* the HAL from power on (hal_native.c); the frames are the console's (mdrt_frame_count) */
 void native_hal_start(mdrt *m);
 long native_frames(void);
 long native_handshakes(void);           /* (the session's: a state does not set it back) */
 /* the HAL's part of a state (its clock and frame count): written to out (NULL: only the size) */
 size_t native_hal_save(uint8_t *out);
 int native_hal_load(const uint8_t *in, size_t size);
-/* states (state.c): the console's parts from power on; the headless options; at every wait once
- * the frame's vertical blank code has run (at_main: MainLoop's) */
+/* states (state.c): the console's parts from power on (forget: the rewind's and a save asked for,
+ * after a power on in place); the headless options (load_at: alone, a state loaded at that frame's
+ * wait as a session's host's is, the frames going on); at every wait once the frame's vertical
+ * blank code has run (at_main: MainLoop's) */
 void native_states_init(mdrt *m);
-void native_states_options(long save_frame, const char *save_path, const char *load_path);
+void native_states_forget(void);
+void native_states_options(long save_frame, const char *save_path, const char *load_path, long load_at, const char *load_at_path);
 void native_states_wait(int at_main);
+/* a state's bytes are gunstar's (its parts' sizes; mdrt_state_fits checks the rest): NULL, or why
+ * not (the window's state_check, and --net-load's) */
+const char *native_state_check(const void *state, size_t size, void *user);
+/* a state file's bytes (malloc'd; NULL: unreadable) */
+uint8_t *native_read_state(const char *path, size_t *size);
 /* the game from MainLoop again, after a state was loaded (main.c; does not return) */
 void native_restart(void);
 /* netplay (net.c): the session the options ask for (version and setup for the identity: the
@@ -40,6 +53,8 @@ int native_net_on(void);
 int native_net_connect(void);
 void native_net_start(mdrt *m);
 void native_net_stop_at(long frame);
+void native_net_load_at(long frame, const char *path);    /* (the host: --net-load, a state for everyone from that frame) */
+void native_net_save_at(long frame, const char *path);    /* (--net-save: a state every machine played, from that frame) */
 void native_net_wait(int main_wait);
 void native_net_close(void);
 const char *native_net_identity(const char *version, const char *setup);   /* (the window's Online page's) */

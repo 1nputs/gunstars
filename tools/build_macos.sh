@@ -83,6 +83,8 @@ cat > "$APP/Info.plist" <<EOF
 	<string>11.0</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Online play reaches the other player's machine on your network.</string>
 </dict>
 </plist>
 EOF
@@ -104,10 +106,16 @@ F4 held rewinds, F5 pauses, F6 held fast-forwards, F10 saves the last 20 seconds
 Hold Fn for the function keys (or have them act as standard function keys in System Settings,
 Keyboard).
 
+Closing the game keeps the moment as the Autosave: Esc, Load state, its first line.
+
 Online: Esc, Online play. Type your name, then host (the other joins your address; your
-router must let UDP port 7000 in, unless you share a LAN or a VPN), join a host, or both
-connect (each types the other's address). Both need this same version. Allow incoming
-connections when macOS asks.
+router must let UDP port 7000 in, unless you share a LAN or a VPN), join, or both connect
+(each types the other's address). Both need this same version. Playing together, either of
+you can save a state; the host's Load state and Reset do it for both games at once.
+Allow incoming connections when macOS asks. The first time you join, macOS asks whether
+gunstars may find devices on your local network: allow it (without it a Mac can host but not
+join). If the question was missed, turn gunstars on in System Settings, Privacy & Security,
+Local Network.
 
 Opened from the Finder, it keeps its settings, saves and screenshots in
 ~/Library/Application Support/gunstars (in the Finder: Go, Go to Folder, and paste that).

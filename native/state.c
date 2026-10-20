@@ -10,9 +10,12 @@
  * the next MainLoop wait, if it comes within a second (the platform gives up on it after 1.5);
  * a load is taken at any wait.
  *
- * In the window: the menu's save slots and quick resume (the file each request names:
+ * In the window: the menu's save slots and the Autosave (the file each request names:
  * mdrt_request_path), F4 held steps back through the last ten seconds (a state every third frame).
- * Headless: --save-state FRAME:FILE, --load-state FILE (at the first wait). */
+ * In a session the window saves and loads them itself (net_states: a state every machine played,
+ * the host's loaded for everyone by netplay, which then restarts the game as for a rollback).
+ * Headless: --save-state FRAME:FILE, --load-state FILE (at the first wait), --load-at FRAME:FILE
+ * (at that frame's wait, the console's frames going on: as a session's host's load). */
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +30,8 @@ static char pending[1100];              /* a save asked for out of MainLoop's wa
 static long pending_until;
 static long save_frame = -1;            /* --save-state */
 static const char *save_path, *load_path;
+static long load_at = -1;               /* --load-at */
+static const char *load_at_path;
 
 /* ---- the game's parts ---------------------------------------------------------------------- */
 
@@ -119,19 +124,54 @@ static void ring_push(void)
 void native_states_init(mdrt *console)
 {
     m = console;
-    ring_first = ring_n = 0;                              /* (a new game: the last one's states are not its own) */
-    pending[0] = 0;
+    native_states_forget();                               /* (a new game: the last one's states are not its own) */
     seen = -1;
     mdrt_add_state_memory(m, "RAM ", ram, RAM_SIZE);
     mdrt_add_state_part(m, "Z80 ", z80_save, z80_load, NULL);
     mdrt_add_state_part(m, "GSTR", gstr_save, gstr_load, NULL);
 }
 
-void native_states_options(long frame, const char *save, const char *load)
+void native_states_forget(void)
+{
+    ring_first = ring_n = 0;
+    pending[0] = 0;
+}
+
+void native_states_options(long frame, const char *save, const char *load, long at, const char *at_path)
 {
     save_frame = frame;
     save_path = save;
     load_path = load;
+    load_at = at;
+    load_at_path = at_path;
+}
+
+const char *native_state_check(const void *state, size_t size, void *user)
+{
+    (void)user;
+    size_t ram_n, z80_n, gstr_n;
+    if (!mdrt_state_part(state, size, "RAM ", &ram_n) || !mdrt_state_part(state, size, "Z80 ", &z80_n)
+        || !mdrt_state_part(state, size, "GSTR", &gstr_n) || ram_n != RAM_SIZE || z80_n != sizeof z80_mem + Z80_REGS
+        || gstr_n != GSTR_PORT + native_hal_save(NULL))
+        return "that state is not gunstar's";
+    return NULL;
+}
+
+uint8_t *native_read_state(const char *path, size_t *size)
+{
+    FILE *f = fopen(path, "rb");
+    if (!f) return NULL;
+    fseek(f, 0, SEEK_END);
+    long n = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    uint8_t *b = n > 0 ? malloc((size_t)n) : NULL;
+    if (b && fread(b, 1, (size_t)n, f) != (size_t)n) {
+        free(b);
+        b = NULL;
+    }
+    fclose(f);
+    *size = b ? (size_t)n : 0;
+    return b;
 }
 
 static int save(const char *path)
@@ -147,14 +187,10 @@ static int save(const char *path)
 
 static int load(const char *path)
 {
-    FILE *f = fopen(path, "rb");
-    if (!f) { fprintf(stderr, "gunstar: cannot open %s\n", path); return -1; }
-    fseek(f, 0, SEEK_END);
-    long n = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    uint8_t *b = n > 0 ? malloc((size_t)n) : NULL;
-    int bad = !b || fread(b, 1, (size_t)n, f) != (size_t)n || mdrt_set_state(m, b, (size_t)n);
-    fclose(f);
+    size_t n;
+    uint8_t *b = native_read_state(path, &n);
+    if (!b) { fprintf(stderr, "gunstar: cannot read %s\n", path); return -1; }
+    int bad = mdrt_set_state(m, b, n);
     free(b);
     if (bad) fprintf(stderr, "gunstar: %s is not a state of this build\n", path);
     return bad ? -1 : 0;
@@ -178,6 +214,16 @@ void native_states_wait(int at_main)
         load_path = NULL;
         if (load(p) == 0) {
             printf("gunstar: state loaded from %s (frame %ld)\n", p, native_frames());
+            native_restart();
+        }
+    }
+    if (load_at >= 0 && frame == load_at) {               /* --load-at: as netplay loads the host's */
+        load_at = -1;
+        if (load(load_at_path) == 0) {
+            mdrt_set_frame_count(m, (uint64_t)frame);
+            printf("gunstar: state loaded from %s at frame %ld\n", load_at_path, frame);
+            ring_n = 0;
+            pending[0] = 0;
             native_restart();
         }
     }

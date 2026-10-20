@@ -1,7 +1,8 @@
 /* The native game's entry: a window (pulseman's SDL2 platform), or headless with pictures.
  *
  *   gunstar [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N]
- *           [--input FILE] (both pads from a script, as tools/oracle/script.py's)
+ *           [--input FILE] (both pads from a script, as tools/oracle/script.py's; pad 1's RESET the
+ *           host's reset)
  *           [--sound FILE.sndtrace] (headless: the runtime's sound trace, as the oracle's)
  *           [--golden FILE] (headless: a line of hashes a frame, tools/golden.py)
  *           [--host [PORT] | --join ADDR[:PORT] | --peer ADDR[:PORT]] [--port PORT] [--delay N]
@@ -9,8 +10,10 @@
  *           controls, headless their column of the --input script)
  *           [--fm-core nuked|ymfm] (the FM core; pulseman's default: Nuked-OPN2)
  *           [--version]
- *           [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE]
- *           (headless: native/state.c)
+ *           [--save-state FRAME:FILE] [--load-state FILE] [--load-at FRAME:FILE]
+ *           [--requests FILE --state FILE] (headless: native/state.c)
+ *           [--net-load FRAME:FILE] (netplay's host: a state for everyone, net.c)
+ *           [--net-save FRAME:FILE] (netplay: a state every machine played, as the window saves one)
  *           [--hold ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] (RAM words, hex, as the oracle's
  *           run.py: held before every frame's vertical blank code, or written before frame F's)
  *           [--hold-if WADDR=WVAL:ADDR=VAL,...] (held while the word at WADDR is WVAL: an option
@@ -32,7 +35,7 @@
  * pulseman's --here and --players) */
 #define GUNSTAR_NET_USAGE "[--host [PORT] | --join ADDR[:PORT] | --peer ADDR[:PORT]] [--port PORT] [--delay N] [--name NAME] [--net-sim MS,MS,%,%]"
 
-static jmp_buf out, again;
+static jmp_buf out, again, fresh;
 static long stop_after = -1;
 static const char *shot_path, *shots_dir;
 static long shots_every = 60;
@@ -41,10 +44,14 @@ static int pic_w, pic_h;
 
 void native_quit(void) { longjmp(out, 1); }
 void native_restart(void) { longjmp(again, 1); }
+void native_power_on_again(void) { longjmp(fresh, 1); }
 
 /* --input FILE: both pads from a script as tools/oracle/script.py reads it ("FRAME:P1|P2"
  * entries, by newline or comma; buttons joined by '+'; held until the next entry; '#' a
- * comment), by the native frame count */
+ * comment), by the console's frame count. Pad 1's RESET (once, at its own entry's frame) is the
+ * host's reset: in a session the bit with the host's buttons (MDRT_NET_RESET_BIT: every machine
+ * powered on again at the frame they are for), alone the console powered on again in place at
+ * that frame's wait as a session does it (native_script_reset). The frames go on through it. */
 static struct { long frame; uint16_t pads[2]; } *script;
 static size_t script_n;
 
@@ -54,6 +61,7 @@ static uint16_t buttons_of(const char *s, const char *end)
         { "UP", MDRT_PAD_UP }, { "DOWN", MDRT_PAD_DOWN }, { "LEFT", MDRT_PAD_LEFT }, { "RIGHT", MDRT_PAD_RIGHT },
         { "A", MDRT_PAD_A }, { "B", MDRT_PAD_B }, { "C", MDRT_PAD_C }, { "START", MDRT_PAD_START },
         { "X", MDRT_PAD_X }, { "Y", MDRT_PAD_Y }, { "Z", MDRT_PAD_Z }, { "MODE", MDRT_PAD_MODE },
+        { "RESET", MDRT_NET_RESET_BIT },
     };
     uint16_t b = 0;
     while (s < end) {
@@ -85,6 +93,7 @@ static int read_script(const char *path)
             script[script_n].frame = atol(item);
             script[script_n].pads[0] = buttons_of(colon + 1, bar ? bar : end);
             script[script_n].pads[1] = bar ? buttons_of(bar + 1, end) : 0;
+            if (script[script_n].pads[1] & MDRT_NET_RESET_BIT) { fprintf(stderr, "%s: RESET is pad 1's\n", path); fclose(f); return 0; }
             script_n++;
         }
     }
@@ -130,14 +139,21 @@ static unsigned script_requests(void *user)
 
 static const char *script_request_path(void *user) { (void)user; return state_file; }
 
+/* a pad's buttons at a frame: RESET only at its own entry's frame, not held as buttons are */
+static uint16_t script_buttons(int pad, long frame)
+{
+    size_t now = script_n;
+    for (size_t i = 0; i < script_n && script[i].frame <= frame; i++) now = i;
+    if (now == script_n || pad >= 2) return 0;
+    uint16_t b = script[now].pads[pad];
+    return script[now].frame == frame ? b : (uint16_t)(b & ~MDRT_NET_RESET_BIT);
+}
+
 /* netplay's local player, headless: this pad's column of the script */
 static uint16_t script_pad(int pad, int k)
 {
     (void)k;
-    long frame = native_frames();
-    uint16_t b = 0;
-    for (size_t i = 0; i < script_n && script[i].frame <= frame; i++) b = pad < 2 ? script[i].pads[pad] : 0;
-    return b;
+    return script_buttons(pad, native_frames());
 }
 
 /* netplay's local player in the window: the window's pad 1 controls (pad 2's for a second pad) */
@@ -149,15 +165,27 @@ static uint16_t window_pad(int pad, int k)
     return b[k];
 }
 
+static long script_reset = -1;          /* alone: the frame a script's RESET was given for */
+
 static void script_source(void *user, uint16_t b[2])
 {
     (void)user;
     long frame = native_frames();
-    b[0] = b[1] = 0;
-    for (size_t i = 0; i < script_n && script[i].frame <= frame; i++) {
-        b[0] = script[i].pads[0];
-        b[1] = script[i].pads[1];
-    }
+    b[0] = script_buttons(0, frame);
+    b[1] = script_buttons(1, frame);
+    if (b[0] & MDRT_NET_RESET_BIT) script_reset = frame + 1;   /* (the buttons are the next frame's) */
+    b[0] &= (uint16_t)~MDRT_NET_RESET_BIT;               /* (no pad's button) */
+}
+
+/* at every wait, once the frame's vertical blank code has run: alone, a script's RESET powers the
+ * console on again in place at the wait of the frame it was given for, where a session's host
+ * reset does (MDRT_NET_RESET), so that the two can be compared */
+void native_script_reset(void)
+{
+    if (script_reset < 0 || native_frames() != script_reset || native_net_on()) return;
+    script_reset = -1;
+    mdrt_power_on(native_m);
+    native_power_on_again();
 }
 
 /* a routine the game reached that is not ported: the game stops there */
@@ -311,14 +339,28 @@ void native_frame_done(long frame)
     if (stop_after >= 0 && frame >= stop_after && !native_net_on()) native_quit();   /* (netplay: net.c ends it) */
 }
 
+/* the game as a new console starts it: the HAL, work RAM and the registers the C port keeps as a
+ * new process has them (the window's Reset starts the game in the same process) */
+static void power_on(mdrt *m)
+{
+    native_hal_start(m);
+    memset(ram, 0, RAM_SIZE);
+    reg_a6 = 0;
+    reg_a5_left = 0;
+    reg_sp = REG_SP_START;
+}
+
 void native_game(mdrt *m, void *user)
 {
     (void)user;
     if (setjmp(out)) return;
-    native_hal_start(m);
-    for (uint32_t a = 0; a < RAM_SIZE; a++) ram[a] = 0;
+    power_on(m);
     native_states_init(m);
     native_net_start(m);                                  /* (netplay: from power on) */
+    if (setjmp(fresh)) {                                  /* (the console powered on again in place: the host's reset) */
+        power_on(m);
+        native_states_forget();
+    }
     if (setjmp(again)) MainLoop();                        /* (a state loaded: on from MainLoop's wait) */
     Start();
     MainLoop();
@@ -346,7 +388,8 @@ int main(int argc, char **argv)
     mdrt_sdl_home("gunstars");                            /* (a macOS app from the Finder: its files in Application Support) */
     const char *rom = "Gunstar Heroes (U) [!].gen", *rom_given = NULL;
     const char *sound_path = NULL, *save_path = NULL, *load_path = NULL, *fm_core = NULL, *golden_path = NULL;
-    long save_frame = -1;
+    const char *load_at_path = NULL, *net_load_path = NULL, *net_save_path = NULL;
+    long save_frame = -1, load_at = -1, net_load_at = -1, net_save_at = -1;
     int headless = 0, scale = 0;
     mdrt_net_options netopt;
     mdrt_net_options_init(&netopt);
@@ -369,6 +412,16 @@ int main(int argc, char **argv)
             save_frame = atol(argv[++i]);
             save_path = strchr(argv[i], ':') + 1;
         } else if (!strcmp(argv[i], "--load-state") && i + 1 < argc) load_path = argv[++i];
+        else if (!strcmp(argv[i], "--load-at") && i + 1 < argc && strchr(argv[i + 1], ':')) {
+            load_at = atol(argv[++i]);
+            load_at_path = strchr(argv[i], ':') + 1;
+        } else if (!strcmp(argv[i], "--net-load") && i + 1 < argc && strchr(argv[i + 1], ':')) {
+            net_load_at = atol(argv[++i]);
+            net_load_path = strchr(argv[i], ':') + 1;
+        } else if (!strcmp(argv[i], "--net-save") && i + 1 < argc && strchr(argv[i + 1], ':')) {
+            net_save_at = atol(argv[++i]);
+            net_save_path = strchr(argv[i], ':') + 1;
+        }
         else if (!strcmp(argv[i], "--requests") && i + 1 < argc) { if (!read_requests(argv[++i])) return 1; }
         else if (!strcmp(argv[i], "--state") && i + 1 < argc) state_file = argv[++i];
         else if (!strcmp(argv[i], "--hold") && i + 1 < argc) { add_setup(setup, sizeof setup, argv[i], argv[i + 1]); if (!read_holds(argv[++i], 0)) { fprintf(stderr, "bad --hold\n"); return 2; } }
@@ -376,11 +429,12 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--poke") && i + 1 < argc) { add_setup(setup, sizeof setup, argv[i], argv[i + 1]); if (!read_pokes(argv[++i])) { fprintf(stderr, "bad --poke\n"); return 2; } }
         else if ((net = mdrt_net_parse(&netopt, argc, argv, &i, err, sizeof err)) < 0) { fprintf(stderr, "%s\n", err); return 2; }
         else if (!net) {
-            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] %s\n", argv[0], GUNSTAR_NET_USAGE);
+            fprintf(stderr, "usage: %s [--version] [--rom FILE] [--headless] [--frames N] [--shot FILE.ppm] [--shots DIR --every N] [--scale N] [--input FILE] [--sound FILE.sndtrace] [--golden FILE] [--fm-core nuked|ymfm] [--save-state FRAME:FILE] [--load-state FILE] [--load-at FRAME:FILE] [--net-load FRAME:FILE] [--net-save FRAME:FILE] [--requests FILE --state FILE] [--hold ADDR=VAL,...] [--hold-if WADDR=WVAL:ADDR=VAL,...] [--poke FRAME:ADDR=VAL,...;...] %s\n", argv[0], GUNSTAR_NET_USAGE);
             return 2;
         }
     }
-    if (netopt.on && (load_path || reqs_n)) { fprintf(stderr, "netplay starts at power on: no --load-state or --requests\n"); return 2; }
+    if (netopt.on && (load_path || load_at_path || reqs_n)) { fprintf(stderr, "netplay starts at power on: no --load-state, --load-at or --requests (the host's --net-load loads one for everyone)\n"); return 2; }
+    if ((net_load_path || net_save_path) && !netopt.on) { fprintf(stderr, "--net-load and --net-save are a session's (alone: --load-at, --save-state)\n"); return 2; }
     if (netopt.on && (netopt.here != 1 || netopt.players != 2)) { fprintf(stderr, "netplay: two players, one at each machine (no --here or --players)\n"); return 2; }
     mdrt_config c = { 0 };
     c.audio_rate = 48000;
@@ -392,9 +446,14 @@ int main(int argc, char **argv)
                                .rom_hint = "Gunstar Heroes (U): the 1 MB cartridge",
                                .rom_check = rom_ok, .rom_use = rom_use };
         o.net_identity = native_net_identity(GUNSTAR_VERSION, setup);   /* (the menu's Online page) */
+        o.net_reset = 1;                                  /* (the host's Reset in a session: the console for everyone) */
+        o.net_states = 1;                                 /* (save slots in a session: anyone saves, the host loads for everyone) */
+        o.state_check = native_state_check;
         if (netopt.on) {                                  /* (the window connects, then powers on) */
             native_input_fn local = script_n ? script_pad : window_pad;   /* (--input: the script's column, for tests) */
             if (!native_net_open(&netopt, GUNSTAR_VERSION, setup, local, err, sizeof err)) { fprintf(stderr, "netplay: %s\n", err); return 1; }
+            native_net_load_at(net_load_at, net_load_path);
+            native_net_save_at(net_save_at, net_save_path);
             o.net = native_net();
             o.net_udp = native_net_udp();
         }
@@ -415,9 +474,11 @@ int main(int argc, char **argv)
     mdrt *m = mdrt_new(&c);
     if (!m) return 1;
     if (script_n) mdrt_set_pad_source(m, script_source, NULL);
-    native_states_options(save_frame, save_path, load_path);
+    native_states_options(save_frame, save_path, load_path, load_at, load_at_path);
     if (netopt.on) {                                      /* (from power on: the session's pads replace the script's) */
         if (!native_net_open(&netopt, GUNSTAR_VERSION, setup, script_pad, err, sizeof err)) { fprintf(stderr, "netplay: %s\n", err); return 1; }
+        native_net_load_at(net_load_at, net_load_path);
+        native_net_save_at(net_save_at, net_save_path);
         if (!native_net_connect()) return 1;
         native_net_stop_at(stop_after);
     }

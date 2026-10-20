@@ -20,7 +20,7 @@
 #define SURE 0x53555245u
 
 int checksum_check = 1;          /* the ROM checksum: off for a patched image (QOL.md) */
-uint32_t reg_sp = 0xFFFFFEFA;    /* the main loop's ($FFFF00, the reset's) less an interrupt's frame */
+uint32_t reg_sp = REG_SP_START;  /* the main loop's ($FFFF00, the reset's) less an interrupt's frame */
 
 /* Sega's start-up, on a power on (port C's control and the expansion port both 0). */
 static void console_start(void)

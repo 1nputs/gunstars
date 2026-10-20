@@ -25,6 +25,7 @@ extern uint32_t reg_sp;     /* a7: the 68k's stack pointer, kept (by the callers
                                WITH_SP) for the routines that leave stack addresses in RAM: the
                                Treasure logo's polygons. Natively a vertical blank's in the main
                                loop */
+#define REG_SP_START 0xFFFFFEFAu    /* (reg_sp at power on) */
 /* a call the 68k makes with `bytes` more on its stack (its return address, registers saved) */
 #define WITH_SP(bytes, call) do { reg_sp -= (bytes); call; reg_sp += (bytes); } while (0)
 

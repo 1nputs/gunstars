@@ -1,14 +1,18 @@
 /* Netplay (pulseman's mdrt/netplay.h over mdrt/net_udp.h): two players, each on their own
  * machine, the host pad 1 and the guest pad 2, from power on. The game's resumable point is
  * MainLoop's wait (where states are taken: state.c), and a rollback goes on from there as a loaded
- * state does (native_restart). The game plays whatever session its console has (mdrt_get_net): the
- * window's, made on its Online page or from the command line, or a headless run's own. The
+ * state does (native_restart), as does the host's state loaded for everyone (the window's Load
+ * state, or --net-load); the host's reset powers every console on again at the same frame, and the
+ * game starts again from its power on (native_power_on_again). The game plays whatever session
+ * its console has (mdrt_get_net): the window's, made on its Online page or from the command line,
+ * or a headless run's own. The
  * identity the peers compare: the version, the build (its commit), the ROM, and what changes the
  * simulation on the command line (--hold, --hold-if, --poke). Each player's buttons are their own
  * controls' (the window's players in turn; headless, or with --input, their column of the script).
  * Headless, a run that reaches --frames waits there until both have every button up to it, then a
  * second more for the other, then says goodbye. */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "game.h"
 #include "native.h"
@@ -21,6 +25,11 @@ static mdrt *console;
 static int headless, started;           /* (headless: this file connects, starts and ends the session) */
 static native_input_fn local_fn;
 static long stop_at = -1;
+static long load_at = -1;               /* --net-load: the host's state for everyone, from that frame */
+static const char *load_path;
+static long loads_seen;
+static long save_at = -1;               /* --net-save: a state every machine played, from that frame */
+static const char *save_path;
 
 static void local_input(void *user, uint16_t b[MDRT_PADS])
 {
@@ -99,13 +108,59 @@ void native_net_start(mdrt *m)
 }
 
 void native_net_stop_at(long frame) { stop_at = frame; }
+void native_net_load_at(long frame, const char *path) { load_at = path ? frame : -1; load_path = path; }
+void native_net_save_at(long frame, const char *path) { save_at = path ? frame : -1; save_path = path; }
+
+/* --net-save: once the frame comes, the newest state every machine played (as the window's Save
+ * state writes it in a session); none yet, and the next wait tries again */
+static void keep_state(mdrt_net *n)
+{
+    size_t size;
+    uint32_t frame;
+    const void *st = save_at >= 0 && native_frames() >= save_at ? mdrt_net_confirmed_state(n, &size, &frame) : NULL;
+    if (!st) return;
+    save_at = -1;
+    FILE *f = fopen(save_path, "wb");
+    int ok = f && fwrite(st, 1, size, f) == size;
+    if (f && fclose(f)) ok = 0;
+    if (ok) fprintf(stderr, "netplay: the state of frame %u saved into %s\n", (unsigned)frame, save_path);
+    else fprintf(stderr, "netplay: cannot write %s\n", save_path);
+}
+
+/* --net-load: the host sends its state to everyone once the frame comes (netplay then loads it on
+ * every machine at the same frame); checked first, as a session ends where a state fails to load */
+static void send_state(mdrt_net *n)
+{
+    if (load_at < 0 || native_frames() < load_at) return;
+    load_at = -1;
+    size_t size;
+    uint8_t *b = native_read_state(load_path, &size);
+    const char *why = !mdrt_net_is_host(n) ? "only the host loads states" : !b ? "cannot read it"
+                    : !mdrt_state_fits(console, b, size) ? "not a state of this build" : native_state_check(b, size, NULL);
+    if (!why && mdrt_net_load(n, b, size)) why = "it could not be sent";
+    if (why) fprintf(stderr, "netplay: the state %s: %s\n", load_path, why);
+    else fprintf(stderr, "netplay: sending the state %s to everyone (frame %ld)\n", load_path, native_frames());
+    free(b);
+}
+
+/* a restart: a rollback, or the host's state loaded for everyone (said, with its frame) */
+static void restart(mdrt_net *n)
+{
+    mdrt_net_stats s;
+    mdrt_net_stats_get(n, &s);
+    if (s.loads != loads_seen) {
+        loads_seen = s.loads;
+        fprintf(stderr, "netplay: the host's state loaded at frame %u\n", (unsigned)s.loaded_at);
+    }
+    native_restart();
+}
 
 static void report(mdrt_net *n)
 {
     mdrt_net_stats s;
     mdrt_net_stats_get(n, &s);
-    fprintf(stderr, "netplay: frame %u, %ld rollbacks (%ld frames played again, at most %d), %ld frames given back, %ld desync checks, round trip %d ms\n",
-            (unsigned)s.frame, s.rollbacks, s.replayed, s.most_replayed, s.gave_back, s.checks, s.rtt_ms);
+    fprintf(stderr, "netplay: frame %u, %ld rollbacks (%ld frames played again, at most %d), %ld frames given back, %ld desync checks, round trip %d ms, %ld resets, %ld loads\n",
+            (unsigned)s.frame, s.rollbacks, s.replayed, s.most_replayed, s.gave_back, s.checks, s.rtt_ms, s.resets, s.loads);
 }
 
 static void over(mdrt_net *n)
@@ -121,7 +176,8 @@ static void finish(mdrt_net *n, int main_wait)
     uint64_t linger = 0;
     for (;;) {
         int r = mdrt_net_frame(n, main_wait);
-        if (r == MDRT_NET_RESTART) native_restart();
+        if (r == MDRT_NET_RESTART) restart(n);
+        if (r == MDRT_NET_RESET) native_power_on_again();
         mdrt_net_stats s;
         mdrt_net_stats_get(n, &s);
         if (r == MDRT_NET_ENDED || r == MDRT_NET_REFUSED) {   /* (the other done first, or gone) */
@@ -145,6 +201,8 @@ void native_net_wait(int main_wait)
 {
     mdrt_net *n = playing();
     if (!n) return;                                       /* (none, or over: the console plays on alone) */
+    send_state(n);
+    keep_state(n);
     int r;
     while ((r = mdrt_net_frame(n, main_wait)) == MDRT_NET_WAIT) {
         if (mdrt_idle(console)) {                         /* (the window closing: goodbye) */
@@ -153,7 +211,8 @@ void native_net_wait(int main_wait)
         }
         if (headless) mdrt_udp_wait(udp, 1);              /* (the window waits in mdrt_idle) */
     }
-    if (r == MDRT_NET_RESTART) native_restart();
+    if (r == MDRT_NET_RESTART) restart(n);
+    if (r == MDRT_NET_RESET) native_power_on_again();     /* (the host reset the console: powered on again, the game from its start) */
     if (r == MDRT_NET_ENDED || r == MDRT_NET_REFUSED) { over(n); return; }
     if (headless && stop_at >= 0 && native_frames() >= stop_at && !mdrt_quiet(console)) finish(n, main_wait);
 }

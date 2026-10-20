@@ -47,9 +47,12 @@ Keys: pad 1 arrows, Z / X / C = A / B / C, Enter = Start (A weapon, B shoot, C j
 pad 2 I J K L, Q / W / E, Tab. Esc opens the menu (save slots, video, sound, controls).
 F4 held rewinds, F5 pauses, F6 held fast-forwards, F10 saves the last 20 seconds as a GIF.
 
+Closing the game keeps the moment as the Autosave: Esc, Load state, its first line.
+
 Online: Esc, Online play. Type your name, then host (the other joins your address; your
-router must let UDP port 7000 in, unless you share a LAN or a VPN), join a host, or both
-connect (each types the other's address). Both need this same version.
+router must let UDP port 7000 in, unless you share a LAN or a VPN), join, or both connect
+(each types the other's address). Both need this same version. Playing together, either of
+you can save a state; the host's Load state and Reset do it for both games at once.
 
 Settings, saves and screenshots go in the folder you run it from.
 The game's code is MIT (LICENSE.txt); Gunstar Heroes itself belongs to Sega and Treasure.

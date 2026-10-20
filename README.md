@@ -11,15 +11,16 @@ smooth 60 frames a second, without the cartridge's slowdown.
 
 And things the cartridge never had: **save anywhere in a stage and load it back (eight slots in
 the menu), and hold F4 to rewind** the hit you just took. Hold F6 to fast-forward, slow a boss
-fight down, step through it a frame at a time. Closed the window mid-stage? **The next start puts
-you back where you were.** Pulled off something beautiful? **F10 saves the last 20 seconds** as a
-GIF to share. And **Red and Blue, online, together**: a friend at their own machine, from the
-menu's Online play, with rollback netplay that answers your keys at once and quietly puts right
-whatever it had to guess of theirs.
+fight down, step through it a frame at a time. Closed the window mid-stage? **The Autosave kept
+the moment**: the first line of the Load state page. Pulled off something beautiful? **F10 saves
+the last 20 seconds** as a GIF to share. And **Red and Blue, online, together**: a friend at their
+own machine, from the menu's Online play, with rollback netplay that answers your keys at once and
+quietly puts right whatever it had to guess of theirs; save states work there too.
 
-Bring your own cartridge dump. **Download** the release for Linux or Windows
-([CHANGELOG.md](CHANGELOG.md) says what's in it), unpack it and run `gunstar` (`gunstar.exe`), or
-build it and you're shooting in a minute (what to install first is under [Build](#build)):
+Bring your own cartridge dump. **Download** the release for Linux, Windows or macOS
+([CHANGELOG.md](CHANGELOG.md) says what's in it), unpack it and run `gunstar` (`gunstar.exe`,
+`gunstars.app`), or build it and you're shooting in a minute (what to install first is under
+[Build](#build)):
 
 ```
 git clone --recursive https://github.com/1nputs/gunstars.git && cd gunstars
@@ -61,15 +62,16 @@ television blended it; a picture tube's scanlines and mask; full screen), captur
 (volume, and the FM core and chip: hear the difference as you play), the players'
 controllers, buttons and turbo, and every key: pick one and press the new key.
 
-**Save slots and quick resume:** the menu's Save state and Load state pages have eight slots, each with a
-picture of the moment, in `states/` beside the game. A state is taken between frames once the
-game's work for the frame is done; while a stage's graphics are being unpacked (a second or so
-at a stage's start) a save waits for that. Quit in the middle of a stage and the next start puts
-you back where you were (an option in the menu).
+**Save slots and the Autosave:** the menu's Save state and Load state pages have eight slots, each
+with a picture of the moment, in `states/` beside the game. A state is taken between frames once
+the game's work for the frame is done; while a stage's graphics are being unpacked (a second or so
+at a stage's start) a save waits for that. Closing the game saves the moment as the Autosave
+(`states/autosave.state`); the next start is a fresh one, and the Load state page's first line
+takes you back.
 
 All of it is kept in `settings.ini`, in the folder you run the game from, beside its saves (you
-can also edit it while the game is closed). The game pauses when its window loses focus (an
-option in the menu). On a Mac, hold Fn for the function keys.
+can also edit it while the game is closed; the Mac app opened from the Finder keeps them in
+`~/Library/Application Support/gunstars`). On a Mac, hold Fn for the function keys.
 
 ## Online co-op
 
@@ -98,10 +100,19 @@ In the menu (Esc), **Online play**:
   up), and you play.
 
 What you chose is kept for next time. The window's title shows the round trip, the delay and the
-last correction. While you play together, pause, slow motion, fast-forward, rewind, the save slots
-and quick resume are off (the game's own pause, Start, pauses both), and the menu does not stop
-the game; **Leave session** is on the Online play page. If either leaves or the connection
-drops, the other's game goes on alone. Both of you need the same build (the game says so if not).
+last correction. While you play together:
+
+- **Save state** works for both of you: it keeps the newest moment both games have played alike
+  (and closing the game keeps one as the Autosave).
+- The host's **Load state** loads a state for both: it goes to the other game, then both load it at
+  the same frame and play on together from there. (Only the host loads.)
+- The host's **Reset** starts the game again from power on for both, at the same frame.
+- Pause, slow motion, fast-forward and rewind are off (the game's own pause, Start, pauses both),
+  and the menu does not stop the game; **Leave session** is on the Online play page.
+
+If either leaves or the connection drops, the other's game goes on alone. Both of you need the
+same build (the game says so if not). On a Mac, allow gunstars to find devices on your local
+network when macOS asks the first time you join: without it a Mac can host but not join.
 
 From a terminal it is the same: `./gunstar --host [PORT]`, `./gunstar --join ADDRESS[:PORT]`, or
 `./gunstar --peer ADDRESS` on both sides, with `--delay N` and `--name NAME`.
@@ -169,8 +180,12 @@ the menu and F4 make them), `--golden FILE` (a line of hashes a frame: `make gol
 nuked|ymfm`, RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=WVAL:ADDR=VAL`,
 `--poke FRAME:ADDR=VAL`), and netplay (`--host`, `--join`, `--peer`, `--port`, `--delay`, and
 `--net-sim MS,MS,%,%` for a simulated network: each player's buttons their column of the script).
+In a script, pad 1's `RESET` is the host's reset (alone, the console powers on again there as a
+session does); `--load-at FRAME:FILE` loads a state at that frame as a session's host does, and
+in a session `--net-load FRAME:FILE` (the host's: a state for everyone) and `--net-save FRAME:FILE`
+(a state every machine played, as the window's Save state).
 
-## For agents: where this stands (19 October 2026)
+## For agents: where this stands (20 October 2026)
 
 - **What it is.** A C reimplementation of Gunstar Heroes (Genesis, US retail, SHA-1
   `7721e302555f16e3242ad4a47ed87a1de1882122`). No labelled disassembly existed, so this project
@@ -198,14 +213,17 @@ nuked|ymfm`, RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=WVAL
   must go on frame for frame as the run did. `make golden-cross` plays them with the Linux
   release's build (Zig's Clang) and `make golden-ubsan` with a build that stops at any undefined
   behaviour: both bit for bit as GCC's, which is what lets two players' builds agree. `make
-  netplay-check` plays three netplay sessions, two headless processes each over the loopback
+  netplay-check` plays five netplay sessions, two headless processes each over the loopback
   through a simulated network (delay, jitter, loss, duplicates), and every frame either finally
-  played must be a solo run's with the same buttons.
+  played must be a solo run's with the same buttons: among them the host resetting the console,
+  and the host loading a state for everyone (the solo run loading it at the same frame), whose
+  guest's state, saved in the session, must play on alone as the session did.
 - **Done.** The harness and the disassembler; every routine of the cartridge; the native game on
-  pulseman (sound, the H-interrupt effects, the samples), save states, quick resume and rewind;
+  pulseman (sound, the H-interrupt effects, the samples), save states, the Autosave and rewind;
   rollback netplay (pulseman's `mdrt/netplay.h` and `mdrt/net_udp.h`; the game's side in
   `native/net.c`: its resumable point MainLoop's wait, a rollback going on from there as a loaded
-  state does).
+  state does, and so does the host's state loaded for everyone; the host's reset powers every
+  console on again in place, and the game starts again from its power on).
 - **Not done yet.** Lockstep (the native game against the oracle at every vertical blank, as
   ninety-four's `make lockstep`); the native game has no lag frames, so its runs drift from the
   oracle's after the first. Records for the parts no recorded run reaches: the
@@ -250,7 +268,7 @@ From the least ambitious to the most.
 - [x] Window scaling, full screen, 4:3 aspect, hi-DPI
 - [x] Smooth 60 frames a second (no cartridge slowdown)
 - [x] Save states (the menu's eight slots, with pictures) and rewind (F4)
-- [x] Quick resume on quit and start
+- [x] The Autosave on quit (the Load state page's first line)
 - [x] FM core and chip model choice (Nuked-OPN2 or ymfm; YM2612 or YM3438), changed as you play
 - [x] Headless runs: screenshots, sound traces, scripted input, states
 - [x] Mute, volume, audio device and latency options
@@ -258,7 +276,7 @@ From the least ambitious to the most.
 - [x] Pixel-art upscalers: Scale2x, Scale3x, MMPX, xBR
 - [x] Colour options; scanlines, CRT mask, composite dither blending
 - [x] Screenshots, the replay (the last 20 seconds) and recordings as GIFs
-- [x] Fast-forward, slow motion, frame step, pause when the window loses focus
+- [x] Fast-forward, slow motion, frame step
 - [x] Golden runs: every frame of 12 runs against a recorded build, bit for bit, states too
 - [ ] Lockstep against the original at every frame
 - [ ] Every corner recorded and tested (stage 5's corridor, stage 6, stage 1's maze)
@@ -275,7 +293,8 @@ From the least ambitious to the most.
 - [ ] Play in the browser (WebAssembly)
 - [ ] Widescreen
 - [ ] Lua scripting: overlays, practice tools, bots
-- [x] **Rollback netplay: two players online**, by IP address (not yet played between two real machines)
+- [x] **Rollback netplay: two players online**, by IP address, with save states and the host's reset
+  (not yet played between two real machines)
 
 ## Greets
 

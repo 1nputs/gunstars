@@ -15,7 +15,6 @@
 
 mdrt *native_m;
 static uint16_t sr = 0x2700;            /* the 68k's status register: its interrupt mask */
-static long frames;
 static uint64_t frame_base;             /* the player's master clock at this frame's start */
 static uint32_t t_bus;                  /* master clocks of the game's Z80 bus accesses this frame */
 static int at_main;                     /* in MainLoop's wait */
@@ -68,7 +67,6 @@ void native_hal_start(mdrt *m)
     mdrt_set_hint(m, hint, NULL);
     mdrt_set_sound_tick(m, sound_tick, NULL);
     sr = 0x2700;
-    frames = 0;
     at_main = 0;
     frame_base = 0;
     t_bus = 0;
@@ -76,15 +74,16 @@ void native_hal_start(mdrt *m)
     z80_player_ym = player_ym;
 }
 
-long native_frames(void) { return frames; }
+long native_frames(void) { return (long)mdrt_frame_count(native_m); }   /* (the console's: on through the host's reset; a state sets it) */
 long native_handshakes(void) { return handshakes; }
 
-/* a state's: the status register, the frame count, the clock */
+/* a state's: the status register, the frame count (the console's own state has it too: the one
+ * a load goes by), the clock */
 #define HAL_STATE (2 + 8 + 8 + 4)
 size_t native_hal_save(uint8_t *out)
 {
     if (out) {
-        int64_t f = frames;
+        int64_t f = native_frames();
         memcpy(out, &sr, 2);
         memcpy(out + 2, &f, 8);
         memcpy(out + 10, &frame_base, 8);
@@ -95,12 +94,9 @@ size_t native_hal_save(uint8_t *out)
 int native_hal_load(const uint8_t *in, size_t size)
 {
     if (size != HAL_STATE) return -1;
-    int64_t f;
     memcpy(&sr, in, 2);
-    memcpy(&f, in + 2, 8);
     memcpy(&frame_base, in + 10, 8);
     memcpy(&t_bus, in + 18, 4);
-    frames = (long)f;
     return 0;
 }
 
@@ -162,10 +158,11 @@ void hal_wait_vblank(void)
     frame_base += len;
     t_bus = end > len ? end - len : 0;                    /* (the game's writes ran past the frame) */
     z80_player_frame();
-    native_frame_done(++frames);
+    native_frame_done(native_frames());
     if (mdrt_vdp_reg(vdp(), 1) & 0x20) VBlank();
     mdrt_vblank_end(native_m);
-    native_net_wait(main_wait);                           /* (netplay: a rollback goes on from MainLoop) */
+    native_script_reset();                                /* (alone: a script's RESET, as a session's host's) */
+    native_net_wait(main_wait);                           /* (netplay: a rollback goes on from MainLoop, a reset from power on) */
     native_states_wait(main_wait);                        /* (a state saved or loaded: state.c) */
 }
 
