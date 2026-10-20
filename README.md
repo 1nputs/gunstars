@@ -122,7 +122,16 @@ make gunstar
 ./build/gunstar --rom "/path/to/Gunstar Heroes (U) [!].gen"
 ```
 
-**macOS** (not tried yet):
+**macOS**: an app for Apple Silicon and Intel in one, cross-built here from Linux with Zig's Clang
+and SDL2's own macOS framework, which the script fetches (it also needs LLVM's `llvm-lipo`, `7z` and
+`zip`):
+
+```
+make macos          # build/mac/pkg/gunstars/gunstars.app, and build/gunstars-macos-universal.zip
+```
+
+Opened from the Finder it keeps its files in `~/Library/Application Support/gunstars`. Not yet run
+on a Mac: tell us how it goes. Or build on the Mac itself (not tried yet):
 
 ```
 brew install sdl2 pkg-config
@@ -207,7 +216,7 @@ nuked|ymfm`, RAM words held or written (`--hold ADDR=VAL`, `--hold-if WADDR=WVAL
   the method) are kept outside the repository.
 - **Releases.** `tools/package_release.sh` makes `build/release/`: the Linux tarball (Zig's
   Clang against glibc 2.28, so it runs on 2018-era distributions, with the C++ runtime linked
-  in), the Windows zip, and `SHA256SUMS`; the version is `GUNSTAR_VERSION` in `native/main.c`,
+  in), the Windows zip, the macOS zip, and `SHA256SUMS`; the version is `GUNSTAR_VERSION` in `native/main.c`,
   and `CHANGELOG.md` says what each one holds.
 - **Rules.** The ROM and everything made from it (the disassembly, captures, traces, states,
   screenshots, GIFs) stay out of git. Commit after each finished job. Before and after a change:
@@ -253,7 +262,8 @@ From the least ambitious to the most.
 - [ ] Lockstep against the original at every frame
 - [ ] Every corner recorded and tested (stage 5's corridor, stage 6, stage 1's maze)
 - [x] A Windows build (`make windows`, cross-built with Zig)
-- [ ] Played on Windows; built and played on macOS
+- [x] A macOS app (`make macos`, cross-built with Zig)
+- [ ] Played on Windows and on macOS
 - [ ] The cartridge's slowdown as an option
 - [ ] Skip the logos, boot straight into a game
 - [ ] Game Genie and Action Replay codes

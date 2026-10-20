@@ -7,6 +7,7 @@
 #   make gen            the committed generated headers (src/symbols_gen.h) from the disassembly
 #   make gunstar        the native game (build/gunstar, on pulseman at MDRT)
 #   make windows        the game for Windows, cross-built with Zig (tools/build_windows.sh)
+#   make macos          the game for macOS, an app for Apple Silicon and Intel, cross-built with Zig (tools/build_macos.sh)
 #   make sweep          the native game through every stage, headless (tools/native_sweep.sh)
 #   make golden         the native game's golden runs, recorded (out/golden: tools/golden.py)
 #   make golden-check   the build's runs against them, frame for frame, bit for bit; states too
@@ -26,7 +27,7 @@ CAPS    := $(wildcard out/captures/*.cap)
 ROM     := Gunstar Heroes (U) [!].gen
 PY      := python3
 
-.PHONY: FORCE all test oracle evidence disasm gen clean gunstar mdrt z80test windows sweep release golden golden-check netplay-check linux golden-cross golden-ubsan
+.PHONY: FORCE all test oracle evidence disasm gen clean gunstar mdrt z80test windows macos sweep release golden golden-check netplay-check linux golden-cross golden-ubsan
 
 all: build/captest                   # the default: the tests' build (not just their adapters)
 
@@ -76,6 +77,8 @@ FORCE:
 # (tools/build_windows.sh)
 windows:
 	tools/build_windows.sh
+macos:
+	tools/build_macos.sh
 sweep: build/gunstar
 	tools/native_sweep.sh
 golden: build/gunstar

@@ -4,10 +4,13 @@
 #                                        glibc 2.28 (so it runs on distributions from 2018 on) with
 #                                        the C++ runtime linked in: it needs only the system's SDL2
 #   gunstars-VERSION-windows-x64.zip     gunstar.exe and SDL2.dll (tools/build_windows.sh)
+#   gunstars-VERSION-macos-universal.zip gunstars.app for macOS 11 or later, Apple Silicon and
+#                                        Intel in one, SDL2.framework inside (tools/build_macos.sh)
 #   SHA256SUMS
 #   release-notes.md                     this version's section of CHANGELOG.md, unwrapped
-# Needs Zig (`zig`, or `pip install ziglang`; ZIG= names another) and SDL2's development files
-# (the headers and libSDL2-2.0.so.0 to link against: libsdl2-dev).
+# Needs Zig (`zig`, or `pip install ziglang`; ZIG= names another), SDL2's development files
+# (the headers and libSDL2-2.0.so.0 to link against: libsdl2-dev), and for macOS LLVM's llvm-lipo,
+# 7z and zip.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 VERSION=$(sed -n 's/^#define GUNSTAR_VERSION "\(.*\)"/\1/p' native/main.c)
@@ -56,6 +59,10 @@ tar -C "$B/pkg" --owner=0 --group=0 -czf "$OUT/gunstars-$VERSION-linux-x64.tar.g
 # ---- Windows -------------------------------------------------------------------------------
 tools/build_windows.sh > /dev/null
 cp build/gunstars-windows-x64.zip "$OUT/gunstars-$VERSION-windows-x64.zip"
+
+# ---- macOS ---------------------------------------------------------------------------------
+tools/build_macos.sh > /dev/null
+cp build/gunstars-macos-universal.zip "$OUT/gunstars-$VERSION-macos-universal.zip"
 
 (cd "$OUT" && sha256sum gunstars-* > SHA256SUMS)
 

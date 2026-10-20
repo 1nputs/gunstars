@@ -343,6 +343,7 @@ static void sink(void *user, const void *bytes, size_t n) { fwrite(bytes, 1, n, 
 
 int main(int argc, char **argv)
 {
+    mdrt_sdl_home("gunstars");                            /* (a macOS app from the Finder: its files in Application Support) */
     const char *rom = "Gunstar Heroes (U) [!].gen", *rom_given = NULL;
     const char *sound_path = NULL, *save_path = NULL, *load_path = NULL, *fm_core = NULL, *golden_path = NULL;
     long save_frame = -1;
